@@ -141,33 +141,49 @@ Kullanıcının kaydettiği birim. Bir markanın (mağazanın) tüm kurulumunu t
 Kapat, döndür, senkrondan çıkar ve ekran görüntüsü eylemleri menü çubuğunda da bulunur (hover'a gizlenenler klavye ve menüden ulaşılabilir kalır).
 
 
-### 3.3 Ayarlar penceresi
+### 3.3 Sağ ray ve Ayarlar paneli
 
-880×680, ayrı pencere (⌘,). Sol sekme listesi (`Sidebar/Row`), sağ içerik; her satır `Settings` satırı: başlık, isteğe bağlı açıklama, sağda kontrol (toggle, segment, select, alan). Sarı yalnızca toggle "açık" durumunda ve tek birincil düğmede.
+Proje penceresinin sağ kenarında 44 px kalıcı **ray**: ⚙ Ayarlar, Cihazlar, MCP, Hesap; ayırıcı; Farklar, Senkron (M5); altta daralt. Rayın ikonuna tıklayınca ilgili panel açılır. **Varsayım (kullanımda doğrulanacak):** Ayarlar / Cihazlar / MCP / Hesap panelleri canvas'ın **üstüne kayar** (340 px, gölgeli, canvas yerinden oynamaz); Farklar ve Senkron panelleri canvas'ı **iter** (300 px, uzun süre açık kalır). Her panelin başlığında "pencereye çıkar" (⧉) ve ✕; ⌘, ayarları açar.
 
-- **Genel:** Görünüm (Tema: Sistem / Koyu / Açık; Dil), Proje (Varsayılan şablon; Senkron açık başlasın; Taslakları sakla), Ekran görüntüsü (Klasör + Seç…; Panoya da kopyala; Ölçek 1× / 2×).
-- **Cihazlar:** cihaz yönetimi buradadır; cihaz seçicideki "Cihazları yönet…" bu sekmeyi açar. Üstte arama, "İçe aktar…", sarı "+ Cihaz". Tablo: Ad (ikon + ad; özel cihazda "özel" rozeti), Tür, Boyut, Ölçek, Seçicide (toggle: kapalıysa listede kalır ama "+ Cihaz" menüsünde görünmez), ⋯ (düzenle / çoğalt / sil). Özel cihazlar uygulamayla saklanır, projeyle değil.
-- **MCP** (M7; tasarım hazır): durum kartı (nokta: gök çalışıyor / gri durdu; "stdio · 2 istemci bağlı · 14 araç"; Durdur/Başlat), Bağlantı (Taşıma stdio / HTTP; Komut alanı + Kopyala), İzinler (Ekran görüntüsü alma, Gezinme ve tıklama, DOM diff okuma, Proje dosyası yazma — sonuncusu varsayılan kapalı), Bağlı istemciler (ad, son istek, Bağlantıyı kes).
-- **Hesap:** avatar + ad + e-posta + Çıkış yap; Takım (ad, üye sayısı, Üyeler); Lisans ("Şirket içi sürüm", "Dahili" rozeti; iş modeli sonra); Güncelleme (sürüm, otomatik güncelleme, Denetle).
-- Frame'ler: `Settings · Genel / Cihazlar / MCP / Hesap`; dışa aktarımlar `design/exports/window-settings-*.png`.
+**Ayarlar paneli içeriği** (`settings-S2-overlay-panel@2x.png`): üstte sekme çipleri Genel · Cihazlar · MCP · Hesap, arama; GÖRÜNÜM (Tema Sistem / Koyu / Açık; Dil), PROJE (Varsayılan şablon; Senkron açık başlasın; Taslakları sakla), EKRAN GÖRÜNTÜSÜ (Klasör; Panoya da kopyala; Ölçek 1× / 2×), **BU PROJE** (Cihazlar (n) → Cihazlar sekmesi; Motor). Sekme içerikleri:
+- **Cihazlar:** cihaz yönetimi; "Cihazları yönet…" buraya açılır. Arama, "İçe aktar…", "+ Cihaz"; tablo Ad (özel cihazda "özel"), Tür, Boyut, Ölçek, Seçicide (toggle; kapalıysa listede kalır, "+ Cihaz" menüsünde görünmez), ⋯. Yerleşik cihazlar silinemez, gizlenir; "Seçicide" kapatmak açık projelerdeki kartları etkilemez. Özel cihazlar uygulamayla saklanır.
+- **MCP** (M7): durum (nokta + "stdio · 2 istemci · 14 araç"; Durdur/Başlat), Taşıma stdio / HTTP, Komut + Kopyala, İzinler (Ekran görüntüsü alma, Gezinme ve tıklama, DOM diff okuma, Proje dosyası yazma — varsayılan kapalı), Bağlı istemciler (ad, son istek, Bağlantıyı kes).
+- **Hesap:** avatar, ad, e-posta, Çıkış yap; Takım; Lisans ("Dahili"; iş modeli sonra); Güncelleme.
+- "Pencereye çıkar" aynı içeriği 880×680 ayrı pencerede verir (`window-settings-*.png`).
+- Reddedilenler: klasik ayrı pencere tek başına (çok klasik), canlı önizlemeli pencere (K1), onboarding kartları (K3); ⌘, ayar paleti (K2) ileride eklenebilir, şimdilik yok.
 
 **Etkileşim tablosu:**
 
 | Tetikleyici | Etki | Hareket |
 |---|---|---|
-| ⌘, veya menü | Ayarlar penceresi açılır, son sekme hatırlanır | 200 ms |
-| Sekmeye tık | İçerik değişir, başlık güncellenir | 150 ms crossfade |
-| Toggle | Anında uygulanır, kaydet düğmesi yok | 150 ms |
-| Tema segmenti | Tüm pencereler anında tema değiştirir | 200 ms crossfade |
-| Cihazlar › + Cihaz | Satır sonuna boş düzenlenebilir satır eklenir (ad, tür, W×H, ölçek) | 150 ms |
-| Cihazlar › Seçicide toggle | Cihaz seçicide gizlenir/görünür; açık projelerdeki kartlar etkilenmez | Anlık |
-| Cihazlar › ⋯ › Sil | Özel cihaz silinir (yerleşikler silinemez, yalnızca gizlenir); açık kartlar kalır | Satır 150 ms daralır |
-| MCP › Durdur / Başlat | Sunucu durur/başlar; nokta ve metin güncellenir | 150 ms |
-| MCP › Bağlantıyı kes | İstemci düşer | Satır 150 ms daralır |
+| Ray ikonu / ⌘, | Panel açılır; aynı ikona tekrar tık kapatır | Kayan panel 200 ms sağdan; iten panel 200 ms genişlik |
+| Panel ⧉ | Aynı içerik ayrı pencerede; panel kapanır | 200 ms |
+| Toggle / segment / select | Anında uygulanır, kaydet yok | 150 ms |
+| Tema | Tüm pencereler anında | 200 ms crossfade |
+| Cihazlar › Seçicide toggle | Cihaz seçicide gizlenir/görünür | Anlık |
+| Cihazlar › ⋯ › Sil | Özel cihaz silinir; açık kartlar kalır | Satır 150 ms daralır |
+| MCP › Durdur / Başlat | Sunucu durur/başlar | 150 ms |
 
-### 3.4 Geliştirici paneli (M5+)
+### 3.4 Geliştirici paneli (M5+): Farklar ve Senkron
 
-Alt veya sağ panel. Motor diff listesi ("Buton Safari'de 12px aşağıda"), tıklayınca ilgili elementi overlay ile vurgular. Senkron olay kaydı.
+Sağ raydan açılır, canvas'ı iter (300 px). Tasarım ilkesi: **sakin ama teknik** — iki seviye (özet satır → tek açılım), sakin durumda renk sıfır, tek renk = tek anlam (mercan = dikkat), sayılar sağa hizalı tabular, çizgi yerine boşluk, ikon yerine kelime, rozet yerine nokta, filtre tek menüden, kutlama yok. Frame'ler: `Dev Panel · Farklar (sakin)`, `· Senkron (sakin)`, `· Fark yok (sakin)`; dışa aktarımlar `devpanel-*-calm@2x.png`. Yoğun "pro" sürüm arşivde (`devpanel-*-pro@2x.png`), kullanımda eksik çıkarsa oradan parça alınır.
+
+**Farklar:** başlık "Farklar", sağda tek menü `iPad ↔ iPhone 16 ▾` (baseline = lider viewport; karşılaştırılan seçilir) ve ⋯ (mod: Yan yana / Üst üste / Yanıp sönme; rapor; yoksayılanlar). Sütunlar ELEMAN / FARK. Satır: seçici, özellik (soluk), sağda fark (+12 px, 500 → 600). Yalnız dikkat isteyen satırda mercan nokta ve mercan değer. Satıra tık → açılır: "284 → 296 px · iPhone 16'da aynı fark · baseline: iPad" ve kelime düğmeler **Kabul** (sarı; baseline güncellenir) · Yoksay (seçici bazlı, projeye kaydedilir) · Takip et · Göster (canvas'ta eleman ince gök kutu + "+12 px" etiketi). Alt satır: mod · "1 / 3 incelendi" · Rapor. Sıfır durumu: "Fark yok" + "3 viewport, 142 eleman karşılaştırıldı · az önce". Aynı fark birden çok viewport'taysa tek satır, açıklamada belirtilir, tek karar.
+
+**Senkron:** başlık "Senkron", sağda `Canlı ▾` (Canlı / Duraklatıldı) ve ⋯. Sütunlar OLAY / VIEWPORT. Satır: zaman (soluk), olay + argüman, sağda "3 / 3". Kaçıran satırda yalnız sayı mercan ("2 / 3"); açılınca "Masaüstü kaçırdı: .add-to-cart bulunamadı" ve **Yeniden dene** · Göster (canvas'ta beklenen konum mercan kutu + "bulunamadı"). Yukarı kaydırınca takip durur, altta "2 yeni olay ↓". Alt satır: Tasarımcı / Geliştirici kapsamı (geliştirici ağ ve konsolu da görür) · Duraklat · Temizle · Dışa aktar (JSON).
+
+**Etkileşim tablosu:**
+
+| Tetikleyici | Etki | Hareket |
+|---|---|---|
+| Satıra tık | Açılır (tek seviye); diğeri kapanır; canvas'ta eleman vurgulanır | 150 ms |
+| J / K | Sonraki / önceki fark | 150 ms; canvas gerekirse kaydırır |
+| Kabul (A) | Baseline güncellenir, satır listeden düşer, "incelendi" artar | 150 ms |
+| Yoksay (I) | Seçici yoksayılanlara girer; ⋯ › Yoksayılanlar'dan geri alınır | 150 ms |
+| Takip et (T) | Satır kalır, soluk işaret; sonraki karşılaştırmada yeniden ölçülür | Anlık |
+| Yeniden dene | Olay yalnızca kaçıran viewport'ta tekrar çalışır; sayı güncellenir | Anlık |
+| Yeni fark bulundu (panel kapalı) | Raydaki Farklar ikonunda mercan nokta | 150 ms |
+| "2 yeni olay ↓" | Dibe kaydırır, takip yeniden başlar | 200 ms |
 
 ## 4. Verilen tasarım kararları
 
@@ -193,7 +209,9 @@ Alt veya sağ panel. Motor diff listesi ("Buton Safari'de 12px aşağıda"), tı
 | Giriş ekranı: başlık metni yok; şablon çipleri URL kutusunun altında kalır, sidebar'daki ŞABLONLAR bölümü M3'e ertelendi (MVP sidebar: Son, Taslaklar); kart küçük resmi canvas'ın son hali + ad yanında favicon; liste/boş durum/bağlam menüsü çizildiği gibi | 2026-10-10 |
 | "Kaldır" iki aşamalı alt menü (Listeden kaldır / Çöp Sepeti'ne taşı); "+ Yeni" gri kalır (tek vurgu) | 2026-10-10 |
 | Cihaz seçici: "+ Cihaz" altında 660 px popover, üç sütun (grup başına bağımsız kaydırma, sayı), SON çipleri, aramada boyut yazma, Özel boyut, "Cihazları yönet…" M3; sheet ve tek sütun reddedildi | 2026-10-10 |
-| Ayarlar penceresi (880×680): sol sekmeler Genel / Cihazlar / MCP / Hesap; cihaz yönetimi Ayarlar › Cihazlar'da; MCP sekmesi M7 için hazır; Hesap sekmesinde lisans "Dahili" | 2026-10-10 |
+| ~~Ayarlar ayrı pencere (880×680, sol sekmeler)~~ — "pencereye çıkar" alternatifi olarak kaldı | 2026-10-10 |
+| Sağ ray (44 px) + paneller: ayarlar üstüne kayar, Farklar/Senkron iter (varsayım, kullanımda doğrulanacak); ayarlar içeriği Genel/Cihazlar/MCP/Hesap; K1/K2/K3 kreatif ayar konseptleri reddedildi, K2 paleti ileride | 2026-10-10 |
+| Geliştirici paneli sakin tasarım: iki seviye, tek renk = dikkat, tabular sayılar, kelime düğmeler; baseline = lider, Kabul/Yoksay/Takip et; senkron satırında "n / n" ve kaçıranın adı açılımda | 2026-10-10 |
 
 ## 5. Bekleyen tasarım kararları
 
@@ -205,7 +223,7 @@ Alt veya sağ panel. Motor diff listesi ("Buton Safari'de 12px aşağıda"), tı
 4. ~~Giriş ekranının görsel tasarımı~~ — verildi (bkz. §3.1, §4)
 5. ~~Cihaz seçici ve viewport ekleme akışı~~ — verildi (bkz. §3.2)
 6. Lider ve "senkron kaçtı" göstergeleri
-7. Geliştirici panelinin yeri
+7. ~~Geliştirici panelinin yeri~~ — verildi (sağ ray, §3.3–3.4)
 8. Uygulama ikonu
 9. Viewport kartı başlığındaki kamera (ekran görüntüsü) düğmesi. Kodda var, şimdilik sistem görünümünde (kod oturumundan, 2026-10-10)
 10. Toolbar'daki ekran görüntüsü menüsü. Kodda var, şimdilik sistem görünümünde

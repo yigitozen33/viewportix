@@ -59,3 +59,5 @@ DESIGN.md §3.2 sonundaki **etkileşim tablosu** tetikleyici → etki → hareke
 - [ ] Kart başlığındaki motor rozeti ikon oldu; sürüm tooltip'te ("WebKit 26 · macOS 26"). Sürümü sistemden oku (WKWebView user agent / sistem sürümü). Başlık taşma sırası: boyut gizlenir → ad ortadan kısaltılır (DESIGN.md §3.2).
 
 - [ ] Ayarlar penceresi (⌘,) tasarımı hazır: DESIGN.md §3.3. MCP sekmesi M7'ye kadar gizli kalabilir; Hesap sekmesindeki lisans/takım alanları iş modeli netleşince doldurulur.
+
+- [ ] Ayarlar artık sağ raydan açılan panel (DESIGN.md §3.3); ayrı pencere yalnızca "pencereye çıkar". Geliştirici paneli (M5) §3.4; panel yerleşimi varsayım, kullanımda geri bildirim `docs/tasarim-istekleri.md`'ye.
