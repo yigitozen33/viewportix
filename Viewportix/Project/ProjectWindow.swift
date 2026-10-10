@@ -25,6 +25,14 @@ struct ProjectWindow: View {
             CanvasView(workspace: workspace) { id in
                 document.project.viewports.removeAll { $0.id == id }
             }
+            .overlay(alignment: .bottom) {
+                if let notice = workspace.notice {
+                    NoticeBar(notice: notice, dismiss: workspace.dismissNotice)
+                        .padding(.bottom, 16)
+                        .transition(.move(edge: .bottom).combined(with: .opacity))
+                }
+            }
+            .animation(.snappy, value: workspace.notice)
             .overlay {
                 if document.project.viewports.isEmpty {
                     ContentUnavailableView("Viewport yok", systemImage: "rectangle.dashed", description: Text("Toolbar'daki + Cihaz ile ekle."))
@@ -47,6 +55,8 @@ struct ProjectWindow: View {
             #if DEBUG
             if PerfProbe.isRequested {
                 Task { await PerfProbe.run(workspace) }
+            } else if PerfProbe.isCaptureRequested {
+                Task { await PerfProbe.runCapture(workspace) }
             }
             #endif
         }

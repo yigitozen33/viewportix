@@ -91,6 +91,73 @@ public final class WebKitSession: NSObject, EngineSession {
         return result.flatMap { JSONValue(any: $0) }
     }
 
+    /// Tallest full-page capture, in CSS px; protects against endless pages.
+    static let maxFullPageHeight: CGFloat = 32_000
+
+    public func snapshot(_ area: SnapshotArea) async throws -> CGImage {
+        switch area {
+        case .visible:
+            let configuration = WKSnapshotConfiguration()
+            configuration.afterScreenUpdates = true
+            let image = try await webView.takeSnapshot(configuration: configuration)
+            guard let cgImage = image.cgImage(forProposedRect: nil, context: nil, hints: nil) else {
+                throw SnapshotError.noImage
+            }
+            return cgImage
+        case .fullPage:
+            return try await fullPageSnapshot()
+        }
+    }
+
+    /// A bitmap snapshot only contains tiles WebKit has rendered near the visible area, so the full page
+    /// is drawn into a PDF (which paints the whole rect) and rasterized. Tall content comes back as
+    /// several PDF pages (PDF caps page size), which are stacked top to bottom.
+    private func fullPageSnapshot() async throws -> CGImage {
+        let documentHeight = try await webView.evaluateJavaScript(
+            "Math.max(document.documentElement.scrollHeight, document.body ? document.body.scrollHeight : 0)"
+        ) as? Double ?? 0
+        let width = webView.bounds.width
+        let height = min(max(webView.bounds.height, CGFloat(documentHeight)), Self.maxFullPageHeight)
+        let configuration = WKPDFConfiguration()
+        // PDF rects are in document coordinates, independent of the current scroll position.
+        configuration.rect = CGRect(x: 0, y: 0, width: width, height: height)
+        let pdf = try await webView.pdf(configuration: configuration)
+
+        guard let provider = CGDataProvider(data: pdf as CFData),
+              let document = CGPDFDocument(provider), document.numberOfPages > 0 else { throw SnapshotError.noImage }
+        let pages = (1...document.numberOfPages).compactMap { document.page(at: $0) }
+        let boxes = pages.map { $0.getBoxRect(.mediaBox) }
+        let contentWidth = boxes.map(\.width).max() ?? width
+        let contentHeight = boxes.reduce(0) { $0 + $1.height }
+        // Keep the bitmap bounded on very tall pages by dropping to 1x.
+        let preferred = webView.window?.backingScaleFactor ?? 2
+        let scale = contentWidth * contentHeight * preferred * preferred * 4 > 256_000_000 ? 1 : preferred
+        let pixelWidth = Int((contentWidth * scale).rounded())
+        let pixelHeight = Int((contentHeight * scale).rounded())
+        guard let context = CGContext(
+            data: nil, width: pixelWidth, height: pixelHeight, bitsPerComponent: 8, bytesPerRow: 0,
+            space: CGColorSpace(name: CGColorSpace.sRGB)!, bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
+        ) else { throw SnapshotError.noImage }
+        context.setFillColor(CGColor(red: 1, green: 1, blue: 1, alpha: 1))
+        context.fill(CGRect(x: 0, y: 0, width: pixelWidth, height: pixelHeight))
+        context.scaleBy(x: scale, y: scale)
+        // Core Graphics origin is bottom-left: the first page goes at the top.
+        var top = contentHeight
+        for (page, box) in zip(pages, boxes) {
+            top -= box.height
+            context.saveGState()
+            context.translateBy(x: -box.origin.x, y: top - box.origin.y)
+            context.drawPDFPage(page)
+            context.restoreGState()
+        }
+        guard let image = context.makeImage() else { throw SnapshotError.noImage }
+        return image
+    }
+
+    public enum SnapshotError: Error {
+        case noImage
+    }
+
     // MARK: Agent bridge
 
     private func callAgent(_ body: String, value: JSONValue) async -> ApplyResult {

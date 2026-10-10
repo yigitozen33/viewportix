@@ -10,12 +10,15 @@ final class ViewportCardView: NSView {
     let viewportID: ViewportID
     var onHover: ((ViewportID) -> Void)?
     var onClose: ((ViewportID) -> Void)?
+    /// Second argument: full page (⌥-click) instead of the visible area.
+    var onCapture: ((ViewportID, Bool) -> Void)?
 
     private let content: NSView
     private let titleLabel = NSTextField(labelWithString: "")
     private let detailLabel = NSTextField(labelWithString: "")
     private let missedIcon = NSImageView()
     private let closeButton = NSButton()
+    private let captureButton = NSButton()
     private var isLeader = false
 
     override var isFlipped: Bool { true }
@@ -44,7 +47,13 @@ final class ViewportCardView: NSView {
         closeButton.action = #selector(closeTapped)
         closeButton.toolTip = "Viewport'u kaldır"
 
-        for subview in [titleLabel, detailLabel, missedIcon, closeButton, content] {
+        captureButton.image = NSImage(systemSymbolName: "camera", accessibilityDescription: "Ekran görüntüsü")
+        captureButton.isBordered = false
+        captureButton.target = self
+        captureButton.action = #selector(captureTapped)
+        captureButton.toolTip = "Ekran görüntüsü (⌥ ile tam sayfa)"
+
+        for subview in [titleLabel, detailLabel, missedIcon, captureButton, closeButton, content] {
             addSubview(subview)
         }
         applyStyle()
@@ -76,6 +85,7 @@ final class ViewportCardView: NSView {
         detailLabel.frame.origin = NSPoint(x: titleLabel.frame.maxX + 8, y: (Self.headerHeight - detailLabel.frame.height) / 2)
         missedIcon.frame = NSRect(x: detailLabel.frame.maxX + 6, y: 6, width: 16, height: 16)
         closeButton.frame = NSRect(x: width - 26, y: 5, width: 18, height: 18)
+        captureButton.frame = NSRect(x: width - 50, y: 5, width: 18, height: 18)
         content.frame = NSRect(x: 0, y: Self.headerHeight, width: width, height: bounds.height - Self.headerHeight)
     }
 
@@ -108,6 +118,10 @@ final class ViewportCardView: NSView {
             layer?.borderColor = (isLeader ? NSColor.controlAccentColor : NSColor.separatorColor).cgColor
             layer?.borderWidth = isLeader ? 2 : 1
         }
+    }
+
+    @objc private func captureTapped() {
+        onCapture?(viewportID, NSEvent.modifierFlags.contains(.option))
     }
 
     @objc private func closeTapped() {

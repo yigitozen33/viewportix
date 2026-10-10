@@ -10,6 +10,7 @@ let package = Package(
         .library(name: "ProjectModel", targets: ["ProjectModel"]),
         .library(name: "SyncCore", targets: ["SyncCore"]),
         .library(name: "WebKitEngine", targets: ["WebKitEngine"]),
+        .library(name: "Capture", targets: ["Capture"]),
     ],
     targets: [
         .target(name: "EngineCore"),
@@ -17,9 +18,11 @@ let package = Package(
         .target(name: "ProjectModel", dependencies: ["EngineCore", "DeviceCatalog"]),
         .target(name: "SyncCore", dependencies: ["EngineCore"], resources: [.copy("Resources/sync-agent.js")]),
         .target(name: "WebKitEngine", dependencies: ["EngineCore", "SyncCore"]),
+        .target(name: "Capture"),
         .testTarget(name: "DeviceCatalogTests", dependencies: ["DeviceCatalog"]),
         .testTarget(name: "ProjectModelTests", dependencies: ["ProjectModel"]),
         .testTarget(name: "SyncCoreTests", dependencies: ["SyncCore"]),
         .testTarget(name: "WebKitEngineTests", dependencies: ["WebKitEngine", "SyncCore"]),
+        .testTarget(name: "CaptureTests", dependencies: ["Capture"]),
     ]
 )

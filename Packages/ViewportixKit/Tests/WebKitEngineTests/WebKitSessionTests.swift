@@ -15,8 +15,8 @@ struct WebKitSessionTests {
         .deletingLastPathComponent()
         .appending(path: "Fixtures")
 
-    static let phone = ViewportSize(width: 393, height: 852)
-    static let desktop = ViewportSize(width: 1440, height: 900)
+    nonisolated static let phone = ViewportSize(width: 393, height: 852)
+    nonisolated static let desktop = ViewportSize(width: 1440, height: 900)
 
     private func loadedSession(_ fixture: String, size: ViewportSize, mobile: Bool = false) async throws -> WebKitSession {
         let session = WebKitSession(id: ViewportID(), size: size, mobileUserAgent: mobile, dataStore: .nonPersistent())
@@ -215,6 +215,54 @@ struct WebKitSessionTests {
         let session = try await loadedSession("spa.html", size: Self.desktop)
         let target = JSONValue.object(["selector": .string("#menu-toggle"), "strong": .bool(true), "tag": .string("button"), "text": .string("Menu"), "href": .null])
         #expect(await session.apply(.hover(target)) == .applied("hover:none"))
+    }
+
+    // MARK: Snapshot
+
+    /// Share of non-white pixels in a horizontal band of the image (0...1 of its height).
+    private func inkRatio(_ image: CGImage, band: ClosedRange<Double>) -> Double {
+        let width = image.width
+        let height = image.height
+        var pixels = [UInt8](repeating: 0, count: width * height * 4)
+        let context = CGContext(
+            data: &pixels, width: width, height: height, bitsPerComponent: 8, bytesPerRow: width * 4,
+            space: CGColorSpace(name: CGColorSpace.sRGB)!, bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
+        )!
+        context.draw(image, in: CGRect(x: 0, y: 0, width: width, height: height))
+        // Bitmap rows start at the top here (CGContext memory is top-down for drawn images).
+        let rows = Int(band.lowerBound * Double(height))..<Int(band.upperBound * Double(height))
+        var ink = 0
+        for row in rows {
+            for column in stride(from: 0, to: width, by: 4) {
+                let i = (row * width + column) * 4
+                if pixels[i] < 240 || pixels[i + 1] < 240 || pixels[i + 2] < 240 { ink += 1 }
+            }
+        }
+        return Double(ink) / Double(max(1, rows.count * (width / 4)))
+    }
+
+    @Test func visibleSnapshotMatchesTheViewport() async throws {
+        let session = try await loadedSession("long-page.html", size: Self.phone, mobile: true)
+        let image = try await session.snapshot(.visible)
+        let scale = Double(image.width) / Double(Self.phone.width)
+        #expect(scale >= 1)
+        #expect(abs(Double(image.height) / scale - Double(Self.phone.height)) <= 1)
+    }
+
+    /// The phone layout of long-page.html is taller than one PDF page can be, so it exercises stacking.
+    @Test(arguments: [desktop, phone])
+    func fullPageSnapshotCoversTheWholeDocumentWithoutScrolling(size: ViewportSize) async throws {
+        let session = try await loadedSession("long-page.html", size: size, mobile: size == Self.phone)
+        _ = try await session.webView.evaluateJavaScript("window.scrollTo(0, 1500)")
+        let documentHeight = try #require(try await session.webView.evaluateJavaScript("document.documentElement.scrollHeight") as? Double)
+
+        let image = try await session.snapshot(.fullPage)
+
+        let scale = Double(image.width) / Double(size.width)
+        #expect(abs(Double(image.height) / scale - documentHeight) <= 2)
+        #expect(try await session.webView.evaluateJavaScript("window.scrollY") as? Double == 1500, "capturing must not scroll the page")
+        #expect(inkRatio(image, band: 0.0...0.05) > 0.01, "top of the document should be painted")
+        #expect(inkRatio(image, band: 0.90...0.99) > 0.01, "bottom of the document should be painted")
     }
 
     @Test func agentMessagesBecomeInteractionEvents() async throws {

@@ -1,3 +1,4 @@
+import EngineCore
 import SwiftUI
 
 @main
@@ -30,6 +31,14 @@ struct ViewportixCommands: Commands {
                 .keyboardShortcut("0", modifiers: [.command, .shift])
         }
 
+        CommandGroup(after: .saveItem) {
+            Divider()
+            Button("Ekran Görüntüsü Al") { capture(.visible) }
+                .keyboardShortcut("s", modifiers: [.command, .option])
+            Button("Tam Sayfa Ekran Görüntüsü Al") { capture(.fullPage) }
+                .keyboardShortcut("s", modifiers: [.command, .option, .control])  // ⌥⇧⌘S is Save As
+        }
+
         CommandGroup(after: .toolbar) {
             Button("Yakınlaştır") { workspace?.canvas?.zoomIn() }
                 .keyboardShortcut("=")
@@ -50,5 +59,10 @@ struct ViewportixCommands: Commands {
             Button("Yenile") { workspace?.reload() }
                 .keyboardShortcut("r")
         }
+    }
+
+    private func capture(_ area: SnapshotArea) {
+        guard let workspace else { return }
+        Task { await workspace.captureAll(area: area) }
     }
 }

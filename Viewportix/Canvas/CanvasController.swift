@@ -104,6 +104,10 @@ final class CanvasController: NSViewController {
         let card = ViewportCardView(viewportID: id, content: content)
         card.onHover = { [weak self] id in self?.workspace.setLeader(id) }
         card.onClose = { [weak self] id in self?.onClose?(id) }
+        card.onCapture = { [weak self] id, fullPage in
+            guard let workspace = self?.workspace else { return }
+            Task { await workspace.capture([id], area: fullPage ? .fullPage : .visible) }
+        }
         documentView.addSubview(card)
         cards[id] = card
         return card

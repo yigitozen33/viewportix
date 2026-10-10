@@ -8,6 +8,21 @@ import EngineCore
 @MainActor
 enum PerfProbe {
     static var isRequested: Bool { CommandLine.arguments.contains("--perf") }
+    static var isCaptureRequested: Bool { CommandLine.arguments.contains("--capture-probe") }
+
+    /// `--capture-probe`: after load, captures all viewports (visible, then full page) and prints the files.
+    static func runCapture(_ workspace: Workspace) async {
+        try? await Task.sleep(for: .seconds(1))
+        while workspace.isLoading { try? await Task.sleep(for: .milliseconds(200)) }
+        try? await Task.sleep(for: .seconds(2))
+        for area in [SnapshotArea.visible, .fullPage] {
+            let started = ContinuousClock.now
+            await workspace.captureAll(area: area)
+            log("CAPTURE \(area) \(milliseconds(ContinuousClock.now - started)) ms → \(workspace.notice?.fileURL?.path ?? workspace.notice?.text ?? "nothing")")
+        }
+        try? await Task.sleep(for: .seconds(1))
+        NSApp.terminate(nil)
+    }
 
     private static let scrollSeconds = 8
 

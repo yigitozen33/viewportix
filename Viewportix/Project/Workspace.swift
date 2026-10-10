@@ -1,3 +1,5 @@
+import AppKit
+import Capture
 import DeviceCatalog
 import EngineCore
 import Foundation
@@ -23,6 +25,8 @@ final class Workspace {
     var isSyncEnabled = true {
         didSet { coordinator.isEnabled = isSyncEnabled }
     }
+    /// Transient status shown at the bottom of the window (screenshot progress and results).
+    private(set) var notice: Notice?
 
     @ObservationIgnored weak var canvas: CanvasController?
     @ObservationIgnored private let coordinator = SyncCoordinator()
@@ -106,6 +110,78 @@ final class Workspace {
             isLoading = !loadingIDs.isEmpty
         case .interaction:
             break
+        }
+    }
+
+    // MARK: Screenshots
+
+    struct Notice: Identifiable, Equatable {
+        let id = UUID()
+        let text: String
+        var fileURL: URL?
+        var isProgress = false
+    }
+
+    static let screenshotFolder = URL.picturesDirectory.appending(path: "Viewportix")
+
+    /// Captures the given viewports (canvas order), saves one PNG and copies it to the clipboard.
+    /// Several viewports are laid out side by side under their names.
+    func capture(_ ids: [ViewportID], area: SnapshotArea) async {
+        let targets = viewports.filter { ids.contains($0.id) }
+        guard !targets.isEmpty else { return }
+        show(Notice(text: "Ekran görüntüsü alınıyor…", isProgress: true), for: nil)
+
+        var items: [ScreenshotComposer.Item] = []
+        for config in targets {
+            guard let session = sessions[config.id] else { continue }
+            do {
+                let image = try await session.snapshot(area)
+                items.append(.init(title: "\(config.name) · \(config.size.width)×\(config.size.height)", image: image))
+            } catch {
+                show(Notice(text: "\(config.name) yakalanamadı: \(error.localizedDescription)"), for: .seconds(5))
+                return
+            }
+        }
+
+        // Screenshots are at the display's pixel density; titles and spacing follow it.
+        let scale = CGFloat(items[0].image.width) / CGFloat(targets[0].size.width)
+        let subject = currentTitle.isEmpty ? (currentURL?.host() ?? "") : currentTitle
+        let name = ScreenshotNaming.fileName(subject: subject, detail: targets.count == 1 ? targets[0].name : nil, date: .now)
+        let png = await Task.detached {
+            let image = items.count == 1 ? items[0].image : ScreenshotComposer.compose(items, scale: scale)
+            return image.flatMap(ScreenshotComposer.pngData)
+        }.value
+
+        guard let png else {
+            show(Notice(text: "Ekran görüntüsü oluşturulamadı"), for: .seconds(5))
+            return
+        }
+        do {
+            try FileManager.default.createDirectory(at: Self.screenshotFolder, withIntermediateDirectories: true)
+            let url = Self.screenshotFolder.appending(path: name)
+            try png.write(to: url)
+            NSPasteboard.general.clearContents()
+            NSPasteboard.general.setData(png, forType: .png)
+            show(Notice(text: "Kaydedildi ve kopyalandı", fileURL: url), for: .seconds(5))
+        } catch {
+            show(Notice(text: "Kaydedilemedi: \(error.localizedDescription)"), for: .seconds(5))
+        }
+    }
+
+    func captureAll(area: SnapshotArea) async {
+        await capture(viewports.map(\.id), area: area)
+    }
+
+    func dismissNotice() {
+        notice = nil
+    }
+
+    private func show(_ notice: Notice, for duration: Duration?) {
+        self.notice = notice
+        guard let duration else { return }
+        Task {
+            try? await Task.sleep(for: duration)
+            if self.notice?.id == notice.id { self.notice = nil }
         }
     }
 

@@ -24,6 +24,7 @@ final class FakeSession: EngineSession {
     func goForward() {}
     func resize(to size: ViewportSize) {}
     func evaluate(_ script: String) async throws -> JSONValue? { nil }
+    func snapshot(_ area: SnapshotArea) async throws -> CGImage { throw CancellationError() }
 
     func apply(_ event: SyncEvent) async -> ApplyResult {
         if holdApplies {

@@ -42,6 +42,12 @@ struct ProjectToolbar: ToolbarContent {
             }
             .help("Zoom")
 
+            Menu("Ekran Görüntüsü", systemImage: "camera") {
+                Button("Tüm Viewport'lar") { Task { await workspace.captureAll(area: .visible) } }
+                Button("Tüm Viewport'lar — Tam Sayfa") { Task { await workspace.captureAll(area: .fullPage) } }
+            }
+            .help("Ekran görüntüsü")
+
             Toggle("Senkron", systemImage: "arrow.triangle.2.circlepath", isOn: $workspace.isSyncEnabled)
                 .help(workspace.isSyncEnabled ? "Senkron açık" : "Senkron kapalı")
         }

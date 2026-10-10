@@ -22,6 +22,14 @@ public enum EngineEvent: Hashable, Sendable {
     case loadingChanged(Bool)
 }
 
+/// What a screenshot covers.
+public enum SnapshotArea: Hashable, Sendable {
+    /// What the viewport shows right now.
+    case visible
+    /// The whole document, top to bottom, without scrolling the page.
+    case fullPage
+}
+
 /// Outcome of mirroring a `SyncEvent` in one viewport.
 public enum ApplyResult: Hashable, Sendable {
     /// Applied; the associated value names the strategy (e.g. "anchor:strong", "section", "click:text").
@@ -53,4 +61,5 @@ public protocol EngineSession: AnyObject {
     /// Runs a script in the page's own world and returns its JSON-compatible result.
     /// For diagnostics, profiling and (later) the MCP server.
     func evaluate(_ script: String) async throws -> JSONValue?
+    func snapshot(_ area: SnapshotArea) async throws -> CGImage
 }
