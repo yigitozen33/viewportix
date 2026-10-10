@@ -23,14 +23,14 @@
 - Sağ ray + paneller kesinleşti (DESIGN.md §3.3–3.4): ayarlar kayan panel, Farklar/Senkron iten sakin paneller; yerleşim varsayımı kullanımda doğrulanacak.
 - Açık tema: token'lar ve iki referans frame hazır, MVP dışı (kullanıcı kararı).
 - URL son 5 menüsü, sidebar durumları, ekran görüntüsü menüsü çizildi; §5 9–11 kapandı. Motor glifleri ve ikon eskizleri alt ajanlarda (frame'ler `Engine Glyphs` x=-3200,y=0 ve `App Icon Concepts` x=-3200,y=1200).
-- Uygulama ikonu için üç kavram eskizi hazır (`app-icon-concepts@2x.png`), karar bekliyor.
+- Uygulama ikonu kararı: B6 Vx monogram (DESIGN.md §4).
 - Bilinen eksikler: sidebar hover/rename durumları; gizli-lider çip rengi yalnızca açıklamada; açık tema.
 
 ## Sıradaki iş
 
 1. `.pen` dosyalarını `design/viewportix.lib.pen` ve `design/viewportix.pen` olarak repoya taşı (kullanıcı pen.dev'de yeniden açacak).
 2. Referans: Apple HIG sayfaları ve kullanıcının vereceği Finder/Keynote ekran görüntüleri.
-3. Uygulama ikonu kararı (A/B/C), sonra Icon Composer. Açık tema ileride.
+3. Icon Composer: B6 Vx monogram, 1024 px, katmanlar zemin / bracket'ler / Vx; dışa aktar `design/icon/Viewportix.icon`. Açık tema ileride.
 4. Boyut ve aralık değişkenleri; zoom düğmesi varyantı; sidebar durumları.
 5. Kod oturumundan gelen yeni öğeler tasarıma girecek (DESIGN.md §5, madde 9–11): kart başlığında kamera düğmesi (`Viewport/Card` hover/başlık satırı), toolbar'da ekran görüntüsü menüsü, pencere altında bildirim kapsülü ("Kaydedildi ve kopyalandı · Finder'da Göster").
 6. Her görsel karar kullanıcıya sorulur, DESIGN.md §4'e tarihiyle işlenir.

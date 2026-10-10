@@ -66,3 +66,5 @@ DESIGN.md §3.2 sonundaki **etkileşim tablosu** tetikleyici → etki → hareke
 
 - [ ] Motor glifleri hazır: DESIGN.md §6'daki üç SVG path (16×16, evenodd). Kart başlığında WebKit glifi; M4/M6'da Chromium/Firefox. SF Symbols yerine bu path'ler kullanılacak.
 - [ ] URL alanı: son 5 URL geçmişi (uygulama düzeyi, `UserDefaults`/app support; proje dosyasına girmez); ⌘D açık URL'yi sayfa listesine ekler. DESIGN.md §3.2.
+
+- [ ] Uygulama ikonu B6 "Vx monogram" seçildi (DESIGN.md §4). Icon Composer dosyası tasarım oturumundan gelecek; o zamana kadar yer tutucu ikon kalsın.

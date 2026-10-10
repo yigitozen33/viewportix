@@ -222,6 +222,7 @@ Sağ raydan açılır, canvas'ı iter (300 px). Tasarım ilkesi: **sakin ama tek
 | Geliştirici paneli sakin tasarım: iki seviye, tek renk = dikkat, tabular sayılar, kelime düğmeler; baseline = lider, Kabul/Yoksay/Takip et; senkron satırında "n / n" ve kaçıranın adı açılımda | 2026-10-10 |
 | Açık tema MVP dışı, ileride: token'lar `mode: light` değerleriyle hazır (hardal `#E6C800` vurgu; aynı sarı açık zeminde okunmuyor), `Project Window · Açık` ve `Home Window · Açık` frame'leri referans; uygulama şimdilik yalnızca koyu | 2026-10-10 |
 | URL alanında son 5 geçmiş menüsü (uygulamaya ait, projeye girmez); sidebar durumları (hover, yerinde yeniden adlandırma, sürükle-bırak, "Bu sayfayı ekle" ⌘D, boş durum); ekran görüntüsü menüsü içeriği | 2026-10-10 |
+| Uygulama ikonu: B6 "Vx monogram" — koyu zemin (#161412), sarı köşe bracket'leri (#FFF36B, 30 px uzunluk, 14 px kalınlık, 44 px kenar boşluğu @220), ortada krem "Vx" (#FAF8F5, kalın, sıkı letter-spacing). Eskiz `App Icon · B variants`, `app-icon-B-variants@2x.png`; üretim Icon Composer'da 1024 px, üç katman (zemin / bracket'ler / Vx). Elenenler: A üç genişlik, C V harfi, B1–B5 | 2026-10-10 |
 
 ## 5. Bekleyen tasarım kararları
 
@@ -234,7 +235,7 @@ Sağ raydan açılır, canvas'ı iter (300 px). Tasarım ilkesi: **sakin ama tek
 5. ~~Cihaz seçici ve viewport ekleme akışı~~ — verildi (bkz. §3.2)
 6. Lider ve "senkron kaçtı" göstergeleri
 7. ~~Geliştirici panelinin yeri~~ — verildi (sağ ray, §3.3–3.4)
-8. Uygulama ikonu — B (Vizör) seçildi, altı geliştirme yönü çizildi (`App Icon · B variants`, `app-icon-B-variants@2x.png`: B1 vizör + üç genişlik, B2 vizör + üç motor halkası, B3 V vizör, B4 Port, B5 vizör + cetvel, B6 Vx monogram); yön seçimi bekliyor, sonra Icon Composer
+8. ~~Uygulama ikonu~~ — verildi: B6 Vx monogram (bkz. §4); üretim Icon Composer'da
 9. ~~Kart başlığındaki kamera düğmesi~~ — verildi (§3.2 kart başlığı)
 10. ~~Ekran görüntüsü menüsü~~ — verildi (§3.2 alt çubuk)
 11. ~~Bildirim kapsülü~~ — verildi (`Window/Toast`, §3.2)
