@@ -87,6 +87,8 @@ private extension ProjectWindow {
             document.project.viewports[index].rotate()
         case .editSize:
             sizeEditor = ViewportSizeEditor(editing: document.project.viewports[index])
+        case .toggleSync:
+            document.project.viewports[index].isSyncEnabled.toggle()
         case .capture:
             break  // handled by the canvas
         }

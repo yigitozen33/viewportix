@@ -7,6 +7,7 @@ enum ViewportCommand {
     case remove
     case rotate
     case editSize
+    case toggleSync
     case capture(SnapshotArea)
 }
 
@@ -23,6 +24,8 @@ final class ViewportCardView: NSView {
     private let titleLabel = NSTextField(labelWithString: "")
     private let detailLabel = NSTextField(labelWithString: "")
     private let missedIcon = NSImageView()
+    private let syncOffIcon = NSImageView()
+    private var isSyncEnabled = true
     private let closeButton = NSButton()
     private let captureButton = NSButton()
     private let rotateButton = NSButton()
@@ -48,6 +51,11 @@ final class ViewportCardView: NSView {
         missedIcon.toolTip = "Tıklanan eleman bu viewport'ta bulunamadı"
         missedIcon.isHidden = true
 
+        syncOffIcon.image = NSImage(systemSymbolName: "pause.circle", accessibilityDescription: "Senkron kapalı")
+        syncOffIcon.contentTintColor = .secondaryLabelColor
+        syncOffIcon.toolTip = "Bu viewport için senkron kapalı"
+        syncOffIcon.isHidden = true
+
         closeButton.image = NSImage(systemSymbolName: "xmark", accessibilityDescription: "Viewport'u kaldır")
         closeButton.isBordered = false
         closeButton.target = self
@@ -66,7 +74,7 @@ final class ViewportCardView: NSView {
         rotateButton.action = #selector(rotateTapped)
         rotateButton.toolTip = "Döndür"
 
-        for subview in [titleLabel, detailLabel, missedIcon, rotateButton, captureButton, closeButton, content] {
+        for subview in [titleLabel, detailLabel, missedIcon, syncOffIcon, rotateButton, captureButton, closeButton, content] {
             addSubview(subview)
         }
         applyStyle()
@@ -78,6 +86,8 @@ final class ViewportCardView: NSView {
         titleLabel.stringValue = config.name
         detailLabel.stringValue = "\(config.size.width)×\(config.size.height) · \(engineVersion)"
         missedIcon.isHidden = !syncMissed
+        isSyncEnabled = config.isSyncEnabled
+        syncOffIcon.isHidden = config.isSyncEnabled
         if self.isLeader != isLeader {
             self.isLeader = isLeader
             applyStyle()
@@ -96,7 +106,8 @@ final class ViewportCardView: NSView {
         titleLabel.frame.origin = NSPoint(x: 10, y: (Self.headerHeight - titleLabel.frame.height) / 2)
         detailLabel.sizeToFit()
         detailLabel.frame.origin = NSPoint(x: titleLabel.frame.maxX + 8, y: (Self.headerHeight - detailLabel.frame.height) / 2)
-        missedIcon.frame = NSRect(x: detailLabel.frame.maxX + 6, y: 6, width: 16, height: 16)
+        syncOffIcon.frame = NSRect(x: detailLabel.frame.maxX + 6, y: 6, width: 16, height: 16)
+        missedIcon.frame = NSRect(x: (syncOffIcon.isHidden ? detailLabel.frame.maxX : syncOffIcon.frame.maxX) + 6, y: 6, width: 16, height: 16)
         closeButton.frame = NSRect(x: width - 26, y: 5, width: 18, height: 18)
         captureButton.frame = NSRect(x: width - 50, y: 5, width: 18, height: 18)
         rotateButton.frame = NSRect(x: width - 74, y: 5, width: 18, height: 18)
@@ -140,6 +151,7 @@ final class ViewportCardView: NSView {
         let menu = NSMenu()
         menu.addItem(item("Döndür", #selector(rotateTapped)))
         menu.addItem(item("Boyutu Düzenle…", #selector(editSizeTapped)))
+        menu.addItem(item(isSyncEnabled ? "Senkronu Kapat" : "Senkronu Aç", #selector(toggleSyncTapped)))
         menu.addItem(.separator())
         menu.addItem(item("Ekran Görüntüsü", #selector(captureVisibleTapped)))
         menu.addItem(item("Tam Sayfa Ekran Görüntüsü", #selector(captureFullPageTapped)))
@@ -162,5 +174,6 @@ final class ViewportCardView: NSView {
     @objc private func captureFullPageTapped() { onCommand?(viewportID, .capture(.fullPage)) }
     @objc private func rotateTapped() { onCommand?(viewportID, .rotate) }
     @objc private func editSizeTapped() { onCommand?(viewportID, .editSize) }
+    @objc private func toggleSyncTapped() { onCommand?(viewportID, .toggleSync) }
     @objc private func closeTapped() { onCommand?(viewportID, .remove) }
 }

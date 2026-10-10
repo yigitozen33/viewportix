@@ -36,11 +36,12 @@ enum PerfProbe {
         log("LOADED after \(milliseconds(ContinuousClock.now - started)) ms")
         try? await Task.sleep(for: .seconds(3))  // late images, fonts, scripts
 
-        log("PHASE idle")
-        try? await Task.sleep(for: .seconds(8))
-
+        // A leader as if the pointer rested on the first viewport, so background media rules apply.
         guard let leaderID = workspace.viewports.first?.id, let leader = workspace.session(for: leaderID) else { return }
         workspace.setLeader(leaderID)
+        log("PHASE idle suspendBackgroundMedia=\(workspace.suspendsBackgroundMedia)")
+        try? await Task.sleep(for: .seconds(8))
+
         workspace.resetSyncStats()
         log("PHASE scroll leader=\(workspace.viewports[0].name)")
         _ = try? await leader.evaluate("""

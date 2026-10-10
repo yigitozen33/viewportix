@@ -291,7 +291,9 @@ App Store dışında dağıttığımız için private API ile DPR gibi değerler
 | apple.com/iphone | 1,5–2,7 sn | 0,9–1,2 GB | ~%33 (sayfadaki videolar) | ~%190 | boşta ~%0, scroll'da ~%18 | 474–482 olay/8 sn, hepsi uygulandı; ort. 2,5 ms, en kötü 15–29 ms |
 | Wikipedia makalesi | 1,6 sn | 0,6–0,7 GB | ~%1 | ~%40 | boşta %0, scroll'da ~%4 | 113 olay, 451/452 uygulandı; ort. 1,7 ms |
 
-Yükün neredeyse tamamı 5 sayfayı çizen WebContent süreçlerinde; uygulamanın kendi payı küçük. Viewport başına ~120–240 MB. Takipçiler 60 olay/sn hızına yetişiyor, birleştirmeye nadiren gerek kalıyor. İyileştirme fırsatı (M3+): ağır sayfalarda takipçi viewport'lardaki video/animasyonu duraklatmak, düşük zoom'da snapshot'a geçmek. Not: pencere görünmezken WebKit sayfaları duraklatır; ölçüm görünür pencere ister.
+Yükün neredeyse tamamı 5 sayfayı çizen WebContent süreçlerinde; uygulamanın kendi payı küçük (sonraki ölçümlerde apple.com'da boşta ~%5). Viewport başına ~120–240 MB. Takipçiler 60 olay/sn hızına yetişiyor, birleştirmeye nadiren gerek kalıyor. İyileştirme fırsatı (M3+): düşük zoom'da snapshot'a geçmek. Video duraklatma denendi, etkisiz (aşağıda). Not: pencere görünmezken WebKit sayfaları duraklatır; ölçüm görünür pencere ister.
+
+Takipçilerde medyayı askıya alma (`setAllMediaPlaybackSuspended`, 2026-10-10): apple.com'da boştaki CPU açıkken %33, kapalıyken %29–33; ölçülebilir fark yok. Yük video oynatmadan değil CSS/JS animasyonu ve çizimden geliyor (Mac'te video çözme donanımda). Özellik doğru çalışıyor (test: askıdayken sayfa `play()` çağırsa da oynamıyor) ama takipçilerin görünümünü değiştirdiği için varsayılan kapalı, Görünüm menüsünde isteğe bağlı.
 
 **Kapsam**
 
@@ -327,7 +329,7 @@ Cihaz çerçeveleri, screenshot, form girişi senkronu, gruplama, elle sürükle
 - [x] Screenshot (tek viewport ve tümü): kart başlığında kamera (⌥ ile tam sayfa), toolbar menüsü, ⌥⌘S / ⌃⌥⌘S. Birden fazla viewport tek PNG'de yan yana, başlıklarıyla; `~/Pictures/Viewportix`'e kaydedilir ve panoya kopyalanır (Masaüstü TCC izni istediği için Resimler). Tam sayfa, sayfayı kaydırmadan PDF üzerinden çizilir: bitmap snapshot yalnızca ekrana yakın tile'ları içeriyor; uzun içerik birden çok PDF sayfasına bölündüğü için sayfalar üst üste birleştirilir. Sınırlar: ekranın altındaki lazy-load görseller yüklenmemişse boş çıkar; video/canvas PDF'de çizilmeyebilir; en fazla 32.000 CSS px, çok büyük görsellerde 1x
 - [x] Özel cihaz boyutu, viewport döndürme (kart düğmesi ve sağ tık menüsü; sınırlar 200–3840 × 200–4320 CSS px)
 - [ ] Elle sürükleme ve gruplama
-- [ ] Senkronu viewport bazında açıp kapama
+- [x] Senkronu viewport bazında açıp kapama (kart sağ tık menüsü; kapalı viewport ne yönetir ne izler, adres çubuğu ve sayfa seçimi yine her yere yükler; projede saklanır)
 - [ ] Developer ID imzası + notarization, şirket içi dağıtım
 
 ### M4 — Chromium

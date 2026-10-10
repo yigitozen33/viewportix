@@ -99,3 +99,17 @@ Kod oturumunun arayüze dokunan her değişikliği, değişikliğin commit'inde 
 - Durum: sistem varsayılanı (SwiftUI `.background` + `.separator`)
 - Tasarım kararı gerekir mi: evet — kapsülün özel tasarımı hâlâ bekliyor; bu yalnızca "kendi yüzeylerde Liquid Glass yok" kararına uyum
 - Bağlantılı: DESIGN.md §1, §4 (A yönü), §5 madde 11; PLAN.md §3.8
+
+## 2026-10-10 — Viewport'ta "senkron kapalı" göstergesi ve menü maddesi
+- Ne: Kart başlığının sağ tık menüsüne "Senkronu Kapat" / "Senkronu Aç" eklendi ("Boyutu Düzenle…"nin altına). Senkronu kapalı kartın başlığında, boyut metninin yanında gri `pause.circle` ikonu; ipucu "Bu viewport için senkron kapalı". Ayar projeye kaydedilir.
+- Nerede: Canvas, viewport kartı başlığı; `Viewportix/Canvas/ViewportCardView.swift`
+- Durum: özel çizim (AppKit, SF Symbol) + sistem varsayılanı menü
+- Tasarım kararı gerekir mi: evet — kapalı halin kartta nasıl görüneceği (ikon, soluk kart, rozet) ve açıp kapamanın başlıkta görünür bir denetimle mi yapılacağı
+- Bağlantılı: DESIGN.md §3.2 (Viewport kartı), §5 madde 2 ve 6
+
+## 2026-10-10 — Görünüm menüsünde "Arka Plandaki Viewport'larda Medyayı Duraklat"
+- Ne: Görünüm menüsünde, zoom komutlarının altında açılıp kapanan madde. Açıkken ses ve video yalnızca imlecin üstündeki viewport'ta oynar. Varsayılan kapalı; uygulama genelinde saklanır.
+- Nerede: Menü çubuğu, Görünüm; `Viewportix/App/ViewportixApp.swift`
+- Durum: sistem varsayılanı
+- Tasarım kararı gerekir mi: hayır — yalnızca menü maddesi; ileride bir ayarlar penceresi olursa oraya taşınabilir
+- Bağlantılı: PLAN.md §6 M2 "Performans"

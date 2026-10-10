@@ -59,19 +59,38 @@ public struct ViewportConfig: Identifiable, Codable, Hashable, Sendable {
     public var engine: EngineKind
     /// The preset this viewport was created from; nil for custom sizes.
     public var presetID: String?
+    /// When false the viewport neither leads nor follows sync (explicit page loads still reach it).
+    public var isSyncEnabled: Bool
 
     public init(
         id: ViewportID = ViewportID(),
         name: String,
         size: ViewportSize,
         engine: EngineKind = .webKit,
-        presetID: String? = nil
+        presetID: String? = nil,
+        isSyncEnabled: Bool = true
     ) {
         self.id = id
         self.name = name
         self.size = size
         self.engine = engine
         self.presetID = presetID
+        self.isSyncEnabled = isSyncEnabled
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case id, name, size, engine, presetID, isSyncEnabled
+    }
+
+    /// Fields added after schema version 1 decode with defaults, so older files still open.
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(ViewportID.self, forKey: .id)
+        name = try container.decode(String.self, forKey: .name)
+        size = try container.decode(ViewportSize.self, forKey: .size)
+        engine = try container.decode(EngineKind.self, forKey: .engine)
+        presetID = try container.decodeIfPresent(String.self, forKey: .presetID)
+        isSyncEnabled = try container.decodeIfPresent(Bool.self, forKey: .isSyncEnabled) ?? true
     }
 
     public init(preset: DevicePreset, engine: EngineKind = .webKit) {

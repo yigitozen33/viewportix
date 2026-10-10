@@ -49,6 +49,12 @@ struct ViewportixCommands: Commands {
             Button("Sığdır") { workspace?.canvas?.fit() }
                 .keyboardShortcut("1")
             Divider()
+            Toggle("Arka Plandaki Viewport'larda Medyayı Duraklat", isOn: Binding(
+                get: { workspace?.suspendsBackgroundMedia ?? false },
+                set: { workspace?.suspendsBackgroundMedia = $0 }
+            ))
+            .disabled(workspace == nil)
+            Divider()
         }
 
         CommandMenu("Gezinme") {

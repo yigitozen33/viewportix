@@ -25,6 +25,16 @@ final class Workspace {
     var isSyncEnabled = true {
         didSet { coordinator.isEnabled = isSyncEnabled }
     }
+    /// App-wide preference: media plays only in the viewport under the pointer. Off by default: on
+    /// apple.com it made no measurable CPU difference (video decoding is hardware-accelerated) while it
+    /// changes what follower viewports show (PLAN.md M2 "Performans").
+    var suspendsBackgroundMedia: Bool {
+        didSet {
+            UserDefaults.standard.set(suspendsBackgroundMedia, forKey: Self.suspendMediaKey)
+            coordinator.suspendsFollowerMedia = suspendsBackgroundMedia
+        }
+    }
+    static let suspendMediaKey = "suspendBackgroundMedia"
     /// Transient status shown at the bottom of the window (screenshot progress and results).
     private(set) var notice: Notice?
 
@@ -34,6 +44,8 @@ final class Workspace {
     @ObservationIgnored private var loadingIDs: Set<ViewportID> = []
 
     init() {
+        suspendsBackgroundMedia = UserDefaults.standard.object(forKey: Self.suspendMediaKey) as? Bool ?? false
+        coordinator.suspendsFollowerMedia = suspendsBackgroundMedia
         coordinator.onEvent = { [weak self] id, event in self?.handle(event, from: id) }
         coordinator.onResult = { [weak self] id, _, result in
             if result == .missed { self?.flagMissed(id) }
@@ -68,6 +80,7 @@ final class Workspace {
             coordinator.add(session)
             if let currentURL { session.load(currentURL) }
         }
+        coordinator.excludedIDs = Set(configs.filter { !$0.isSyncEnabled }.map(\.id))
         viewports = configs
         if let leaderID, !wanted.contains(leaderID) { setLeader(nil) }
     }

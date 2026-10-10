@@ -53,6 +53,19 @@ struct ViewportEditingTests {
         #expect(viewport.name == "iPhone 16")
     }
 
+    @Test func syncFlagDefaultsToOnForFilesWrittenBeforeIt() throws {
+        let json = #"{"id":"6F9619FF-8B86-D011-B42D-00C04FC964FF","name":"iPhone 16","size":{"width":393,"height":852},"engine":"webKit","presetID":"iphone-16"}"#
+        let viewport = try JSONDecoder().decode(ViewportConfig.self, from: Data(json.utf8))
+        #expect(viewport.isSyncEnabled)
+    }
+
+    @Test func syncFlagRoundTrips() throws {
+        var viewport = ViewportConfig(name: "Özel", size: ViewportSize(width: 500, height: 700))
+        viewport.isSyncEnabled = false
+        let decoded = try JSONDecoder().decode(ViewportConfig.self, from: JSONEncoder().encode(viewport))
+        #expect(decoded == viewport)
+    }
+
     @Test func sizeLimits() {
         #expect(ViewportSize(width: 393, height: 852).isWithinLimits)
         #expect(ViewportSize(width: 3840, height: 2160).isWithinLimits)

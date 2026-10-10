@@ -6,15 +6,15 @@
 ## Şu an neredeyiz
 
 - M0, M1 tamam; M2 (MVP) çalışıyor. Ayrıntı ve ölçümler: PLAN.md §6 M2 "Durum" ve "Performans".
-- M3'ten biten: form ve hover senkronu, ekran görüntüsü (tek/tüm, görünür/tam sayfa), özel boyut ve döndürme.
-- Testler: 42 paket testi geçiyor (`swift test --package-path Packages/ViewportixKit`).
+- M3'ten biten: form ve hover senkronu, ekran görüntüsü (tek/tüm, görünür/tam sayfa), özel boyut ve döndürme, viewport bazında senkron açma/kapama, isteğe bağlı arka plan medyası duraklatma (varsayılan kapalı; ölçülebilir kazanç yok).
+- Testler: 47 paket testi geçiyor (`swift test --package-path Packages/ViewportixKit`).
 - Arayüz hâlâ sistem görünümünde (yer tutucu). Arayüze giren her öğe `docs/tasarim-istekleri.md`'de.
 
 ## Sıradaki iş
 
-1. Viewport bazında senkronu açıp kapama.
-2. Öndeki dışındaki viewport'larda medyayı (video, animasyon) duraklatma.
-3. Tasarım gelince: özel pencere çerçevesi (PLAN.md §3.8), sonra bileşenler.
+1. Tasarım beklemeyen M3 işleri bitti; kalanlar tasarıma bağlı (sürükleme, gruplama, giriş ekranının tam hali) veya dağıtım (Developer ID).
+2. Tasarım gelince: özel pencere çerçevesi (PLAN.md §3.8), sonra bileşenler.
+3. Tasarımı beklerken yapılabilecekler: M4 Chromium spike'ı (S4 yerine S5 adı alacak: CDP screencast), elle testlerin yapılması.
 
 ## Açık sorular
 

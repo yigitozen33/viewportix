@@ -265,6 +265,38 @@ struct WebKitSessionTests {
         #expect(inkRatio(image, band: 0.90...0.99) > 0.01, "bottom of the document should be painted")
     }
 
+    // MARK: Media
+
+    private func mediaState(_ session: WebKitSession) async -> WKMediaPlaybackState {
+        await withCheckedContinuation { continuation in
+            session.webView.requestMediaPlaybackState { continuation.resume(returning: $0) }
+        }
+    }
+
+    private func waitForMedia(_ session: WebKitSession, _ expected: WKMediaPlaybackState) async throws -> WKMediaPlaybackState {
+        var state = await mediaState(session)
+        for _ in 0..<30 where state != expected {
+            try await Task.sleep(for: .milliseconds(100))
+            state = await mediaState(session)
+        }
+        return state
+    }
+
+    @Test func mediaPlaybackCanBeSuspendedAndResumed() async throws {
+        let session = try await loadedSession("media.html", size: Self.desktop)
+        let playing = try await waitForMedia(session, .playing)
+        try #require(playing == .playing, "fixture audio should autoplay (state \(playing.rawValue))")
+
+        session.setMediaPlaybackSuspended(true)
+        #expect(try await waitForMedia(session, .suspended) == .suspended)
+
+        _ = try await session.webView.evaluateJavaScript("document.getElementById('audio').play(); true")
+        #expect(try await waitForMedia(session, .suspended) == .suspended, "page play() must not override suspension")
+
+        session.setMediaPlaybackSuspended(false)
+        #expect(try await waitForMedia(session, .playing) == .playing)
+    }
+
     @Test func agentMessagesBecomeInteractionEvents() async throws {
         let session = WebKitSession(id: ViewportID(), size: Self.phone, mobileUserAgent: true, dataStore: .nonPersistent())
         var events: [EngineEvent] = []

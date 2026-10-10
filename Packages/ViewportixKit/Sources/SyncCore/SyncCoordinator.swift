@@ -31,12 +31,20 @@ public final class SyncCoordinator {
     /// The viewport the user is interacting with (pointer over it). Nil means nobody leads.
     public var leaderID: ViewportID? {
         didSet {
+            guard leaderID != oldValue else { return }
+            applyMediaPolicy()
             // The new leader now has the real pointer; drop hover it was emulating as a follower.
-            guard let leaderID, leaderID != oldValue, let leader = session(leaderID) else { return }
+            guard let leaderID, let leader = session(leaderID) else { return }
             enqueue(.hover(.null), for: leader)
         }
     }
     public var isEnabled = true
+    /// Viewports with sync turned off: their interactions are not mirrored and they mirror nothing.
+    public var excludedIDs: Set<ViewportID> = []
+    /// Suspend media everywhere except the leader. With no leader yet, everything plays.
+    public var suspendsFollowerMedia = false {
+        didSet { applyMediaPolicy() }
+    }
     /// Delay before mirroring a leader URL change, so a mirrored click can finish its own navigation first.
     public var navigationGrace: Duration = .milliseconds(400)
 
@@ -55,6 +63,7 @@ public final class SyncCoordinator {
         sessions.append(session)
         let id = session.id
         session.eventHandler = { [weak self] event in self?.handle(event, from: id) }
+        session.setMediaPlaybackSuspended(shouldSuspendMedia(id))
     }
 
     public func remove(_ id: ViewportID) {
@@ -75,11 +84,11 @@ public final class SyncCoordinator {
 
     func handle(_ event: EngineEvent, from id: ViewportID) {
         onEvent?(id, event)
-        guard isEnabled, id == leaderID else { return }
+        guard isEnabled, id == leaderID, !excludedIDs.contains(id) else { return }
         switch event {
         case .interaction(let sync):
             stats.mirrored += 1
-            for follower in sessions where follower.id != id {
+            for follower in followers(of: id) {
                 enqueue(sync, for: follower)
             }
         case .urlChanged(let url):
@@ -92,9 +101,23 @@ public final class SyncCoordinator {
     private func mirrorNavigation(to url: URL, from id: ViewportID) {
         Task {
             try? await Task.sleep(for: navigationGrace)
-            for follower in sessions where follower.id != id && follower.currentURL != url {
+            for follower in followers(of: id) where follower.currentURL != url {
                 enqueue(.navigate(url), for: follower)
             }
+        }
+    }
+
+    private func followers(of leader: ViewportID) -> [any EngineSession] {
+        sessions.filter { $0.id != leader && !excludedIDs.contains($0.id) }
+    }
+
+    private func shouldSuspendMedia(_ id: ViewportID) -> Bool {
+        suspendsFollowerMedia && leaderID != nil && id != leaderID
+    }
+
+    private func applyMediaPolicy() {
+        for session in sessions {
+            session.setMediaPlaybackSuspended(shouldSuspendMedia(session.id))
         }
     }
 

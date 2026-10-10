@@ -62,4 +62,7 @@ public protocol EngineSession: AnyObject {
     /// For diagnostics, profiling and (later) the MCP server.
     func evaluate(_ script: String) async throws -> JSONValue?
     func snapshot(_ area: SnapshotArea) async throws -> CGImage
+    /// Holds audio and video paused even if the page calls play(); saves CPU in viewports nobody is
+    /// looking at. Does not touch layout, CSS animations or scripts.
+    func setMediaPlaybackSuspended(_ suspended: Bool)
 }

@@ -25,6 +25,8 @@ final class FakeSession: EngineSession {
     func resize(to size: ViewportSize) {}
     func evaluate(_ script: String) async throws -> JSONValue? { nil }
     func snapshot(_ area: SnapshotArea) async throws -> CGImage { throw CancellationError() }
+    private(set) var mediaSuspended = false
+    func setMediaPlaybackSuspended(_ suspended: Bool) { mediaSuspended = suspended }
 
     func apply(_ event: SyncEvent) async -> ApplyResult {
         if holdApplies {
@@ -159,6 +161,48 @@ struct SyncCoordinatorTests {
         await settle()
         #expect(b.applied == [.hover(.null)])
         #expect(a.applied.isEmpty && c.applied.isEmpty)
+    }
+
+    @Test func excludedViewportsNeitherLeadNorFollow() async {
+        coordinator.excludedIDs = [c.id]
+        coordinator.leaderID = a.id
+        a.emit(.interaction(scroll(1)))
+        await settle()
+        #expect(b.applied == [scroll(1)])
+        #expect(c.applied.isEmpty)
+
+        coordinator.leaderID = c.id
+        c.emit(.interaction(scroll(2)))
+        await settle()
+        #expect(a.applied == [.hover(.null)] && b.applied == [scroll(1)])
+    }
+
+    @Test func excludedViewportsDoNotFollowNavigation() async throws {
+        let target = try #require(URL(string: "https://example.com/cart"))
+        coordinator.excludedIDs = [c.id]
+        coordinator.leaderID = a.id
+        a.emit(.urlChanged(target))
+        await settle()
+        #expect(b.applied == [.navigate(target)])
+        #expect(c.applied.isEmpty)
+    }
+
+    @Test func mediaPlaysOnlyInTheLeader() {
+        coordinator.suspendsFollowerMedia = true
+        #expect(![a, b, c].contains { $0.mediaSuspended }, "no leader yet: everything plays")
+
+        coordinator.leaderID = a.id
+        #expect(!a.mediaSuspended && b.mediaSuspended && c.mediaSuspended)
+
+        coordinator.leaderID = b.id
+        #expect(a.mediaSuspended && !b.mediaSuspended && c.mediaSuspended)
+
+        let late = FakeSession()
+        coordinator.add(late)
+        #expect(late.mediaSuspended, "a viewport added later follows the policy")
+
+        coordinator.suspendsFollowerMedia = false
+        #expect(![a, b, c, late].contains { $0.mediaSuspended })
     }
 
     @Test func removingTheLeaderClearsIt() {

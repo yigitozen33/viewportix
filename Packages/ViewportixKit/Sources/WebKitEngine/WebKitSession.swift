@@ -86,6 +86,10 @@ public final class WebKitSession: NSObject, EngineSession {
         }
     }
 
+    public func setMediaPlaybackSuspended(_ suspended: Bool) {
+        webView.setAllMediaPlaybackSuspended(suspended, completionHandler: nil)
+    }
+
     public func evaluate(_ script: String) async throws -> JSONValue? {
         let result = try await webView.evaluateJavaScript(script)
         return result.flatMap { JSONValue(any: $0) }
