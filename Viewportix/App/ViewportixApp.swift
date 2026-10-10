@@ -3,8 +3,52 @@ import SwiftUI
 @main
 struct ViewportixApp: App {
     var body: some Scene {
-        WindowGroup {
-            ContentView()
+        Window("Viewportix", id: HomeView.windowID) {
+            HomeView()
+        }
+        .windowResizability(.contentSize)
+        .defaultLaunchBehavior(.presented)
+
+        DocumentGroup(newDocument: ProjectDocument()) { file in
+            ProjectWindow(document: file.$document)
+        }
+        .defaultLaunchBehavior(.suppressed)
+        .defaultSize(width: 1440, height: 900)
+        .commands {
+            ViewportixCommands()
+        }
+    }
+}
+
+struct ViewportixCommands: Commands {
+    @FocusedValue(\.workspace) private var workspace
+    @Environment(\.openWindow) private var openWindow
+
+    var body: some Commands {
+        CommandGroup(after: .newItem) {
+            Button("Giriş Ekranı") { openWindow(id: HomeView.windowID) }
+                .keyboardShortcut("0", modifiers: [.command, .shift])
+        }
+
+        CommandGroup(after: .toolbar) {
+            Button("Yakınlaştır") { workspace?.canvas?.zoomIn() }
+                .keyboardShortcut("=")
+            Button("Uzaklaştır") { workspace?.canvas?.zoomOut() }
+                .keyboardShortcut("-")
+            Button("Gerçek Boyut") { workspace?.canvas?.actualSize() }
+                .keyboardShortcut("0")
+            Button("Sığdır") { workspace?.canvas?.fit() }
+                .keyboardShortcut("1")
+            Divider()
+        }
+
+        CommandMenu("Gezinme") {
+            Button("Geri") { workspace?.goBack() }
+                .keyboardShortcut("[")
+            Button("İleri") { workspace?.goForward() }
+                .keyboardShortcut("]")
+            Button("Yenile") { workspace?.reload() }
+                .keyboardShortcut("r")
         }
     }
 }

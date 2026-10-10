@@ -19,7 +19,33 @@ targets:
       - Viewportix
     dependencies:
       - package: ViewportixKit
+        product: EngineCore
+      - package: ViewportixKit
+        product: DeviceCatalog
+      - package: ViewportixKit
         product: ProjectModel
+      - package: ViewportixKit
+        product: SyncCore
+      - package: ViewportixKit
+        product: WebKitEngine
+    info:
+      path: Viewportix/Info.plist
+      properties:
+        CFBundleDocumentTypes:
+          - CFBundleTypeName: Viewportix Project
+            CFBundleTypeRole: Editor
+            LSHandlerRank: Owner
+            LSTypeIsPackage: true
+            LSItemContentTypes: [com.viewportix.project]
+        UTExportedTypeDeclarations:
+          - UTTypeIdentifier: com.viewportix.project
+            UTTypeDescription: Viewportix Project
+            UTTypeConformsTo: [com.apple.package, public.composite-content]
+            UTTypeTagSpecification:
+              public.filename-extension: [viewportix]
+        # Web pages may be plain http (local dev servers, staging); the app itself makes no other requests.
+        NSAppTransportSecurity:
+          NSAllowsArbitraryLoadsInWebContent: true
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.viewportix.Viewportix

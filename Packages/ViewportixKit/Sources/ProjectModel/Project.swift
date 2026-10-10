@@ -25,13 +25,14 @@ public struct Project: Codable, Hashable, Sendable {
         self.canvas = canvas
     }
 
-    /// A new project opened from the home screen URL box, using the default device set.
-    public static func new(url: URL) -> Project {
-        let page = Page(name: "Ana sayfa", url: url)
+    /// A new project with the default device set, starting at `url` when given (home screen URL box)
+    /// or empty (File > New).
+    public static func new(url: URL? = nil) -> Project {
+        let pages = url.map { [Page(name: "Ana sayfa", url: $0)] } ?? []
         let viewports = DeviceCatalog.defaultPresetIDs
             .compactMap(DeviceCatalog.preset(id:))
             .map { ViewportConfig(preset: $0) }
-        return Project(pages: [page], viewports: viewports)
+        return Project(pages: pages, viewports: viewports)
     }
 
     public var selectedPage: Page? {

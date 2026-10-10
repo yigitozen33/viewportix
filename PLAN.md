@@ -67,24 +67,25 @@ struct EngineCapabilities {
     var canEmulateTouch: Bool
 }
 
+@MainActor
 protocol EngineSession: AnyObject {
     var id: ViewportID { get }
     var kind: EngineKind { get }
-    var capabilities: EngineCapabilities { get }
-    var events: AsyncStream<EngineEvent> { get }   // sayfadan gelen olaylar
+    var engineVersion: String { get }              // "WebKit · Safari 26.1"
+    var currentURL: URL? { get }
+    var view: NSView { get }                       // canvas'a yerleşen canlı görünüm
+    var eventHandler: ((EngineEvent) -> Void)? { get set }  // etkileşim, URL, başlık, yükleme
 
-    func load(_ url: URL) async throws
-    func reload() async
-    func goBack() async
-    func goForward() async
-    func resize(to viewport: ViewportSize) async
-    func apply(_ event: SyncEvent) async           // başka viewport'tan gelen olayı uygula
-    func evaluate(_ script: String) async throws -> JSONValue
-    func screenshot() async throws -> CGImage
+    func load(_ url: URL)
+    func reload()
+    func goBack()
+    func goForward()
+    func resize(to size: ViewportSize)
+    func apply(_ event: SyncEvent) async -> ApplyResult    // .applied(yöntem) / .missed / .failed
 }
 ```
 
-Görüntüleme motorla birlikte değişir: WebKit bir `NSView` verir, Chromium ve Firefox bir görüntü akışı (frame) verir. Canvas bunu `ViewportSurface` adlı küçük bir enum ile karşılar (`.view(NSView)` / `.frames(AsyncStream<CGImage>)`).
+M2'de uygulanan hali (`EngineCore/EngineSession.swift`). Ajan yükleri (`scroll` çapası, `click` hedefi) Swift tarafında opak `JSONValue`'dur; yalnızca ajan yorumlar. Görüntüleme motorla birlikte değişir: WebKit bir `NSView` verir, Chromium ve Firefox bir görüntü akışı (frame) verecek; o zaman `view` bir `ViewportSurface` enum'una (`.view(NSView)` / `.frames(...)`) dönüşecek. `screenshot` ve `capabilities` ihtiyaç doğunca (M3 screenshot, M4 Chromium) eklenecek.
 
 Bu arayüz ileride MCP araçlarına birebir karşılık gelir: `navigate`, `click`, `scroll`, `read_dom`, `screenshot`, `list_viewports`, `get_engine_diff`.
 
@@ -258,6 +259,8 @@ App Store dışında dağıttığımız için private API ile DPR gibi değerler
 - [ ] Sonuçları bu dosyaya işle, gerekiyorsa kararları güncelle
 
 ### M2 — MVP (yalnızca WebKit)
+
+**Durum (2026-10-10):** Motor katmanı, senkron koordinatörü, ajan (scroll + tıklama), proje dosyası, giriş ekranı, sayfa listesi, toolbar ve canvas uygulamada çalışıyor; 23 paket testi geçiyor (8 tanesi gerçek WKWebView ile). Arayüz etkileşimleri (hover ile lider seçimi, gerçek trackpad) elle test bekliyor; S1 kontrol listesiyle birlikte yapılacak.
 
 **Kapsam**
 
