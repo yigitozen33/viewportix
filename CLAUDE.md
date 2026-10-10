@@ -39,6 +39,7 @@ Ekranlar, akışlar ve tasarım kararları: [DESIGN.md](DESIGN.md)
 - Mimari ve yol haritası kararları PLAN.md'ye, ekran ve akış kararları DESIGN.md'ye; bu dosya yalnızca özet
 - Kararlar netleştikçe bu dosyaları güncelle
 - Paralel oturumlar: tasarım oturumu yalnızca `DESIGN.md` ve `design/` altını değiştirir ve yalnızca onları commit'ler; kod oturumu bu ikisine dokunmaz. Tasarım kararları koda `DESIGN.md` üzerinden geçer
+- Kod oturumu: arayüze dokunan her değişikliği (düğme, menü, panel, bildirim, durum, metin, boş/hata hali) aynı commit'te `docs/tasarim-istekleri.md`'ye ekler (biçim dosyanın başında; yalnızca eklenir; kullanıcıya sormadan). Oturum sonunda `docs/oturumlar/YYYY-MM-DD.md`'ye kararları, denenen/reddedilenleri, kanıtı ve o gün eklenen tasarım isteklerini yazar
 
 ## Geliştirme
 
