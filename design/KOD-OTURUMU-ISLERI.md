@@ -78,3 +78,5 @@ DESIGN.md §3.2 sonundaki **etkileşim tablosu** tetikleyici → etki → hareke
 - [ ] `design/tokens/DesignTokens.swift` dosyasını `Packages/ViewportixKit` içine (ör. `Sources/DesignSystem/`) kopyala; tasarım oturumu güncelledikçe yeniden kopyala, elle düzenleme.
 - [ ] SwiftUI görünüm adları DESIGN.md §6 tablosundaki adlarla birebir (`ViewportCard`, `DeviceTab`, `ZoomControl`…); durumlar enum.
 - [ ] Motor glifleri `viewportix.tokens.json` › `glyph` içinde SVG path; `Shape` olarak çiz.
+
+- [ ] Ayrı ayarlar penceresi yok (önceki not geçersiz): ayarlar yalnızca sağ raydan açılan kayan panel; yalnız giriş ekranı açıksa ⌘, aynı paneli giriş ekranının sağında açar. DESIGN.md §3.3.

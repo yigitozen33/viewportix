@@ -25,7 +25,7 @@
 - URL son 5 menüsü, sidebar durumları, ekran görüntüsü menüsü çizildi; §5 9–11 kapandı. Motor glifleri ve ikon eskizleri alt ajanlarda (frame'ler `Engine Glyphs` x=-3200,y=0 ve `App Icon Concepts` x=-3200,y=1200).
 - Uygulama ikonu kararı: B6 Vx monogram (DESIGN.md §4).
 - Tasarım sistemi kuruldu: `Design System · Tokens` panosu + `design/tokens/` (JSON, Swift taslağı, README). Ekranlar 6 bölümde gruplandı (DESIGN.md §6). Ana `Project Window`'a kalıcı ray eklendi; `Project Window · Ayarlar paneli` (ray + kayan panel) çizildi.
-- **Eksik:** Ayarlar ayrı pencere frame'leri (`Settings · Genel/Cihazlar/MCP/Hesap`) dosyada yok — silinmiş (ne zaman/nasıl bilinmiyor); dışa aktarımlar `window-settings-*.png` duruyor. Yeniden çizilecek.
+- Ayarlar ayrı penceresi kaldırıldı (kullanıcı sildi, karar: yalnızca sağ panel); ayarlar panelinden ⧉ kaldırıldı. Giriş ekranında ayarlar paneli: önerilen A (aynı panel sağdan kayar), onay bekliyor.
 - Dosya düzeni: asıl tasarımlar x ≥ 0; keşifler "Archive ·" önekiyle solda (x < −400), açık tema "Future ·" önekiyle arşivin altında. Kart `selected` kararı: S3 çift halka (`Viewport States` içinde `selected` ve `selected + leader` sütunları).
 - Bilinen eksikler: `viewportix.lib.pen` kütüphane dönüşümü yapılmadı (pen.dev'de elle "Turn into library"); Adım 6 teslim paketi (HTML/CSS ölçü dışa aktarımı, Swift token dosyası) üretilmedi; Icon Composer dosyası yok.
 
