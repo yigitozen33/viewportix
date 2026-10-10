@@ -103,13 +103,14 @@ Alt veya sağ panel. Motor diff listesi ("Buton Safari'de 12px aşağıda"), tı
 | Obsidian vault = repo kökü; hafıza için oturum başına `HANDOFF.md` + tarihli günlük (`design/notlar/`) | 2026-10-10 |
 | Arayüz tamamen bizim (A): toolbar, sidebar dahil; pencere standart (şeffaf başlık çubuğu), sistem davranışları (kısayol, klavye, VoiceOver, tam ekran) korunur; Apple metrikleri token olarak uyarlanır; her macOS sürümünde aynı görünüm; kendi yüzeylerimizde Liquid Glass yok | 2026-10-10 |
 | Koyu canvas; renk paleti: vurgu sarı `#FFF36B`, lider gök `#8EC9E6`, uyarı yumuşak mercan `#FF8F85`; zemin sıcak siyah `#161412`. Sarı yalnızca eylem ve onay için (üstündeki yazı koyu `#141210`). Lider ve uyarı yalnızca renkle değil şekille de ayrışır (çerçeve + parlak başlık / üçgen ikon). Açık tema ayrıca çizilecek | 2026-10-10 |
+| Viewport kartı: çerçevesiz (cihaz çerçevesi yok); kompakt tek satır başlık: ad, boyut, sağda motor ve kamera düğmesi (kamera başlıkta hep görünür, varsayım); hover'da kapat / döndür / senkrondan çıkar eylemleri kartın üstünde yüzen küçük bir şeritte (başlık değişmez, motor ve boyut her an görünür) | 2026-10-10 |
 
 ## 5. Bekleyen tasarım kararları
 
 Öncelik sırasıyla, kullanıcıdan:
 
 1. Proje penceresi düzeni: sidebar varsayılan açık mı, inspector var mı
-2. Viewport kartı: başlık içeriği, cihaz çerçevesi olacak mı
+2. ~~Viewport kartı: başlık içeriği, cihaz çerçevesi~~ — verildi (bkz. §4). Kalan: kamera düğmesinin yeri onayı, selected rengi
 3. ~~Genel görsel dil~~ — verildi (koyu canvas ve palet, bkz. §4). Kalan: açık tema paleti, yüzey ve ink tonları
 4. Giriş ekranının görsel tasarımı
 5. Cihaz seçici ve viewport ekleme akışı
