@@ -105,12 +105,13 @@ Alt veya sağ panel. Motor diff listesi ("Buton Safari'de 12px aşağıda"), tı
 | Koyu canvas; renk paleti: vurgu sarı `#FFF36B`, lider gök `#8EC9E6`, uyarı yumuşak mercan `#FF8F85`; zemin sıcak siyah `#161412`. Sarı yalnızca eylem ve onay için (üstündeki yazı koyu `#141210`). Lider ve uyarı yalnızca renkle değil şekille de ayrışır (çerçeve + parlak başlık / üçgen ikon). Açık tema ayrıca çizilecek | 2026-10-10 |
 | Viewport kartı: çerçevesiz (cihaz çerçevesi yok); kompakt tek satır başlık: ad, boyut, sağda motor ve kamera düğmesi (kamera başlıkta hep görünür, varsayım); hover'da kapat / döndür / senkrondan çıkar eylemleri kartın üstünde yüzen küçük bir şeritte (başlık değişmez, motor ve boyut her an görünür) | 2026-10-10 |
 | Kart durumu `loading`: başlık altında 3 px açık krem ilerleme çizgisi + kamera yerine dönen yükleme ikonu (iskelet veya ortada kutu yok) | 2026-10-10 |
+| Proje penceresi: sidebar varsayılan açık (220 pt); inspector şimdilik yok (gelince seçeneklere bakılır); toolbar iki satır: üstte geri/ileri/yenile + URL + senkron, altta cihaz sekmeleri + "+ Cihaz" + Sığdır/zoom + ekran görüntüsü menüsü | 2026-10-10 |
 
 ## 5. Bekleyen tasarım kararları
 
 Öncelik sırasıyla, kullanıcıdan:
 
-1. Proje penceresi düzeni: sidebar varsayılan açık mı, inspector var mı
+1. ~~Proje penceresi düzeni~~ — verildi (bkz. §4). Kalan: inspector (sonra)
 2. ~~Viewport kartı: başlık içeriği, cihaz çerçevesi~~ — verildi (bkz. §4). Kalan: kamera düğmesinin yeri onayı, selected rengi
 3. ~~Genel görsel dil~~ — verildi (koyu canvas ve palet, bkz. §4). Kalan: açık tema paleti, yüzey ve ink tonları
 4. Giriş ekranının görsel tasarımı
