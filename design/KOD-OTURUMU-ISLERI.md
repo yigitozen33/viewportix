@@ -88,3 +88,5 @@ DESIGN.md §3.2 sonundaki **etkileşim tablosu** tetikleyici → etki → hareke
 - [ ] Döndür ve kaldır kart başlığında değil hover şeridinde; başlıkta yalnız motor glifi ve kamera.
 - [ ] Kart sağ tık menüsü, Boyutu düzenle popover'ı (sheet değil), senkron kapalı durumu (gri ‖, şeritte zincir), canvas ve sayfa listesi boş durumları, sayfa sağ tık menüsü, kapsül halleri: DESIGN.md §3.2.
 - [ ] "Arka plandaki viewport'larda medyayı duraklat": Görünüm menüsünde kalır, ayrıca Ayarlar › Proje'de toggle.
+
+- [ ] Ekran görüntüsü akışı değişti (DESIGN.md §3.2): alt çubuk kamerası ve kart kamerası tıklanınca önce seçici (Görünen alan / Tam sayfa) açar; kart başlığı sağ tık menüsünden "Ekran Görüntüsü" ve "Tam Sayfa Ekran Görüntüsü" çıkar. ⌥⌘S / ⌃⌥⌘S kısayolları seçiciyi atlar.
