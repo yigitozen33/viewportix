@@ -220,15 +220,15 @@ Mantığın ayrı pakette durmasının sebebi: Xcode açmadan `swift test` ile t
 
 ### 5.1 Spike'lar
 
-Spike, bir riski en kısa yoldan cevaplayan atılabilir denemedir. Kod `Spikes/` altında kalır, ürüne taşınmaz.
+Spike, bir riski en kısa yoldan cevaplayan atılabilir denemedir. (2026-10-10: S4 numarası hover denemesine verildiği için Chromium ve Firefox spike'ları S5 ve S6 oldu.) Kod `Spikes/` altında kalır, ürüne taşınmaz.
 
 | # | Soru | Başarı ölçütü | Olmazsa |
 |---|---|---|---|
 | S1 | Ölçeklenmiş canvas'ta canlı WKWebView'lar hareket kurallarına uyuyor mu? | Kaydırma doğru hedefe gidiyor, pinch her zaman canvas'ı zoom'luyor, tıklama koordinatları her zoom'da doğru, 5 viewport'ta akıcı | Snapshot'lı zoom, o da olmazsa ızgara |
 | S2 | SwiftUI `WebView`/`WebPage` senkron için yeterli mi? | User script, mesaj köprüsü, navigasyon olayları ve paylaşılan veri deposu destekleniyor | `WKWebView` + AppKit (beklenen sonuç) |
 | S3 | Çapa tabanlı scroll gerçek sitelerde tutuyor mu? | 5 farklı sitede 3 genişlik arasında aynı içerik görünür kalıyor | Çapa seçim kurallarını iyileştir, yüzdeye düş |
-| S4 | CDP screencast canlı hissettiriyor mu? (Chromium aşaması) | Kabul edilebilir FPS ve giriş gecikmesi, retina netliği | CEF gömme veya Chromium'u da snapshot moduna alma |
-| S5 | BiDi ile snapshot yenileme ne kadar hızlı? (Firefox aşaması) | Scroll sonrası fark edilir beklemeden güncelleme | Yalnızca istek üzerine snapshot |
+| S5 | CDP screencast canlı hissettiriyor mu? (Chromium aşaması) | Kabul edilebilir FPS ve giriş gecikmesi, retina netliği | CEF gömme veya Chromium'u da snapshot moduna alma |
+| S6 | BiDi ile snapshot yenileme ne kadar hızlı? (Firefox aşaması) | Scroll sonrası fark edilir beklemeden güncelleme | Yalnızca istek üzerine snapshot |
 
 ### 5.2 Chromium (CDP)
 
@@ -241,7 +241,7 @@ Spike, bir riski en kısa yoldan cevaplayan atılabilir denemedir. Kod `Spikes/`
 
 - Kurulu Firefox `--remote-debugging-port` ile başlatılır, BiDi WebSocket'ine bağlanılır.
 - BiDi'de sürekli görüntü akışı yoktur; `browsingContext.captureScreenshot` ile tek tek görüntü alınır. Bu yüzden viewport bir fotoğraf gösterir, senkron olayları arka planda uygulanır ve fotoğraf yenilenir. Viewport'un içine doğrudan tıklanamaz.
-- Canlıya yakın deneyim (sık aralıklı snapshot) S5 ile ölçülür.
+- Canlıya yakın deneyim (sık aralıklı snapshot) S6 ile ölçülür.
 
 ### 5.4 Cihaz emülasyonunun sınırları
 
@@ -258,7 +258,7 @@ App Store dışında dağıttığımız için private API ile DPR gibi değerler
 | Canvas hareketleri WebKit'te temiz çalışmaz | Yerleşim kararı değişir | S1 ilk iş; yedek plan hazır |
 | Çok sayıda WKWebView bellek ve CPU tüketir | Yavaşlama | Görünmeyen viewport'ları duraklat, üst sınır koy |
 | Selector'ler dinamik sitelerde tutmaz | Tıklama senkronu kaçar | Kademeli selector stratejisi, "senkron kaçtı" göstergesi |
-| CDP screencast yeterince akıcı olmaz | Chromium canlı olamaz | S4; CEF veya snapshot modu |
+| CDP screencast yeterince akıcı olmaz | Chromium canlı olamaz | S5; CEF veya snapshot modu |
 | Motorlar arası oturum paylaşılamaz | Girişli sayfalar her motorda ayrı giriş ister | Açık soru; çerez aktarımı araştırılacak |
 | Private API'ler macOS güncellemesinde kırılır | Emülasyon özellikleri bozulur | Private API kullanımını tek dosyada topla, yokluğunda zarifçe devre dışı kal |
 
@@ -334,7 +334,7 @@ Cihaz çerçeveleri, screenshot, form girişi senkronu, gruplama, elle sürükle
 
 ### M4 — Chromium
 
-- [ ] S4 spike
+- [ ] S5 spike (CDP screencast)
 - [ ] `ChromiumEngine`: Chrome bulma, başlatma, CDP bağlantısı, screencast, giriş iletimi
 - [ ] sync-agent'ın CDP köprüsü
 - [ ] Viewport eklerken motor seçimi
@@ -347,7 +347,7 @@ Cihaz çerçeveleri, screenshot, form girişi senkronu, gruplama, elle sürükle
 
 ### M6 — Firefox
 
-- [ ] S5 spike
+- [ ] S6 spike
 - [ ] `FirefoxEngine`: snapshot modu
 - [ ] Diff'e Firefox'u dahil etme
 

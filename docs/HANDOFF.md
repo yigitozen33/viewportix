@@ -14,7 +14,7 @@
 
 1. Tasarım beklemeyen M3 işleri bitti; kalanlar tasarıma bağlı (sürükleme, gruplama, giriş ekranının tam hali) veya dağıtım (Developer ID).
 2. Tasarım gelince: özel pencere çerçevesi (PLAN.md §3.8), sonra bileşenler.
-3. Tasarımı beklerken yapılabilecekler: M4 Chromium spike'ı (S4 yerine S5 adı alacak: CDP screencast), elle testlerin yapılması.
+3. Tasarımı beklerken yapılabilecekler: M4 Chromium spike.ı (S5: CDP screencast), elle testlerin yapılması.
 
 ## Açık sorular
 
