@@ -16,6 +16,8 @@
 - Ek durumlar: `Project Window · 8 cihaz · menü açık` (+N menüsü), `· Zoom menüsü açık` (Sığdır ⌘1, Seçimi sığdır ⌘2, 50/100/200, Gerçek boyut ⌘0, Yakınlaştır/Uzaklaştır), `· İkon çubuklar + tooltip` (alt çubuk ikon-only, Sığdır üstünde tooltip). Karar: alt çubuk ikon-only; tooltip koyu; menü satırında seç/odakla/kapat. Davranışlar DESIGN.md §3.2 etkileşim tablosunda.
 - Motor rozeti → ikon + tooltip (`Engine Tooltip` frame, `card-engine-tooltip@2x.png`). Motor ikonları şimdilik Lucide yer tutucu (compass); üç özel glif tasarlanacak.
 - `Toolbar/ZoomControl` (Z2) kuruldu ve tüm pencere frame'lerine uygulandı.
+- Tasarım sistemi token'ları tamamlandı (DESIGN.md §6); 7 bileşen token'lara bağlandı. Bulgu: pen.dev `width/height`'ta sayı değişkenini çözmüyor (0'a düşüyor), boyutlar sayı yazılıyor.
+- Giriş ekranı ilk hali çizildi (`Home Window`, 1040×700, `window-home-dark@2x.png`); yeni bileşenler `Home/ProjectCard`, `Home/TemplateChip`, `Home/URLBox`. Varyantlar (liste, boş durum, bağlam menüsü) ve başlık metni kararı bekliyor.
 - Bilinen eksikler: sidebar hover/rename durumları; gizli-lider çip rengi yalnızca açıklamada; açık tema.
 
 ## Sıradaki iş

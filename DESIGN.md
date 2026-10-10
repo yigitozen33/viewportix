@@ -156,7 +156,14 @@ Alt veya sağ panel. Motor diff listesi ("Buton Safari'de 12px aşağıda"), tı
 10. Toolbar'daki ekran görüntüsü menüsü. Kodda var, şimdilik sistem görünümünde
 11. Pencerenin altındaki bildirim kapsülü: "Kaydedildi ve kopyalandı · Finder'da Göster". Kodda var, şimdilik sistem görünümünde
 
-## 6. Referanslar
+## 6. Tasarım sistemi (`design/viewportix.pen`)
+
+**Renk** (koyu; açık tema bekliyor): `canvas`, `surface/bar`, `surface/card`, `surface/header`, `surface/header-leader`, `surface/pill`, `surface/tooltip`, `line`, `ink/primary`, `ink/secondary`, `accent`, `accent/ink`, `status/leader`, `status/warning`, `status/warning-bg`.
+**Köşe:** `radius/window` 16, `radius/bar` 14, `radius/card` 12, `radius/control` 8, `radius/badge` 6. **Aralık:** `space/1..8` = 4, 8, 12, 16, 24, 32. **Yazı:** `font/ui` (şimdilik Inter; hedef SF Pro), `font/title` 15, `font/body` 13, `font/label` 12, `font/caption` 11, `font/micro` 10. **Çizgi:** `stroke/hairline` 1, `stroke/focus` 2. **Boyut (yalnızca referans; pen.dev width/height'ta değişken çözmüyor, değerler sayı yazılır):** `size/sidebar` 220, `size/bar-height` 48, `size/card-header` 36, `size/icon` 16, `size/icon-sm` 14.
+
+**Bileşenler:** `Viewport/Card` (6 durum), `Viewport/HoverStrip`, `Window/Toast`, `Sidebar/Row`, `Toolbar/Button`, `Toolbar/DeviceTab` (durum ikonlu), `Toolbar/ZoomControl`, `Home/ProjectCard`, `Home/TemplateChip`, `Home/URLBox`. Yeni ekranlar yalnızca bu token ve bileşenlerle kurulur; eksik bir parça gerekirse önce bileşen olarak eklenir.
+
+## 7. Referanslar
 
 - **Rakipler:** Polypane, Responsively, Safari Responsive Design Mode
 - **Giriş ekranı:** pen.dev, Xcode Welcome penceresi, Sketch belge seçici
