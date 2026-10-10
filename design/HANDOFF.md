@@ -7,6 +7,7 @@
 
 - pen.dev MCP bağlantısı çalışıyor. Açık dosya şimdilik `~/Desktop/viewportix.pen` (boş, 800×600 tek frame). `design/` altına taşınmadı.
 - Karar: Figma / Apple kit aktarımı **yok**. `viewportix.lib.pen` pen.dev'de elle kurulacak (DESIGN.md §4, 2026-10-10).
+- Karar (2026-10-10): melez yaklaşım. Çerçeve native, içerik yüzeyleri bizim; sistem parçaları yer tutucu, bizim parçalar (kart, kapsül, canvas, giriş kartları) tam çizilir. Apple ölçüleri yalnızca renk ve yazı tipi için gerekli.
 - Henüz değişken, bileşen veya ekran yok.
 
 ## Sıradaki iş
