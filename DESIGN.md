@@ -111,8 +111,8 @@ Kullanıcının kaydettiği birim. Bir markanın (mağazanın) tüm kurulumunu t
 - **Viewport kartı:** kompakt tek satır başlık: cihaz adı, boyut, sağda motor ikonu ve kamera düğmesi. Motor yalnızca ikon; hover'da tooltip "WebKit 26 · macOS 26". Sığmazsa gizlenme sırası: önce boyut, sonra ad ortadan kısaltılır; motor ikonu ve kamera asla gizlenmez. Sekmeler motor göstermez; aynı cihaz iki motorda açılırsa sekme adı "iPad · Chromium" olur. Hover'da kapat / döndür / senkrondan çıkar kartın üstünde yüzen şeritte. Durumlar §4'te.
 - **Lider göstergesi:** imlecin üstünde olduğu viewport gök çerçeve ve parlak başlıkla vurgulanır; sekmesi de aynı renkte.
 - **"Senkron kaçtı" göstergesi:** başlıkta mercan üçgen, kartın altında "Element bu viewport'ta bulunamadı" notu; sekmede de üçgen.
-- Inspector şimdilik yok; gelince seçeneklere bakılır. Geliştirici paneli §3.3.
-- **Cihaz seçici (`Device/Picker`, "+ Cihaz" altına açılan popover, 660):** canvas görünür kalır. Üstte arama ("Cihaz ara ya da 1024×768 yaz": boyut yazınca doğrudan eklenir) ve motor seçici (WebKit; Chromium ve Firefox soluk "yakında"). Altında "SON" satırı: son kullanılan üç cihaz çip olarak. Gövde üç sütun: TELEFON / TABLET / MASAÜSTÜ, başlıkta cihaz sayısı; her sütun kendi sabit yükseklikli penceresinde (≈6 satır) bağımsız kayar, altta solma ve ince kaydırma çubuğu; liste uzamaz. Satır: ikon, ad, boyut, "+" (canvas'ta varsa gök tik). Altta "Özel boyut" W/H + sarı "Ekle"; sağda "Cihazları yönet… ↗" (M3, ayrı pencere). Frame: `Project Window · Cihaz seçici`. Reddedilen: tam ekran sheet (canvas kararır, küçük iş için ağır), tek sütun popover (uzun liste).
+- Inspector şimdilik yok; gelince seçeneklere bakılır. Geliştirici paneli §3.4.
+- **Cihaz seçici (`Device/Picker`, "+ Cihaz" altına açılan popover, 660):** canvas görünür kalır. Üstte arama ("Cihaz ara ya da 1024×768 yaz": boyut yazınca doğrudan eklenir) ve motor seçici (WebKit; Chromium ve Firefox soluk "yakında"). Altında "SON" satırı: son kullanılan üç cihaz çip olarak. Gövde üç sütun: TELEFON / TABLET / MASAÜSTÜ, başlıkta cihaz sayısı; her sütun kendi sabit yükseklikli penceresinde (≈6 satır) bağımsız kayar, altta solma ve ince kaydırma çubuğu; liste uzamaz. Satır: ikon, ad, boyut, "+" (canvas'ta varsa gök tik). Altta "Özel boyut" W/H + sarı "Ekle"; sağda "Cihazları yönet… ↗" (Ayarlar › Cihazlar, §3.3). Frame: `Project Window · Cihaz seçici`. Reddedilen: tam ekran sheet (canvas kararır, küçük iş için ağır), tek sütun popover (uzun liste).
 
 **Etkileşim tablosu (kod için sözleşme):**
 
@@ -141,7 +141,31 @@ Kullanıcının kaydettiği birim. Bir markanın (mağazanın) tüm kurulumunu t
 Kapat, döndür, senkrondan çıkar ve ekran görüntüsü eylemleri menü çubuğunda da bulunur (hover'a gizlenenler klavye ve menüden ulaşılabilir kalır).
 
 
-### 3.3 Geliştirici paneli (M5+)
+### 3.3 Ayarlar penceresi
+
+880×680, ayrı pencere (⌘,). Sol sekme listesi (`Sidebar/Row`), sağ içerik; her satır `Settings` satırı: başlık, isteğe bağlı açıklama, sağda kontrol (toggle, segment, select, alan). Sarı yalnızca toggle "açık" durumunda ve tek birincil düğmede.
+
+- **Genel:** Görünüm (Tema: Sistem / Koyu / Açık; Dil), Proje (Varsayılan şablon; Senkron açık başlasın; Taslakları sakla), Ekran görüntüsü (Klasör + Seç…; Panoya da kopyala; Ölçek 1× / 2×).
+- **Cihazlar:** cihaz yönetimi buradadır; cihaz seçicideki "Cihazları yönet…" bu sekmeyi açar. Üstte arama, "İçe aktar…", sarı "+ Cihaz". Tablo: Ad (ikon + ad; özel cihazda "özel" rozeti), Tür, Boyut, Ölçek, Seçicide (toggle: kapalıysa listede kalır ama "+ Cihaz" menüsünde görünmez), ⋯ (düzenle / çoğalt / sil). Özel cihazlar uygulamayla saklanır, projeyle değil.
+- **MCP** (M7; tasarım hazır): durum kartı (nokta: gök çalışıyor / gri durdu; "stdio · 2 istemci bağlı · 14 araç"; Durdur/Başlat), Bağlantı (Taşıma stdio / HTTP; Komut alanı + Kopyala), İzinler (Ekran görüntüsü alma, Gezinme ve tıklama, DOM diff okuma, Proje dosyası yazma — sonuncusu varsayılan kapalı), Bağlı istemciler (ad, son istek, Bağlantıyı kes).
+- **Hesap:** avatar + ad + e-posta + Çıkış yap; Takım (ad, üye sayısı, Üyeler); Lisans ("Şirket içi sürüm", "Dahili" rozeti; iş modeli sonra); Güncelleme (sürüm, otomatik güncelleme, Denetle).
+- Frame'ler: `Settings · Genel / Cihazlar / MCP / Hesap`; dışa aktarımlar `design/exports/window-settings-*.png`.
+
+**Etkileşim tablosu:**
+
+| Tetikleyici | Etki | Hareket |
+|---|---|---|
+| ⌘, veya menü | Ayarlar penceresi açılır, son sekme hatırlanır | 200 ms |
+| Sekmeye tık | İçerik değişir, başlık güncellenir | 150 ms crossfade |
+| Toggle | Anında uygulanır, kaydet düğmesi yok | 150 ms |
+| Tema segmenti | Tüm pencereler anında tema değiştirir | 200 ms crossfade |
+| Cihazlar › + Cihaz | Satır sonuna boş düzenlenebilir satır eklenir (ad, tür, W×H, ölçek) | 150 ms |
+| Cihazlar › Seçicide toggle | Cihaz seçicide gizlenir/görünür; açık projelerdeki kartlar etkilenmez | Anlık |
+| Cihazlar › ⋯ › Sil | Özel cihaz silinir (yerleşikler silinemez, yalnızca gizlenir); açık kartlar kalır | Satır 150 ms daralır |
+| MCP › Durdur / Başlat | Sunucu durur/başlar; nokta ve metin güncellenir | 150 ms |
+| MCP › Bağlantıyı kes | İstemci düşer | Satır 150 ms daralır |
+
+### 3.4 Geliştirici paneli (M5+)
 
 Alt veya sağ panel. Motor diff listesi ("Buton Safari'de 12px aşağıda"), tıklayınca ilgili elementi overlay ile vurgular. Senkron olay kaydı.
 
@@ -169,6 +193,7 @@ Alt veya sağ panel. Motor diff listesi ("Buton Safari'de 12px aşağıda"), tı
 | Giriş ekranı: başlık metni yok; şablon çipleri URL kutusunun altında kalır, sidebar'daki ŞABLONLAR bölümü M3'e ertelendi (MVP sidebar: Son, Taslaklar); kart küçük resmi canvas'ın son hali + ad yanında favicon; liste/boş durum/bağlam menüsü çizildiği gibi | 2026-10-10 |
 | "Kaldır" iki aşamalı alt menü (Listeden kaldır / Çöp Sepeti'ne taşı); "+ Yeni" gri kalır (tek vurgu) | 2026-10-10 |
 | Cihaz seçici: "+ Cihaz" altında 660 px popover, üç sütun (grup başına bağımsız kaydırma, sayı), SON çipleri, aramada boyut yazma, Özel boyut, "Cihazları yönet…" M3; sheet ve tek sütun reddedildi | 2026-10-10 |
+| Ayarlar penceresi (880×680): sol sekmeler Genel / Cihazlar / MCP / Hesap; cihaz yönetimi Ayarlar › Cihazlar'da; MCP sekmesi M7 için hazır; Hesap sekmesinde lisans "Dahili" | 2026-10-10 |
 
 ## 5. Bekleyen tasarım kararları
 

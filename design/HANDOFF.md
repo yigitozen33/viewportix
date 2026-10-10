@@ -19,6 +19,7 @@
 - Tasarım sistemi token'ları tamamlandı (DESIGN.md §6); 7 bileşen token'lara bağlandı. Bulgu: pen.dev `width/height`'ta sayı değişkenini çözmüyor (0'a düşüyor), boyutlar sayı yazılıyor.
 - Giriş ekranı kesinleşti: `Home Window` + Liste + Boş durum + Bağlam menüsü; DESIGN.md §3.1 (etkileşim tablosuyla). Bileşenler `Home/ProjectCard`, `Home/TemplateChip`, `Home/URLBox`.
 - Cihaz seçici kesinleşti (`Device/Picker`, `window-project-device-picker@2x.png`); Kaldır alt menüsü (`window-home-remove-submenu@2x.png`).
+- Ayarlar penceresi çizildi (4 sekme, DESIGN.md §3.3 + etkileşim tablosu; `window-settings-*.png`). Cihaz yönetimi artık Ayarlar › Cihazlar.
 - Bilinen eksikler: sidebar hover/rename durumları; gizli-lider çip rengi yalnızca açıklamada; açık tema.
 
 ## Sıradaki iş
