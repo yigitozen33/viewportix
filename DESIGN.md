@@ -229,11 +229,11 @@ Sağ raydan açılır, canvas'ı iter (300 px). Tasarım ilkesi: **sakin ama tek
 Öncelik sırasıyla, kullanıcıdan:
 
 1. ~~Proje penceresi düzeni~~ — verildi (bkz. §4). Kalan: inspector (sonra)
-2. ~~Viewport kartı: başlık içeriği, cihaz çerçevesi~~ — verildi (bkz. §4). Kalan: kamera düğmesinin yeri onayı, selected rengi
+2. ~~Viewport kartı: başlık içeriği, cihaz çerçevesi~~ — verildi (bkz. §4). Kalan: `selected` durumunun görünümü (şimdilik 2 px krem çerçeve, tutamaç yok; varsayım)
 3. ~~Genel görsel dil~~ — verildi (koyu canvas ve palet, bkz. §4). Açık tema ileriye bırakıldı (§4)
 4. ~~Giriş ekranının görsel tasarımı~~ — verildi (bkz. §3.1, §4)
 5. ~~Cihaz seçici ve viewport ekleme akışı~~ — verildi (bkz. §3.2)
-6. Lider ve "senkron kaçtı" göstergeleri
+6. ~~Lider ve "senkron kaçtı" göstergeleri~~ — verildi (`Viewport/Card` durumları ve sekme durumları, §3.2, §4)
 7. ~~Geliştirici panelinin yeri~~ — verildi (sağ ray, §3.3–3.4)
 8. ~~Uygulama ikonu~~ — verildi: B6 Vx monogram (bkz. §4); üretim Icon Composer'da
 9. ~~Kart başlığındaki kamera düğmesi~~ — verildi (§3.2 kart başlığı)

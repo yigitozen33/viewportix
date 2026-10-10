@@ -24,7 +24,7 @@
 - Açık tema: token'lar ve iki referans frame hazır, MVP dışı (kullanıcı kararı).
 - URL son 5 menüsü, sidebar durumları, ekran görüntüsü menüsü çizildi; §5 9–11 kapandı. Motor glifleri ve ikon eskizleri alt ajanlarda (frame'ler `Engine Glyphs` x=-3200,y=0 ve `App Icon Concepts` x=-3200,y=1200).
 - Uygulama ikonu kararı: B6 Vx monogram (DESIGN.md §4).
-- Bilinen eksikler: sidebar hover/rename durumları; gizli-lider çip rengi yalnızca açıklamada; açık tema.
+- Bilinen eksikler: kart `selected` görünümü varsayım; gizli-lider "+N" çip rengi yalnızca açıklamada (çizilmedi); font Inter yer tutucu (hedef SF Pro); keşif frame'leri (`Alt ·`, `Style/Palette Exploration`, `Settings K*/S*`, `devpanel-*-pro`) arşivlenmedi; `viewportix.lib.pen` kütüphane dönüşümü yapılmadı (pen.dev'de elle "Turn into library"); Adım 6 teslim paketi (HTML/CSS ölçü dışa aktarımı, Swift token dosyası) üretilmedi; Icon Composer dosyası yok.
 
 ## Sıradaki iş
 
