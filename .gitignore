@@ -18,3 +18,7 @@ Viewportix/Info.plist
 
 # Per-developer signing team
 Config/Signing.local.xcconfig
+
+# Obsidian vault (repo root) local state
+.obsidian/
+.trash/
