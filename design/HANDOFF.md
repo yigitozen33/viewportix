@@ -10,7 +10,7 @@
 - Karar (2026-10-10): arayüz tamamen bizim. Toolbar ve sidebar dahil her şey pen.dev'de tam çizilir; pencere standart, sistem davranışları korunur; Apple metrikleri token olarak uyarlanır.
 - Palet onaylandı (DESIGN.md §4): koyu canvas, vurgu `#FFF36B`, lider `#8EC9E6`, uyarı `#FF8F85`, zemin `#161412`. Denemeler `viewportix.pen` içinde (`Style Exploration`, `Palette Exploration`, `Yellow Palette Exploration`, `Leader Softening`, `Palette Candidate`); onaylanan örnek `Palette Candidate`.
 - Değişkenler (koyu) kuruldu; açık tema değerleri bekliyor.
-- `Viewport/Card` bileşeni kuruldu (`viewportix.pen`, çerçeve `Viewport States` altı durumu gösterir: default, leader, selected, syncMissed, snapshot, loading). Varsayımlar onay bekliyor: selected = `ink/primary` 2 px çerçeve (tutamaç yok), snapshot rozeti sayfa içeriğinin sol üstünde, loading = başlık altında ince ilerleme çizgisi, syncMissed = başlıkta uyarı ikonu + altta not.
+- `Viewport/Card` bileşeni kuruldu (`viewportix.pen`, çerçeve `Viewport States` altı durumu gösterir: default, leader, selected, syncMissed, snapshot, loading). Varsayımlar onay bekliyor: selected = `ink/primary` 2 px çerçeve (tutamaç yok), snapshot rozeti sayfa içeriğinin sol üstünde, loading = 3 px çizgi + dönen ikon (onaylandı, L1), syncMissed = başlıkta uyarı ikonu + altta not.
 - Henüz yok: hover şeridi (`Viewport/HoverStrip`, denemesi `Compact Hover Options` içinde), `Window/Toast`, toolbar, sidebar, ekranlar.
 
 ## Sıradaki iş
