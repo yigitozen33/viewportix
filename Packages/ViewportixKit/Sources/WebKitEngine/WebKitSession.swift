@@ -79,6 +79,10 @@ public final class WebKitSession: NSObject, EngineSession {
             return await callAgent("applyAnchor(value)", value: anchor)
         case .click(let target):
             return await callAgent("applyClick(value)", value: target)
+        case .input(let payload):
+            return await callAgent("applyInput(value)", value: payload)
+        case .hover(let target):
+            return await callAgent("applyHover(value)", value: target)
         }
     }
 
@@ -120,6 +124,16 @@ public final class WebKitSession: NSObject, EngineSession {
             if let anchor = message["anchor"] { eventHandler?(.interaction(.scroll(anchor))) }
         case "click":
             if let target = message["target"] { eventHandler?(.interaction(.click(target))) }
+        case "input":
+            if let field = message["field"] {
+                eventHandler?(.interaction(.input(.object([
+                    "field": field,
+                    "value": message["value"] ?? .string(""),
+                    "checked": message["checked"] ?? .bool(false),
+                ]))))
+            }
+        case "hover":
+            eventHandler?(.interaction(.hover(message["target"] ?? .null)))
         default:
             break
         }

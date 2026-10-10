@@ -118,6 +118,105 @@ struct WebKitSessionTests {
         #expect(await follower.apply(.click(target)) == .missed)
     }
 
+    // MARK: Input
+
+    private func fieldValue(_ session: WebKitSession, _ selector: String, _ property: String = "value") async throws -> Any? {
+        try await session.webView.evaluateJavaScript("document.querySelector('\(selector)').\(property)")
+    }
+
+    @Test func inputFindsAFieldByNameAndFiresInputEvents() async throws {
+        let leader = try await loadedSession("form.html", size: Self.phone, mobile: true)
+        let follower = try await loadedSession("form.html", size: Self.desktop)
+        _ = try await follower.webView.evaluateJavaScript(
+            "window.inputEvents = 0; document.querySelector('[name=first]').addEventListener('input', () => window.inputEvents++); true"
+        )
+        let field = try await agentJSON(leader, "return window.__viewportix.describeField(document.querySelector('[name=first]'))")
+
+        let result = await follower.apply(.input(.object(["field": field, "value": .string("Ada"), "checked": .bool(false)])))
+
+        #expect(result == .applied("input:name"))
+        #expect(try await fieldValue(follower, "[name=first]") as? String == "Ada")
+        #expect(try await follower.webView.evaluateJavaScript("window.inputEvents") as? Int == 1)
+    }
+
+    @Test func inputFallsBackToTheLabelText() async throws {
+        let follower = try await loadedSession("form.html", size: Self.desktop)
+        let field = JSONValue.object([
+            "selector": .string("#renamed-email"), "strong": .bool(true), "tag": .string("input"),
+            "type": .string("email"), "name": .null, "label": .string("Email"), "placeholder": .string(""), "option": .null,
+        ])
+
+        let result = await follower.apply(.input(.object(["field": field, "value": .string("a@b.co"), "checked": .bool(false)])))
+
+        #expect(result == .applied("input:label"))
+        #expect(try await fieldValue(follower, "#email") as? String == "a@b.co")
+    }
+
+    @Test func checkboxStateIsSetNotToggled() async throws {
+        let leader = try await loadedSession("form.html", size: Self.phone, mobile: true)
+        let follower = try await loadedSession("form.html", size: Self.desktop)
+        let field = try await agentJSON(leader, "return window.__viewportix.describeField(document.querySelector('[data-testid=terms]'))")
+        let checked = JSONValue.object(["field": field, "value": .string("on"), "checked": .bool(true)])
+
+        _ = await follower.apply(.input(checked))
+        _ = await follower.apply(.input(checked))  // same state twice must not toggle back
+
+        #expect(try await fieldValue(follower, "[data-testid=terms]", "checked") as? Bool == true)
+    }
+
+    @Test func selectValueIsMirrored() async throws {
+        let leader = try await loadedSession("form.html", size: Self.phone, mobile: true)
+        let follower = try await loadedSession("form.html", size: Self.desktop)
+        let field = try await agentJSON(leader, "return window.__viewportix.describeField(document.querySelector('select'))")
+
+        let result = await follower.apply(.input(.object(["field": field, "value": .string("Germany"), "checked": .bool(false)])))
+
+        #expect(result == .applied("input:name"))
+        #expect(try await fieldValue(follower, "select") as? String == "Germany")
+    }
+
+    @Test func inputForAMissingFieldIsMissed() async throws {
+        let follower = try await loadedSession("long-page.html", size: Self.desktop)
+        let field = JSONValue.object([
+            "selector": .string("#email"), "strong": .bool(true), "tag": .string("input"),
+            "type": .string("email"), "name": .string("email"), "label": .string("Email"), "placeholder": .string(""), "option": .null,
+        ])
+        #expect(await follower.apply(.input(.object(["field": field, "value": .string("x"), "checked": .bool(false)]))) == .missed)
+    }
+
+    // MARK: Hover
+
+    @Test func hoverEmulatesCSSHoverAndFiresEnterEvents() async throws {
+        let session = try await loadedSession("spa.html", size: Self.desktop)
+        _ = try await session.webView.evaluateJavaScript(
+            "window.entered = 0; document.getElementById('add-to-cart').addEventListener('mouseenter', () => window.entered++); true"
+        )
+        let target = try await agentJSON(session, "return window.__viewportix.describeTarget(document.getElementById('add-to-cart'))")
+        let outline = "getComputedStyle(document.getElementById('add-to-cart')).outlineColor"
+
+        #expect(await session.apply(.hover(target)) == .applied("hover"))
+        #expect(try await session.webView.evaluateJavaScript(outline) as? String == "rgb(255, 0, 0)")
+        #expect(try await session.webView.evaluateJavaScript("window.entered") as? Int == 1)
+
+        #expect(await session.apply(.hover(.null)) == .applied("hover:clear"))
+        #expect(try await session.webView.evaluateJavaScript(outline) as? String != "rgb(255, 0, 0)")
+    }
+
+    @Test func hoverRulesInsideMediaQueriesKeepTheirCondition() async throws {
+        let desktop = try await loadedSession("spa.html", size: Self.desktop)
+        let target = try await agentJSON(desktop, "return window.__viewportix.describeTarget(document.querySelector('nav a[href=\\'/cart\\']'))")
+
+        #expect(await desktop.apply(.hover(target)) == .applied("hover"))
+        let color = try await desktop.webView.evaluateJavaScript("getComputedStyle(document.querySelector('nav a[href=\\'/cart\\']')).color") as? String
+        #expect(color == "rgb(0, 128, 0)")
+    }
+
+    @Test func hoverTargetMissingAtThisWidthIsNotASyncMiss() async throws {
+        let session = try await loadedSession("spa.html", size: Self.desktop)
+        let target = JSONValue.object(["selector": .string("#menu-toggle"), "strong": .bool(true), "tag": .string("button"), "text": .string("Menu"), "href": .null])
+        #expect(await session.apply(.hover(target)) == .applied("hover:none"))
+    }
+
     @Test func agentMessagesBecomeInteractionEvents() async throws {
         let session = WebKitSession(id: ViewportID(), size: Self.phone, mobileUserAgent: true, dataStore: .nonPersistent())
         var events: [EngineEvent] = []
@@ -125,11 +224,15 @@ struct WebKitSessionTests {
 
         session.receive(["kind": "scroll", "anchor": ["edge": "top", "percent": 0]])
         session.receive(["kind": "click", "target": ["tag": "a", "text": "Cart"]])
+        session.receive(["kind": "input", "field": ["name": "q"], "value": "shoes", "checked": false])
+        session.receive(["kind": "hover", "target": NSNull()])
         session.receive(["kind": "unknown"])
 
         #expect(events == [
             .interaction(.scroll(.object(["edge": .string("top"), "percent": .number(0)]))),
             .interaction(.click(.object(["tag": .string("a"), "text": .string("Cart")]))),
+            .interaction(.input(.object(["field": .object(["name": .string("q")]), "value": .string("shoes"), "checked": .bool(false)]))),
+            .interaction(.hover(.null)),
         ])
     }
 

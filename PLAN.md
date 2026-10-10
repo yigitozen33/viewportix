@@ -100,8 +100,8 @@ Bu arayüz ileride MCP araçlarına birebir karşılık gelir: `navigate`, `clic
 | `scroll` | çapa elementin selector'ü, element içi oran, yedek olarak sayfa yüzdesi | Çapa elemente git, oranı uygula |
 | `click` | hedef selector | Aynı elementi bul ve tıkla |
 | `navigate` | URL, tür (yükleme / pushState / geri / ileri) | Aynı URL'e git |
-| `input` (MVP sonrası) | selector, değer | Değeri yaz, `input` olayını tetikle |
-| `hover` (MVP sonrası) | selector | Hover durumunu yansıt |
+| `input` | alan tanımı (selector, ad, etiket, placeholder), değer, işaretli mi | Alanı sırayla selector → ad → etiket → placeholder ile bul, değeri yaz, `input`/`change` tetikle; checkbox/radio için durum farklıysa tıkla. Şifre ve dosya alanları aktarılmaz |
+| `hover` | imleç altındaki hedef (tıklamayla aynı tanım) veya boş | `:hover` kurallarını `[data-viewportix-hover]` işaretine kopyala, hedef ve atalarına işaret koy, enter/over olaylarını gönder |
 
 **Scroll.** Farklı genişliklerde sayfa yüksekliği farklı olduğundan piksel veya yüzde ile eşleme kayar. Agent, lider viewport'un okuma çizgisindeki (sabit header'ların hemen altı) elementi ve atalarını çapa adayı olarak seçer ve "çizgi bu elementin %30'unda" bilgisini gönderir; yanına en yakın başlığın metnini ve bölüm içi oranı, son olarak da sayfa yüzdesini ekler. Takipçi sırayla dener: kararlı selector (`#id`, `data-testid`) → başlık metni → yapısal selector → yüzde. Her viewport kendi okuma çizgisini kullanır. Olaylar `requestAnimationFrame` ile seyreltilir. S3 ölçümü: 7 sayfada çapa %87, yüzde %58.
 
@@ -120,6 +120,10 @@ Bu arayüz ileride MCP araçlarına birebir karşılık gelir: `navigate`, `clic
 | WebKit | `WKUserScript` (document start) | `webkit.messageHandlers` | `evaluateJavaScript` |
 | Chromium | `Page.addScriptToEvaluateOnNewDocument` | `Runtime.addBinding` | `Runtime.evaluate` |
 | Firefox | `script.addPreloadScript` | BiDi channel | `script.callFunction` |
+
+**Form alanlarına tıklama aktarılmaz.** Etikete tıklamak kontrolüne de tıklama üretir; ikisini birden aktarmak checkbox'ı iki kez değiştirip eski haline döndürür. Alan durumu yalnızca `input` ile taşınır.
+
+**Hover taklidi (S4).** CSS `:hover` yalnızca gerçek imleci izler ve WebKit sentetik yerel fare olaylarıyla (`mouseMoved`, `mouseEntered`, pencere ve uygulama üzerinden teslim) `:hover` durumunu değiştirmiyor. Bu yüzden takipçide okunabilen stil dosyalarındaki `:hover` kuralları bir öznitelik seçicisine kopyalanır. Sınır: CORS'suz başka alan adından gelen stil dosyaları okunamaz, onların hover stilleri taklit edilemez; JavaScript ile açılan menüler enter/over olaylarıyla yine çalışır. Lider değişince yeni liderin taklit hover'ı temizlenir.
 
 **MVP'de kapsam dışı:** sayfa içi iç içe scroll alanları, iframe içi senkron, klavye olayları.
 
@@ -255,6 +259,7 @@ App Store dışında dağıttığımız için private API ile DPR gibi değerler
 
 - [ ] S1: canvas hareketleri — otomatik kısım geçti (tıklama %100/%50/%30'da 15/15, sapma 0,9 px; sayfa scroll'u, boşlukta pan, ⌘ + scroll zoom). Pinch, sızıntı, momentum ve performans elle kontrol bekliyor: `Spikes/S1-CanvasGestures/README.md`
 - [x] S2: `WebPage` mi `WKWebView` mi — **`WKWebView`**, deneme gerekmedi: canvas AppKit `NSScrollView` (S1) ve her viewport'un gerçek bir `NSView` olması gerekiyor; `WebPage` görünümü dışarı vermiyor, sızıntı koruması için `scrollWheel` yakalanamıyor
+- [x] S4: sentetik fare olayıyla CSS `:hover` — **olumsuz**, WebKit yok sayıyor; yerine CSS kural taklidi. `Spikes/S4-HoverProbe/README.md`
 - [x] S3: çapa tabanlı scroll — 7 sayfada çapa %87, yüzde %58; canlı akışta yankı yok. Başlık metni yedeği eklendi. Ayrıntı: `Spikes/S3-AnchorScroll/README.md`
 - [ ] Sonuçları bu dosyaya işle, gerekiyorsa kararları güncelle
 
@@ -300,7 +305,7 @@ Cihaz çerçeveleri, screenshot, form girişi senkronu, gruplama, elle sürükle
 - [ ] Arayüz tasarımının uygulanması (tasarım kullanıcıdan)
 - [ ] Giriş ekranının tam hali: küçük resimler, şablonlar, ızgara/liste, arama
 - [ ] Sidebar'da viewport listesi ve gruplar
-- [ ] Form girişi ve hover senkronu
+- [x] Form girişi ve hover senkronu (hover: CSS kural taklidi, S4)
 - [ ] Screenshot (tek viewport ve tümü)
 - [ ] Özel cihaz boyutu, viewport döndürme
 - [ ] Elle sürükleme ve gruplama

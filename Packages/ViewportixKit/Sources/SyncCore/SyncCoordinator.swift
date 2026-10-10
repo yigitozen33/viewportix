@@ -23,13 +23,19 @@ public struct SyncStats: Equatable, Sendable {
 /// Mirrors the leading viewport's interactions in all other viewports.
 ///
 /// Only the leader's events are forwarded, which rules out echo loops between viewports. Each follower
-/// has a serial queue; a scroll queued behind another scroll replaces it, so slow followers catch up
-/// to the latest position instead of replaying every frame.
+/// has a serial queue; a scroll, hover or same-field input queued behind one of its kind replaces it,
+/// so slow followers catch up to the latest state instead of replaying every frame.
 @MainActor
 public final class SyncCoordinator {
     public private(set) var sessions: [any EngineSession] = []
     /// The viewport the user is interacting with (pointer over it). Nil means nobody leads.
-    public var leaderID: ViewportID?
+    public var leaderID: ViewportID? {
+        didSet {
+            // The new leader now has the real pointer; drop hover it was emulating as a follower.
+            guard let leaderID, leaderID != oldValue, let leader = session(leaderID) else { return }
+            enqueue(.hover(.null), for: leader)
+        }
+    }
     public var isEnabled = true
     /// Delay before mirroring a leader URL change, so a mirrored click can finish its own navigation first.
     public var navigationGrace: Duration = .milliseconds(400)
@@ -94,7 +100,7 @@ public final class SyncCoordinator {
 
     private func enqueue(_ event: SyncEvent, for follower: any EngineSession) {
         var queue = queues[follower.id, default: []]
-        if case .scroll = event, let last = queue.last, case .scroll = last {
+        if let last = queue.last, Self.supersedes(event, last) {
             queue[queue.count - 1] = event
             stats.coalesced += 1
         } else {
@@ -105,6 +111,18 @@ public final class SyncCoordinator {
         guard !draining.contains(follower.id) else { return }
         draining.insert(follower.id)
         Task { await drain(follower) }
+    }
+
+    /// Whether `new` makes the still-queued `old` pointless: only the latest state matters.
+    static func supersedes(_ new: SyncEvent, _ old: SyncEvent) -> Bool {
+        switch (new, old) {
+        case (.scroll, .scroll), (.hover, .hover):
+            true
+        case (.input(let a), .input(let b)):
+            a["field"]?["selector"] == b["field"]?["selector"]
+        default:
+            false
+        }
     }
 
     private func drain(_ follower: any EngineSession) async {

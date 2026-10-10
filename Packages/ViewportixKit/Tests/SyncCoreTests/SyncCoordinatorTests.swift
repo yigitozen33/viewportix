@@ -69,11 +69,12 @@ struct SyncCoordinatorTests {
 
         b.emit(.interaction(scroll(1)))
         await settle()
-        #expect(a.applied.isEmpty && c.applied.isEmpty)
+        #expect(a.applied == [.hover(.null)])  // only its own emulated hover is cleared
+        #expect(c.applied.isEmpty)
 
         a.emit(.interaction(scroll(2)))
         await settle()
-        #expect(a.applied.isEmpty)
+        #expect(a.applied == [.hover(.null)])
         #expect(b.applied == [scroll(2)])
         #expect(c.applied == [scroll(2)])
     }
@@ -109,6 +110,20 @@ struct SyncCoordinatorTests {
         #expect(coordinator.stats.coalesced == 2)
     }
 
+    @Test func latestStateSupersedesQueuedEventsOfTheSameKind() {
+        let field = { (selector: String, value: String) in
+            SyncEvent.input(.object(["field": .object(["selector": .string(selector)]), "value": .string(value)]))
+        }
+        let click = SyncEvent.click(.object([:]))
+
+        #expect(SyncCoordinator.supersedes(scroll(2), scroll(1)))
+        #expect(SyncCoordinator.supersedes(.hover(.null), .hover(.object([:]))))
+        #expect(SyncCoordinator.supersedes(field("#q", "sho"), field("#q", "sh")))
+        #expect(!SyncCoordinator.supersedes(field("#q", "a"), field("#email", "a")))
+        #expect(!SyncCoordinator.supersedes(click, click))
+        #expect(!SyncCoordinator.supersedes(scroll(1), click))
+    }
+
     @Test func mirrorsNavigationOnlyToFollowersOnAnotherURL() async throws {
         let target = try #require(URL(string: "https://example.com/cart"))
         coordinator.leaderID = a.id
@@ -133,8 +148,16 @@ struct SyncCoordinatorTests {
         b.emit(.titleChanged("B"))
         await settle()
 
-        #expect(Set(results) == [b.id, c.id])
+        #expect(Set(results) == [a.id, b.id, c.id])  // a: hover cleared on becoming leader
         #expect(events == [a.id, b.id])
+    }
+
+    @Test func becomingLeaderClearsEmulatedHoverOnce() async {
+        coordinator.leaderID = b.id
+        coordinator.leaderID = b.id
+        await settle()
+        #expect(b.applied == [.hover(.null)])
+        #expect(a.applied.isEmpty && c.applied.isEmpty)
     }
 
     @Test func removingTheLeaderClearsIt() {

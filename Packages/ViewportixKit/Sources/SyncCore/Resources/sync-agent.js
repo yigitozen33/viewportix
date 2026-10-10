@@ -10,7 +10,19 @@
 // structural paths because the DOM can differ between widths or user agents (S3: Wikipedia).
 //
 // Click: same idea; the target is found by stable selector, then by visible text, then by href, then
-// by structural selector. Replayed clicks are untrusted events, so they never echo back.
+// by structural selector. Replayed clicks are untrusted events, so they never echo back. Clicks on form
+// fields and labels are not mirrored: a label click also clicks its control, so mirroring both would
+// toggle twice. Field state travels as `input` instead.
+//
+// Input: text, select, checkbox and radio state. Fields are found by stable selector, name, label text,
+// placeholder, then structural selector. Values are set from this isolated world and announced with
+// input/change events, which frameworks such as React pick up. Password and file fields are skipped.
+//
+// Hover: the leader reports the element under the pointer when it changes. CSS :hover only follows a
+// real pointer and WebKit ignores synthetic native pointer events (S4), so followers emulate it: :hover
+// rules from readable stylesheets are cloned onto a [data-viewportix-hover] attribute set on the target
+// and its ancestors, and enter/over events are dispatched for script-driven menus. Cross-origin
+// stylesheets served without CORS cannot be read, so their :hover rules are not emulated.
 (() => {
   if (window.__viewportix) return;
 
@@ -21,6 +33,9 @@
   const MAX_CANDIDATES = 4;
   const CHROME = 'nav, header, footer, aside, [role=navigation], [role=banner], [role=complementary], [role=contentinfo]';
   const INTERACTIVE = 'a, button, [role=button], [role=link], [role=tab], [role=menuitem], [role=checkbox], summary, label, input, select, textarea';
+  const FIELD = 'input, textarea, select';
+  const BUTTON_INPUT = 'input[type=button], input[type=submit], input[type=reset], input[type=image]';
+  const UNSYNCED_FIELD_TYPES = ['password', 'file', 'hidden'];
 
   let applying = false;
   let pending = false;
@@ -234,6 +249,156 @@
     return 'click:' + how;
   }
 
+  // Labels and fields (except button-like inputs) sync their state through `input`, not clicks.
+  const syncsByInput = (el) => el.matches('label, option') || (el.matches(FIELD) && !el.matches(BUTTON_INPUT));
+
+  // ---------------------------------------------------------------- Input
+
+  function fieldLabel(el) {
+    if (el.labels && el.labels.length) return normalize(el.labels[0].innerText);
+    return normalize(el.getAttribute('aria-label') || '');
+  }
+
+  function describeField(el) {
+    const selector = selectorFor(el);
+    return {
+      selector,
+      strong: isStrong(selector),
+      tag: el.tagName.toLowerCase(),
+      type: el.type || '',
+      name: el.getAttribute('name'),
+      label: fieldLabel(el),
+      placeholder: el.getAttribute('placeholder') || '',
+      // Radios share a name; the value tells them apart.
+      option: el.type === 'radio' ? el.value : null,
+    };
+  }
+
+  function findField(field) {
+    const sameKind = [...document.querySelectorAll(field.tag)]
+      .filter((el) => (el.type || '') === field.type && isVisible(el));
+    if (field.strong) {
+      const el = query(field.selector);
+      if (el && isVisible(el)) return [el, 'selector'];
+    }
+    if (field.name) {
+      const match = sameKind.find((el) => el.getAttribute('name') === field.name && (field.option == null || el.value === field.option));
+      if (match) return [match, 'name'];
+    }
+    if (field.label) {
+      const match = sameKind.find((el) => fieldLabel(el) === field.label);
+      if (match) return [match, 'label'];
+    }
+    if (field.placeholder) {
+      const match = sameKind.find((el) => el.getAttribute('placeholder') === field.placeholder);
+      if (match) return [match, 'placeholder'];
+    }
+    if (!field.strong) {
+      const el = query(field.selector);
+      if (el && isVisible(el) && el.tagName.toLowerCase() === field.tag) return [el, 'structural'];
+    }
+    return [null, null];
+  }
+
+  function setValue(el, value) {
+    const prototype = el instanceof HTMLTextAreaElement ? HTMLTextAreaElement.prototype
+      : el instanceof HTMLSelectElement ? HTMLSelectElement.prototype
+      : HTMLInputElement.prototype;
+    Object.getOwnPropertyDescriptor(prototype, 'value').set.call(el, value);
+    el.dispatchEvent(new Event('input', { bubbles: true }));
+    el.dispatchEvent(new Event('change', { bubbles: true }));
+  }
+
+  function applyInput(payload) {
+    const [el, how] = findField(payload.field);
+    if (!el) return 'missed';
+    if (el.type === 'checkbox' || el.type === 'radio') {
+      // A replayed click toggles like a user would, with the events frameworks expect.
+      if (el.checked !== payload.checked) el.click();
+    } else if (el.value !== payload.value) {
+      setValue(el, payload.value);
+    }
+    return 'input:' + how;
+  }
+
+  // ---------------------------------------------------------------- Hover
+
+  const HOVER_ATTR = 'data-viewportix-hover';
+  let hoverStyle = null;
+  let hoverSheetCount = -1;
+  let hoverChain = [];  // target first, then its ancestors
+
+  function collectHoverRules(rules, out) {
+    for (const rule of rules) {
+      if (rule instanceof CSSStyleRule) {
+        if (!rule.selectorText.includes(':hover')) continue;
+        const selectors = rule.selectorText.split(',')
+          .filter((selector) => selector.includes(':hover'))
+          .map((selector) => selector.replaceAll(':hover', `[${HOVER_ATTR}]`));
+        out.push(`${selectors.join(',')}{${rule.style.cssText}}`);
+      } else if (rule.cssRules) {  // @media, @supports, @layer, @container
+        const inner = [];
+        collectHoverRules(rule.cssRules, inner);
+        if (!inner.length) continue;
+        const prelude = rule instanceof CSSMediaRule ? `@media ${rule.conditionText}`
+          : rule instanceof CSSSupportsRule ? `@supports ${rule.conditionText}` : null;
+        out.push(prelude ? `${prelude}{${inner.join('')}}` : inner.join(''));
+      }
+    }
+  }
+
+  // Rebuilt when the page adds or removes stylesheets.
+  function ensureHoverStyle() {
+    const sheets = [...document.styleSheets].filter((sheet) => sheet.ownerNode !== hoverStyle);
+    if (hoverStyle && hoverStyle.isConnected && sheets.length === hoverSheetCount) return;
+    hoverSheetCount = sheets.length;
+    const rules = [];
+    for (const sheet of sheets) {
+      try { collectHoverRules(sheet.cssRules, rules); } catch { /* cross-origin without CORS */ }
+    }
+    hoverStyle = hoverStyle || document.createElement('style');
+    hoverStyle.setAttribute('data-viewportix', 'hover');
+    hoverStyle.textContent = rules.join('\n');
+    if (!hoverStyle.isConnected) (document.head || document.documentElement).appendChild(hoverStyle);
+  }
+
+  function fire(node, type, bubbles) {
+    const Event = type.startsWith('pointer') ? PointerEvent : MouseEvent;
+    node.dispatchEvent(new Event(type, { bubbles, cancelable: true, view: window }));
+  }
+
+  // Moves the emulated pointer to `el` (or off the page for null), with the events a real move fires.
+  function setHoverChain(el) {
+    const next = [];
+    for (let node = el; node && node.nodeType === 1; node = node.parentElement) next.push(node);
+    const previous = hoverChain[0];
+    if (previous && previous !== el) { fire(previous, 'pointerout', true); fire(previous, 'mouseout', true); }
+    for (const node of hoverChain) {
+      if (next.includes(node)) continue;
+      node.removeAttribute(HOVER_ATTR);
+      fire(node, 'pointerleave', false);
+      fire(node, 'mouseleave', false);
+    }
+    for (const node of [...next].reverse()) {  // enter events run outermost first
+      if (hoverChain.includes(node)) continue;
+      node.setAttribute(HOVER_ATTR, '');
+      fire(node, 'pointerenter', false);
+      fire(node, 'mouseenter', false);
+    }
+    if (el && previous !== el) { fire(el, 'pointerover', true); fire(el, 'mouseover', true); }
+    hoverChain = next;
+  }
+
+  function applyHover(target) {
+    if (!target) { setHoverChain(null); return 'hover:clear'; }
+    const [el] = findTarget(target);
+    // A hover target missing at this width is normal (no hover menus on phones); not a "sync missed".
+    if (!el) { setHoverChain(null); return 'hover:none'; }
+    ensureHoverStyle();
+    setHoverChain(el);
+    return 'hover';
+  }
+
   // ---------------------------------------------------------------- Listeners
 
   addEventListener('scroll', () => {
@@ -248,8 +413,42 @@
   addEventListener('click', (event) => {
     if (!event.isTrusted || !(event.target instanceof Element)) return;
     const el = event.target.closest(INTERACTIVE) || event.target;
+    if (syncsByInput(el)) return;
     post({ kind: 'click', target: describeTarget(el) });
   }, true);
 
-  window.__viewportix = { captureAnchor, applyAnchor, describeTarget, applyClick, maxScroll };
+  const onFieldEvent = (event) => {
+    const el = event.target;
+    if (!event.isTrusted || !(el instanceof Element) || !el.matches(FIELD) || el.matches(BUTTON_INPUT)) return;
+    if (UNSYNCED_FIELD_TYPES.includes(el.type)) return;
+    post({ kind: 'input', field: describeField(el), value: el.value, checked: !!el.checked });
+  };
+  addEventListener('input', onFieldEvent, true);
+  addEventListener('change', onFieldEvent, true);  // some controls only fire change
+
+  let hovered = null;
+  let lastMove = null;
+  let hoverPending = false;
+  addEventListener('mousemove', (event) => {
+    if (!event.isTrusted) return;
+    lastMove = event;
+    if (hoverPending) return;
+    hoverPending = true;
+    requestAnimationFrame(() => {
+      hoverPending = false;
+      const under = lastMove.target instanceof Element ? lastMove.target : null;
+      const el = under && under !== document.body && under !== document.documentElement
+        ? (under.closest(INTERACTIVE) || under) : null;
+      if (el === hovered) return;
+      hovered = el;
+      post({ kind: 'hover', target: el ? describeTarget(el) : null });
+    });
+  }, { capture: true, passive: true });
+  addEventListener('mouseout', (event) => {
+    if (!event.isTrusted || event.relatedTarget || hovered === null) return;
+    hovered = null;  // pointer left the page
+    post({ kind: 'hover', target: null });
+  }, true);
+
+  window.__viewportix = { captureAnchor, applyAnchor, describeTarget, applyClick, describeField, applyInput, applyHover, maxScroll };
 })();

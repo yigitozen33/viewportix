@@ -6,6 +6,10 @@ public enum SyncEvent: Hashable, Sendable {
     case scroll(JSONValue)
     /// Agent-produced click target (selector, tag, text, href).
     case click(JSONValue)
+    /// Agent-produced field state: `{ field, value, checked }`.
+    case input(JSONValue)
+    /// Agent-produced target under the leader's pointer, or `.null` when the pointer left the page.
+    case hover(JSONValue)
     case navigate(URL)
 }
 
