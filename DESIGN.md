@@ -212,6 +212,7 @@ Sağ raydan açılır, canvas'ı iter (300 px). Tasarım ilkesi: **sakin ama tek
 | ~~Ayarlar ayrı pencere (880×680, sol sekmeler)~~ — "pencereye çıkar" alternatifi olarak kaldı | 2026-10-10 |
 | Sağ ray (44 px) + paneller: ayarlar üstüne kayar, Farklar/Senkron iter (varsayım, kullanımda doğrulanacak); ayarlar içeriği Genel/Cihazlar/MCP/Hesap; K1/K2/K3 kreatif ayar konseptleri reddedildi, K2 paleti ileride | 2026-10-10 |
 | Geliştirici paneli sakin tasarım: iki seviye, tek renk = dikkat, tabular sayılar, kelime düğmeler; baseline = lider, Kabul/Yoksay/Takip et; senkron satırında "n / n" ve kaçıranın adı açılımda | 2026-10-10 |
+| Açık tema MVP dışı, ileride: token'lar `mode: light` değerleriyle hazır (hardal `#E6C800` vurgu; aynı sarı açık zeminde okunmuyor), `Project Window · Açık` ve `Home Window · Açık` frame'leri referans; uygulama şimdilik yalnızca koyu | 2026-10-10 |
 
 ## 5. Bekleyen tasarım kararları
 
@@ -219,7 +220,7 @@ Sağ raydan açılır, canvas'ı iter (300 px). Tasarım ilkesi: **sakin ama tek
 
 1. ~~Proje penceresi düzeni~~ — verildi (bkz. §4). Kalan: inspector (sonra)
 2. ~~Viewport kartı: başlık içeriği, cihaz çerçevesi~~ — verildi (bkz. §4). Kalan: kamera düğmesinin yeri onayı, selected rengi
-3. ~~Genel görsel dil~~ — verildi (koyu canvas ve palet, bkz. §4). Kalan: açık tema paleti, yüzey ve ink tonları
+3. ~~Genel görsel dil~~ — verildi (koyu canvas ve palet, bkz. §4). Açık tema ileriye bırakıldı (§4)
 4. ~~Giriş ekranının görsel tasarımı~~ — verildi (bkz. §3.1, §4)
 5. ~~Cihaz seçici ve viewport ekleme akışı~~ — verildi (bkz. §3.2)
 6. Lider ve "senkron kaçtı" göstergeleri
@@ -231,7 +232,7 @@ Sağ raydan açılır, canvas'ı iter (300 px). Tasarım ilkesi: **sakin ama tek
 
 ## 6. Tasarım sistemi (`design/viewportix.pen`)
 
-**Renk** (koyu; açık tema bekliyor): `canvas`, `surface/bar`, `surface/card`, `surface/header`, `surface/header-leader`, `surface/pill`, `surface/tooltip`, `line`, `ink/primary`, `ink/secondary`, `accent`, `accent/ink`, `status/leader`, `status/warning`, `status/warning-bg`.
+**Renk** (koyu; her token'ın `mode: light` değeri de tanımlı, açık tema ileride): `canvas`, `surface/bar`, `surface/card`, `surface/header`, `surface/header-leader`, `surface/pill`, `surface/tooltip`, `line`, `ink/primary`, `ink/secondary`, `accent`, `accent/ink`, `status/leader`, `status/warning`, `status/warning-bg`.
 **Köşe:** `radius/window` 16, `radius/bar` 14, `radius/card` 12, `radius/control` 8, `radius/badge` 6. **Aralık:** `space/1..8` = 4, 8, 12, 16, 24, 32. **Yazı:** `font/ui` (şimdilik Inter; hedef SF Pro), `font/title` 15, `font/body` 13, `font/label` 12, `font/caption` 11, `font/micro` 10. **Çizgi:** `stroke/hairline` 1, `stroke/focus` 2. **Boyut (yalnızca referans; pen.dev width/height'ta değişken çözmüyor, değerler sayı yazılır):** `size/sidebar` 220, `size/bar-height` 48, `size/card-header` 36, `size/icon` 16, `size/icon-sm` 14.
 
 **Bileşenler:** `Viewport/Card` (6 durum), `Viewport/HoverStrip`, `Window/Toast`, `Sidebar/Row`, `Toolbar/Button`, `Toolbar/DeviceTab` (durum ikonlu), `Toolbar/ZoomControl`, `Home/ProjectCard`, `Home/TemplateChip`, `Home/URLBox`, `Device/Picker`. Yeni ekranlar yalnızca bu token ve bileşenlerle kurulur; eksik bir parça gerekirse önce bileşen olarak eklenir.

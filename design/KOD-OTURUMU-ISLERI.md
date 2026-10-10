@@ -61,3 +61,5 @@ DESIGN.md §3.2 sonundaki **etkileşim tablosu** tetikleyici → etki → hareke
 - [ ] Ayarlar penceresi (⌘,) tasarımı hazır: DESIGN.md §3.3. MCP sekmesi M7'ye kadar gizli kalabilir; Hesap sekmesindeki lisans/takım alanları iş modeli netleşince doldurulur.
 
 - [ ] Ayarlar artık sağ raydan açılan panel (DESIGN.md §3.3); ayrı pencere yalnızca "pencereye çıkar". Geliştirici paneli (M5) §3.4; panel yerleşimi varsayım, kullanımda geri bildirim `docs/tasarim-istekleri.md`'ye.
+
+- [ ] Açık tema MVP dışı: uygulama yalnızca koyu tema ile çıkar; Ayarlar › Tema segmenti şimdilik gizli ya da yalnızca "Koyu". Token'ların açık değerleri DESIGN.md §6'da, ileride açılır.
