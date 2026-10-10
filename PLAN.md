@@ -262,6 +262,15 @@ App Store dışında dağıttığımız için private API ile DPR gibi değerler
 
 **Durum (2026-10-10):** Motor katmanı, senkron koordinatörü, ajan (scroll + tıklama), proje dosyası, giriş ekranı, sayfa listesi, toolbar ve canvas uygulamada çalışıyor; 23 paket testi geçiyor (8 tanesi gerçek WKWebView ile). Arayüz etkileşimleri (hover ile lider seçimi, gerçek trackpad) elle test bekliyor; S1 kontrol listesiyle birlikte yapılacak.
 
+**Performans (2026-10-10, `Scripts/perf.sh`, 5 viewport, pencere görünürken):**
+
+| Sayfa | Yükleme | Bellek (8 süreç) | CPU boşta | CPU scroll senkronu | Uygulamanın kendi CPU'su | Senkron |
+|---|---|---|---|---|---|---|
+| apple.com/iphone | 1,5–2,7 sn | 0,9–1,2 GB | ~%33 (sayfadaki videolar) | ~%190 | boşta ~%0, scroll'da ~%18 | 474–482 olay/8 sn, hepsi uygulandı; ort. 2,5 ms, en kötü 15–29 ms |
+| Wikipedia makalesi | 1,6 sn | 0,6–0,7 GB | ~%1 | ~%40 | boşta %0, scroll'da ~%4 | 113 olay, 451/452 uygulandı; ort. 1,7 ms |
+
+Yükün neredeyse tamamı 5 sayfayı çizen WebContent süreçlerinde; uygulamanın kendi payı küçük. Viewport başına ~120–240 MB. Takipçiler 60 olay/sn hızına yetişiyor, birleştirmeye nadiren gerek kalıyor. İyileştirme fırsatı (M3+): ağır sayfalarda takipçi viewport'lardaki video/animasyonu duraklatmak, düşük zoom'da snapshot'a geçmek. Not: pencere görünmezken WebKit sayfaları duraklatır; ölçüm görünür pencere ister.
+
 **Kapsam**
 
 - URL çubuğu, geri / ileri / yenile

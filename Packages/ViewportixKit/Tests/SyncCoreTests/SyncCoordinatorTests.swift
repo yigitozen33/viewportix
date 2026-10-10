@@ -23,6 +23,7 @@ final class FakeSession: EngineSession {
     func goBack() {}
     func goForward() {}
     func resize(to size: ViewportSize) {}
+    func evaluate(_ script: String) async throws -> JSONValue? { nil }
 
     func apply(_ event: SyncEvent) async -> ApplyResult {
         if holdApplies {
@@ -103,6 +104,9 @@ struct SyncCoordinatorTests {
             await settle()
         }
         #expect(b.applied == [scroll(1), scroll(3), click, scroll(4)])
+        #expect(coordinator.stats.mirrored == 5)
+        // c (not held) also had scroll 2 and 3 queued back to back, so both followers coalesce once.
+        #expect(coordinator.stats.coalesced == 2)
     }
 
     @Test func mirrorsNavigationOnlyToFollowersOnAnotherURL() async throws {

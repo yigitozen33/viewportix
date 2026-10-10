@@ -46,4 +46,7 @@ public protocol EngineSession: AnyObject {
     func goForward()
     func resize(to size: ViewportSize)
     func apply(_ event: SyncEvent) async -> ApplyResult
+    /// Runs a script in the page's own world and returns its JSON-compatible result.
+    /// For diagnostics, profiling and (later) the MCP server.
+    func evaluate(_ script: String) async throws -> JSONValue?
 }

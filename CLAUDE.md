@@ -50,7 +50,7 @@ Ekranlar, akışlar ve tasarım kararları: [DESIGN.md](DESIGN.md)
 
 ## Şu anki durum
 
-M0 tamam. M1: S1 otomatik testleri geçti (elle trackpad testi sona bırakıldı), S2 kapandı (`WKWebView`), S3 tamam (`Spikes/S3-AnchorScroll/Sources/sync-agent.js` MVP'nin senkron taslağı). Sıradaki adım M2: MVP.
+M0 ve M1 tamam (S1'in elle trackpad testi sona bırakıldı). M2 büyük ölçüde çalışıyor: motor katmanı, senkron, proje dosyası, giriş ekranı, sayfa listesi, toolbar, canvas. Kalan: elle etkileşim testi, 5 viewport'ta performans ölçümü. Ayrıntı: PLAN.md M2 "Durum".
 
 ## İlk hedef (MVP)
 

@@ -82,6 +82,11 @@ public final class WebKitSession: NSObject, EngineSession {
         }
     }
 
+    public func evaluate(_ script: String) async throws -> JSONValue? {
+        let result = try await webView.evaluateJavaScript(script)
+        return result.flatMap { JSONValue(any: $0) }
+    }
+
     // MARK: Agent bridge
 
     private func callAgent(_ body: String, value: JSONValue) async -> ApplyResult {

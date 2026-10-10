@@ -40,6 +40,12 @@ final class Workspace {
         sessions[id]
     }
 
+    var syncStats: SyncStats { coordinator.stats }
+
+    func resetSyncStats() {
+        coordinator.stats = SyncStats()
+    }
+
     /// Creates, removes and resizes sessions so they match the document's viewport list.
     func reconcile(with configs: [ViewportConfig]) {
         let wanted = Set(configs.map(\.id))

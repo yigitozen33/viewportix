@@ -44,6 +44,11 @@ struct ProjectWindow: View {
             if let page = document.project.selectedPage {
                 workspace.navigate(to: page.url)
             }
+            #if DEBUG
+            if PerfProbe.isRequested {
+                Task { await PerfProbe.run(workspace) }
+            }
+            #endif
         }
         .onChange(of: document.project.viewports) { _, viewports in
             workspace.reconcile(with: viewports)
