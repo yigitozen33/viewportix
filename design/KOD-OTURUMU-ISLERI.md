@@ -100,3 +100,9 @@ DESIGN.md §3.2 sonundaki **etkileşim tablosu** tetikleyici → etki → hareke
 ## 10. Medya duraklatma varsayılanı (2026-10-10, kullanıcı kararı)
 
 - [ ] "Arka Plandaki Medyayı Duraklat" **varsayılan açık** gelsin (senin girdinde varsayılan kapalıydı). İlk açılışta tikli; kullanıcı kapatırsa tercih saklanır. Görünüm menüsü maddesi ve Ayarlar › Genel › PROJE toggle'ı aynı değeri gösterir. DESIGN.md §3.3, §4.
+
+## 11. Ayarlar sekmeleri, ray tutamacı (2026-10-11)
+
+- [ ] Ayarlar › Cihazlar, MCP, Hesap sekmeleri çizildi: DESIGN.md §3.3, `design/exports/window-project-settings-{devices,mcp,account}@2x.png`. Cihazlar iki satırlı liste + tür süzgeci; MCP sekmesi M7'ye kadar gizli kalabilir.
+- [ ] Ray gizliyken `RailHandle` (24×56, sağ kenarda üstten 16): tık / ⌥⌘0 rayı geri getirir; Farklar bulgusu varken mercan nokta. `window-project-rail-hidden@2x.png`, etkileşim tablosu §3.3.
+- [ ] Sidebar 240 kesin (`Size.sidebar`). Boş URL alanı ipucu "Adres yaz ya da yapıştır".

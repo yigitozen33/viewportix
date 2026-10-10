@@ -28,6 +28,7 @@
 - Ayarlar ayrı penceresi kaldırıldı (kullanıcı sildi, karar: yalnızca sağ panel); ayarlar panelinden ⧉ kaldırıldı. Giriş ekranında ⚙ + kayan panel (`Home Window · Ayarlar paneli`); ray proje penceresinde varsayılan açık, daraltılabilir.
 - Dosya düzeni: asıl tasarımlar x ≥ 0; keşifler "Archive ·" önekiyle solda (x < −400), açık tema "Future ·" önekiyle arşivin altında. Kart `selected` kararı: S3 çift halka (`Viewport States` içinde `selected` ve `selected + leader` sütunları).
 - Pencere chrome'u bileşen (2026-10-10): `Sidebar/Header`, `Window/CollapsedHeader`, `Window/DeviceStrip` (sekmeler slot), `Window/BottomBar`, `Window/Rail`. Tüm proje penceresi ve dev panel frame'leri instance kullanır; değişiklik 00b'deki ana kopyada. Spec: `Chrome Spec` (05), `chrome-spec@2x.png`. Token düzeltmesi: sidebar 240, iten panel 320.
+- 2026-10-11: Ayarlar sekmeleri (Cihazlar C1, MCP, Hesap) ve ray tutamacı (`Window/RailHandle`, `Project Window · Ray gizli`) asıl ekranlarda; sidebar 240 kesin. `TEMP · Açık sorular` silindi; `TEMP · Medya duraklatma açıklaması` duruyor.
 - Bilinen eksikler: `viewportix.lib.pen` kütüphane dönüşümü yapılmadı (pen.dev'de elle); Icon Composer dosyası yok; HTML/CSS ölçü dışa aktarımı yapılmadı (token dosyaları var).
 
 ## Sıradaki iş

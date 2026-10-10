@@ -179,12 +179,12 @@ Düzeltilen çakışmalar: ⌘S (seçili viewport ekran görüntüsü → kaldı
 
 ### 3.3 Sağ ray ve Ayarlar paneli
 
-Proje penceresinin sağ kenarında 44 px **ray** (varsayılan açık; alttaki düğmeyle tamamen gizlenir, tercih hatırlanır; gizliyken ⌘, ya da ilgili kısayol paneli açar): ⚙ Ayarlar, Cihazlar, MCP, Hesap; ayırıcı; Farklar, Senkron (M5); altta daralt. Rayın ikonuna tıklayınca ilgili panel açılır. **Varsayım (kullanımda doğrulanacak):** Ayarlar / Cihazlar / MCP / Hesap panelleri canvas'ın **üstüne kayar** (340 px, gölgeli, canvas yerinden oynamaz); Farklar ve Senkron panelleri canvas'ı **iter** (320 px, uzun süre açık kalır). Ayarlar panelinin başlığında yalnızca ✕; Farklar ve Senkron panellerinde ayrıca "pencereye çıkar" (⧉, ikinci ekrana almak için). ⌘, ayarları açar. Giriş ekranında ray yok; ⚙ düğmesi ve ⌘, aynı paneli açar (§3.1). Ayrı ayarlar penceresi yok.
+Proje penceresinin sağ kenarında 44 px **ray** (varsayılan açık; alttaki düğmeyle gizlenir, tercih hatırlanır; gizliyken sağ kenarda üstte 24×56 **tutamaç** kalır — ray ikonu, Farklar bulgusu varken mercan nokta; tık ya da ⌥⌘0 rayı geri getirir, hover "Rayı göster ⌥⌘0"; `window-project-rail-hidden@2x.png`; ⌘, ve kısayollar gizliyken de paneli açar): ⚙ Ayarlar, Cihazlar, MCP, Hesap; ayırıcı; Farklar, Senkron (M5); altta daralt. Rayın ikonuna tıklayınca ilgili panel açılır. **Varsayım (kullanımda doğrulanacak):** Ayarlar / Cihazlar / MCP / Hesap panelleri canvas'ın **üstüne kayar** (340 px, gölgeli, canvas yerinden oynamaz); Farklar ve Senkron panelleri canvas'ı **iter** (320 px, uzun süre açık kalır). Ayarlar panelinin başlığında yalnızca ✕; Farklar ve Senkron panellerinde ayrıca "pencereye çıkar" (⧉, ikinci ekrana almak için). ⌘, ayarları açar. Giriş ekranında ray yok; ⚙ düğmesi ve ⌘, aynı paneli açar (§3.1). Ayrı ayarlar penceresi yok.
 
 **Ayarlar paneli içeriği** (`window-project-settings-panel@2x.png`: ray + üstüne kayan panel): üstte sekme çipleri Genel · Cihazlar · MCP · Hesap, arama; GÖRÜNÜM (Tema Sistem / Koyu / Açık; Dil), PROJE (Varsayılan şablon; Senkron açık başlasın; Taslakları sakla), EKRAN GÖRÜNTÜSÜ (Klasör; Panoya da kopyala; Ölçek 1× / 2×); PROJE altında ayrıca "Arka plandaki viewport'larda medyayı duraklat" (**varsayılan açık**: ses ve video yalnızca imlecin üstündeki viewport'ta oynar, diğerleri durur ve sessizdir; Görünüm menüsünde de, tikli; açıklama `temp-media-pause-explainer@2x.png`), **BU PROJE** (Cihazlar (n) → Cihazlar sekmesi; Motor). Sekme içerikleri:
-- **Cihazlar:** cihaz yönetimi; "Cihazları yönet…" buraya açılır. Arama, "İçe aktar…", "+ Cihaz"; tablo Ad (özel cihazda "özel"), Tür, Boyut, Ölçek, Seçicide (toggle; kapalıysa listede kalır, "+ Cihaz" menüsünde görünmez), ⋯. Yerleşik cihazlar silinemez, gizlenir; "Seçicide" kapatmak açık projelerdeki kartları etkilemez. Özel cihazlar uygulamayla saklanır.
-- **MCP** (M7): durum (nokta + "stdio · 2 istemci · 14 araç"; Durdur/Başlat), Taşıma stdio / HTTP, Komut + Kopyala, İzinler (Ekran görüntüsü alma, Gezinme ve tıklama, DOM diff okuma, Proje dosyası yazma — varsayılan kapalı), Bağlı istemciler (ad, son istek, Bağlantıyı kes).
-- **Hesap:** avatar, ad, e-posta, Çıkış yap; Takım; Lisans ("Dahili"; iş modeli sonra); Güncelleme.
+- **Cihazlar** (`window-project-settings-devices@2x.png`, C1 iki satırlı liste): cihaz yönetimi; "Cihazları yönet…" buraya açılır. Üstte arama ("Cihaz ara"), sayaç "23 cihaz · 2 özel", "İçe aktar…", sarı "+ Cihaz"; altında tür süzgeci Tümü · Telefon · Tablet · Masaüstü · Özel. Satır iki satır: tür ikonu, ad (özel cihazda "özel" rozeti), altında "393×852 · 3× · Telefon"; sağda "Seçicide" toggle'ı, hover'da ⋯ (Düzenle, Çoğalt, Sil — Sil yalnız özel). Seçicide kapalı = "+ Cihaz" menüsünde görünmez, açık projelerdeki kartlar kalır. Yerleşik cihazlar silinemez, gizlenir. Özel cihazlar uygulamayla saklanır. Elenen: C2 türe göre gruplu tek satır, C3 yerinde ayrıntı.
+- **MCP** (M7; `window-project-settings-mcp@2x.png`): SUNUCU — gök nokta + "Çalışıyor", altında "stdio · 2 istemci · 14 araç", sağda Durdur (durmuşken gri nokta + Başlat); Taşıma segmenti stdio / HTTP; komut kutusu (mono, "viewportix mcp --stdio") + Kopyala. İZİNLER — Ekran görüntüsü alma, Gezinme ve tıklama, DOM diff okuma (açık), Proje dosyası yazma (varsayılan kapalı). BAĞLI İSTEMCİLER — ad, "son istek 2 sn önce", sağda "Bağlantıyı kes".
+- **Hesap** (`window-project-settings-account@2x.png`): üstte baş harfli avatar, ad, e-posta, sağda "Çıkış yap". TAKIM (takım adı, kişi sayısı), LİSANS (Plan: "Dahili"; iş modeli sonra), GÜNCELLEME (sürüm + "Güncel", Denetle; Otomatik güncelle toggle'ı, varsayılan açık).
 - Reddedilenler: klasik ayrı pencere tek başına (çok klasik), canlı önizlemeli pencere (K1), onboarding kartları (K3); ⌘, ayar paleti (K2) ileride eklenebilir, şimdilik yok.
 
 **Etkileşim tablosu:**
@@ -193,7 +193,9 @@ Proje penceresinin sağ kenarında 44 px **ray** (varsayılan açık; alttaki d�
 |---|---|---|
 | Ray ikonu / ⌘, | Panel açılır; aynı ikona tekrar tık kapatır | Kayan panel 200 ms sağdan; iten panel 200 ms genişlik |
 | Farklar/Senkron ⧉ | Aynı panel ayrı pencerede; panel kapanır | 200 ms |
-| Ray daralt düğmesi | Ray gizlenir, canvas genişler; tercih uygulamaya kaydedilir | 200 ms |
+| Ray daralt düğmesi | Ray gizlenir, canvas genişler, sağ kenarda tutamaç belirir; tercih uygulamaya kaydedilir | 200 ms; tutamaç 150 ms fade |
+| Tutamaca tık / ⌥⌘0 | Ray geri gelir, tutamaç kaybolur | 200 ms |
+| Tutamaç hover | Tooltip "Rayı göster ⌥⌘0" solunda | 400 ms gecikme, 100 ms fade |
 | Toggle / segment / select | Anında uygulanır, kaydet yok | 150 ms |
 | Tema | Tüm pencereler anında | 200 ms crossfade |
 | Cihazlar › Seçicide toggle | Cihaz seçicide gizlenir/görünür | Anlık |
@@ -260,6 +262,10 @@ Sağ raydan açılır, canvas'ı iter (320 px). Tasarım ilkesi: **sakin ama tek
 | Yazı tipi: uygulamada sistem yazı tipi SF Pro (arayüz) + SF Mono (sayılar, seçiciler, ölçüler); pen.dev yalnızca Google Fonts çizdiği için tasarım dosyasında vekil Inter + JetBrains Mono. Marka fontu (Geist, IBM Plex, DM Sans, Manrope) karşılaştırıldı, reddedildi: native his ve Dinamik Tür korunur, kimliği palet + ikon + kart dili taşır | 2026-10-10 |
 | Pencere chrome'u bileşen oldu: `Sidebar/Header`, `Window/CollapsedHeader`, `Window/DeviceStrip` (sekmeler slot), `Window/BottomBar`, `Window/Rail`; tüm proje penceresi frame'leri bunların instance'ı. Ray artık her proje penceresi frame'inde (varsayılan açık kararına uyum); şerit ve alt çubuk canvas'a göre ortalı; anatomi ve durumlar `Chrome Spec` (05) | 2026-10-10 |
 | Medya duraklatma varsayılan **açık** (önceki "varsayılan kapalı" superseded): ses/video yalnızca imlecin üstündeki viewport'ta; canvas'ta düğmesi yok, yalnız Görünüm menüsü ve Ayarlar › Genel › PROJE | 2026-10-10 |
+| Ayarlar › Cihazlar = C1 iki satırlı liste (tür süzgeci, Seçicide toggle, hover ⋯); MCP ve Hesap sekmeleri taslak gibi kesinleşti; üç sekme ayrı frame (`Project Window · Ayarlar › Cihazlar / MCP / Hesap`). Elenen: C2 gruplu tek satır, C3 yerinde ayrıntı | 2026-10-11 |
+| Ray gizliyken sağ kenarda tutamaç (R2): ray ikonu + Farklar bulgusunda mercan nokta, tık / ⌥⌘0 geri getirir; frame `Project Window · Ray gizli`. Elenen: R1 hiçbir şey, R3 alt çubukta "Farklar n" çipi | 2026-10-11 |
+| Sidebar 240 px (önceki "220" superseded; çizimler zaten 240) | 2026-10-11 |
+| Boş URL alanı ipucu: "Adres yaz ya da yapıştır" (globe ikonu) | 2026-10-11 |
 
 ## 5. Bekleyen tasarım kararları
 
@@ -280,7 +286,7 @@ Sağ raydan açılır, canvas'ı iter (320 px). Tasarım ilkesi: **sakin ama tek
 ## 6. Tasarım sistemi (`design/viewportix.pen`)
 
 **Renk** (koyu; her token'ın `mode: light` değeri de tanımlı, açık tema ileride): `canvas`, `surface/bar`, `surface/card`, `surface/header`, `surface/header-leader`, `surface/pill`, `surface/tooltip`, `line`, `ink/primary`, `ink/secondary`, `accent`, `accent/ink`, `status/leader`, `status/warning`, `status/warning-bg`.
-**Köşe:** `radius/window` 16, `radius/bar` 14, `radius/card` 12, `radius/control` 8, `radius/badge` 6. **Aralık:** `space/1..8` = 4, 8, 12, 16, 24, 32. **Motor glifleri:** `Engine Glyphs` frame'inde üç `path` (viewBox 0 0 16 16, evenodd, fill `ink/secondary`; seçili/lider halde `status/leader`). **Yazı:** `font/ui` = Inter (vekil; uygulamada SF Pro), `font/mono` = JetBrains Mono (vekil; uygulamada SF Mono), `font/title` 15, `font/body` 13, `font/label` 12, `font/caption` 11, `font/micro` 10. **Çizgi:** `stroke/hairline` 1, `stroke/focus` 2. **Boyut (yalnızca referans; pen.dev width/height'ta değişken çözmüyor, değerler sayı yazılır):** `size/sidebar` 240, `size/bar-height` 48, `size/card-header` 36, `size/icon` 16, `size/icon-sm` 14, `size/rail` 44, `size/panel-overlay` 340, `size/panel-docked` 320. (2026-10-10 düzeltme: sidebar 220 ve iten panel 300 yazıyordu; çizimler ve onaylanan ekranlar 240 / 320, token'lar çizime eşitlendi.)
+**Köşe:** `radius/window` 16, `radius/bar` 14, `radius/card` 12, `radius/control` 8, `radius/badge` 6. **Aralık:** `space/1..8` = 4, 8, 12, 16, 24, 32. **Motor glifleri:** `Engine Glyphs` frame'inde üç `path` (viewBox 0 0 16 16, evenodd, fill `ink/secondary`; seçili/lider halde `status/leader`). **Yazı:** `font/ui` = Inter (vekil; uygulamada SF Pro), `font/mono` = JetBrains Mono (vekil; uygulamada SF Mono), `font/title` 15, `font/body` 13, `font/label` 12, `font/caption` 11, `font/micro` 10. **Çizgi:** `stroke/hairline` 1, `stroke/focus` 2. **Boyut (yalnızca referans; pen.dev width/height'ta değişken çözmüyor, değerler sayı yazılır):** `size/sidebar` 240, `size/bar-height` 48, `size/card-header` 36, `size/icon` 16, `size/icon-sm` 14, `size/rail` 44, `size/panel-overlay` 340, `size/panel-docked` 320. (2026-10-10 düzeltme: sidebar 220 ve iten panel 300 yazıyordu; çizimler 240 / 320, token'lar çizime eşitlendi; 240 kullanıcı kararıyla kesin, 2026-10-11.)
 
 **Dosya düzeni (`design/viewportix.pen`):** üstte `00 · TASARIM SİSTEMİ` (`Design System · Tokens` panosu: renk, yazı, aralık/köşe/çizgi, bileşen → SwiftUI tablosu) ve `00b · BİLEŞENLER` (ana kopyalar); altında `01 · Giriş ekranı`, `02 · Proje penceresi`, `03 · Menüler ve durumlar`, `04 · Geliştirici paneli`, `05 · Bileşen durumları`, `06 · İkon ve glifler`. Keşifler `Archive ·` önekiyle solda, açık tema `Future ·` önekiyle arşivin altında.
 
@@ -303,7 +309,8 @@ Sağ raydan açılır, canvas'ı iter (320 px). Tasarım ilkesi: **sakin ama tek
 | `Window/DeviceStrip` | `DeviceStrip` | sekmeler (slot), boş (yalnız "+ Cihaz"), taşma (‹ › + "+N" çipi) |
 | `Sidebar/Header` | `SidebarHeader` | URL dolu, odak (+ Son 5 menüsü), boş |
 | `Window/CollapsedHeader` | `CollapsedSidebarHeader` | sidebar kapalıyken canvas sol üstünde (16, 16) |
-| `Window/Rail` | `InspectorRail` | öğe: default, hover, active, badge; ray gizli (0 px) |
+| `Window/Rail` | `InspectorRail` | öğe: default, hover, active, badge; ray gizliyken `RailHandle` |
+| `Window/RailHandle` | `RailHandle` | ray gizliyken sağ kenarda; badge (Farklar bulgusu), hover tooltip |
 
 **Pencere chrome'u** (`Chrome Spec` frame'i, 05 bölümü; `chrome-spec@2x.png`): her parçanın ölçüsü, token'ları ve durumları orada. Yerleşim: `DeviceStrip` canvas'ın üstünde ortada, üstten 16 px; `BottomBar` altta ortada, alttan 31 px; `CollapsedSidebarHeader` canvas sol üstünde 16, 16; `InspectorRail` pencerenin sağ kenarında, canvas'tan sonra. Ortalama canvas'a göredir (sidebar, ray ve iten panel çıkarıldıktan sonra kalan alan); bu parçalara bağlı menüler (zoom, ekran görüntüsü, "+N", cihaz seçici, tooltip) tetikleyicisine hizalı açılır ve onunla birlikte kayar.
 
