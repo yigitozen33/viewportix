@@ -38,6 +38,7 @@ Ekranlar, akışlar ve tasarım kararları: [DESIGN.md](DESIGN.md)
 - "Gerçek motor" de, "gerçek cihaz" deme: macOS WebKit'i iOS Safari değildir
 - Mimari ve yol haritası kararları PLAN.md'ye, ekran ve akış kararları DESIGN.md'ye; bu dosya yalnızca özet
 - Kararlar netleştikçe bu dosyaları güncelle
+- Paralel oturumlar: tasarım oturumu yalnızca `DESIGN.md` ve `design/` altını değiştirir ve yalnızca onları commit'ler; kod oturumu bu ikisine dokunmaz. Tasarım kararları koda `DESIGN.md` üzerinden geçer
 
 ## Geliştirme
 
