@@ -40,3 +40,27 @@ struct ProjectModelTests {
         }
     }
 }
+
+struct ViewportEditingTests {
+    @Test func rotatingSwapsTheSizeAndKeepsTheDevice() throws {
+        let preset = try #require(DeviceCatalog.preset(id: "iphone-16"))
+        var viewport = ViewportConfig(preset: preset)
+
+        viewport.rotate()
+
+        #expect(viewport.size == ViewportSize(width: 852, height: 393))
+        #expect(viewport.presetID == "iphone-16")
+        #expect(viewport.name == "iPhone 16")
+    }
+
+    @Test func sizeLimits() {
+        #expect(ViewportSize(width: 393, height: 852).isWithinLimits)
+        #expect(ViewportSize(width: 3840, height: 2160).isWithinLimits)
+        #expect(!ViewportSize(width: 199, height: 800).isWithinLimits)
+        #expect(!ViewportSize(width: 1024, height: 5000).isWithinLimits)
+        // Every built-in preset fits, in both orientations.
+        for preset in DeviceCatalog.all {
+            #expect(preset.size.isWithinLimits && preset.size.rotated.isWithinLimits, "\(preset.id)")
+        }
+    }
+}

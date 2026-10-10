@@ -1,3 +1,4 @@
+import EngineCore
 import ProjectModel
 import SwiftUI
 
@@ -6,6 +7,7 @@ struct ProjectWindow: View {
     @Environment(\.dismissWindow) private var dismissWindow
     @State private var workspace = Workspace()
     @State private var selectedPageID: Page.ID?
+    @State private var sizeEditor: ViewportSizeEditor?
 
     init(document: Binding<ProjectDocument>) {
         _document = document
@@ -22,9 +24,7 @@ struct ProjectWindow: View {
             )
             .navigationSplitViewColumnWidth(min: 180, ideal: 220, max: 320)
         } detail: {
-            CanvasView(workspace: workspace) { id in
-                document.project.viewports.removeAll { $0.id == id }
-            }
+            CanvasView(workspace: workspace, onCommand: handle)
             .overlay(alignment: .bottom) {
                 if let notice = workspace.notice {
                     NoticeBar(notice: notice, dismiss: workspace.dismissNotice)
@@ -42,7 +42,12 @@ struct ProjectWindow: View {
         .toolbar {
             ProjectToolbar(workspace: workspace) { preset in
                 document.project.viewports.append(ViewportConfig(preset: preset))
+            } onAddCustomSize: {
+                sizeEditor = ViewportSizeEditor()
             }
+        }
+        .sheet(item: $sizeEditor) { editor in
+            ViewportSizeSheet(editor: editor, onSave: save)
         }
         .focusedSceneValue(\.workspace, workspace)
         .onAppear {
@@ -68,6 +73,33 @@ struct ProjectWindow: View {
             guard let page = document.project.pages.first(where: { $0.id == id }),
                   page.url != workspace.currentURL else { return }
             workspace.navigate(to: page.url)
+        }
+    }
+}
+
+private extension ProjectWindow {
+    func handle(_ id: ViewportID, _ command: ViewportCommand) {
+        guard let index = document.project.viewports.firstIndex(where: { $0.id == id }) else { return }
+        switch command {
+        case .remove:
+            document.project.viewports.remove(at: index)
+        case .rotate:
+            document.project.viewports[index].rotate()
+        case .editSize:
+            sizeEditor = ViewportSizeEditor(editing: document.project.viewports[index])
+        case .capture:
+            break  // handled by the canvas
+        }
+    }
+
+    func save(_ editor: ViewportSizeEditor) {
+        let size = ViewportSize(width: editor.width, height: editor.height)
+        let name = editor.name.trimmingCharacters(in: .whitespaces)
+        if let id = editor.viewportID, let index = document.project.viewports.firstIndex(where: { $0.id == id }) {
+            document.project.viewports[index].size = size
+            if !name.isEmpty { document.project.viewports[index].name = name }
+        } else {
+            document.project.viewports.append(ViewportConfig(name: name.isEmpty ? "Özel" : name, size: size))
         }
     }
 }

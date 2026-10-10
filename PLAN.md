@@ -307,7 +307,7 @@ Cihaz çerçeveleri, screenshot, form girişi senkronu, gruplama, elle sürükle
 - [ ] Sidebar'da viewport listesi ve gruplar
 - [x] Form girişi ve hover senkronu (hover: CSS kural taklidi, S4)
 - [x] Screenshot (tek viewport ve tümü): kart başlığında kamera (⌥ ile tam sayfa), toolbar menüsü, ⌥⌘S / ⌃⌥⌘S. Birden fazla viewport tek PNG'de yan yana, başlıklarıyla; `~/Pictures/Viewportix`'e kaydedilir ve panoya kopyalanır (Masaüstü TCC izni istediği için Resimler). Tam sayfa, sayfayı kaydırmadan PDF üzerinden çizilir: bitmap snapshot yalnızca ekrana yakın tile'ları içeriyor; uzun içerik birden çok PDF sayfasına bölündüğü için sayfalar üst üste birleştirilir. Sınırlar: ekranın altındaki lazy-load görseller yüklenmemişse boş çıkar; video/canvas PDF'de çizilmeyebilir; en fazla 32.000 CSS px, çok büyük görsellerde 1x
-- [ ] Özel cihaz boyutu, viewport döndürme
+- [x] Özel cihaz boyutu, viewport döndürme (kart düğmesi ve sağ tık menüsü; sınırlar 200–3840 × 200–4320 CSS px)
 - [ ] Elle sürükleme ve gruplama
 - [ ] Senkronu viewport bazında açıp kapama
 - [ ] Developer ID imzası + notarization, şirket içi dağıtım

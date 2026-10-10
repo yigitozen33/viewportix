@@ -5,6 +5,7 @@ import SwiftUI
 struct ProjectToolbar: ToolbarContent {
     @Bindable var workspace: Workspace
     let onAddDevice: (DevicePreset) -> Void
+    let onAddCustomSize: () -> Void
 
     var body: some ToolbarContent {
         ToolbarItemGroup(placement: .navigation) {
@@ -31,6 +32,8 @@ struct ProjectToolbar: ToolbarContent {
                         }
                     }
                 }
+                Divider()
+                Button("Özel Boyut…", action: onAddCustomSize)
             }
 
             Menu("\(Int((workspace.zoom * 100).rounded()))%") {

@@ -71,3 +71,24 @@ Kod oturumunun arayüze dokunan her değişikliği, değişikliğin commit'inde 
 - Durum: sistem varsayılanı (sayfanın kendi stilleri)
 - Tasarım kararı gerekir mi: hayır — ileride senkron türlerini (scroll, tıklama, form, hover) ayrı açıp kapatma ayarı gelirse evet
 - Bağlantılı: PLAN.md §3.3
+
+## 2026-10-10 — Viewport kartında döndürme düğmesi
+- Ne: Kart başlığında kamera düğmesinin solunda `rotate.right` ikonlu düğme; tıklayınca viewport yatay ↔ dikey döner (genişlik ve yükseklik yer değiştirir, cihaz adı aynı kalır). İpucu: "Döndür".
+- Nerede: Canvas, viewport kartı başlığı; `Viewportix/Canvas/ViewportCardView.swift`
+- Durum: özel çizim (AppKit, SF Symbol)
+- Tasarım kararı gerekir mi: evet — başlıkta artık üç düğme var (döndür, kamera, kaldır); hangilerinin hep, hangilerinin hover'da görüneceği (Polypane yıkıcı eylemleri hover'da gösteriyor)
+- Bağlantılı: DESIGN.md §3.2 (Viewport kartı), §5 madde 2
+
+## 2026-10-10 — Viewport kartı başlığında sağ tık menüsü
+- Ne: Kart başlığına sağ tıklayınca menü: "Döndür", "Boyutu Düzenle…", ayraç, "Ekran Görüntüsü", "Tam Sayfa Ekran Görüntüsü", ayraç, "Kaldır". Sayfa alanında WebKit'in kendi sağ tık menüsü kalır.
+- Nerede: Canvas, viewport kartı başlığı; `Viewportix/Canvas/ViewportCardView.swift`
+- Durum: sistem varsayılanı (`NSMenu`)
+- Tasarım kararı gerekir mi: evet — menü maddeleri ve sırası
+- Bağlantılı: DESIGN.md §3.2 (Viewport kartı)
+
+## 2026-10-10 — "Özel Boyut…" ve boyut düzenleme penceresi
+- Ne: Cihaz Ekle menüsünün sonunda ayraç ve "Özel Boyut…". Açılan sheet: "Ad", "Genişlik", "Yükseklik" alanları, "Döndür" düğmesi, "İptal" ve "Ekle". Aynı sheet kart menüsündeki "Boyutu Düzenle…" ile "Boyutu Düzenle" başlığı ve "Kaydet" düğmesiyle açılır. Sınır dışı değerde kırmızı uyarı: "Genişlik 200–3840, yükseklik 200–4320 px olmalı" ve onay düğmesi pasif. Varsayılan: "Özel", 1024×768.
+- Nerede: Toolbar Cihaz Ekle menüsü ve sheet; `Viewportix/Toolbar/ProjectToolbar.swift`, `Viewportix/Project/ViewportSizeSheet.swift`
+- Durum: sistem varsayılanı (SwiftUI `Form`, grouped)
+- Tasarım kararı gerekir mi: evet — DESIGN.md'deki cihaz seçici popover'ının "Özel boyut…" satırı (W/H stepper'lı) ile aynı ihtiyaç; sheet mi popover mı, düzenleme nereden açılır
+- Bağlantılı: DESIGN.md §5 madde 5

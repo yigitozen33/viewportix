@@ -90,3 +90,21 @@ public struct CanvasState: Codable, Hashable, Sendable {
         self.offsetY = offsetY
     }
 }
+
+extension ViewportSize {
+    /// CSS pixel limits for a viewport: narrower than any phone or larger than 4K is not useful,
+    /// and very large web views cost a lot of memory.
+    public static let widthRange = 200...3840
+    public static let heightRange = 200...4320
+
+    public var isWithinLimits: Bool {
+        Self.widthRange.contains(width) && Self.heightRange.contains(height)
+    }
+}
+
+extension ViewportConfig {
+    /// Portrait ↔ landscape. The device (preset) stays the same.
+    public mutating func rotate() {
+        size = size.rotated
+    }
+}

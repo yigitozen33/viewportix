@@ -14,7 +14,8 @@ final class CanvasController: NSViewController {
     private static let margin: CGFloat = 64
     private static let gap: CGFloat = 48
 
-    var onClose: ((ViewportID) -> Void)?
+    /// Card commands that change the document (remove, rotate, edit size). Captures stay in the workspace.
+    var onCommand: ((ViewportID, ViewportCommand) -> Void)?
 
     private let workspace: Workspace
     private let scrollView = NSScrollView()
@@ -103,10 +104,14 @@ final class CanvasController: NSViewController {
     private func makeCard(id: ViewportID, content: NSView) -> ViewportCardView {
         let card = ViewportCardView(viewportID: id, content: content)
         card.onHover = { [weak self] id in self?.workspace.setLeader(id) }
-        card.onClose = { [weak self] id in self?.onClose?(id) }
-        card.onCapture = { [weak self] id, fullPage in
-            guard let workspace = self?.workspace else { return }
-            Task { await workspace.capture([id], area: fullPage ? .fullPage : .visible) }
+        card.onCommand = { [weak self] id, command in
+            guard let self else { return }
+            if case .capture(let area) = command {
+                let workspace = self.workspace
+                Task { await workspace.capture([id], area: area) }
+            } else {
+                self.onCommand?(id, command)
+            }
         }
         documentView.addSubview(card)
         cards[id] = card
@@ -251,7 +256,7 @@ final class CanvasDocumentView: NSView {
 
 struct CanvasView: NSViewControllerRepresentable {
     let workspace: Workspace
-    let onClose: (ViewportID) -> Void
+    let onCommand: (ViewportID, ViewportCommand) -> Void
 
     func makeNSViewController(context: Context) -> CanvasController {
         let controller = CanvasController(workspace: workspace)
@@ -260,7 +265,7 @@ struct CanvasView: NSViewControllerRepresentable {
     }
 
     func updateNSViewController(_ controller: CanvasController, context: Context) {
-        controller.onClose = onClose
+        controller.onCommand = onCommand
         controller.update(viewports: workspace.viewports, leader: workspace.leaderID, missed: workspace.missedIDs)
     }
 }
