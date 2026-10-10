@@ -15,7 +15,8 @@
 2. Referans: Apple HIG sayfaları ve kullanıcının vereceği Finder/Keynote ekran görüntüleri.
 3. Değişkenler (Light/Dark): `surface/*`, `ink/*`, `accent`, `status/*`, boyutlar, aralıklar.
 4. `Window/Chrome`, sonra `Viewport/Card` ve altı durumu (default, leader, selected, syncMissed, snapshot, loading).
-5. Her görsel karar kullanıcıya sorulur, DESIGN.md §4'e tarihiyle işlenir.
+5. Kod oturumundan gelen yeni öğeler tasarıma girecek (DESIGN.md §5, madde 9–11): kart başlığında kamera düğmesi (`Viewport/Card` hover/başlık satırı), toolbar'da ekran görüntüsü menüsü, pencere altında bildirim kapsülü ("Kaydedildi ve kopyalandı · Finder'da Göster").
+6. Her görsel karar kullanıcıya sorulur, DESIGN.md §4'e tarihiyle işlenir.
 
 ## Açık sorular (kullanıcıya)
 

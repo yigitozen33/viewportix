@@ -114,6 +114,9 @@ Alt veya sağ panel. Motor diff listesi ("Buton Safari'de 12px aşağıda"), tı
 6. Lider ve "senkron kaçtı" göstergeleri
 7. Geliştirici panelinin yeri
 8. Uygulama ikonu
+9. Viewport kartı başlığındaki kamera (ekran görüntüsü) düğmesi. Kodda var, şimdilik sistem görünümünde (kod oturumundan, 2026-10-10)
+10. Toolbar'daki ekran görüntüsü menüsü. Kodda var, şimdilik sistem görünümünde
+11. Pencerenin altındaki bildirim kapsülü: "Kaydedildi ve kopyalandı · Finder'da Göster". Kodda var, şimdilik sistem görünümünde
 
 ## 6. Referanslar
 
