@@ -99,6 +99,8 @@ Alt veya sağ panel. Motor diff listesi ("Buton Safari'de 12px aşağıda"), tı
 | Giriş ekranı pen.dev düzeninde, URL kutusu merkezde | 2026-10-06 |
 | Geliştirici araçları varsayılan gizli | 2026-10-06 |
 | Proje birden fazla sayfa tutar; sayfa listesi sidebar'da, MVP'de | 2026-10-06 |
+| Figma / Apple UI kit aktarımı kullanılmaz; kütüphane pen.dev'de elle kurulur | 2026-10-10 |
+| Obsidian vault = repo kökü; hafıza için oturum başına `HANDOFF.md` + tarihli günlük (`design/notlar/`) | 2026-10-10 |
 
 ## 5. Bekleyen tasarım kararları
 
