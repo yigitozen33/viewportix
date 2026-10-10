@@ -1,0 +1,20 @@
+name: S1CanvasGestures
+options:
+  deploymentTarget:
+    macOS: "26.0"
+targets:
+  S1CanvasGestures:
+    type: application
+    platform: macOS
+    sources:
+      - Sources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.viewportix.spike.S1CanvasGestures
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_NSPrincipalClass: NSApplication
+        # Throwaway spike: Swift 5 mode keeps AppKit/WebKit callbacks free of strict-concurrency noise.
+        SWIFT_VERSION: "5.0"
+        ENABLE_APP_SANDBOX: NO
+        CODE_SIGN_STYLE: Manual
+        CODE_SIGN_IDENTITY: "-"
