@@ -23,6 +23,11 @@
 - `.pen` dosyalarının taşınması ve referans kaynağı (HIG sayfaları mı, ekran görüntüsü mü).
 - Başlangıç: değişkenlerle mi, kaba proje penceresiyle mi.
 
+## Oturum başında oku
+
+- `docs/tasarim-istekleri.md` (kod oturumunun tasarıma bıraktığı istekler): son işlenen girdiden sonrakileri DESIGN.md §5'e işle ve aşağıya "son işlenen" yaz.
+- Son işlenen: yok (dosya henüz oluşturulmadı)
+
 ## Kurallar
 
 - Yazma alanı: yalnızca `DESIGN.md` ve `design/`. Kod oturumunun işleri için `design/KOD-OTURUMU-ISLERI.md`.

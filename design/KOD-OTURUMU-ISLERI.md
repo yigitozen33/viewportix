@@ -23,3 +23,22 @@ Kurallar (araştırmadan): iki oturum aynı dosyaya yazmaz; notlara modelin inan
 
 - CLAUDE.md'ye göre tasarım oturumu yalnızca `DESIGN.md` ve `design/`'i commit'ler. Kod oturumundaki commit edilmemiş Swift değişikliklerine dokunulmadı.
 - Figma kullanılmıyor; tasarım kütüphanesi pen.dev'de elle kuruluyor (DESIGN.md §4).
+
+## 4. Tasarıma haber verme (kullanıcıyı aracı yapmadan)
+
+- [ ] `docs/tasarim-istekleri.md` oluştur. Yalnızca kod oturumu yazar, yalnızca eklenir. Tasarım oturumu her oturum başında okur, işlediği satırı `[işlendi]` yapamaz (salt okur); işlenenleri `design/HANDOFF.md`'de "son işlenen: <tarih/başlık>" olarak izler.
+- [ ] Arayüze dokunan her değişiklikte (yeni düğme, menü, panel, durum, metin, boş/hata hali) aynı commit'te bu dosyaya girdi ekle. Kullanıcıya sorma, kullanıcıdan aktarmasını bekleme.
+- Girdi biçimi:
+
+```
+## YYYY-MM-DD — <öğe adı>
+- Ne: <ne eklendi / değişti>
+- Nerede: <ekran, bileşen, dosya yolu veya commit>
+- Durum: sistem varsayılanı | özel çizim
+- Tasarım kararı gerekir mi: evet/hayır — neden
+- Bağlantılı: <varsa DESIGN.md bölümü>
+```
+
+Hazır istem (kod oturumuna yapıştır):
+
+> Arayüze dokunan her değişikliği (yeni düğme, menü, panel, bildirim, durum, metin, boş/hata hali) `docs/tasarim-istekleri.md` dosyasına, değişikliği yaptığın commit'te, yukarıdaki biçimle ekle. Dosya yalnızca eklenir. Bunu kullanıcıya sormadan ve kullanıcıdan tasarım oturumuna aktarmasını beklemeden yap. DESIGN.md ve `design/` altına yazma. Oturum bitiminde `docs/oturumlar/` günlüğüne o gün eklenen satırları da özetle.
