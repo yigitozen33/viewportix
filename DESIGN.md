@@ -99,7 +99,7 @@ Kullanıcının kaydettiği birim. Bir markanın (mağazanın) tüm kurulumunu t
 │ Ürün   ● │  └──────────────────────────────┘ └──────┘ └────────┘ │
 │ Sepet    │                                                       │
 │ Ödeme    │              ( ✓ Kaydedildi · Finder'da Göster )      │
-│ + Ekle   │       [ Senkron açık ][ Sığdır ][ 100% ][ 📷 ]         │
+│ + Ekle   │       [ 🔗 ][ ⤢ ][ %100 ▴▾ ][ 📷 ]         │
 └──────────┴───────────────────────────────────────────────────────┘
 ```
 
@@ -108,9 +108,12 @@ Kullanıcının kaydettiği birim. Bir markanın (mağazanın) tüm kurulumunu t
 - **Sidebar (220, varsayılan açık):** üstte traffic lights, URL alanı ve geri/ileri/yenile; altında "SAYFALAR" listesi. **URL alanı odaklanınca** altında "SON" menüsü, URL kutusuyla aynı genişlik ve sol hizada, 4 px altında (canvas'a taşmaz): son 5 URL (favicon; adres ortadan kısaltılır; altında ne zaman; ↑↓ ⏎ ile seçilir, yazdıkça süzülür), altta "Geçmişi temizle" ve "Bu sayfayı listeye ekle: ⌘D" ipucu; geçmiş uygulamaya aittir, proje dosyasına girmez. **Sayfa listesi durumları** (`sidebar-states@2x.png`): hover'da satır zemini + sağda kalem ve ⋯; yeniden adlandırma yerinde metin alanı (gök kenar; ⏎ kaydet, Esc iptal); sürükle-bırak'ta satır kalkar (gölge, hafif eğim), hedefte gök ekleme çizgisi; açık URL listede yoksa en altta sarı kenarlı "Bu sayfayı ekle · /yol · ⌘D" satırı; boş durum "Henüz sayfa yok · Açık sayfayı ⌘D ile ekle."; "+ Ekle" her zaman en altta. Kapanınca ışıklar, sidebar düğmesi, nav ve URL canvas'ın üst solunda tek bir yüzen kapsüle taşınır (aynı sırayla), canvas tam genişliği alır.
 - **Cihaz sekmeleri (canvas üstünde yüzen şerit):** açık viewport'lar sırayla; her sekme kartla aynı durumu taşır (lider gök çerçeve, senkron kaçtı mercan üçgen, yükleniyor dönen ikon, snapshot resim ikonu). Sığmayınca şerit kayar (kenarda solma + ok); sağda "+N" çipi gizli cihazların en ciddi durumunu gösterir (hata > lider > yükleniyor > normal: hata mercan kenar + üçgen, lider gök kenar + göz, yükleniyor dönen ikon, normal düz) ve menü açar ("GİZLİ CİHAZLAR"): her gizli cihaz için ad, boyut · motor · durum metni, odakla ve kapat düğmeleri. Etkileşimler aşağıdaki tabloda. Sekme adı asla kısaltılmaz, durum ikonu asla gizlenmez. Sonda "+ Cihaz".
 - **Alt yüzen çubuk (ikon-only):** Senkron (sarı zincir; kapalıyken gri kırık zincir), Sığdır, zoom kontrolü (`Toolbar/ZoomControl`: yüzde metni + sağında dikey mini stepper ▲▼; yüzdeye tık → menü, ▲▼ kademeli zoom, yüzde yatay sürükle → sürekli zoom), ekran görüntüsü. Her ikonun hover'ında koyu tooltip: ad + kısayol. Bildirim kapsülü bu çubuğun üstüne çıkar; menü veya tooltip açıkken gösterilmez.
-- **Ekran görüntüsü menüsü (kamera düğmesi, çubuğun üstüne açılır):** Tüm viewport'lar ⌘⇧S · Seçili viewport ⌘S · Canvas'ı olduğu gibi · — · Panoya da kopyala ✓ · Ölçek 2× ▾ · — · Son görüntüyü Finder'da göster. Kart başlığındaki kamera yalnız o viewport'u alır. Her yakalamadan sonra kapsül: "Kaydedildi ve kopyalandı · Finder'da Göster".
-- **Zoom menüsü (çubuğun üstüne açılır):** Sığdır ⌘1, Seçimi sığdır ⌘2 · 50% / 100% / 200% (geçerli olan işaretli) · Gerçek boyut ⌘0, Yakınlaştır ⌘+, Uzaklaştır ⌘−.
+- **Ekran görüntüsü menüsü (kamera düğmesi, çubuğun üstüne açılır):** Tüm viewport'lar ⌥⌘S · Seçili viewport · Tam sayfa (tüm viewport'lar) ⌃⌥⌘S · Canvas'ı olduğu gibi · — · Panoya da kopyala ✓ · Ölçek 2× ▾ · — · Son görüntüyü Finder'da göster. Kart başlığındaki kamera yalnız o viewport'u alır. Her yakalamadan sonra kapsül: "Kaydedildi ve kopyalandı · Finder'da Göster".
+- **Zoom menüsü (çubuğun üstüne açılır):** Sığdır ⌘1, Seçimi sığdır ⌘2 · %25 / %50 / %100 / %200 (geçerli olan işaretli; yüzde Türkçe yazımla önde: "%100", sistem yerel ayarına göre) · Gerçek boyut ⌘0, Yakınlaştır ⌘+, Uzaklaştır ⌘−.
 - **Viewport kartı:** kompakt tek satır başlık: cihaz adı, boyut, sağda motor ikonu ve kamera düğmesi. Motor yalnızca ikon; hover'da tooltip "WebKit 26 · macOS 26". Sığmazsa gizlenme sırası: önce boyut, sonra ad ortadan kısaltılır; motor ikonu ve kamera asla gizlenmez. Sekmeler motor göstermez; aynı cihaz iki motorda açılırsa sekme adı "iPad · Chromium" olur. Hover'da kapat / döndür / senkrondan çıkar kartın üstünde yüzen şeritte. Durumlar §4'te.
+- **Kart başlığı sağ tık menüsü:** Döndür ⌥⌘R · Boyutu düzenle… · Senkrondan çıkar (kapalıysa "Senkrona kat") · — · Ekran görüntüsü · Tam sayfa ekran görüntüsü · — · Motor › (M4'e kadar pasif, "WebKit 26") · — · Kaldır ⌫ (mercan). Sayfa alanında WebKit'in kendi menüsü kalır.
+- **Boyutu düzenle:** kart başlığının altından açılan popover: Ad, Genişlik ⇄ Yükseklik (ortadaki düğme değiştirir), sınır ipucu "200–3840 × 200–4320 px" (dışındaysa alan mercan kenar, Kaydet pasif), İptal / Kaydet (sarı). Yeni kart için cihaz seçicinin "Özel boyut" satırı aynı sınırları kullanır.
+- **Senkron kapalı viewport:** başlıkta boyutun yanında gri ‖ işareti (ipucu "Bu viewport için senkron kapalı"), içerik değişmez; hover şeridindeki ilk düğme kırık zincirden zincire döner ("Senkrona kat"). Projeye kaydedilir. Frame: `Card Actions`.
 - **Lider göstergesi:** imlecin üstünde olduğu viewport gök çerçeve ve parlak başlıkla vurgulanır; sekmesi de aynı renkte.
 - **"Senkron kaçtı" göstergesi:** başlıkta mercan üçgen, kartın altında "Element bu viewport'ta bulunamadı" notu; sekmede de üçgen.
 - Inspector şimdilik yok; gelince seçeneklere bakılır. Geliştirici paneli §3.4.
@@ -140,21 +143,40 @@ Kullanıcının kaydettiği birim. Bir markanın (mağazanın) tüm kurulumunu t
 | Satırı sürükle | Satır kalkar, hedefte gök çizgi; bırakınca sıralanır ve proje kaydedilir | 150 ms kalkış, 200 ms yerleşme |
 | ⌘D | Açık URL sayfa listesine eklenir; "Bu sayfayı ekle" satırı kaybolur | 150 ms |
 | Kamera düğmesi | Ekran görüntüsü menüsü açılır; kart kamerası doğrudan o viewport'u alır | 120 ms fade + 4 px |
-| Sidebar düğmesi / ⌘⇧S | Sidebar kapanır; ışıklar + nav + URL üst sol kapsüle taşınır | Sidebar 200 ms genişlik; kapsül 150 ms fade |
-| "+ Cihaz" / ⌘N | Cihaz seçici popover açılır, arama odaklı | 120 ms fade + 4 px |
+| Sidebar düğmesi / ⌃⌘S | Sidebar kapanır; ışıklar + nav + URL üst sol kapsüle taşınır | Sidebar 200 ms genişlik; kapsül 150 ms fade |
+| "+ Cihaz" / ⌥⌘N | Cihaz seçici popover açılır, arama odaklı | 120 ms fade + 4 px |
 | Seçicide satıra tık | Cihaz canvas sonuna eklenir, sekme belirir, tik gelir; popover **açık kalır**; canvas ⌘1 ile sığdırılır | Kart 200 ms belirir; canvas 250 ms |
 | Seçicide ekli satıra tık | Canvas o karta kayar (çıkarmaz) | 250 ms |
 | Aramaya "W×H" yaz + ⏎ | Özel boyut eklenir | — |
 | Esc / dışarı tık | Popover kapanır | 100 ms |
+| Kart başlığına sağ tık | Kart menüsü imleçte | 120 ms fade |
+| Boyutu düzenle… | Popover başlığın altından; Kaydet → kart yeni boyuta animasyonla geçer, canvas yeniden dizilir | Popover 120 ms; kart 200 ms |
+| Senkrondan çıkar / Senkrona kat | Kart ‖ işareti alır / bırakır; o viewport olay almaz | 150 ms |
 
 Kapat, döndür, senkrondan çıkar ve ekran görüntüsü eylemleri menü çubuğunda da bulunur (hover'a gizlenenler klavye ve menüden ulaşılabilir kalır).
 
+
+### 3.2.1 Menü çubuğu ve kısayollar
+
+Tek kaynak bu tablo; diğer bölümlerdeki kısayollar buna uyar. macOS standartları korunur (⌘N yeni belge, ⌘S kaydet, ⌃⌘S sidebar, ⌘L adres, ⌘, ayarlar). Her toolbar, ray ve kart eylemi menüde de bulunur. Frame: `Shortcut Map · Menü çubuğu` (00 bölümü).
+
+| Menü | Madde → kısayol |
+|---|---|
+| Viewportix | Hakkında · Ayarlar… ⌘, · Gizle ⌘H · Çıkış ⌘Q |
+| Dosya | Yeni Proje ⌘N · Aç… ⌘O · Son Kullanılanlar › · Kapat ⌘W · Kaydet ⌘S · Çoğalt ⇧⌘S · Yeniden Adlandır… · Giriş Ekranı ⇧⌘0 · Ekran Görüntüsü Al ⌥⌘S · Tam Sayfa Ekran Görüntüsü ⌃⌥⌘S |
+| Görünüm | Sidebar'ı Gizle ⌃⌘S · Rayı Gizle ⌥⌘0 · Yakınlaştır ⌘+ · Uzaklaştır ⌘− · Gerçek Boyut ⌘0 · Sığdır ⌘1 · Seçimi Sığdır ⌘2 · Farklar ⌥⌘1 · Senkron Kaydı ⌥⌘2 · Arka Plandaki Medyayı Duraklat · Tam Ekran ⌃⌘F |
+| Gezinme | Geri ⌘[ · İleri ⌘] · Yenile ⌘R · Adres Çubuğu ⌘L · Bu Sayfayı Listeye Ekle ⌘D · Sonraki Sayfa ⇧⌘] · Önceki Sayfa ⇧⌘[ |
+| Viewport | Cihaz Ekle… ⌥⌘N · Döndür ⌥⌘R · Boyutu Düzenle… · Senkrondan Çıkar · Kaldır ⌫ · Senkron Açık ⇧⌘L · Sonraki Viewport ⌃⇥ · Önceki Viewport ⌃⇧⇥ · Seçimi Kaldır Esc |
+
+Bağlama özel (odak panelde/listede): Farklar J/K, A Kabul, I Yoksay, T Takip et, ⏎ Göster · Senkron ↑↓, ⏎ göster, R yeniden dene · Sayfa listesi ⏎ aç, çift tık yeniden adlandır, ⌫ kaldır, ⌥⌘↑/↓ taşı · Popover ↑↓ ⏎, Esc · Zoom yüzdesi yatay sürükle. Giriş ekranında ⌘D kartı çoğaltır (Finder gibi; proje penceresinde sayfa ekler).
+
+Düzeltilen çakışmalar: ⌘S (seçili viewport ekran görüntüsü → kaldırıldı, Kaydet'e ait), ⇧⌘S (sidebar ve tüm ekran görüntüsü → sidebar ⌃⌘S, ekran görüntüsü ⌥⌘S), ⌘N ("+ Cihaz" → ⌥⌘N), ⌥⌘↑/↓ (sayfa geçişi → ⇧⌘]/[ ).
 
 ### 3.3 Sağ ray ve Ayarlar paneli
 
 Proje penceresinin sağ kenarında 44 px **ray** (varsayılan açık; alttaki düğmeyle tamamen gizlenir, tercih hatırlanır; gizliyken ⌘, ya da ilgili kısayol paneli açar): ⚙ Ayarlar, Cihazlar, MCP, Hesap; ayırıcı; Farklar, Senkron (M5); altta daralt. Rayın ikonuna tıklayınca ilgili panel açılır. **Varsayım (kullanımda doğrulanacak):** Ayarlar / Cihazlar / MCP / Hesap panelleri canvas'ın **üstüne kayar** (340 px, gölgeli, canvas yerinden oynamaz); Farklar ve Senkron panelleri canvas'ı **iter** (300 px, uzun süre açık kalır). Ayarlar panelinin başlığında yalnızca ✕; Farklar ve Senkron panellerinde ayrıca "pencereye çıkar" (⧉, ikinci ekrana almak için). ⌘, ayarları açar. Giriş ekranında ray yok; ⚙ düğmesi ve ⌘, aynı paneli açar (§3.1). Ayrı ayarlar penceresi yok.
 
-**Ayarlar paneli içeriği** (`window-project-settings-panel@2x.png`: ray + üstüne kayan panel): üstte sekme çipleri Genel · Cihazlar · MCP · Hesap, arama; GÖRÜNÜM (Tema Sistem / Koyu / Açık; Dil), PROJE (Varsayılan şablon; Senkron açık başlasın; Taslakları sakla), EKRAN GÖRÜNTÜSÜ (Klasör; Panoya da kopyala; Ölçek 1× / 2×), **BU PROJE** (Cihazlar (n) → Cihazlar sekmesi; Motor). Sekme içerikleri:
+**Ayarlar paneli içeriği** (`window-project-settings-panel@2x.png`: ray + üstüne kayan panel): üstte sekme çipleri Genel · Cihazlar · MCP · Hesap, arama; GÖRÜNÜM (Tema Sistem / Koyu / Açık; Dil), PROJE (Varsayılan şablon; Senkron açık başlasın; Taslakları sakla), EKRAN GÖRÜNTÜSÜ (Klasör; Panoya da kopyala; Ölçek 1× / 2×); PROJE altında ayrıca "Arka plandaki viewport'larda medyayı duraklat" (varsayılan kapalı; Görünüm menüsünde de), **BU PROJE** (Cihazlar (n) → Cihazlar sekmesi; Motor). Sekme içerikleri:
 - **Cihazlar:** cihaz yönetimi; "Cihazları yönet…" buraya açılır. Arama, "İçe aktar…", "+ Cihaz"; tablo Ad (özel cihazda "özel"), Tür, Boyut, Ölçek, Seçicide (toggle; kapalıysa listede kalır, "+ Cihaz" menüsünde görünmez), ⋯. Yerleşik cihazlar silinemez, gizlenir; "Seçicide" kapatmak açık projelerdeki kartları etkilemez. Özel cihazlar uygulamayla saklanır.
 - **MCP** (M7): durum (nokta + "stdio · 2 istemci · 14 araç"; Durdur/Başlat), Taşıma stdio / HTTP, Komut + Kopyala, İzinler (Ekran görüntüsü alma, Gezinme ve tıklama, DOM diff okuma, Proje dosyası yazma — varsayılan kapalı), Bağlı istemciler (ad, son istek, Bağlantıyı kes).
 - **Hesap:** avatar, ad, e-posta, Çıkış yap; Takım; Lisans ("Dahili"; iş modeli sonra); Güncelleme.
@@ -210,6 +232,7 @@ Sağ raydan açılır, canvas'ı iter (300 px). Tasarım ilkesi: **sakin ama tek
 | Viewport kartı: çerçevesiz (cihaz çerçevesi yok); kompakt tek satır başlık: ad, boyut, sağda motor ve kamera düğmesi (kamera başlıkta hep görünür, varsayım); hover'da kapat / döndür / senkrondan çıkar eylemleri kartın üstünde yüzen küçük bir şeritte (başlık değişmez, motor ve boyut her an görünür) | 2026-10-10 |
 | Kart durumu `loading`: başlık altında 3 px açık krem ilerleme çizgisi + kamera yerine dönen yükleme ikonu (iskelet veya ortada kutu yok) | 2026-10-10 |
 | Kart durumu `selected` (S3, çift halka): kartın dışında 3 px boşlukla 1.5 px krem halka (`ink/primary`); kartın kendi çizgisi değişmez. Lider ile bağımsız: içteki çizgi "lider mi?" (gök 2 px), dıştaki halka "seçili mi?" sorusunu yanıtlar; ikisi aynı anda görünebilir. Seçili kart imleç gidince kalır; sekmeye tık, "+N"/cihaz seçicide ekli satıra tık ve Farklar › Göster seçer; ⌘S, ⌘2, kapat/döndür kısayollarının hedefidir. S0 (2 px krem) lider ile çakıştığı için, S1 tutamaç ve S2 boyut etiketi ek öğe gerektirdiği için reddedildi | 2026-10-10 |
+| Kısayol haritası tek tablo (§3.2.1): macOS standartları korunur, çakışmalar düzeltildi; zoom yüzdesi Türkçe yazımla "%100"; kart sağ tık menüsü, boyut düzenleme popover'ı ve "senkron kapalı" durumu (gri ‖); medya duraklatma Ayarlar › Proje | 2026-10-10 |
 | ~~Toolbar iki satır (üstte nav+URL+senkron, altta cihaz sekmeleri + zoom)~~ — yerini aldı, aşağıya bak | 2026-10-10 |
 | Proje penceresi düzeni (B2): üst çubuk yok; URL ve nav sidebar'ın tepesinde; cihaz sekmeleri canvas üstünde yüzen şerit; senkron/sığdır/zoom/ekran görüntüsü alt yüzen çubukta; sidebar varsayılan açık (220), kapanınca ışıklar+nav+URL üst sol kapsüle taşınır; inspector sonra. Gerekçe: araştırmada zoom/sığdır hiçbir canvas aracında üst çubukta değil; yüzen paneller (Figma UI3, Sketch) geri alındı, yalnızca alt araç çubuğu kaldı; cihaz sekmeleri çoklu önizlemede canvas'ı tekrarlar, bu yüzden durum taşıyarak değer kazanır | 2026-10-10 |
 | Cihaz sekmeleri durum taşır (lider/senkron kaçtı/yükleniyor/snapshot); taşmada kaydırılabilir şerit + "+N" durum çipi + gizli cihaz menüsü; ad kısaltılmaz. İkon-only sekmeler reddedildi (hata hangi cihazda, tek bakışta okunmalı) | 2026-10-10 |
