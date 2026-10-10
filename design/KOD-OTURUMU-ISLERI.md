@@ -70,3 +70,5 @@ DESIGN.md §3.2 sonundaki **etkileşim tablosu** tetikleyici → etki → hareke
 - [ ] Uygulama ikonu B6 "Vx monogram" seçildi (DESIGN.md §4). Icon Composer dosyası tasarım oturumundan gelecek; o zamana kadar yer tutucu ikon kalsın.
 
 - [ ] Yazı tipi: SwiftUI'de sistem fontu (`.system`, SF Pro) ve sayısal değerler/seçiciler için `.monospaced` (SF Mono); `.monospacedDigit()` boyut ve yüzdelerde. Tasarım dosyasındaki Inter / JetBrains Mono yalnızca vekil, uygulamaya gömme. Boyutlar DESIGN.md §6 (`font/title` 15 … `font/micro` 10).
+
+- [ ] Kart `selected` durumu: kartın dışında 3 px boşlukla 1.5 px krem halka (kartın kendi çizgisinden bağımsız overlay). Lider (gök iç çizgi) ile aynı anda olabilir. Seçim: karta tık, sekmeye tık, "+N"/cihaz seçici, Farklar › Göster; Esc veya boşluğa tık kaldırır. DESIGN.md §4 ve §3.2 etkileşim tablosu.

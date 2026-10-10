@@ -125,7 +125,8 @@ Kullanıcının kaydettiği birim. Bir markanın (mağazanın) tüm kurulumunu t
 | Menü satırına tık | Şerit o sekmeye kayar, sekme `selected`, canvas karta kayar, menü kapanır | Şerit kaydırma 250 ms; canvas pan 250 ms |
 | Menü satırı odakla düğmesi | Canvas karta kayar ve kart `selected`; menü **açık kalır** | Canvas pan 250 ms |
 | Menü satırı ✕ | Viewport kapanır, satır menüden düşer, N azalır | Satır 150 ms daralır |
-| İmleç kartın üstünde | Kart `leader`; sekmesi gök çerçeve; hover şeridi belirir | 100 ms |
+| İmleç kartın üstünde | Kart `leader`; sekmesi gök çerçeve; hover şeridi belirir; kart seçiliyse krem halka yerinde kalır | 100 ms |
+| Karta tık (boş alana değil) / sekmeye tık | Kart `selected`: dışta krem halka; önceki seçim kalkar; Esc ya da canvas boşluğuna tık seçimi kaldırır | 100 ms |
 | Motor ikonu hover | Tooltip: motor adı + sürüm, altında işletim sistemi | 400 ms gecikme, 100 ms fade |
 | Alt çubuk ikon hover | Tooltip (ad + kısayol) | 400 ms gecikme, 100 ms fade |
 | Senkron düğmesi | Senkron aç/kapa; sarı ↔ gri, zincir ↔ kırık zincir | 150 ms |
@@ -207,6 +208,7 @@ Sağ raydan açılır, canvas'ı iter (300 px). Tasarım ilkesi: **sakin ama tek
 | Koyu canvas; renk paleti: vurgu sarı `#FFF36B`, lider gök `#8EC9E6`, uyarı yumuşak mercan `#FF8F85`; zemin sıcak siyah `#161412`. Sarı yalnızca eylem ve onay için (üstündeki yazı koyu `#141210`). Lider ve uyarı yalnızca renkle değil şekille de ayrışır (çerçeve + parlak başlık / üçgen ikon). Açık tema ayrıca çizilecek | 2026-10-10 |
 | Viewport kartı: çerçevesiz (cihaz çerçevesi yok); kompakt tek satır başlık: ad, boyut, sağda motor ve kamera düğmesi (kamera başlıkta hep görünür, varsayım); hover'da kapat / döndür / senkrondan çıkar eylemleri kartın üstünde yüzen küçük bir şeritte (başlık değişmez, motor ve boyut her an görünür) | 2026-10-10 |
 | Kart durumu `loading`: başlık altında 3 px açık krem ilerleme çizgisi + kamera yerine dönen yükleme ikonu (iskelet veya ortada kutu yok) | 2026-10-10 |
+| Kart durumu `selected` (S3, çift halka): kartın dışında 3 px boşlukla 1.5 px krem halka (`ink/primary`); kartın kendi çizgisi değişmez. Lider ile bağımsız: içteki çizgi "lider mi?" (gök 2 px), dıştaki halka "seçili mi?" sorusunu yanıtlar; ikisi aynı anda görünebilir. Seçili kart imleç gidince kalır; sekmeye tık, "+N"/cihaz seçicide ekli satıra tık ve Farklar › Göster seçer; ⌘S, ⌘2, kapat/döndür kısayollarının hedefidir. S0 (2 px krem) lider ile çakıştığı için, S1 tutamaç ve S2 boyut etiketi ek öğe gerektirdiği için reddedildi | 2026-10-10 |
 | ~~Toolbar iki satır (üstte nav+URL+senkron, altta cihaz sekmeleri + zoom)~~ — yerini aldı, aşağıya bak | 2026-10-10 |
 | Proje penceresi düzeni (B2): üst çubuk yok; URL ve nav sidebar'ın tepesinde; cihaz sekmeleri canvas üstünde yüzen şerit; senkron/sığdır/zoom/ekran görüntüsü alt yüzen çubukta; sidebar varsayılan açık (220), kapanınca ışıklar+nav+URL üst sol kapsüle taşınır; inspector sonra. Gerekçe: araştırmada zoom/sığdır hiçbir canvas aracında üst çubukta değil; yüzen paneller (Figma UI3, Sketch) geri alındı, yalnızca alt araç çubuğu kaldı; cihaz sekmeleri çoklu önizlemede canvas'ı tekrarlar, bu yüzden durum taşıyarak değer kazanır | 2026-10-10 |
 | Cihaz sekmeleri durum taşır (lider/senkron kaçtı/yükleniyor/snapshot); taşmada kaydırılabilir şerit + "+N" durum çipi + gizli cihaz menüsü; ad kısaltılmaz. İkon-only sekmeler reddedildi (hata hangi cihazda, tek bakışta okunmalı) | 2026-10-10 |
@@ -230,7 +232,7 @@ Sağ raydan açılır, canvas'ı iter (300 px). Tasarım ilkesi: **sakin ama tek
 Öncelik sırasıyla, kullanıcıdan:
 
 1. ~~Proje penceresi düzeni~~ — verildi (bkz. §4). Kalan: inspector (sonra)
-2. ~~Viewport kartı: başlık içeriği, cihaz çerçevesi~~ — verildi (bkz. §4). Kalan: `selected` durumunun görünümü (şimdilik 2 px krem çerçeve, tutamaç yok; varsayım)
+2. ~~Viewport kartı: başlık içeriği, cihaz çerçevesi, selected~~ — verildi (bkz. §4)
 3. ~~Genel görsel dil~~ — verildi (koyu canvas ve palet, bkz. §4). Açık tema ileriye bırakıldı (§4)
 4. ~~Giriş ekranının görsel tasarımı~~ — verildi (bkz. §3.1, §4)
 5. ~~Cihaz seçici ve viewport ekleme akışı~~ — verildi (bkz. §3.2)
