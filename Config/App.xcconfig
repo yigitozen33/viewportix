@@ -1,0 +1,10 @@
+// Signing defaults to ad-hoc so a fresh clone builds anywhere.
+// To sign with your own team (stable identity, no repeated keychain prompts), create the untracked
+// Config/Signing.local.xcconfig:
+//   CODE_SIGN_STYLE = Automatic
+//   CODE_SIGN_IDENTITY = Apple Development
+//   DEVELOPMENT_TEAM = <your team ID>
+CODE_SIGN_STYLE = Manual
+CODE_SIGN_IDENTITY = -
+
+#include? "Signing.local.xcconfig"

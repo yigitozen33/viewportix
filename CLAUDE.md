@@ -43,7 +43,8 @@ Ekranlar, akışlar ve tasarım kararları: [DESIGN.md](DESIGN.md)
 
 - Xcode projesi `project.yml`'den üretilir, repoda tutulmaz: `xcodegen generate`
 - Paket testleri: `swift test --package-path Packages/ViewportixKit`
-- Uygulama derleme: `xcodebuild -project Viewportix.xcodeproj -scheme Viewportix -derivedDataPath .build/xcode build`
+- Uygulama derleme: `xcodebuild -project Viewportix.xcodeproj -scheme Viewportix -derivedDataPath .build/xcode -allowProvisioningUpdates build`
+- İmza: varsayılan geçici (ad-hoc); geliştiricinin ekibi repoya girmeyen `Config/Signing.local.xcconfig`'te (`Config/App.xcconfig`'teki açıklamaya bak). Kalıcı imza anahtar zinciri şifre pencerelerini önler
 - Test sayfaları: `Packages/ViewportixKit/Tests/Fixtures/`
 - `.pen` tasarım dosyalarına yalnızca pen.dev MCP araçlarıyla eriş
 

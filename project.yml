@@ -15,6 +15,9 @@ targets:
   Viewportix:
     type: application
     platform: macOS
+    configFiles:
+      Debug: Config/App.xcconfig
+      Release: Config/App.xcconfig
     sources:
       - Viewportix
     dependencies:
@@ -57,6 +60,3 @@ targets:
         # Sandbox stays off so later engines can launch Chrome/Firefox; hardened runtime for notarization.
         ENABLE_APP_SANDBOX: NO
         ENABLE_HARDENED_RUNTIME: YES
-        # Ad-hoc signing for local builds; switch to Developer ID for distribution.
-        CODE_SIGN_STYLE: Manual
-        CODE_SIGN_IDENTITY: "-"
