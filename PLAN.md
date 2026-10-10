@@ -30,6 +30,7 @@ Slogan: **"Every width. Every engine."**
 | Dağıtım | App Store dışı, önce şirket içi | Developer ID + notarization. İş modeli sonra |
 | Lisans hijyeni | GPL'li bağımlılık yok | Açık kaynak / ücretli seçeneği açık kalsın |
 | Arayüz tasarımı | Kullanıcı yapar | Görsel kararlar ona sorulur |
+| Arayüz çerçevesi | Tamamen özel: toolbar ve sidebar dahil (2026-10-10, DESIGN.md §4) | Pencere standart; sistem davranışları korunur; kendi yüzeylerde Liquid Glass yok. Ayrıntı §3.8 |
 
 ## 3. Mimari
 
@@ -164,6 +165,22 @@ Kullanıcının kaydettiği birim **proje**dir: bir markanın tüm kurulumu (URL
 - App Sandbox **kapalı** (Chrome ve Firefox process'lerini başlatmak için gerekli), Hardened Runtime **açık** (notarization için).
 - Yerel geliştirme sunucuları (`http://localhost`) için App Transport Security istisnası.
 - Geçersiz sertifikalı staging siteleri için kullanıcı onaylı istisna (MVP sonrası).
+
+### 3.8 Özel arayüz çerçevesi
+
+Karar (2026-10-10, kullanıcı): toolbar ve sidebar dahil tüm arayüz özel çizilir; tasarım pen.dev'den gelir. Tasarım gelene kadar mevcut sistem görünümü (`NavigationSplitView`, SwiftUI `.toolbar`) kalır; geçiş M3'te.
+
+**Pencere (standart kalır):** `NSWindow` + `.fullSizeContentView`, şeffaf başlık çubuğu, başlık metni gizli, sistem `NSToolbar` yok. Trafik ışıkları, pencereyi sürükleyerek taşıma (özel üst çubuğun boş alanları sürükleme bölgesi), tam ekran ve pencere yeniden boyutlandırma sistemde kalır.
+
+**Özel görünümler:** üst çubuk (gezinme, adres, cihaz ekle, zoom, ekran görüntüsü, senkron), sidebar (sayfa listesi; genişliği sürüklenebilir ayırıcıyla ayarlanır ve kaydedilir; aç/kapa), canvas üstü öğeler (bildirim kapsülü, boş durumlar). Viewport kartı zaten AppKit'te özel çizim.
+
+**Korunacak sistem davranışları (kendimiz yazacağız):**
+- Menü çubuğu ve kısayollar: her üst çubuk öğesinin menüde karşılığı (bugün var); sidebar aç/kapa standart "Kenar Çubuğunu Göster/Gizle" (⌃⌘S).
+- Klavye: Tab ile odak sırası, odak halkası, Return/Space ile etkinleştirme.
+- VoiceOver: her özel denetimde erişilebilirlik etiketi ve rolü.
+- Sidebar: genişlik sınırları, sürükleme, çift tıkla daraltma yok (HIG'e uygun basit davranış).
+
+**Etkisi:** Uygulama hedefinde `Window/` (pencere yapılandırması ve üst çubuk), `Sidebar/` (yeniden boyutlandırma); `ProjectWindow` `NavigationSplitView` yerine `HStack` + ayırıcı olur. Paket katmanı etkilenmez. Liquid Glass yalnızca sistemin kendi parçalarında (menüler, trafik ışıkları) kalır; bildirim kapsülündeki glass kaldırıldı.
 
 ## 4. Klasör yapısı
 
@@ -303,6 +320,7 @@ Cihaz çerçeveleri, screenshot, form girişi senkronu, gruplama, elle sürükle
 ### M3 — Şirket içi sürüm
 
 - [ ] Arayüz tasarımının uygulanması (tasarım kullanıcıdan)
+- [ ] Özel pencere çerçevesi: şeffaf başlık çubuğu, özel üst çubuk ve sidebar, sistem davranışları (§3.8)
 - [ ] Giriş ekranının tam hali: küçük resimler, şablonlar, ızgara/liste, arama
 - [ ] Sidebar'da viewport listesi ve gruplar
 - [x] Form girişi ve hover senkronu (hover: CSS kural taklidi, S4)

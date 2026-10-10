@@ -22,3 +22,7 @@ Config/Signing.local.xcconfig
 # Obsidian vault (repo root) local state
 .obsidian/
 .trash/
+
+# Obsidian vault at the repo root (design and code notes)
+.obsidian/
+.trash/

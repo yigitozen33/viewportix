@@ -2,58 +2,42 @@
 
 > Kullanıcıyla Türkçe konuş. Kod, değişken adları ve commit mesajları İngilizce olsun.
 
-## Ne yapıyoruz
+Tasarımcılar ve front-end geliştiriciler için native macOS uygulaması: bir siteyi birden fazla cihaz boyutunda, **gerçek tarayıcı motorlarında** (WebKit, Chromium, Gecko) yan yana gösterir; scroll, tıklama, form, hover ve navigasyon senkrondur. Rakipler (Responsively, Polypane, Sizzy) Electron + Chromium. Slogan: **"Every width. Every engine."**
 
-Responsively App'in bir alternatifi: tasarımcılar ve front-end geliştiriciler için **native bir macOS uygulaması**.
+- Mimari, yol haritası, spike sonuçları: [PLAN.md](PLAN.md)
+- Ekranlar ve tasarım kararları: [DESIGN.md](DESIGN.md)
 
-Bir web sitesini birden fazla cihaz boyutunda yan yana gösterir; scroll, tıklama ve navigasyon tüm cihazlarda senkrondur.
+## Oturum başında oku
 
-Asıl farkı: Responsively, Polypane ve Sizzy'nin hepsi Electron + Chromium, yani "iPhone" görünümleri aslında Chrome. Viewportix sayfayı **gerçek tarayıcı motorlarında** (Safari/WebKit, Chrome, Firefox) gösterir ve aralarındaki görsel farkları işaretler.
-
-Slogan: **"Every width. Every engine."**
-
-Ayrıntılı mimari, klasör yapısı ve yol haritası: [PLAN.md](PLAN.md)
-Ekranlar, akışlar ve tasarım kararları: [DESIGN.md](DESIGN.md)
+- Kod oturumu: kendi durumun [docs/HANDOFF.md](docs/HANDOFF.md) (+ son günlük `docs/oturumlar/`), karşı taraf `design/HANDOFF.md` (+ `design/notlar/`)
+- Tasarım oturumu: kendi durumun `design/HANDOFF.md`, karşı taraf `docs/HANDOFF.md` ve `docs/tasarim-istekleri.md`
 
 ## Kararlar
 
-- Yalnızca macOS 26+; eski sürümler ve Windows ileride talep olursa
-- Swift + SwiftUI (gerektiğinde AppKit)
-- Hedef kitle hem tasarımcı hem geliştirici: varsayılan arayüz sade, geliştirici araçları ayrı panelde
-- Viewport'lar serbest canvas üzerinde (zoom + pan); hareket kuralları spike ile doğrulanacak, olmazsa ızgara
-- Proje = `.viewportix` dosyası (bir markanın tüm kurulumu); taslaklar otomatik saklanır; giriş ekranı pen.dev düzeninde
-- Safari için WKWebView (canlı), Chrome için CDP (screencast ile canlı), Firefox için WebDriver BiDi (snapshot modu)
-- Senkron element tabanlı ve motordan bağımsız: tek `sync-agent.js`, yalnızca lider viewport olay yayınlar
-- Görsel farklar DOM tabanlı diff ile bulunur, piksel diff ile değil
-- AI entegrasyonu MCP sunucusu olarak (Blender modeli), MVP sonrası
-- iOS Simulator MVP dışı
-- App Store dışı dağıtım, önce şirket içi; iş modeli sonra. GPL'li bağımlılık kullanma
+- Yalnızca macOS 26+; Swift + SwiftUI, canvas ve web görünümleri AppKit
+- Arayüz tamamen özel (toolbar ve sidebar dahil); pencere standart, sistem davranışları (menü, kısayol, klavye, VoiceOver) korunur; kendi yüzeylerimizde Liquid Glass yok
+- Viewport'lar serbest canvas'ta (zoom + pan); proje = `.viewportix` dosyası
+- WebKit `WKWebView` (canlı), Chromium CDP (canlı), Firefox WebDriver BiDi (snapshot)
+- Senkron motordan bağımsız tek `sync-agent.js`; yalnızca lider viewport olay yayınlar
+- Görsel farklar DOM diff ile; AI entegrasyonu MCP sunucusu olarak (MVP sonrası)
+- App Store dışı, önce şirket içi; GPL'li bağımlılık yok
 - Arayüz tasarımını kullanıcı yapar; görsel kararları ona sor
 
 ## Çalışma kuralları
 
-- Motorlara yalnızca `EngineSession` protokolü üzerinden eriş; canvas ve senkron kodu motora özgü tip görmemeli
-- Mantık `Packages/ViewportixKit` içinde, uygulama hedefi yalnızca arayüz
-- Riskli teknik sorular önce `Spikes/` altında atılabilir denemeyle cevaplanır
+- Motorlara yalnızca `EngineSession` üzerinden eriş; mantık `Packages/ViewportixKit`'te, uygulama hedefi yalnızca arayüz
+- Riskli teknik sorular önce `Spikes/` altında denenir
 - "Gerçek motor" de, "gerçek cihaz" deme: macOS WebKit'i iOS Safari değildir
-- Mimari ve yol haritası kararları PLAN.md'ye, ekran ve akış kararları DESIGN.md'ye; bu dosya yalnızca özet
-- Kararlar netleştikçe bu dosyaları güncelle
-- Paralel oturumlar: tasarım oturumu yalnızca `DESIGN.md` ve `design/` altını değiştirir ve yalnızca onları commit'ler; kod oturumu bu ikisine dokunmaz. Tasarım kararları koda `DESIGN.md` üzerinden geçer
-- Kod oturumu: arayüze dokunan her değişikliği (düğme, menü, panel, bildirim, durum, metin, boş/hata hali) aynı commit'te `docs/tasarim-istekleri.md`'ye ekler (biçim dosyanın başında; yalnızca eklenir; kullanıcıya sormadan). Oturum sonunda `docs/oturumlar/YYYY-MM-DD.md`'ye kararları, denenen/reddedilenleri, kanıtı ve o gün eklenen tasarım isteklerini yazar
+- Mimari kararlar PLAN.md'ye, ekran kararları DESIGN.md'ye; bu dosya kısa kalır, ayrıntı HANDOFF ve günlüklerde
+- Paralel oturumlar aynı dosyaya yazmaz. Tasarım: yalnızca `DESIGN.md` ve `design/`. Kod: geri kalan her şey (`docs/` dahil)
+- Kod oturumu arayüze dokunan her değişikliği aynı commit'te `docs/tasarim-istekleri.md`'ye ekler (yalnızca eklenir, kullanıcıya sormadan); `docs/HANDOFF.md`'yi güncel tutar (üzerine yazılır); oturum sonunda `docs/oturumlar/YYYY-MM-DD.md`'ye karar, denenen/reddedilen, kanıt ve eklenen tasarım isteklerini yazar (yalnızca eklenir)
+- Notlara inanılanı değil kanıtı yaz (commit, dosya yolu, test çıktısı); eski karar silinmez, "superseded" yazılır
 
 ## Geliştirme
 
 - Xcode projesi `project.yml`'den üretilir, repoda tutulmaz: `xcodegen generate`
 - Paket testleri: `swift test --package-path Packages/ViewportixKit`
-- Uygulama derleme: `xcodebuild -project Viewportix.xcodeproj -scheme Viewportix -derivedDataPath .build/xcode -allowProvisioningUpdates build`
-- İmza: varsayılan geçici (ad-hoc); geliştiricinin ekibi repoya girmeyen `Config/Signing.local.xcconfig`'te (`Config/App.xcconfig`'teki açıklamaya bak). Kalıcı imza anahtar zinciri şifre pencerelerini önler
-- Test sayfaları: `Packages/ViewportixKit/Tests/Fixtures/`
-- `.pen` tasarım dosyalarına yalnızca pen.dev MCP araçlarıyla eriş
-
-## Şu anki durum
-
-M0 ve M1 tamam (S1'in elle trackpad testi sona bırakıldı). M2 büyük ölçüde çalışıyor: motor katmanı, senkron, proje dosyası, giriş ekranı, sayfa listesi, toolbar, canvas. Kalan: elle etkileşim testi, 5 viewport'ta performans ölçümü. Ayrıntı: PLAN.md M2 "Durum".
-
-## İlk hedef (MVP)
-
-Canvas üzerinde yan yana birkaç cihazda (WebKit) aynı siteyi açan, scroll, tıklama ve navigasyonu senkron tutan uygulama. Kapsam ve kabul ölçütleri PLAN.md, M2.
+- Uygulama: `xcodebuild -project Viewportix.xcodeproj -scheme Viewportix -derivedDataPath .build/xcode -allowProvisioningUpdates build`
+- İmza: varsayılan ad-hoc; geliştirici ekibi repoya girmeyen `Config/Signing.local.xcconfig`'te (`Config/App.xcconfig`)
+- Performans: `Scripts/perf.sh [url]`; test sayfaları `Packages/ViewportixKit/Tests/Fixtures/`
+- `.pen` dosyalarına yalnızca pen.dev MCP araçlarıyla eriş

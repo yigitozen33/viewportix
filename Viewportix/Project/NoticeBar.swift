@@ -22,6 +22,9 @@ struct NoticeBar: View {
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 10)
-        .glassEffect(.regular, in: .capsule)
+        // No Liquid Glass on our own surfaces (PLAN.md §3.8).
+        .background(.background, in: .capsule)
+        .overlay(Capsule().strokeBorder(.separator))
+        .shadow(color: .black.opacity(0.15), radius: 8, y: 2)
     }
 }

@@ -92,3 +92,10 @@ Kod oturumunun arayüze dokunan her değişikliği, değişikliğin commit'inde 
 - Durum: sistem varsayılanı (SwiftUI `Form`, grouped)
 - Tasarım kararı gerekir mi: evet — DESIGN.md'deki cihaz seçici popover'ının "Özel boyut…" satırı (W/H stepper'lı) ile aynı ihtiyaç; sheet mi popover mı, düzenleme nereden açılır
 - Bağlantılı: DESIGN.md §5 madde 5
+
+## 2026-10-10 — Bildirim kapsülünde Liquid Glass kaldırıldı
+- Ne: Kapsülün arka planı glass yerine düz zemin rengi, ince ayırıcı çerçeve ve hafif gölge. İçerik ve metinler aynı.
+- Nerede: Proje penceresi, canvas altı; `Viewportix/Project/NoticeBar.swift`
+- Durum: sistem varsayılanı (SwiftUI `.background` + `.separator`)
+- Tasarım kararı gerekir mi: evet — kapsülün özel tasarımı hâlâ bekliyor; bu yalnızca "kendi yüzeylerde Liquid Glass yok" kararına uyum
+- Bağlantılı: DESIGN.md §1, §4 (A yönü), §5 madde 11; PLAN.md §3.8
