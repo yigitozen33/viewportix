@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fixture: long page</title>
+<!-- Scroll-sync fixture: section heights differ by width, so pixel/percent sync drifts and anchor sync must hold. -->
+<style>
+  body { margin: 0; font: 16px/1.5 -apple-system, system-ui, sans-serif; }
+  section { padding: 24px; border-bottom: 1px solid #ddd; }
+  section:nth-child(odd) { background: #f5f5f7; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+  .card { height: 120px; background: #d0d7e2; border-radius: 8px; }
+  @media (max-width: 600px) { .tall-on-mobile { min-height: 900px; } }
+  @media (min-width: 1000px) { .hide-on-desktop { display: none; } }
+</style>
+</head>
+<body>
+<script>
+  const sections = 30;
+  for (let i = 1; i <= sections; i++) {
+    const s = document.createElement('section');
+    s.id = `section-${i}`;
+    if (i % 4 === 0) s.className = 'tall-on-mobile';
+    if (i % 7 === 0) s.classList.add('hide-on-desktop');
+    const cards = Array.from({ length: (i % 5) * 3 + 2 }, () => '<div class="card"></div>').join('');
+    s.innerHTML = `<h2>Section ${i}</h2><p>Anchor target for scroll sync tests.</p><div class="grid">${cards}</div>`;
+    document.body.appendChild(s);
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fixture: SPA</title>
+<!-- Navigation-sync fixture: route changes via pushState/popstate only, no full page loads. -->
+<style>
+  body { margin: 0; font: 16px/1.5 -apple-system, system-ui, sans-serif; }
+  nav { display: flex; gap: 16px; padding: 16px; background: #1d1d1f; }
+  nav a { color: #fff; }
+  .menu-toggle { display: none; }
+  @media (max-width: 600px) {
+    nav a { display: none; }
+    .menu-toggle { display: block; }
+    nav.open a { display: block; }
+  }
+  main { padding: 24px; }
+</style>
+</head>
+<body>
+<nav id="nav">
+  <button class="menu-toggle" id="menu-toggle" type="button">Menu</button>
+  <a href="/" data-route>Home</a>
+  <a href="/products" data-route>Products</a>
+  <a href="/products/42" data-route>Product 42</a>
+  <a href="/cart" data-route>Cart</a>
+</nav>
+<main id="view"></main>
+<script>
+  const view = document.getElementById('view');
+  function render() {
+    const path = location.pathname.replace(/.*spa\.html/, '') || '/';
+    view.innerHTML = `<h1 data-testid="route-title">Route: ${path}</h1><button id="add-to-cart" type="button">Add to cart</button>`;
+  }
+  document.addEventListener('click', (event) => {
+    const link = event.target.closest('a[data-route]');
+    if (!link) return;
+    event.preventDefault();
+    history.pushState({}, '', link.getAttribute('href'));
+    render();
+  });
+  document.getElementById('menu-toggle').addEventListener('click', () => {
+    document.getElementById('nav').classList.toggle('open');
+  });
+  window.addEventListener('popstate', render);
+  render();
+</script>
+</body>
+</html>

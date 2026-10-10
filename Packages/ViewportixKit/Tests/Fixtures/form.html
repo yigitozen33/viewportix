@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fixture: form</title>
+<!-- Input-sync fixture: fields with and without ids, so selector generation falls back to structural paths. -->
+<style>
+  body { margin: 0; padding: 24px; font: 16px/1.5 -apple-system, system-ui, sans-serif; }
+  form { display: grid; gap: 12px; max-width: 480px; }
+  .row { display: flex; gap: 12px; }
+  @media (max-width: 600px) { .row { flex-direction: column; } }
+</style>
+</head>
+<body>
+<form id="checkout">
+  <label>Email <input id="email" type="email" name="email"></label>
+  <div class="row">
+    <label>First name <input type="text" name="first"></label>
+    <label>Last name <input type="text" name="last"></label>
+  </div>
+  <label>Country
+    <select name="country">
+      <option>Türkiye</option>
+      <option>Germany</option>
+      <option>United States</option>
+    </select>
+  </label>
+  <label><input type="checkbox" name="terms" data-testid="terms"> Accept terms</label>
+  <button type="submit">Submit</button>
+</form>
+<p id="result"></p>
+<script>
+  document.getElementById('checkout').addEventListener('submit', (event) => {
+    event.preventDefault();
+    document.getElementById('result').textContent = 'Submitted ' + new Date().toISOString();
+  });
+</script>
+</body>
+</html>

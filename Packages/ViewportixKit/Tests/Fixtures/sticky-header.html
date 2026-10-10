@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fixture: sticky header</title>
+<!-- Anchor-selection fixture: a sticky header and a 100vh hero must never be chosen as the scroll anchor. -->
+<style>
+  body { margin: 0; font: 16px/1.5 -apple-system, system-ui, sans-serif; }
+  header { position: sticky; top: 0; z-index: 10; height: 64px; padding: 0 24px; display: flex; align-items: center; background: #fff; box-shadow: 0 1px 0 #ddd; }
+  .hero { height: 100vh; display: grid; place-items: center; background: linear-gradient(#6e8efb, #a777e3); color: #fff; font-size: 2rem; }
+  article { padding: 24px; max-width: 720px; margin: 0 auto; }
+  .fixed-cta { position: fixed; right: 16px; bottom: 16px; padding: 12px 20px; background: #0071e3; color: #fff; border-radius: 999px; }
+</style>
+</head>
+<body>
+<header>Sticky header</header>
+<div class="hero">100vh hero</div>
+<article id="article"></article>
+<a class="fixed-cta" href="#article">Fixed CTA</a>
+<script>
+  const article = document.getElementById('article');
+  for (let i = 1; i <= 40; i++) {
+    const p = document.createElement('p');
+    p.id = `paragraph-${i}`;
+    p.textContent = `Paragraph ${i}. ` + 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '.repeat((i % 6) + 1);
+    article.appendChild(p);
+  }
+</script>
+</body>
+</html>

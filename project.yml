@@ -1,0 +1,36 @@
+name: Viewportix
+options:
+  bundleIdPrefix: com.viewportix
+  deploymentTarget:
+    macOS: "26.0"
+  createIntermediateGroups: true
+packages:
+  ViewportixKit:
+    path: Packages/ViewportixKit
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    MACOSX_DEPLOYMENT_TARGET: "26.0"
+targets:
+  Viewportix:
+    type: application
+    platform: macOS
+    sources:
+      - Viewportix
+    dependencies:
+      - package: ViewportixKit
+        product: ProjectModel
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.viewportix.Viewportix
+        MARKETING_VERSION: 0.1.0
+        CURRENT_PROJECT_VERSION: 1
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_CFBundleDisplayName: Viewportix
+        INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.developer-tools
+        # Sandbox stays off so later engines can launch Chrome/Firefox; hardened runtime for notarization.
+        ENABLE_APP_SANDBOX: NO
+        ENABLE_HARDENED_RUNTIME: YES
+        # Ad-hoc signing for local builds; switch to Developer ID for distribution.
+        CODE_SIGN_STYLE: Manual
+        CODE_SIGN_IDENTITY: "-"
