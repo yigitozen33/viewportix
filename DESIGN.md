@@ -7,7 +7,7 @@
 - **Sade varsayılan.** Tasarımcı uygulamayı açıp URL yapıştırınca sonucu görmeli. Geliştirici araçları (diff paneli, selector bilgisi, motor ayrıntıları) isteyince açılır.
 - **Motoru gizleme.** Her viewport hangi motorda ve hangi sürümde çalıştığını gösterir. "Gerçek motor" iddiasının güvenilirliği buna bağlı.
 - **Figma alışkanlıkları.** Canvas hareketleri (pinch zoom, Space + sürükleme, "Sığdır") Figma ile aynı; yeniden öğrenme yok.
-- **Native çerçeve, kendi içerik.** Pencere çerçevesi, traffic lights, toolbar ve sidebar iskeleti sistemin (hangi macOS'taysa onun görünümü; Liquid Glass yalnızca burada). Canvas, viewport kartı, göstergeler, bildirim kapsülü, giriş ekranı kartları ve cihaz seçici içeriği bizim tasarımımız; macOS sürümleri arasında aynı görünür, kendi yüzeylerimizde glass yok. Menü çubuğu kısayolları ve sistem davranışları korunur.
+- **Kendi arayüzümüz, sistem davranışları.** Toolbar, sidebar, canvas, kartlar, göstergeler, kapsül, giriş ekranı ve cihaz seçici bizim tasarımımız; macOS sürümleri arasında aynı görünür, tam kontrol bizde. Pencere standart kalır (şeffaf başlık çubuğu, traffic lights, taşıma, tam ekran). Sistemden ödünç aldığımız: menü çubuğu ve kısayollar, klavye gezinmesi, VoiceOver etiketleri, Apple'ın dokunma hedefi ve boşluk ölçüleri (token olarak).
 
 ## 2. Bilgi mimarisi
 
@@ -101,7 +101,8 @@ Alt veya sağ panel. Motor diff listesi ("Buton Safari'de 12px aşağıda"), tı
 | Proje birden fazla sayfa tutar; sayfa listesi sidebar'da, MVP'de | 2026-10-06 |
 | Figma / Apple UI kit aktarımı kullanılmaz; kütüphane pen.dev'de elle kurulur | 2026-10-10 |
 | Obsidian vault = repo kökü; hafıza için oturum başına `HANDOFF.md` + tarihli günlük (`design/notlar/`) | 2026-10-10 |
-| Melez yaklaşım (B): pencere çerçevesi/toolbar/sidebar iskeleti native; canvas, kart, göstergeler, kapsül, giriş kartları kendi tasarımımız, sürümler arası tutarlı; hedef macOS 26, boyutlar token | 2026-10-10 |
+| ~~Melez yaklaşım (B)~~ — yerini aldı, aşağıdaki satıra bak | 2026-10-10 |
+| Arayüz tamamen bizim (A): toolbar, sidebar dahil; pencere standart (şeffaf başlık çubuğu), sistem davranışları (kısayol, klavye, VoiceOver, tam ekran) korunur; Apple metrikleri token olarak uyarlanır; her macOS sürümünde aynı görünüm; kendi yüzeylerimizde Liquid Glass yok | 2026-10-10 |
 
 ## 5. Bekleyen tasarım kararları
 

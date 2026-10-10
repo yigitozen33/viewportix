@@ -42,3 +42,12 @@ Kurallar (araştırmadan): iki oturum aynı dosyaya yazmaz; notlara modelin inan
 Hazır istem (kod oturumuna yapıştır):
 
 > Arayüze dokunan her değişikliği (yeni düğme, menü, panel, bildirim, durum, metin, boş/hata hali) `docs/tasarim-istekleri.md` dosyasına, değişikliği yaptığın commit'te, yukarıdaki biçimle ekle. Dosya yalnızca eklenir. Bunu kullanıcıya sormadan ve kullanıcıdan tasarım oturumuna aktarmasını beklemeden yap. DESIGN.md ve `design/` altına yazma. Oturum bitiminde `docs/oturumlar/` günlüğüne o gün eklenen satırları da özetle.
+
+## 5. Karar: arayüz tamamen özel (2026-10-10, kullanıcı kararı)
+
+Tasarım toolbar ve sidebar dahil tamamen özel olacak (DESIGN.md §1 ve §4). Kod oturumu için sonuçlar:
+
+- [ ] Sistem `NSToolbar`/`NavigationSplitView` sidebar'ı yerine özel görünümler planla. Pencere standart kalır: şeffaf/gizli başlık çubuğu, traffic lights, taşıma, tam ekran.
+- [ ] Korunacak sistem davranışları: menü çubuğu ve kısayollar, klavye gezinmesi, VoiceOver etiketleri, sidebar aç/kapa ve genişlik ayarı (kendin yaz).
+- [ ] Kendi yüzeylerimizde Liquid Glass kullanma. Görünüm macOS 26 ve sonrasında aynı olacak.
+- [ ] Mimari etkisi büyükse PLAN.md'ye sen işle (tasarım oturumu PLAN.md'ye dokunmaz). Tasarım gelene kadar mevcut sistem görünümü kalsın.
