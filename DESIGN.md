@@ -234,7 +234,7 @@ Sağ raydan açılır, canvas'ı iter (300 px). Tasarım ilkesi: **sakin ama tek
 5. ~~Cihaz seçici ve viewport ekleme akışı~~ — verildi (bkz. §3.2)
 6. Lider ve "senkron kaçtı" göstergeleri
 7. ~~Geliştirici panelinin yeri~~ — verildi (sağ ray, §3.3–3.4)
-8. Uygulama ikonu — üç kavram eskizi hazır (`App Icon Concepts`, `app-icon-concepts@2x.png`: A Üç genişlik, B Vizör, C V harfi; öneri A); karar sonrası Icon Composer'da yapılır
+8. Uygulama ikonu — B (Vizör) seçildi, altı geliştirme yönü çizildi (`App Icon · B variants`, `app-icon-B-variants@2x.png`: B1 vizör + üç genişlik, B2 vizör + üç motor halkası, B3 V vizör, B4 Port, B5 vizör + cetvel, B6 Vx monogram); yön seçimi bekliyor, sonra Icon Composer
 9. ~~Kart başlığındaki kamera düğmesi~~ — verildi (§3.2 kart başlığı)
 10. ~~Ekran görüntüsü menüsü~~ — verildi (§3.2 alt çubuk)
 11. ~~Bildirim kapsülü~~ — verildi (`Window/Toast`, §3.2)
