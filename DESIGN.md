@@ -37,33 +37,53 @@ Kullanıcının kaydettiği birim. Bir markanın (mağazanın) tüm kurulumunu t
 
 ### 3.1 Giriş ekranı
 
-Referans: pen.dev'in giriş ekranı. AI istem kutusunun yerini URL kutusu alır.
-
 ```
 ┌──────────┬───────────────────────────────────────────────────────┐
-│ Son      │  Giriş                              [Aç]  [+ Yeni]    │
-│ Taslaklar│                                                       │
-│          │   ┌─────────────────────────────────────────────┐     │
-│ ŞABLONLAR│   │ URL yapıştır…                        [Aç →] │     │
-│ Mobil    │   └─────────────────────────────────────────────┘     │
-│ Tam matr.│   ( Mobil odaklı ) ( Tam matris ) ( Motor karşılaş. ) │
-│ Motor k. │                                                       │
-│          │  SON PROJELER                          [⊞] [☰]  ara   │
+│ ● ● ●    │                                      [Aç…]  [+ Yeni]  │
+│ Son      │                                                       │
+│ Taslaklar│   ┌──────────────────────────────────────────────┐    │
+│          │   │ 🔗 URL yapıştır…                      [Aç →] │    │
+│          │   └──────────────────────────────────────────────┘    │
+│          │   (▣ Mobil odaklı) ( Tam matris ) ( Motor karşılaş. ) │
+│          │                                                       │
+│          │  SON PROJELER                     [ara]      [⊞][☰]   │
 │          │  ┌────────┐ ┌────────┐ ┌────────┐                     │
-│          │  │ küçük  │ │ küçük  │ │ küçük  │                     │
-│          │  │ resim  │ │ resim  │ │ resim  │                     │
+│          │  │ canvas │ │ canvas │ │ canvas │                     │
 │          │  ├────────┤ ├────────┤ ├────────┤                     │
-│          │  │ Marka A│ │ Marka B│ │Untitled│                     │
-│          │  │ 2 sa.  │ │ dün    │ │ 36 dk. │                     │
+│          │  │▪Marka A│ │▪Marka B│ │▪Untitled  Taslak│            │
+│          │  │2 sa.·3c│ │Dün ·5c │ │36 dk.·2c│                    │
 │          │  └────────┘ └────────┘ └────────┘                     │
 └──────────┴───────────────────────────────────────────────────────┘
 ```
 
-- URL kutusu + seçili şablon → yeni proje penceresi açılır.
-- Kartlar: küçük resim, proje adı, son düzenleme zamanı, bağlam menüsü (yeniden adlandır, Finder'da göster, kaldır).
-- Izgara ve liste görünümü, arama.
-- Küçük resim canvas'ın son halinden otomatik üretilir.
-- Kapsam: temel hali M2, küçük resimli ve şablonlu hali M3.
+1040×700, proje penceresiyle aynı palet ve bileşenler. Başlık metni yok; kutu kendini anlatır.
+
+- **Sidebar (200):** ışıklar, "Son" (varsayılan seçili), "Taslaklar". "ŞABLONLAR" bölümü M3'te şablon yönetimiyle gelir; MVP'de şablon seçimi çiplerde.
+- **Sağ üst:** "Aç…" (dosya seçici) ve "+ Yeni" (boş proje, varsayılan şablonla).
+- **URL kutusu (`Home/URLBox`):** zincir ikonu, "URL yapıştır…", sağda sarı "Aç →". Yapıştırınca otomatik olarak https tamamlanır, geçersiz URL'de kutu mercan kenar alır ve altında kısa açıklama çıkar.
+- **Şablon çipleri (`Home/TemplateChip`):** Mobil odaklı (varsayılan), Tam matris, Motor karşılaştırma. Seçili çip sarı kenar + parlak zemin. URL + seçili şablon → proje penceresi.
+- **Son projeler:** "SON PROJELER" başlığı, arama alanı, ızgara/liste anahtarı. Kart (`Home/ProjectCard`): üstte canvas'ın son halinin küçük resmi (otomatik üretilen `thumbnail.png`), altta favicon + ad, meta satırı "2 sa. önce · 3 cihaz", sağda ⋯. Taslaklarda ad satırının yanında "Taslak" rozeti. Liste görünümü: Ad (favicon + ad + rozet), Cihazlar, Sayfalar, Düzenlendi, ⋯.
+- **Boş durum:** soluk üç hayalet kart, "Henüz proje yok", "Yukarıya bir URL yapıştır ya da bir .viewportix dosyası aç."
+- **Bağlam menüsü (sağ tık veya ⋯):** Aç ↩ · Yeniden adlandır ⏎ · Çoğalt ⌘D · — · Finder'da göster ⌘⇧R · Dosya yolunu kopyala · — · Kaldır ⌫ (mercan; dosyayı silmez, listeden çıkarır; taslaksa siler ve onay ister).
+- Frame'ler: `Home Window`, `· Liste`, `· Boş durum`, `· Bağlam menüsü`. Dışa aktarımlar `design/exports/window-home-*.png`.
+
+**Etkileşim tablosu:**
+
+| Tetikleyici | Etki | Hareket |
+|---|---|---|
+| URL kutusuna yapıştır / yaz | "Aç →" etkinleşir; geçersizse mercan kenar + açıklama | 100 ms |
+| ⏎ veya "Aç →" | Seçili şablonla proje penceresi açılır, giriş penceresi kapanır | Pencere geçişi 200 ms |
+| Çipe tık | Çip seçilir (tek seçim); sarı kenar | 100 ms |
+| Karta tık / ⏎ | Proje açılır | 200 ms |
+| Kart hover | Kart kenarı `line`'dan bir ton parlar, ⋯ belirir | 100 ms |
+| Sağ tık / ⋯ | Bağlam menüsü imleçte; kart gök kenar alır | 120 ms fade + 4 px |
+| Yeniden adlandır | Ad satırı yerinde metin alanına dönüşür; ⏎ kaydeder, Esc iptal | Anlık |
+| Kaldır | Listeden düşer; taslaksa "Taslak silinsin mi?" onayı | Kart 150 ms daralır, ızgara yeniden dizilir 250 ms |
+| ⊞ / ☰ | Izgara ↔ liste; tercih hatırlanır | 200 ms crossfade |
+| Arama | Ad ve URL'de süzer, eşleşme yoksa "Sonuç yok" | Anlık |
+| "Son" / "Taslaklar" | Liste süzülür; seçim uygulama yeniden açılınca hatırlanır | 150 ms |
+| ⌘O | "Aç…" dosya seçici | Sistem |
+| Pencereye .viewportix sürükle | Dosya açılır; pencere kenarı gök çerçeve | 100 ms |
 
 ### 3.2 Proje penceresi
 
@@ -139,6 +159,7 @@ Alt veya sağ panel. Motor diff listesi ("Buton Safari'de 12px aşağıda"), tı
 | Alt çubuk ikon-only, tooltip koyu zeminli (ad + kısayol); zoom menüsü ve gizli cihaz menüsü çizildiği gibi; menüde "sidebar'da göster" yok, satırda seç (sekmeye kaydır + canvas'ta seç), odakla ve kapat var; davranışlar §3.2 etkileşim tablosunda | 2026-10-10 |
 | Kart başlığında motor yalnızca ikon, sürüm hover tooltip'te; dar kartta gizlenme sırası boyut → ad kısaltma, motor ve kamera hep görünür. Tam ad/kısa kod rozetleri reddedildi (230 px'te uzun cihaz adıyla taşıyor). Motor ikonları özel SVG olacak (Lucide'de Chromium yok; logolar marka hakkı nedeniyle birebir kullanılmaz) | 2026-10-10 |
 | Zoom kontrolü Z2: yüzde + dikey mini stepper (macOS stepper); bölünmüş stepper, hover'da açılan ve scrubber reddedildi. Yüzde ayrıca sürüklenebilir | 2026-10-10 |
+| Giriş ekranı: başlık metni yok; şablon çipleri URL kutusunun altında kalır, sidebar'daki ŞABLONLAR bölümü M3'e ertelendi (MVP sidebar: Son, Taslaklar); kart küçük resmi canvas'ın son hali + ad yanında favicon; liste/boş durum/bağlam menüsü çizildiği gibi | 2026-10-10 |
 
 ## 5. Bekleyen tasarım kararları
 
@@ -147,7 +168,7 @@ Alt veya sağ panel. Motor diff listesi ("Buton Safari'de 12px aşağıda"), tı
 1. ~~Proje penceresi düzeni~~ — verildi (bkz. §4). Kalan: inspector (sonra)
 2. ~~Viewport kartı: başlık içeriği, cihaz çerçevesi~~ — verildi (bkz. §4). Kalan: kamera düğmesinin yeri onayı, selected rengi
 3. ~~Genel görsel dil~~ — verildi (koyu canvas ve palet, bkz. §4). Kalan: açık tema paleti, yüzey ve ink tonları
-4. Giriş ekranının görsel tasarımı
+4. ~~Giriş ekranının görsel tasarımı~~ — verildi (bkz. §3.1, §4)
 5. Cihaz seçici ve viewport ekleme akışı
 6. Lider ve "senkron kaçtı" göstergeleri
 7. Geliştirici panelinin yeri

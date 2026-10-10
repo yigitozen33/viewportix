@@ -17,14 +17,14 @@
 - Motor rozeti → ikon + tooltip (`Engine Tooltip` frame, `card-engine-tooltip@2x.png`). Motor ikonları şimdilik Lucide yer tutucu (compass); üç özel glif tasarlanacak.
 - `Toolbar/ZoomControl` (Z2) kuruldu ve tüm pencere frame'lerine uygulandı.
 - Tasarım sistemi token'ları tamamlandı (DESIGN.md §6); 7 bileşen token'lara bağlandı. Bulgu: pen.dev `width/height`'ta sayı değişkenini çözmüyor (0'a düşüyor), boyutlar sayı yazılıyor.
-- Giriş ekranı ilk hali çizildi (`Home Window`, 1040×700, `window-home-dark@2x.png`); yeni bileşenler `Home/ProjectCard`, `Home/TemplateChip`, `Home/URLBox`. Varyantlar (liste, boş durum, bağlam menüsü) ve başlık metni kararı bekliyor.
+- Giriş ekranı kesinleşti: `Home Window` + Liste + Boş durum + Bağlam menüsü; DESIGN.md §3.1 (etkileşim tablosuyla). Bileşenler `Home/ProjectCard`, `Home/TemplateChip`, `Home/URLBox`.
 - Bilinen eksikler: sidebar hover/rename durumları; gizli-lider çip rengi yalnızca açıklamada; açık tema.
 
 ## Sıradaki iş
 
 1. `.pen` dosyalarını `design/viewportix.lib.pen` ve `design/viewportix.pen` olarak repoya taşı (kullanıcı pen.dev'de yeniden açacak).
 2. Referans: Apple HIG sayfaları ve kullanıcının vereceği Finder/Keynote ekran görüntüleri.
-3. Giriş ekranı (1040×700), sonra cihaz seçici popover, sonra açık tema.
+3. Cihaz seçici popover ("+ Cihaz"), sonra açık tema, sonra motor glifleri.
 4. Boyut ve aralık değişkenleri; zoom düğmesi varyantı; sidebar durumları.
 5. Kod oturumundan gelen yeni öğeler tasarıma girecek (DESIGN.md §5, madde 9–11): kart başlığında kamera düğmesi (`Viewport/Card` hover/başlık satırı), toolbar'da ekran görüntüsü menüsü, pencere altında bildirim kapsülü ("Kaydedildi ve kopyalandı · Finder'da Göster").
 6. Her görsel karar kullanıcıya sorulur, DESIGN.md §4'e tarihiyle işlenir.
