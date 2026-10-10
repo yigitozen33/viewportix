@@ -101,7 +101,6 @@ Alt veya sağ panel. Motor diff listesi ("Buton Safari'de 12px aşağıda"), tı
 | Proje birden fazla sayfa tutar; sayfa listesi sidebar'da, MVP'de | 2026-10-06 |
 | Figma / Apple UI kit aktarımı kullanılmaz; kütüphane pen.dev'de elle kurulur | 2026-10-10 |
 | Obsidian vault = repo kökü; hafıza için oturum başına `HANDOFF.md` + tarihli günlük (`design/notlar/`) | 2026-10-10 |
-| ~~Melez yaklaşım (B)~~ — yerini aldı, aşağıdaki satıra bak | 2026-10-10 |
 | Arayüz tamamen bizim (A): toolbar, sidebar dahil; pencere standart (şeffaf başlık çubuğu), sistem davranışları (kısayol, klavye, VoiceOver, tam ekran) korunur; Apple metrikleri token olarak uyarlanır; her macOS sürümünde aynı görünüm; kendi yüzeylerimizde Liquid Glass yok | 2026-10-10 |
 
 ## 5. Bekleyen tasarım kararları
@@ -110,7 +109,7 @@ Alt veya sağ panel. Motor diff listesi ("Buton Safari'de 12px aşağıda"), tı
 
 1. Proje penceresi düzeni: sidebar varsayılan açık mı, inspector var mı
 2. Viewport kartı: başlık içeriği, cihaz çerçevesi olacak mı
-3. Liquid Glass kullanımı ve genel görsel dil
+3. Genel görsel dil (his, vurgu ve lider renkleri)
 4. Giriş ekranının görsel tasarımı
 5. Cihaz seçici ve viewport ekleme akışı
 6. Lider ve "senkron kaçtı" göstergeleri
