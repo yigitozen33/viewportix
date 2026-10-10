@@ -24,6 +24,9 @@ Dışa aktarım adları: `window-project-*` (proje penceresi halleri), `window-h
 
 ## Açık tasarım işleri (M3'ün beklediği, sırayla)
 
+2026-10-11: dördü de çizildi, kullanıcı onayı bekliyor (DESIGN.md §5 madde 12–16). Kod oturumu bunlara onaydan önce başlamasın.
+
+
 1. Viewport kartında **sayfa yüklenemedi** halleri (ağ, sertifika, `localhost` kapalı).
 2. **Kartı elle sürükleme** (sürükleme hali, hizalama çizgileri) ve **gruplama** (motor / cihaz türü, canvas'ta grup başlığı).
 3. PLAN.md M3 "Sidebar'da viewport listesi ve gruplar": şerit mi, sidebar'da bölüm mü — kullanıcı kararı.
