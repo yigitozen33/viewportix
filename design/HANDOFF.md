@@ -22,6 +22,7 @@
 - Ayarlar penceresi çizildi (4 sekme, DESIGN.md §3.3 + etkileşim tablosu; `window-settings-*.png`). Cihaz yönetimi artık Ayarlar › Cihazlar.
 - Sağ ray + paneller kesinleşti (DESIGN.md §3.3–3.4): ayarlar kayan panel, Farklar/Senkron iten sakin paneller; yerleşim varsayımı kullanımda doğrulanacak.
 - Açık tema: token'lar ve iki referans frame hazır, MVP dışı (kullanıcı kararı).
+- URL son 5 menüsü, sidebar durumları, ekran görüntüsü menüsü çizildi; §5 9–11 kapandı. Motor glifleri ve ikon eskizleri alt ajanlarda (frame'ler `Engine Glyphs` x=-3200,y=0 ve `App Icon Concepts` x=-3200,y=1200).
 - Bilinen eksikler: sidebar hover/rename durumları; gizli-lider çip rengi yalnızca açıklamada; açık tema.
 
 ## Sıradaki iş
