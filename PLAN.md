@@ -102,7 +102,11 @@ Bu arayüz ileride MCP araçlarına birebir karşılık gelir: `navigate`, `clic
 | `input` (MVP sonrası) | selector, değer | Değeri yaz, `input` olayını tetikle |
 | `hover` (MVP sonrası) | selector | Hover durumunu yansıt |
 
-**Scroll.** Farklı genişliklerde sayfa yüksekliği farklı olduğundan piksel veya yüzde ile eşleme kayar. Agent, lider viewport'un tepesine yakın içerik elementini çapa olarak seçer ve "bu elementin %30'u yukarıda kaldı" bilgisini gönderir. Diğerleri aynı elementi bulup aynı orana kaydırır. Element bulunamazsa sayfa yüzdesine düşülür. Olaylar `requestAnimationFrame` ile seyreltilir.
+**Scroll.** Farklı genişliklerde sayfa yüksekliği farklı olduğundan piksel veya yüzde ile eşleme kayar. Agent, lider viewport'un okuma çizgisindeki (sabit header'ların hemen altı) elementi ve atalarını çapa adayı olarak seçer ve "çizgi bu elementin %30'unda" bilgisini gönderir; yanına en yakın başlığın metnini ve bölüm içi oranı, son olarak da sayfa yüzdesini ekler. Takipçi sırayla dener: kararlı selector (`#id`, `data-testid`) → başlık metni → yapısal selector → yüzde. Her viewport kendi okuma çizgisini kullanır. Olaylar `requestAnimationFrame` ile seyreltilir. S3 ölçümü: 7 sayfada çapa %87, yüzde %58.
+
+**İzolasyon.** Agent sayfa script'lerinden ayrı bir `WKContentWorld`'de çalışır; DOM ortak, global değişkenler ayrı. Sayfa agent'ı bozamaz, agent sayfanın global'lerine karışmaz.
+
+**Farklı DOM.** Mobil User-Agent bazı sitelerde aynı adreste farklı bir sayfa getirir (S3: Wikipedia). Selector'e dayalı her olay bundan etkilenir; scroll için başlık metni yedeği var, tıklama için metin tabanlı yedek M2'de eklenecek.
 
 **Tıklama.** Agent tıklanan element için kararlı bir selector üretir. Öncelik sırası: benzersiz `id` → `data-testid` ve benzeri → `nth-of-type` içeren yapısal yol. Hedef viewport'ta element yoksa veya görünmüyorsa (ör. masaüstünde olmayan hamburger menü) tıklama atlanır ve o viewport'ta küçük bir "senkron kaçtı" göstergesi çıkar.
 
@@ -249,8 +253,8 @@ App Store dışında dağıttığımız için private API ile DPR gibi değerler
 ### M1 — Spike'lar
 
 - [ ] S1: canvas hareketleri — otomatik kısım geçti (tıklama %100/%50/%30'da 15/15, sapma 0,9 px; sayfa scroll'u, boşlukta pan, ⌘ + scroll zoom). Pinch, sızıntı, momentum ve performans elle kontrol bekliyor: `Spikes/S1-CanvasGestures/README.md`
-- [ ] S2: `WebPage` mi `WKWebView` mi
-- [ ] S3: çapa tabanlı scroll
+- [x] S2: `WebPage` mi `WKWebView` mi — **`WKWebView`**, deneme gerekmedi: canvas AppKit `NSScrollView` (S1) ve her viewport'un gerçek bir `NSView` olması gerekiyor; `WebPage` görünümü dışarı vermiyor, sızıntı koruması için `scrollWheel` yakalanamıyor
+- [x] S3: çapa tabanlı scroll — 7 sayfada çapa %87, yüzde %58; canlı akışta yankı yok. Başlık metni yedeği eklendi. Ayrıntı: `Spikes/S3-AnchorScroll/README.md`
 - [ ] Sonuçları bu dosyaya işle, gerekiyorsa kararları güncelle
 
 ### M2 — MVP (yalnızca WebKit)

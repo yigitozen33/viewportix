@@ -49,7 +49,7 @@ Ekranlar, akışlar ve tasarım kararları: [DESIGN.md](DESIGN.md)
 
 ## Şu anki durum
 
-M0 iskeleti hazır (Xcode 27, Swift 6.4). Sıradaki adım M1: spike'lar (S1 canvas hareketleri, S2 WebPage vs WKWebView, S3 çapa tabanlı scroll).
+M0 tamam. M1: S1 otomatik testleri geçti (elle trackpad testi sona bırakıldı), S2 kapandı (`WKWebView`), S3 tamam (`Spikes/S3-AnchorScroll/Sources/sync-agent.js` MVP'nin senkron taslağı). Sıradaki adım M2: MVP.
 
 ## İlk hedef (MVP)
 

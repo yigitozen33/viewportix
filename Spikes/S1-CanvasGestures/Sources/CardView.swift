@@ -24,6 +24,8 @@ final class CardView: NSView, WKNavigationDelegate, WKScriptMessageHandler {
 
         let contentController = WKUserContentController()
         let configuration = WKWebViewConfiguration()
+        // Ephemeral store: ad-hoc signed spike builds would otherwise trigger keychain prompts (WebCrypto keys).
+        configuration.websiteDataStore = .nonPersistent()
         configuration.userContentController = contentController
         webView = WKWebView(
             frame: NSRect(x: 0, y: Self.headerHeight, width: size.width, height: size.height),

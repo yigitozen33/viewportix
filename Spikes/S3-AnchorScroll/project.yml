@@ -1,0 +1,22 @@
+name: S3AnchorScroll
+options:
+  deploymentTarget:
+    macOS: "26.0"
+targets:
+  S3AnchorScroll:
+    type: application
+    platform: macOS
+    sources:
+      - path: Sources
+        excludes:
+          - "*.js"  # sync-agent.js is read from disk via #filePath
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.viewportix.spike.S3AnchorScroll
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_NSPrincipalClass: NSApplication
+        # Throwaway spike: Swift 5 mode keeps AppKit/WebKit callbacks free of strict-concurrency noise.
+        SWIFT_VERSION: "5.0"
+        ENABLE_APP_SANDBOX: NO
+        CODE_SIGN_STYLE: Manual
+        CODE_SIGN_IDENTITY: "-"
