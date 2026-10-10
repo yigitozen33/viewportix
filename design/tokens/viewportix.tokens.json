@@ -1,0 +1,284 @@
+{
+  "$description": "Viewportix design tokens — source: design/viewportix.pen variables. Dark is the only shipped theme; light values are for later.",
+  "color": {
+    "canvas": {
+      "$type": "color",
+      "$value": "#161412",
+      "$extensions": {
+        "viewportix.light": "#F4F1EC"
+      }
+    },
+    "surface": {
+      "bar": {
+        "$type": "color",
+        "$value": "#1F1C19",
+        "$extensions": {
+          "viewportix.light": "#ECE8E1"
+        }
+      },
+      "card": {
+        "$type": "color",
+        "$value": "#26221F",
+        "$extensions": {
+          "viewportix.light": "#FFFFFF"
+        }
+      },
+      "header": {
+        "$type": "color",
+        "$value": "#2D2926",
+        "$extensions": {
+          "viewportix.light": "#E9E4DC"
+        }
+      },
+      "header-leader": {
+        "$type": "color",
+        "$value": "#38322D",
+        "$extensions": {
+          "viewportix.light": "#DDD7CD"
+        }
+      },
+      "pill": {
+        "$type": "color",
+        "$value": "#3A3430",
+        "$extensions": {
+          "viewportix.light": "#E3DED5"
+        }
+      },
+      "tooltip": {
+        "$type": "color",
+        "$value": "#0B0A09",
+        "$extensions": {
+          "viewportix.light": "#FBF9F6"
+        }
+      }
+    },
+    "line": {
+      "$type": "color",
+      "$value": "#3A3532",
+      "$extensions": {
+        "viewportix.light": "#D9D3C9"
+      }
+    },
+    "ink": {
+      "primary": {
+        "$type": "color",
+        "$value": "#F4EFE9",
+        "$extensions": {
+          "viewportix.light": "#1D1B19"
+        }
+      },
+      "secondary": {
+        "$type": "color",
+        "$value": "#9C9188",
+        "$extensions": {
+          "viewportix.light": "#6E6760"
+        }
+      }
+    },
+    "accent": {
+      "$type": "color",
+      "$value": "#FFF36B",
+      "$extensions": {
+        "viewportix.light": "#E6C800"
+      },
+      "ink": {
+        "$type": "color",
+        "$value": "#141210",
+        "$extensions": {
+          "viewportix.light": "#141210"
+        }
+      }
+    },
+    "status": {
+      "leader": {
+        "$type": "color",
+        "$value": "#8EC9E6",
+        "$extensions": {
+          "viewportix.light": "#2F8FBF"
+        }
+      },
+      "warning": {
+        "$type": "color",
+        "$value": "#FF8F85",
+        "$extensions": {
+          "viewportix.light": "#D9534A"
+        }
+      },
+      "warning-bg": {
+        "$type": "color",
+        "$value": "#3A2A28",
+        "$extensions": {
+          "viewportix.light": "#FBE4E1"
+        }
+      }
+    }
+  },
+  "radius": {
+    "badge": {
+      "$type": "dimension",
+      "$value": "6px"
+    },
+    "control": {
+      "$type": "dimension",
+      "$value": "8px"
+    },
+    "card": {
+      "$type": "dimension",
+      "$value": "12px"
+    },
+    "bar": {
+      "$type": "dimension",
+      "$value": "14px"
+    },
+    "window": {
+      "$type": "dimension",
+      "$value": "16px"
+    }
+  },
+  "space": {
+    "1": {
+      "$type": "dimension",
+      "$value": "4px"
+    },
+    "2": {
+      "$type": "dimension",
+      "$value": "8px"
+    },
+    "3": {
+      "$type": "dimension",
+      "$value": "12px"
+    },
+    "4": {
+      "$type": "dimension",
+      "$value": "16px"
+    },
+    "6": {
+      "$type": "dimension",
+      "$value": "24px"
+    },
+    "8": {
+      "$type": "dimension",
+      "$value": "32px"
+    }
+  },
+  "size": {
+    "sidebar": {
+      "$type": "dimension",
+      "$value": "220px"
+    },
+    "bar-height": {
+      "$type": "dimension",
+      "$value": "48px"
+    },
+    "card-header": {
+      "$type": "dimension",
+      "$value": "36px"
+    },
+    "icon": {
+      "$type": "dimension",
+      "$value": "16px"
+    },
+    "icon-sm": {
+      "$type": "dimension",
+      "$value": "14px"
+    },
+    "rail": {
+      "$type": "dimension",
+      "$value": "44px"
+    },
+    "panel-overlay": {
+      "$type": "dimension",
+      "$value": "340px"
+    },
+    "panel-docked": {
+      "$type": "dimension",
+      "$value": "300px"
+    }
+  },
+  "stroke": {
+    "hairline": {
+      "$type": "dimension",
+      "$value": "1px"
+    },
+    "focus": {
+      "$type": "dimension",
+      "$value": "2px"
+    },
+    "leader": {
+      "$type": "dimension",
+      "$value": "2px"
+    },
+    "selection-ring": {
+      "$type": "dimension",
+      "$value": "1.5px"
+    },
+    "selection-gap": {
+      "$type": "dimension",
+      "$value": "3px"
+    }
+  },
+  "font-size": {
+    "title": {
+      "$type": "dimension",
+      "$value": "15px"
+    },
+    "body": {
+      "$type": "dimension",
+      "$value": "13px"
+    },
+    "label": {
+      "$type": "dimension",
+      "$value": "12px"
+    },
+    "caption": {
+      "$type": "dimension",
+      "$value": "11px"
+    },
+    "micro": {
+      "$type": "dimension",
+      "$value": "10px"
+    }
+  },
+  "font": {
+    "ui": {
+      "$type": "fontFamily",
+      "$value": "SF Pro",
+      "$extensions": {
+        "viewportix.designProxy": "Inter"
+      }
+    },
+    "mono": {
+      "$type": "fontFamily",
+      "$value": "SF Mono",
+      "$extensions": {
+        "viewportix.designProxy": "JetBrains Mono"
+      }
+    }
+  },
+  "glyph": {
+    "webkit": {
+      "$type": "svgPath",
+      "$value": "M8 1A7 7 0 1 1 8 15A7 7 0 1 1 8 1ZM8 3A5 5 0 1 0 8 13A5 5 0 1 0 8 3ZM8 4.5L9.2 6.8L11.5 8L9.2 9.2L8 11.5L6.8 9.2L4.5 8L6.8 6.8Z",
+      "$extensions": {
+        "viewBox": "0 0 16 16",
+        "fillRule": "evenodd"
+      }
+    },
+    "chromium": {
+      "$type": "svgPath",
+      "$value": "M9.22 1.11A7 7 0 0 1 14.58 10.39L12.7 9.71A5 5 0 0 0 8.87 3.08ZM13.36 12.5A7 7 0 0 1 2.64 12.5L4.17 11.21A5 5 0 0 0 11.83 11.21ZM1.42 10.39A7 7 0 0 1 6.78 1.11L7.13 3.08A5 5 0 0 0 3.3 9.71ZM8 6A2 2 0 1 1 8 10A2 2 0 1 1 8 6Z",
+      "$extensions": {
+        "viewBox": "0 0 16 16",
+        "fillRule": "evenodd"
+      }
+    },
+    "firefox": {
+      "$type": "svgPath",
+      "$value": "M8 1C9 4 13 6 13 10.5C13 13.3 10.8 15 8 15C5.2 15 3 13.3 3 10.5C3 8.2 4.2 6.6 5.6 5.4C5.4 7.2 6.4 8.3 7.3 8.3C6.9 5.8 7.2 3.2 8 1ZM8.3 5C9 6.6 11 7.8 11 10.6C11 12.3 9.7 13 8 13C6.3 13 5 12.3 5 10.6C5 9.7 5.3 9 5.8 8.4C6.5 9.8 8 10.3 9.1 10C8.5 8.4 8.3 6.8 8.3 5Z",
+      "$extensions": {
+        "viewBox": "0 0 16 16",
+        "fillRule": "evenodd"
+      }
+    }
+  }
+}

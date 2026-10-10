@@ -72,3 +72,9 @@ DESIGN.md §3.2 sonundaki **etkileşim tablosu** tetikleyici → etki → hareke
 - [ ] Yazı tipi: SwiftUI'de sistem fontu (`.system`, SF Pro) ve sayısal değerler/seçiciler için `.monospaced` (SF Mono); `.monospacedDigit()` boyut ve yüzdelerde. Tasarım dosyasındaki Inter / JetBrains Mono yalnızca vekil, uygulamaya gömme. Boyutlar DESIGN.md §6 (`font/title` 15 … `font/micro` 10).
 
 - [ ] Kart `selected` durumu: kartın dışında 3 px boşlukla 1.5 px krem halka (kartın kendi çizgisinden bağımsız overlay). Lider (gök iç çizgi) ile aynı anda olabilir. Seçim: karta tık, sekmeye tık, "+N"/cihaz seçici, Farklar › Göster; Esc veya boşluğa tık kaldırır. DESIGN.md §4 ve §3.2 etkileşim tablosu.
+
+## 7. Tasarım sistemi teslimi (2026-10-10)
+
+- [ ] `design/tokens/DesignTokens.swift` dosyasını `Packages/ViewportixKit` içine (ör. `Sources/DesignSystem/`) kopyala; tasarım oturumu güncelledikçe yeniden kopyala, elle düzenleme.
+- [ ] SwiftUI görünüm adları DESIGN.md §6 tablosundaki adlarla birebir (`ViewportCard`, `DeviceTab`, `ZoomControl`…); durumlar enum.
+- [ ] Motor glifleri `viewportix.tokens.json` › `glyph` içinde SVG path; `Shape` olarak çiz.

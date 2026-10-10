@@ -153,7 +153,7 @@ Kapat, döndür, senkrondan çıkar ve ekran görüntüsü eylemleri menü çubu
 
 Proje penceresinin sağ kenarında 44 px kalıcı **ray**: ⚙ Ayarlar, Cihazlar, MCP, Hesap; ayırıcı; Farklar, Senkron (M5); altta daralt. Rayın ikonuna tıklayınca ilgili panel açılır. **Varsayım (kullanımda doğrulanacak):** Ayarlar / Cihazlar / MCP / Hesap panelleri canvas'ın **üstüne kayar** (340 px, gölgeli, canvas yerinden oynamaz); Farklar ve Senkron panelleri canvas'ı **iter** (300 px, uzun süre açık kalır). Her panelin başlığında "pencereye çıkar" (⧉) ve ✕; ⌘, ayarları açar.
 
-**Ayarlar paneli içeriği** (`settings-S2-overlay-panel@2x.png`): üstte sekme çipleri Genel · Cihazlar · MCP · Hesap, arama; GÖRÜNÜM (Tema Sistem / Koyu / Açık; Dil), PROJE (Varsayılan şablon; Senkron açık başlasın; Taslakları sakla), EKRAN GÖRÜNTÜSÜ (Klasör; Panoya da kopyala; Ölçek 1× / 2×), **BU PROJE** (Cihazlar (n) → Cihazlar sekmesi; Motor). Sekme içerikleri:
+**Ayarlar paneli içeriği** (`window-project-settings-panel@2x.png`: ray + üstüne kayan panel): üstte sekme çipleri Genel · Cihazlar · MCP · Hesap, arama; GÖRÜNÜM (Tema Sistem / Koyu / Açık; Dil), PROJE (Varsayılan şablon; Senkron açık başlasın; Taslakları sakla), EKRAN GÖRÜNTÜSÜ (Klasör; Panoya da kopyala; Ölçek 1× / 2×), **BU PROJE** (Cihazlar (n) → Cihazlar sekmesi; Motor). Sekme içerikleri:
 - **Cihazlar:** cihaz yönetimi; "Cihazları yönet…" buraya açılır. Arama, "İçe aktar…", "+ Cihaz"; tablo Ad (özel cihazda "özel"), Tür, Boyut, Ölçek, Seçicide (toggle; kapalıysa listede kalır, "+ Cihaz" menüsünde görünmez), ⋯. Yerleşik cihazlar silinemez, gizlenir; "Seçicide" kapatmak açık projelerdeki kartları etkilemez. Özel cihazlar uygulamayla saklanır.
 - **MCP** (M7): durum (nokta + "stdio · 2 istemci · 14 araç"; Durdur/Başlat), Taşıma stdio / HTTP, Komut + Kopyala, İzinler (Ekran görüntüsü alma, Gezinme ve tıklama, DOM diff okuma, Proje dosyası yazma — varsayılan kapalı), Bağlı istemciler (ad, son istek, Bağlantıyı kes).
 - **Hesap:** avatar, ad, e-posta, Çıkış yap; Takım; Lisans ("Dahili"; iş modeli sonra); Güncelleme.
@@ -248,7 +248,25 @@ Sağ raydan açılır, canvas'ı iter (300 px). Tasarım ilkesi: **sakin ama tek
 **Renk** (koyu; her token'ın `mode: light` değeri de tanımlı, açık tema ileride): `canvas`, `surface/bar`, `surface/card`, `surface/header`, `surface/header-leader`, `surface/pill`, `surface/tooltip`, `line`, `ink/primary`, `ink/secondary`, `accent`, `accent/ink`, `status/leader`, `status/warning`, `status/warning-bg`.
 **Köşe:** `radius/window` 16, `radius/bar` 14, `radius/card` 12, `radius/control` 8, `radius/badge` 6. **Aralık:** `space/1..8` = 4, 8, 12, 16, 24, 32. **Motor glifleri:** `Engine Glyphs` frame'inde üç `path` (viewBox 0 0 16 16, evenodd, fill `ink/secondary`; seçili/lider halde `status/leader`). **Yazı:** `font/ui` = Inter (vekil; uygulamada SF Pro), `font/mono` = JetBrains Mono (vekil; uygulamada SF Mono), `font/title` 15, `font/body` 13, `font/label` 12, `font/caption` 11, `font/micro` 10. **Çizgi:** `stroke/hairline` 1, `stroke/focus` 2. **Boyut (yalnızca referans; pen.dev width/height'ta değişken çözmüyor, değerler sayı yazılır):** `size/sidebar` 220, `size/bar-height` 48, `size/card-header` 36, `size/icon` 16, `size/icon-sm` 14.
 
-**Bileşenler:** `Viewport/Card` (6 durum), `Viewport/HoverStrip`, `Window/Toast`, `Sidebar/Row`, `Toolbar/Button`, `Toolbar/DeviceTab` (durum ikonlu), `Toolbar/ZoomControl`, `Home/ProjectCard`, `Home/TemplateChip`, `Home/URLBox`, `Device/Picker`. Yeni ekranlar yalnızca bu token ve bileşenlerle kurulur; eksik bir parça gerekirse önce bileşen olarak eklenir.
+**Dosya düzeni (`design/viewportix.pen`):** üstte `00 · TASARIM SİSTEMİ` (`Design System · Tokens` panosu: renk, yazı, aralık/köşe/çizgi, bileşen → SwiftUI tablosu) ve `00b · BİLEŞENLER` (ana kopyalar); altında `01 · Giriş ekranı`, `02 · Proje penceresi`, `03 · Menüler ve durumlar`, `04 · Geliştirici paneli`, `05 · Bileşen durumları`, `06 · İkon ve glifler`. Keşifler `Archive ·` önekiyle solda, açık tema `Future ·` önekiyle arşivin altında.
+
+**Koda aktarım:** `design/tokens/` — `viewportix.tokens.json` (W3C Design Tokens; koyu değer + `viewportix.light`), `DesignTokens.swift` (SwiftUI taslağı; `swiftc -typecheck` temiz), `README.md`. Kod oturumu buradan kopyalar.
+
+| pen.dev bileşeni | SwiftUI | Durumlar |
+|---|---|---|
+| `Viewport/Card` | `ViewportCard` | `ViewportCardState`: default, leader, selected, syncMissed, snapshot, loading (selected lider ile birlikte, ayrı halka) |
+| `Viewport/HoverStrip` | `ViewportHoverStrip` | yalnız hover |
+| `Window/Toast` | `ToastCapsule` | menü/tooltip açıkken gizli |
+| `Sidebar/Row` | `SidebarRow` | default, hover, selected, editing, dragging |
+| `Toolbar/Button` | `ChromeButton` | ikon + etiket, ikon-only + tooltip |
+| `Toolbar/DeviceTab` | `DeviceTab` | normal, leader, syncMissed, loading, snapshot |
+| `Toolbar/ZoomControl` | `ZoomControl` | yüzde + ▲▼ |
+| `Home/ProjectCard` | `ProjectCard` | normal, hover, draft |
+| `Home/TemplateChip` | `TemplateChip` | normal, selected |
+| `Home/URLBox` | `URLBox` | empty, filled, invalid |
+| `Device/Picker` | `DevicePicker` | popover |
+
+**Bileşen kuralı:** Yeni ekranlar yalnızca bu token ve bileşenlerle kurulur; eksik bir parça gerekirse önce bileşen olarak eklenir.
 
 ## 7. Referanslar
 
