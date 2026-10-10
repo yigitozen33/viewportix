@@ -81,6 +81,10 @@ Kullanıcının kaydettiği birim. Bir markanın (mağazanın) tüm kurulumunu t
 | Yeniden adlandır | Ad satırı yerinde metin alanına dönüşür; ⏎ kaydeder, Esc iptal | Anlık |
 | Kaldır › | Alt menü: Listeden kaldır / Çöp Sepeti'ne taşı; taslakta "Taslağı sil…" + onay | Alt menü 120 ms; kart 150 ms daralır, ızgara 250 ms yeniden dizilir |
 | ⊞ / ☰ | Izgara ↔ liste; tercih hatırlanır | 200 ms crossfade |
+| Arama alanına yaz | Kartlar ad ve URL'de süzülür (taslaklar dahil); sonuç yoksa "“…” ile eşleşen proje yok" + Aramayı temizle | Süzme anlık; kartlar 150 ms fade |
+| Esc (aramada) | Arama temizlenir, tüm projeler döner | 150 ms |
+| Dosyası bulunamayan karta tık / Bul… | Dosya seçici; seçilen yer listeye yazılır, kart normale döner | — |
+| Açılamayan proje | Sistem uyarısı (NSAlert): bozuk → Son taslağı aç / Finder'da Göster / Vazgeç; yeni sürüm → Güncellemeleri Denetle / Vazgeç (`home-file-errors@2x.png`) | Sistem |
 | Arama | Ad ve URL'de süzer, eşleşme yoksa "Sonuç yok" | Anlık |
 | "Son" / "Taslaklar" | Liste süzülür; seçim uygulama yeniden açılınca hatırlanır | 150 ms |
 | ⌘O | "Aç…" dosya seçici | Sistem |
@@ -157,6 +161,19 @@ Kullanıcının kaydettiği birim. Bir markanın (mağazanın) tüm kurulumunu t
 | Kart başlığına sağ tık | Kart menüsü imleçte | 120 ms fade |
 | Boyutu düzenle… | Popover başlığın altından; Kaydet → kart yeni boyuta animasyonla geçer, canvas yeniden dizilir | Popover 120 ms; kart 200 ms |
 | Senkrondan çıkar / Senkrona kat | Kart ‖ işareti alır / bırakır; o viewport olay almaz | 150 ms |
+| Kart başlığını sürükle | Kart gölgeyle kalkar, hover şeridi gizlenir; yakın kenar/üst/alt hizalarında gök çizgi, eşit aralıkta gök rozet (px); bırakınca konum projeye kaydedilir | Kalkış 120 ms; yapışma 6 px eşik; bırakma 150 ms |
+| Sürüklerken ⌥ | Hizalama ve yapışma kapanır | Anlık |
+| Viewport › Kartları Diz | Kartlar otomatik dizilime (tek sıra; gruplar açıksa grup içinde) döner | 250 ms |
+| Görünüm › Grupla › Cihaz türü / Motor | Canvas'ta grup alanları + başlık; şeritte gruplar arası ayırıcı; Yok → tek sıra | 250 ms yeniden dizilim |
+| Grup başlığı oku | Grup katlanır: alan başlık çipine iner, kartlar gizlenir, sağdakiler sola kayar; şeritte grubun sekmeleri tek çipe ("Telefon 2 ›") toplanır; tekrar tık açar (`window-project-groups-collapsed@2x.png`) | 200 ms |
+| Şeritteki katlı grup çipine tık | Grup açılır, canvas gruba kayar | 200 ms + pan 250 ms |
+| Hata kartında Yeniden dene / Şimdi dene | Yalnız o viewport yeniden yüklenir; ⌘R hepsi | Hata alanı yükleme çizgisine döner |
+| `localhost` kapalı | 2 sn'de bir otomatik dener; sunucu açılınca sayfa kendiliğinden yüklenir | — |
+| Sertifika › Bu oturumda güven | O ana makine uygulama kapanana kadar güvenilir sayılır; tüm viewport'lar yeniden yüklenir | — |
+| Hata kapsülü › Hepsini dene | Hatalı tüm viewport'lar yeniden yüklenir | Kapsül 150 ms kaybolur |
+| Sidebar sağ kenarı hover | İmleç ↔, kenar 2 px gök | 100 ms |
+| Sidebar kenarını sürükle | Genişlik 200–360 arası değişir, yanında genişlik etiketi; bırakınca kaydedilir; 200 altı kapatmaz | Anlık |
+| Tab / ⇧Tab | Odak sırası: sidebar başlığı → sayfa listesi → şerit → kartlar → alt çubuk → ray; odaktaki öğede 2 px gök halka (yalnız klavyede) | Halka 100 ms fade |
 
 Kapat, döndür, senkrondan çıkar ve ekran görüntüsü eylemleri menü çubuğunda da bulunur (hover'a gizlenenler klavye ve menüden ulaşılabilir kalır).
 
@@ -169,19 +186,19 @@ Tek kaynak bu tablo; diğer bölümlerdeki kısayollar buna uyar. macOS standart
 |---|---|
 | Viewportix | Hakkında · Ayarlar… ⌘, · Gizle ⌘H · Çıkış ⌘Q |
 | Dosya | Yeni Proje ⌘N · Aç… ⌘O · Son Kullanılanlar › · Kapat ⌘W · Kaydet ⌘S · Çoğalt ⇧⌘S · Yeniden Adlandır… · Giriş Ekranı ⇧⌘0 · Ekran Görüntüsü Al ⌥⌘S · Tam Sayfa Ekran Görüntüsü ⌃⌥⌘S |
-| Görünüm | Sidebar'ı Gizle ⌃⌘S · Rayı Gizle ⌥⌘0 · Yakınlaştır ⌘+ · Uzaklaştır ⌘− · Gerçek Boyut ⌘0 · Sığdır ⌘1 · Seçimi Sığdır ⌘2 · Farklar ⌥⌘1 · Senkron Kaydı ⌥⌘2 · Arka Plandaki Medyayı Duraklat · Tam Ekran ⌃⌘F |
+| Görünüm | Sidebar'ı Gizle ⌃⌘S · Rayı Gizle ⌥⌘0 · Yakınlaştır ⌘+ · Uzaklaştır ⌘− · Gerçek Boyut ⌘0 · Sığdır ⌘1 · Seçimi Sığdır ⌘2 · Farklar ⌥⌘1 · Senkron Kaydı ⌥⌘2 · Grupla › Yok · Cihaz Türü · Motor · Arka Plandaki Medyayı Duraklat · Tam Ekran ⌃⌘F |
 | Gezinme | Geri ⌘[ · İleri ⌘] · Yenile ⌘R · Adres Çubuğu ⌘L · Bu Sayfayı Listeye Ekle ⌘D · Sonraki Sayfa ⇧⌘] · Önceki Sayfa ⇧⌘[ |
-| Viewport | Cihaz Ekle… ⌥⌘N · Döndür ⌥⌘R · Boyutu Düzenle… · Senkrondan Çıkar · Kaldır ⌫ · Senkron Açık ⇧⌘L · Sonraki Viewport ⌃⇥ · Önceki Viewport ⌃⇧⇥ · Seçimi Kaldır Esc |
+| Viewport | Cihaz Ekle… ⌥⌘N · Kartları Diz · Döndür ⌥⌘R · Boyutu Düzenle… · Senkrondan Çıkar · Kaldır ⌫ · Senkron Açık ⇧⌘L · Sonraki Viewport ⌃⇥ · Önceki Viewport ⌃⇧⇥ · Seçimi Kaldır Esc |
 
 Bağlama özel (odak panelde/listede): Farklar J/K, A Kabul, I Yoksay, T Takip et, ⏎ Göster · Senkron ↑↓, ⏎ göster, R yeniden dene · Sayfa listesi ⏎ aç, çift tık yeniden adlandır, ⌫ kaldır, ⌥⌘↑/↓ taşı · Popover ↑↓ ⏎, Esc · Zoom yüzdesi yatay sürükle. Giriş ekranında ⌘D kartı çoğaltır (Finder gibi; proje penceresinde sayfa ekler).
 
-Düzeltilen çakışmalar: ⌘S (seçili viewport ekran görüntüsü → kaldırıldı, Kaydet'e ait), ⇧⌘S (sidebar ve tüm ekran görüntüsü → sidebar ⌃⌘S, ekran görüntüsü ⌥⌘S), ⌘N ("+ Cihaz" → ⌥⌘N), ⌥⌘↑/↓ (sayfa geçişi → ⇧⌘]/[ ).
+Grupla ve Kartları Diz kısayolsuz (⌥⌘D sistemin Dock kısayolu, kullanılmaz). Düzeltilen çakışmalar: ⌘S (seçili viewport ekran görüntüsü → kaldırıldı, Kaydet'e ait), ⇧⌘S (sidebar ve tüm ekran görüntüsü → sidebar ⌃⌘S, ekran görüntüsü ⌥⌘S), ⌘N ("+ Cihaz" → ⌥⌘N), ⌥⌘↑/↓ (sayfa geçişi → ⇧⌘]/[ ).
 
 ### 3.3 Sağ ray ve Ayarlar paneli
 
 Proje penceresinin sağ kenarında 44 px **ray** (varsayılan açık; alttaki düğmeyle gizlenir, tercih hatırlanır; gizliyken sağ kenarda üstte 24×56 **tutamaç** kalır — ray ikonu, Farklar bulgusu varken mercan nokta; tık ya da ⌥⌘0 rayı geri getirir, hover "Rayı göster ⌥⌘0"; `window-project-rail-hidden@2x.png`; ⌘, ve kısayollar gizliyken de paneli açar): ⚙ Ayarlar, Cihazlar, MCP, Hesap; ayırıcı; Farklar, Senkron (M5); altta daralt. Rayın ikonuna tıklayınca ilgili panel açılır. **Varsayım (kullanımda doğrulanacak):** Ayarlar / Cihazlar / MCP / Hesap panelleri canvas'ın **üstüne kayar** (340 px, gölgeli, canvas yerinden oynamaz); Farklar ve Senkron panelleri canvas'ı **iter** (320 px, uzun süre açık kalır). Ayarlar panelinin başlığında yalnızca ✕; Farklar ve Senkron panellerinde ayrıca "pencereye çıkar" (⧉, ikinci ekrana almak için). ⌘, ayarları açar. Giriş ekranında ray yok; ⚙ düğmesi ve ⌘, aynı paneli açar (§3.1). Ayrı ayarlar penceresi yok.
 
-**Ayarlar paneli içeriği** (`window-project-settings-panel@2x.png`: ray + üstüne kayan panel): üstte sekme çipleri Genel · Cihazlar · MCP · Hesap, arama; GÖRÜNÜM (Tema Sistem / Koyu / Açık; Dil), PROJE (Varsayılan şablon; Senkron açık başlasın; Taslakları sakla), EKRAN GÖRÜNTÜSÜ (Klasör; Panoya da kopyala; Ölçek 1× / 2×); PROJE altında ayrıca "Arka plandaki viewport'larda medyayı duraklat" (**varsayılan açık**: ses ve video yalnızca imlecin üstündeki viewport'ta oynar, diğerleri durur ve sessizdir; Görünüm menüsünde de, tikli; canvas'ta düğmesi yok), **BU PROJE** (Cihazlar (n) → Cihazlar sekmesi; Motor). Sekme içerikleri:
+**Ayarlar paneli içeriği** (`window-project-settings-panel@2x.png`: ray + üstüne kayan panel): üstte sekme çipleri Genel · Cihazlar · MCP · Hesap, arama; GÖRÜNÜM (Dil; Tema satırı açık temayla birlikte gelir, şimdilik çizimde ve uygulamada yok), PROJE (Varsayılan şablon; Senkron açık başlasın; Taslakları sakla), EKRAN GÖRÜNTÜSÜ (Klasör; Panoya da kopyala; Ölçek 1× / 2×); PROJE altında ayrıca "Arka plandaki viewport'larda medyayı duraklat" (**varsayılan açık**: ses ve video yalnızca imlecin üstündeki viewport'ta oynar, diğerleri durur ve sessizdir; Görünüm menüsünde de, tikli; canvas'ta düğmesi yok), **BU PROJE** (Cihazlar (n) → Cihazlar sekmesi; Motor). Sekme içerikleri:
 - **Cihazlar** (`window-project-settings-devices@2x.png`, C1 iki satırlı liste): cihaz yönetimi; "Cihazları yönet…" buraya açılır. Üstte arama ("Cihaz ara"), sayaç "23 cihaz · 2 özel", "İçe aktar…", sarı "+ Cihaz"; altında tür süzgeci Tümü · Telefon · Tablet · Masaüstü · Özel. Satır iki satır: tür ikonu, ad (özel cihazda "özel" rozeti), altında "393×852 · 3× · Telefon"; sağda "Seçicide" toggle'ı, hover'da ⋯ (Düzenle, Çoğalt, Sil — Sil yalnız özel). Seçicide kapalı = "+ Cihaz" menüsünde görünmez, açık projelerdeki kartlar kalır. Yerleşik cihazlar silinemez, gizlenir. Özel cihazlar uygulamayla saklanır. Elenen: C2 türe göre gruplu tek satır, C3 yerinde ayrıntı.
 - **MCP** (M7; `window-project-settings-mcp@2x.png`): SUNUCU — gök nokta + "Çalışıyor", altında "stdio · 2 istemci · 14 araç", sağda Durdur (durmuşken gri nokta + Başlat); Taşıma segmenti stdio / HTTP; komut kutusu (mono, "viewportix mcp --stdio") + Kopyala. İZİNLER — Ekran görüntüsü alma, Gezinme ve tıklama, DOM diff okuma (açık), Proje dosyası yazma (varsayılan kapalı). BAĞLI İSTEMCİLER — ad, "son istek 2 sn önce", sağda "Bağlantıyı kes".
 - **Hesap** (`window-project-settings-account@2x.png`): üstte baş harfli avatar, ad, e-posta, sağda "Çıkış yap". TAKIM (takım adı, kişi sayısı), LİSANS (Plan: "Dahili"; iş modeli sonra), GÜNCELLEME (sürüm + "Güncel", Denetle; Otomatik güncelle toggle'ı, varsayılan açık).
@@ -197,7 +214,7 @@ Proje penceresinin sağ kenarında 44 px **ray** (varsayılan açık; alttaki d�
 | Tutamaca tık / ⌥⌘0 | Ray geri gelir, tutamaç kaybolur | 200 ms |
 | Tutamaç hover | Tooltip "Rayı göster ⌥⌘0" solunda | 400 ms gecikme, 100 ms fade |
 | Toggle / segment / select | Anında uygulanır, kaydet yok | 150 ms |
-| Tema | Tüm pencereler anında | 200 ms crossfade |
+| Tema (açık temayla, ileride) | Tüm pencereler anında | 200 ms crossfade |
 | Cihazlar › Seçicide toggle | Cihaz seçicide gizlenir/görünür | Anlık |
 | Cihazlar › ⋯ › Sil | Özel cihaz silinir; açık kartlar kalır | Satır 150 ms daralır |
 | MCP › Durdur / Başlat | Sunucu durur/başlar | 150 ms |
@@ -295,6 +312,21 @@ Sağ raydan açılır, canvas'ı iter (320 px). Tasarım ilkesi: **sakin ama tek
 15. ~~Sidebar'da cihaz listesi~~ — verildi: V1 (2026-10-11, §4). Seçenekler arşivde (`Archive · Sidebar · Cihaz listesi seçenekleri`, `sidebar-device-list-options@2x.png`).
 16. ~~Küçük durumlar~~ — verildi (2026-10-11, §4; `Misc States`, `misc-states@2x.png`): sidebar genişlik tutamacı (6 px görünmez, hover/sürüklemede 2 px gök kenar + genişlik etiketi, sınır 200–360, bırakınca kaydedilir, 200 altı kapatmaz); klavye odak halkası 2 px, yalnız klavyede — renk gök (F1; F2 krem reddedildi); giriş ekranında aramada sonuç yok ("“…” ile eşleşen proje yok", "Aramayı temizle Esc").
 
+17. **Katlanmış grup ve motora göre gruplama** — taslak, onay bekliyor: `Project Window · Gruplar · katlanmış` (`window-project-groups-collapsed@2x.png`), `Project Window · Gruplar (motor, M4)` (`window-project-groups-engine@2x.png`; grup başlığında motor glifi, sekmede "iPhone 16 · Chromium").
+18. **Proje dosyası sorunları** — taslak, onay bekliyor (`Home File Errors`, `home-file-errors@2x.png`): dosyası bulunamayan kart (soluk küçük resim, mercan "Dosya bulunamadı", Bul…), açılamayan proje için sistem uyarısı metinleri.
+19. **VoiceOver etiketleri** — taslak, onay bekliyor (§6 "Erişilebilirlik etiketleri").
+20. **Küçük ayrıntılar** — öneriler, karar bekliyor (çizim gerekmiyor; onaylanınca §3'e işlenir):
+    - a. Pencere en küçük boyutu **1024 × 640** (sidebar + iki kart + ray sığar).
+    - b. Tam ekranda trafik ışıkları yok: sidebar'ın üstündeki 48 px satır **16 px**'e iner.
+    - c. Ray öğelerinde tooltip (ad + kısayol): Ayarlar ⌘, · Cihazlar · MCP · Hesap · Farklar ⌥⌘1 · Senkron Kaydı ⌥⌘2 · Rayı Gizle ⌥⌘0; 400 ms.
+    - d. Kısaltma: URL alanında alan adı korunur, yol ortadan kısalır ("marka.com/…/keten-gomlek"); sayfa ve sekme adı sondan "…", hover'da tam ad tooltip'te.
+    - e. Kapsül: aynı anda tek kapsül; yenisi eskinin yerine geçer; hata kapsülü başarı kapsülüyle ezilmez.
+    - f. Kart kapatınca kapsül "iPad kapatıldı · Geri al" (5 sn, ⌘Z da geri alır).
+    - g. Pencereye bağlantı sürükle-bırak: canvas'ta gök kenar + "Bu adresi aç"; bırakınca URL yüklenir.
+    - h. Sayfada senkron hiç kurulamazsa (CSP vb.): kart başlığında gri ‖ + tooltip "Bu sayfada senkron çalışmıyor"; kapsül bir kez.
+    - i. Grup başlığında ⋯: Katla · Grubu sığdır · Gruptakileri kapat.
+    - j. Çoklu kart seçimi (⇧ tık, birlikte sürükle / kapat) — MVP dışı önerisi.
+
 ## 6. Tasarım sistemi (`design/viewportix.pen`)
 
 **Renk** (koyu; her token'ın `mode: light` değeri de tanımlı, açık tema ileride): `canvas`, `surface/bar`, `surface/card`, `surface/header`, `surface/header-leader`, `surface/pill`, `surface/tooltip`, `line`, `ink/primary`, `ink/secondary`, `accent`, `accent/ink`, `status/leader`, `status/warning`, `status/warning-bg`.
@@ -325,6 +357,28 @@ Sağ raydan açılır, canvas'ı iter (320 px). Tasarım ilkesi: **sakin ama tek
 | `Window/RailHandle` | `RailHandle` | ray gizliyken sağ kenarda; badge (Farklar bulgusu), hover tooltip |
 
 **Pencere chrome'u** (`Chrome Spec` frame'i, 05 bölümü; `chrome-spec@2x.png`): her parçanın ölçüsü, token'ları ve durumları orada. Yerleşim: `DeviceStrip` canvas'ın üstünde ortada, üstten 16 px; `BottomBar` altta ortada, alttan 31 px; `CollapsedSidebarHeader` canvas sol üstünde 16, 16; `InspectorRail` pencerenin sağ kenarında, canvas'tan sonra. Ortalama canvas'a göredir (sidebar, ray ve iten panel çıkarıldıktan sonra kalan alan); bu parçalara bağlı menüler (zoom, ekran görüntüsü, "+N", cihaz seçici, tooltip) tetikleyicisine hizalı açılır ve onunla birlikte kayar.
+
+**Erişilebilirlik etiketleri (VoiceOver, taslak):** ikon-only her denetimin etiketi Türkçe; durum "değer" olarak okunur.
+
+| Denetim | Etiket | Değer / ipucu |
+|---|---|---|
+| Alt çubuk senkron | Senkron | Açık / Kapalı · ⇧⌘L |
+| Sığdır | Sığdır | ⌘1 |
+| Zoom kontrolü | Yakınlaştırma | "%100"; ayarlanabilir (↑↓ kademe) |
+| Kamera (alt çubuk / kart) | Ekran görüntüsü al | Tüm viewport'lar / bu viewport |
+| Sekme | `<cihaz adı>` | boyut; lider / senkron kaçtı / yükleniyor / senkron kapalı |
+| Sekmedeki ✕ | `<cihaz>`ı kapat | — |
+| "+N" çipi | `<n>` gizli cihaz | menüyü açar |
+| "+ Cihaz" | Cihaz ekle | ⌥⌘N |
+| Kart motor glifi | Motor | "WebKit 26 · macOS 26" |
+| Hover şeridi | Senkrondan çıkar / Senkrona kat · Döndür · Kapat | — |
+| Grup başlığı | `<grup>` grubu | `<n>` cihaz; açık / katlı |
+| Ray öğeleri | Ayarlar · Cihazlar · MCP · Hesap · Farklar · Senkron kaydı · Rayı gizle | Farklar: "`<n>` bulgu" |
+| Ray tutamacı | Rayı göster | ⌥⌘0; bulgu varsa "`<n>` fark" |
+| Sidebar nav | Geri · İleri · Yenile | pasifse "kullanılamaz" |
+| URL alanı | Adres | ⌘L |
+| Sidebar düğmesi (kapsülde) | Kenar çubuğunu göster | ⌃⌘S |
+| Giriş: ⚙ · ⊞ · ☰ · ⋯ | Ayarlar · Izgara görünümü · Liste görünümü · Diğer eylemler | seçili görünüm "seçili" |
 
 **Bileşen kuralı:** Yeni ekranlar yalnızca bu token ve bileşenlerle kurulur; eksik bir parça gerekirse önce bileşen olarak eklenir.
 

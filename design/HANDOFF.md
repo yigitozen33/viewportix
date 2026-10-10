@@ -34,6 +34,10 @@ Dışa aktarım adları: `window-project-*` (proje penceresi halleri), `window-h
 
 **İleride:** Icon Composer (B6), açık tema, inspector, tam yükseklik modu, M4/M6 motor seçici. **Kullanıcıda:** `viewportix.lib.pen` dönüşümü; pen.dev'de ⌘S ile kaydetme (diskteki `.pen` ilk commit'ten beri değişmedi).
 
+## Onay bekleyenler (2026-10-11)
+
+DESIGN.md §5 madde 17–20: katlanmış grup + motora göre gruplama, proje dosyası sorunları, VoiceOver etiketleri, küçük ayrıntılar (a–j). Bunlar da koda aktarılmadı.
+
 ## Oturum başında oku
 
 - `docs/HANDOFF.md` ve `docs/tasarim-istekleri.md`: son işlenenden sonraki girdileri işle.
