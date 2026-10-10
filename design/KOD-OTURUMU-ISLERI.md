@@ -106,3 +106,20 @@ DESIGN.md §3.2 sonundaki **etkileşim tablosu** tetikleyici → etki → hareke
 - [ ] Ayarlar › Cihazlar, MCP, Hesap sekmeleri çizildi: DESIGN.md §3.3, `design/exports/window-project-settings-{devices,mcp,account}@2x.png`. Cihazlar iki satırlı liste + tür süzgeci; MCP sekmesi M7'ye kadar gizli kalabilir.
 - [ ] Ray gizliyken `RailHandle` (24×56, sağ kenarda üstten 16): tık / ⌥⌘0 rayı geri getirir; Farklar bulgusu varken mercan nokta. `window-project-rail-hidden@2x.png`, etkileşim tablosu §3.3.
 - [ ] Sidebar 240 kesin (`Size.sidebar`). Boş URL alanı ipucu "Adres yaz ya da yapıştır".
+
+## 12. Uygulama sırası önerisi (2026-10-11)
+
+Tasarım hazır; M3 "Arayüz tasarımının uygulanması" için önerilen sıra (her adım kendi başına çalışır halde bırakılabilir):
+
+1. [ ] `DesignTokens.swift`'i pakete kopyala (§7). Renkler yalnızca koyu.
+2. [ ] Pencere çerçevesi (PLAN.md §3.8): şeffaf başlık, `HStack` = sidebar (240) + canvas + `InspectorRail` (44). Sidebar kapalıyken `CollapsedSidebarHeader`.
+3. [ ] `SidebarHeader` (URL alanı + son 5 menüsü, nav), `SidebarRow` ve sayfa listesi durumları.
+4. [ ] Canvas üstü: `DeviceStrip` (sekmeler, taşma, +N menüsü), `BottomBar` (senkron, sığdır, `ZoomControl`, kamera + seçici), `ToastCapsule`. Yerleşim DESIGN.md §6 "Pencere chrome'u".
+5. [ ] `ViewportCard` durumları + `ViewportHoverStrip` + kart menüsü + Boyutu düzenle popover'ı.
+6. [ ] `DevicePicker` popover'ı.
+7. [ ] Ayarlar kayan paneli (Genel, Cihazlar, Hesap; MCP M7'ye kadar gizli), ray öğeleri, `RailHandle`.
+8. [ ] Giriş ekranı (`ProjectCard`, `TemplateChip`, `URLBox`, ızgara/liste, bağlam menüsü, ⚙ paneli).
+
+Her etkileşim için DESIGN.md'deki etkileşim tablosu sözleşmedir. Arayüze dokunan her değişikliği `docs/tasarim-istekleri.md`'ye eklemeye devam et; tasarımda olmayan bir hal çıkarsa oraya yaz.
+
+- Not (medya): kullanıcı "Arka Plandaki Medyayı Duraklat"ı **varsayılan açık** istedi (§10). Gerekçe performans değil, birden çok viewport'ta seslerin üst üste binmesi; PLAN.md'deki "ölçülebilir kazanç yok" bulgusu bu kararı değiştirmez.
