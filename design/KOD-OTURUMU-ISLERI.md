@@ -68,3 +68,5 @@ DESIGN.md §3.2 sonundaki **etkileşim tablosu** tetikleyici → etki → hareke
 - [ ] URL alanı: son 5 URL geçmişi (uygulama düzeyi, `UserDefaults`/app support; proje dosyasına girmez); ⌘D açık URL'yi sayfa listesine ekler. DESIGN.md §3.2.
 
 - [ ] Uygulama ikonu B6 "Vx monogram" seçildi (DESIGN.md §4). Icon Composer dosyası tasarım oturumundan gelecek; o zamana kadar yer tutucu ikon kalsın.
+
+- [ ] Yazı tipi: SwiftUI'de sistem fontu (`.system`, SF Pro) ve sayısal değerler/seçiciler için `.monospaced` (SF Mono); `.monospacedDigit()` boyut ve yüzdelerde. Tasarım dosyasındaki Inter / JetBrains Mono yalnızca vekil, uygulamaya gömme. Boyutlar DESIGN.md §6 (`font/title` 15 … `font/micro` 10).
