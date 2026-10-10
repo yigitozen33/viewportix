@@ -164,7 +164,7 @@
   "size": {
     "sidebar": {
       "$type": "dimension",
-      "$value": "220px"
+      "$value": "240px"
     },
     "bar-height": {
       "$type": "dimension",
@@ -192,7 +192,7 @@
     },
     "panel-docked": {
       "$type": "dimension",
-      "$value": "300px"
+      "$value": "320px"
     }
   },
   "stroke": {

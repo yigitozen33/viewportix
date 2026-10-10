@@ -90,3 +90,9 @@ DESIGN.md §3.2 sonundaki **etkileşim tablosu** tetikleyici → etki → hareke
 - [ ] "Arka plandaki viewport'larda medyayı duraklat": Görünüm menüsünde kalır, ayrıca Ayarlar › Proje'de toggle.
 
 - [ ] Ekran görüntüsü akışı değişti (DESIGN.md §3.2): alt çubuk kamerası ve kart kamerası tıklanınca önce seçici (Görünen alan / Tam sayfa) açar; kart başlığı sağ tık menüsünden "Ekran Görüntüsü" ve "Tam Sayfa Ekran Görüntüsü" çıkar. ⌥⌘S / ⌃⌥⌘S kısayolları seçiciyi atlar.
+
+## 9. Pencere chrome'u (2026-10-10)
+
+- [ ] Pencere parçaları ayrı SwiftUI görünümleri: `SidebarHeader`, `CollapsedSidebarHeader`, `DeviceStrip`, `BottomBar`, `InspectorRail` (DESIGN.md §6 tablosu). Ölçü, token ve durumlar `Chrome Spec` frame'inde ve `design/exports/chrome-spec@2x.png`.
+- [ ] Yerleşim: şerit canvas'ın üstünde ortada (üstten 16), alt çubuk altta ortada (alttan 31), kapsül canvas sol üstü (16, 16), ray sağ kenarda. Ortalama sidebar, ray ve iten panel çıktıktan sonra kalan canvas alanına göre; bağlı menüler tetikleyicisine hizalı.
+- [ ] Token düzeltmesi: `Size.sidebar` 240 (220 değil), `Size.panelDocked` 320 (300 değil). `design/tokens/DesignTokens.swift` güncellendi, yeniden kopyala.

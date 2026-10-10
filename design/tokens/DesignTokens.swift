@@ -52,14 +52,14 @@ public enum DesignTokens {
         public static let s8: CGFloat = 32
     }
     public enum Size {
-        public static let sidebar: CGFloat = 220
+        public static let sidebar: CGFloat = 240
         public static let barHeight: CGFloat = 48
         public static let cardHeader: CGFloat = 36
         public static let icon: CGFloat = 16
         public static let iconSm: CGFloat = 14
         public static let rail: CGFloat = 44
         public static let panelOverlay: CGFloat = 340
-        public static let panelDocked: CGFloat = 300
+        public static let panelDocked: CGFloat = 320
     }
     public enum Stroke {
         public static let hairline: CGFloat = 1
