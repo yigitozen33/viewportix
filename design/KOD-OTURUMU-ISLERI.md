@@ -14,7 +14,7 @@
 
 Kurallar (araştırmadan): iki oturum aynı dosyaya yazmaz; notlara modelin inandığını değil kanıtı yaz; kesinleşen karar DESIGN.md/PLAN.md'ye taşınır, günlükte "işlendi" işaretlenir; eski karar silinmez, "superseded" yazılır.
 
-## 2. Tasarımı uygulamak için (şimdilik beklemede)
+## 2. Tasarımı uygulamak için (superseded, 2026-10-11: tasarım hazır — DESIGN.md §3 ekranlar, §6 bileşen → SwiftUI tablosu, `Chrome Spec`, `design/exports/`; M3 "Arayüz tasarımının uygulanması" başlayabilir)
 
 - Tasarım henüz yok. Bileşen adları (`Window/Chrome`, `Viewport/Card`, `ViewportCardState`) ve durumlar hazır olunca `DESIGN.md` + `design/*.pen` + `design/exports/` üzerinden gelecek.
 - O zamana kadar arayüz koduna tasarım kaynaklı değişiklik yapma.
