@@ -69,22 +69,27 @@ Referans: pen.dev'in giriş ekranı. AI istem kutusunun yerini URL kutusu alır.
 
 ```
 ┌──────────┬───────────────────────────────────────────────────────┐
-│ SAYFALAR │ ‹ › ⟳   https://marka.com/urun   + Cihaz  Sığdır 100% │
-│ Ana sayfa├───────────────────────────────────────────────────────┤
-│ Ürün   ● │                                                       │
-│ Sepet    │  ┌ iPhone 16 · WebKit 26 ┐ ┌ iPad · WebKit ┐ ┌ Masa ┐ │
-│ Ödeme    │  │                       │ │               │ │      │ │
-│          │  │                       │ │               │ │      │ │
-│ + Ekle   │  └───────────────────────┘ └───────────────┘ └──────┘ │
-│          │                                                       │
+│ ● ● ●    │           [iPhone 16 ×][iPad ×][Masaüstü ⚠ ×][+ Cihaz] │
+│ 🔒 URL   │                                                       │
+│ ‹ › ⟳    │  ┌ iPhone 16 · 393×852 · WebKit ┐ ┌ iPad ┐ ┌ Masa ⚠ ┐ │
+│ SAYFALAR │  │                              │ │      │ │        │ │
+│ Ana sayfa│  │                              │ │      │ │        │ │
+│ Ürün   ● │  └──────────────────────────────┘ └──────┘ └────────┘ │
+│ Sepet    │                                                       │
+│ Ödeme    │              ( ✓ Kaydedildi · Finder'da Göster )      │
+│ + Ekle   │       [ Senkron açık ][ Sığdır ][ 100% ][ 📷 ]         │
 └──────────┴───────────────────────────────────────────────────────┘
 ```
 
-- **Sidebar:** projenin sayfa listesi. Tıklayınca tüm viewport'lar o sayfaya gider. Ekleme, kaldırma, yeniden adlandırma, sürükleyerek sıralama. "Bu sayfayı ekle" ile o an açık URL listeye girer. Gizlenebilir. M3'te viewport listesi ve gruplar da buraya gelir.
-- **Toolbar:** geri/ileri/yenile, URL alanı, cihaz ekle, "Sığdır", zoom yüzdesi, senkron açık/kapalı.
-- **Viewport kartı:** başlıkta cihaz adı, boyut, motor ve sürüm; kapatma; (M3) döndürme, senkrondan çıkarma, motor değiştirme.
-- **Lider göstergesi:** imlecin üstünde olduğu viewport hafifçe vurgulanır.
-- **"Senkron kaçtı" göstergesi:** tıklanan element bu viewport'ta bulunamadıysa başlıkta küçük bir uyarı.
+Üst çubuk yok. Üç kontrol yüzeyi, her biri tek iş yapar:
+
+- **Sidebar (220, varsayılan açık):** üstte traffic lights, URL alanı ve geri/ileri/yenile; altında "SAYFALAR" listesi (tıklayınca tüm viewport'lar o sayfaya gider; ekleme, kaldırma, yeniden adlandırma, sürükleyerek sıralama; "+ Ekle"). Kapanınca ışıklar, sidebar düğmesi, nav ve URL canvas'ın üst solunda tek bir yüzen kapsüle taşınır (aynı sırayla), canvas tam genişliği alır.
+- **Cihaz sekmeleri (canvas üstünde yüzen şerit):** açık viewport'lar sırayla; her sekme kartla aynı durumu taşır (lider gök çerçeve, senkron kaçtı mercan üçgen, yükleniyor dönen ikon, snapshot resim ikonu). Sığmayınca şerit kayar (kenarda solma + ok); sağda "+N" çipi gizli cihazların en ciddi durumunu gösterir (hata > lider > yükleniyor > normal) ve menü açar: her gizli cihaz için ad, boyut · motor · durum metni, odakla düğmesi; altta "Tümünü sidebar'da göster". Sekme adı asla kısaltılmaz, durum ikonu asla gizlenmez. Sonda "+ Cihaz".
+- **Alt yüzen çubuk:** Senkron açık/kapalı (sarı), Sığdır, zoom yüzdesi (menü), ekran görüntüsü menüsü. Bildirim kapsülü bu çubuğun üstüne çıkar.
+- **Viewport kartı:** kompakt tek satır başlık: cihaz adı, boyut, sağda motor ve kamera düğmesi. Hover'da kapat / döndür / senkrondan çıkar kartın üstünde yüzen şeritte. Durumlar §4'te.
+- **Lider göstergesi:** imlecin üstünde olduğu viewport gök çerçeve ve parlak başlıkla vurgulanır; sekmesi de aynı renkte.
+- **"Senkron kaçtı" göstergesi:** başlıkta mercan üçgen, kartın altında "Element bu viewport'ta bulunamadı" notu; sekmede de üçgen.
+- Inspector şimdilik yok; gelince seçeneklere bakılır. Geliştirici paneli §3.3.
 
 ### 3.3 Geliştirici paneli (M5+)
 
@@ -105,7 +110,9 @@ Alt veya sağ panel. Motor diff listesi ("Buton Safari'de 12px aşağıda"), tı
 | Koyu canvas; renk paleti: vurgu sarı `#FFF36B`, lider gök `#8EC9E6`, uyarı yumuşak mercan `#FF8F85`; zemin sıcak siyah `#161412`. Sarı yalnızca eylem ve onay için (üstündeki yazı koyu `#141210`). Lider ve uyarı yalnızca renkle değil şekille de ayrışır (çerçeve + parlak başlık / üçgen ikon). Açık tema ayrıca çizilecek | 2026-10-10 |
 | Viewport kartı: çerçevesiz (cihaz çerçevesi yok); kompakt tek satır başlık: ad, boyut, sağda motor ve kamera düğmesi (kamera başlıkta hep görünür, varsayım); hover'da kapat / döndür / senkrondan çıkar eylemleri kartın üstünde yüzen küçük bir şeritte (başlık değişmez, motor ve boyut her an görünür) | 2026-10-10 |
 | Kart durumu `loading`: başlık altında 3 px açık krem ilerleme çizgisi + kamera yerine dönen yükleme ikonu (iskelet veya ortada kutu yok) | 2026-10-10 |
-| Proje penceresi: sidebar varsayılan açık (220 pt); inspector şimdilik yok (gelince seçeneklere bakılır); toolbar iki satır: üstte geri/ileri/yenile + URL + senkron, altta cihaz sekmeleri + "+ Cihaz" + Sığdır/zoom + ekran görüntüsü menüsü | 2026-10-10 |
+| ~~Toolbar iki satır (üstte nav+URL+senkron, altta cihaz sekmeleri + zoom)~~ — yerini aldı, aşağıya bak | 2026-10-10 |
+| Proje penceresi düzeni (B2): üst çubuk yok; URL ve nav sidebar'ın tepesinde; cihaz sekmeleri canvas üstünde yüzen şerit; senkron/sığdır/zoom/ekran görüntüsü alt yüzen çubukta; sidebar varsayılan açık (220), kapanınca ışıklar+nav+URL üst sol kapsüle taşınır; inspector sonra. Gerekçe: araştırmada zoom/sığdır hiçbir canvas aracında üst çubukta değil; yüzen paneller (Figma UI3, Sketch) geri alındı, yalnızca alt araç çubuğu kaldı; cihaz sekmeleri çoklu önizlemede canvas'ı tekrarlar, bu yüzden durum taşıyarak değer kazanır | 2026-10-10 |
+| Cihaz sekmeleri durum taşır (lider/senkron kaçtı/yükleniyor/snapshot); taşmada kaydırılabilir şerit + "+N" durum çipi + gizli cihaz menüsü; ad kısaltılmaz. İkon-only sekmeler reddedildi (hata hangi cihazda, tek bakışta okunmalı) | 2026-10-10 |
 
 ## 5. Bekleyen tasarım kararları
 

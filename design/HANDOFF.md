@@ -11,16 +11,16 @@
 - Palet onaylandı (DESIGN.md §4): koyu canvas, vurgu `#FFF36B`, lider `#8EC9E6`, uyarı `#FF8F85`, zemin `#161412`. Denemeler `viewportix.pen` içinde (`Style Exploration`, `Palette Exploration`, `Yellow Palette Exploration`, `Leader Softening`, `Palette Candidate`); onaylanan örnek `Palette Candidate`.
 - Değişkenler (koyu) kuruldu; açık tema değerleri bekliyor.
 - `Viewport/Card` bileşeni kuruldu (`viewportix.pen`, çerçeve `Viewport States` altı durumu gösterir: default, leader, selected, syncMissed, snapshot, loading). Varsayımlar onay bekliyor: selected = `ink/primary` 2 px çerçeve (tutamaç yok), snapshot rozeti sayfa içeriğinin sol üstünde, loading = 3 px çizgi + dönen ikon (onaylandı, L1), syncMissed = başlıkta uyarı ikonu + altta not.
-- Proje penceresi çizildi (`Project Window`, 1440×900, koyu): sidebar 220 açık, iki satırlı toolbar, üç kart (iPad lider ve hover şeridi, Masaüstü syncMissed), bildirim kapsülü. Bileşenler: `Viewport/HoverStrip`, `Window/Toast`, `Sidebar/Row`, `Toolbar/Button`, `Toolbar/DeviceTab`. Dışa aktarım: `design/exports/window-project-dark@2x.png`.
-- Bilinen eksikler: zoom düğmesinde chevron solda (sağda olmalı), sidebar/toolbar durumları (hover, rename), seçili cihaz sekmesi, açık tema.
-- Henüz yok (eski satır, çoğu çözüldü): hover şeridi (`Viewport/HoverStrip`, denemesi `Compact Hover Options` içinde), `Window/Toast`, toolbar, sidebar, ekranlar.
+- Proje penceresi kesinleşti (`Project Window`, B2 düzeni; ayrıca `Project Window · Sidebar kapalı` ve `Project Window · 8 cihaz`). Dışa aktarımlar: `window-project-dark@2x.png`, `window-project-sidebar-collapsed@2x.png`, `window-project-many-devices@2x.png`, `tab-states-overflow-menu@2x.png`. Alternatifler `Alt · …` adıyla dosyada arşiv.
+- Bileşenler: `Viewport/Card`, `Viewport/HoverStrip`, `Window/Toast`, `Sidebar/Row`, `Toolbar/Button`, `Toolbar/DeviceTab` (durum ikonlu).
+- Bilinen eksikler: zoom düğmesinde chevron solda; sidebar hover/rename durumları; "+N" menüsü ve gizli-lider çip rengi yalnızca açıklamada; açık tema.
 
 ## Sıradaki iş
 
 1. `.pen` dosyalarını `design/viewportix.lib.pen` ve `design/viewportix.pen` olarak repoya taşı (kullanıcı pen.dev'de yeniden açacak).
 2. Referans: Apple HIG sayfaları ve kullanıcının vereceği Finder/Keynote ekran görüntüleri.
-3. Değişkenler: koyu renkler tamam; açık tema renkleri, boyutlar ve aralıklar sırada.
-4. `Window/Chrome`, sonra `Viewport/Card` ve altı durumu (default, leader, selected, syncMissed, snapshot, loading).
+3. Giriş ekranı (1040×700), sonra cihaz seçici popover, sonra açık tema.
+4. Boyut ve aralık değişkenleri; zoom düğmesi varyantı; sidebar durumları.
 5. Kod oturumundan gelen yeni öğeler tasarıma girecek (DESIGN.md §5, madde 9–11): kart başlığında kamera düğmesi (`Viewport/Card` hover/başlık satırı), toolbar'da ekran görüntüsü menüsü, pencere altında bildirim kapsülü ("Kaydedildi ve kopyalandı · Finder'da Göster").
 6. Her görsel karar kullanıcıya sorulur, DESIGN.md §4'e tarihiyle işlenir.
 
