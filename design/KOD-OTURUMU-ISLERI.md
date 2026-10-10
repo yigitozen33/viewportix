@@ -96,3 +96,7 @@ DESIGN.md §3.2 sonundaki **etkileşim tablosu** tetikleyici → etki → hareke
 - [ ] Pencere parçaları ayrı SwiftUI görünümleri: `SidebarHeader`, `CollapsedSidebarHeader`, `DeviceStrip`, `BottomBar`, `InspectorRail` (DESIGN.md §6 tablosu). Ölçü, token ve durumlar `Chrome Spec` frame'inde ve `design/exports/chrome-spec@2x.png`.
 - [ ] Yerleşim: şerit canvas'ın üstünde ortada (üstten 16), alt çubuk altta ortada (alttan 31), kapsül canvas sol üstü (16, 16), ray sağ kenarda. Ortalama sidebar, ray ve iten panel çıktıktan sonra kalan canvas alanına göre; bağlı menüler tetikleyicisine hizalı.
 - [ ] Token düzeltmesi: `Size.sidebar` 240 (220 değil), `Size.panelDocked` 320 (300 değil). `design/tokens/DesignTokens.swift` güncellendi, yeniden kopyala.
+
+## 10. Medya duraklatma varsayılanı (2026-10-10, kullanıcı kararı)
+
+- [ ] "Arka Plandaki Medyayı Duraklat" **varsayılan açık** gelsin (senin girdinde varsayılan kapalıydı). İlk açılışta tikli; kullanıcı kapatırsa tercih saklanır. Görünüm menüsü maddesi ve Ayarlar › Genel › PROJE toggle'ı aynı değeri gösterir. DESIGN.md §3.3, §4.
