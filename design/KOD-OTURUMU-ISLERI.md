@@ -80,3 +80,11 @@ DESIGN.md §3.2 sonundaki **etkileşim tablosu** tetikleyici → etki → hareke
 - [ ] Motor glifleri `viewportix.tokens.json` › `glyph` içinde SVG path; `Shape` olarak çiz.
 
 - [ ] Ayrı ayarlar penceresi yok (önceki not geçersiz): ayarlar yalnızca sağ raydan açılan kayan panel; yalnız giriş ekranı açıksa ⌘, aynı paneli giriş ekranının sağında açar. DESIGN.md §3.3.
+
+## 8. `docs/tasarim-istekleri.md` yanıtları (2026-10-10)
+
+- [ ] Kısayollar DESIGN.md §3.2.1 tablosundan; ⌥⌘S / ⌃⌥⌘S senin seçimin korundu. "+ Cihaz" ⌥⌘N, sidebar ⌃⌘S, rotate ⌥⌘R (⌘R yenile), sayfa geçişi ⇧⌘] / ⇧⌘[, ⌘L adres çubuğu, ⌘D sayfayı listeye ekle.
+- [ ] Zoom yüzdesi Türkçe yazımla "%100" (NumberFormatter percent, tr_TR); menüde %25 %50 %100 %200.
+- [ ] Döndür ve kaldır kart başlığında değil hover şeridinde; başlıkta yalnız motor glifi ve kamera.
+- [ ] Kart sağ tık menüsü, Boyutu düzenle popover'ı (sheet değil), senkron kapalı durumu (gri ‖, şeritte zincir), canvas ve sayfa listesi boş durumları, sayfa sağ tık menüsü, kapsül halleri: DESIGN.md §3.2.
+- [ ] "Arka plandaki viewport'larda medyayı duraklat": Görünüm menüsünde kalır, ayrıca Ayarlar › Proje'de toggle.

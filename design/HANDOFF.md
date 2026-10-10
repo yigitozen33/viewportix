@@ -35,16 +35,7 @@ Kod oturumunun istekleri (`docs/tasarim-istekleri.md`) ile karşılaştırıldı
 
 **Tasarımda karşılandı (kod oturumu DESIGN.md'den uygulasın):** sayfa listesi boş durumu, yerinde yeniden adlandırma ve sürükle-bırak (sidebar durumları), giriş ekranı boş durumu, cihaz ekleme menüsü (`Device/Picker`), viewport kartı + lider + senkron kaçtı, döndür/kapat düğmeleri (hover şeridinde, başlıkta değil), kapsülde glass yok.
 
-**Açık tasarım işleri:**
-1. Kısayol haritası: çakışmalar var (⌘S belge kaydetme ile, ⌘⇧S hem sidebar hem tüm ekran görüntüsü, ⌘N yeni belge ile); menü çubuğu adları.
-2. Canvas boş durumu ("Viewport yok").
-3. Viewport kartı başlığı sağ tık menüsü (Döndür, Boyutu düzenle…, Senkronu kapat, Ekran görüntüsü, Tam sayfa, Kaldır).
-4. Kartın "senkron kapalı" durumu (yeni durum).
-5. Boyut düzenleme: mevcut kartın boyutunu değiştirme yeri (cihaz seçicinin "Özel boyut" satırı yeni kart için; düzenleme için popover/sheet).
-6. Kapsülün ilerleme ve hata halleri + metinleri.
-7. Zoom yüzde yazımı (%50 mi 50% mi) ve menüde %25.
-8. Sayfa satırı sağ tık menüsü maddeleri (Yeniden adlandır, URL'yi kopyala, Kaldır).
-9. "Arka plandaki viewport'larda medyayı duraklat" ayarı → Ayarlar › Genel'e taşınabilir.
+**Açık tasarım işleri:** yok — dokuz isteğin hepsi 2026-10-10'da çizildi ve DESIGN.md'ye işlendi (kısayol haritası §3.2.1; canvas boş durumu, kart sağ tık menüsü, boyut düzenleme, senkron kapalı, kapsül halleri, sayfa sağ tık menüsü §3.2; zoom yüzdesi "%100"; medya duraklatma Ayarlar › Proje).
 
 **İleride:** Icon Composer (B6), açık tema, inspector. **Kullanıcıda:** `viewportix.lib.pen` kütüphane dönüşümü.
 
