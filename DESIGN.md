@@ -64,7 +64,8 @@ Kullanıcının kaydettiği birim. Bir markanın (mağazanın) tüm kurulumunu t
 - **Şablon çipleri (`Home/TemplateChip`):** Mobil odaklı (varsayılan), Tam matris, Motor karşılaştırma. Seçili çip sarı kenar + parlak zemin. URL + seçili şablon → proje penceresi.
 - **Son projeler:** "SON PROJELER" başlığı, arama alanı, ızgara/liste anahtarı. Kart (`Home/ProjectCard`): üstte canvas'ın son halinin küçük resmi (otomatik üretilen `thumbnail.png`), altta favicon + ad, meta satırı "2 sa. önce · 3 cihaz", sağda ⋯. Taslaklarda ad satırının yanında "Taslak" rozeti. Liste görünümü: Ad (favicon + ad + rozet), Cihazlar, Sayfalar, Düzenlendi, ⋯.
 - **Boş durum:** soluk üç hayalet kart, "Henüz proje yok", "Yukarıya bir URL yapıştır ya da bir .viewportix dosyası aç."
-- **Bağlam menüsü (sağ tık veya ⋯):** Aç ↩ · Yeniden adlandır ⏎ · Çoğalt ⌘D · — · Finder'da göster ⌘⇧R · Dosya yolunu kopyala · — · Kaldır ⌫ (mercan; dosyayı silmez, listeden çıkarır; taslaksa siler ve onay ister).
+- **Bağlam menüsü (sağ tık veya ⋯):** Aç ↩ · Yeniden adlandır ⏎ · Çoğalt ⌘D · — · Finder'da göster ⌘⇧R · Dosya yolunu kopyala · — · Kaldır › (mercan). "Kaldır" alt menü açar: **Listeden kaldır** ⌫ ("Dosya diskte kalır") ve **Çöp Sepeti'ne taşı** ⌘⌫ ("Finder'dan geri alınabilir"); açıklama satırları sayesinde ayrıca onay penceresi yok. Taslakta alt menü yok: "Taslağı sil…" tek seçenek, onay ister. Frame: `Home Window · Kaldır alt menüsü`.
+- **"+ Yeni" gri kalır:** ekranda tek sarı vurgu "Aç →"; iki sarı düğme yarışır.
 - Frame'ler: `Home Window`, `· Liste`, `· Boş durum`, `· Bağlam menüsü`. Dışa aktarımlar `design/exports/window-home-*.png`.
 
 **Etkileşim tablosu:**
@@ -78,7 +79,7 @@ Kullanıcının kaydettiği birim. Bir markanın (mağazanın) tüm kurulumunu t
 | Kart hover | Kart kenarı `line`'dan bir ton parlar, ⋯ belirir | 100 ms |
 | Sağ tık / ⋯ | Bağlam menüsü imleçte; kart gök kenar alır | 120 ms fade + 4 px |
 | Yeniden adlandır | Ad satırı yerinde metin alanına dönüşür; ⏎ kaydeder, Esc iptal | Anlık |
-| Kaldır | Listeden düşer; taslaksa "Taslak silinsin mi?" onayı | Kart 150 ms daralır, ızgara yeniden dizilir 250 ms |
+| Kaldır › | Alt menü: Listeden kaldır / Çöp Sepeti'ne taşı; taslakta "Taslağı sil…" + onay | Alt menü 120 ms; kart 150 ms daralır, ızgara 250 ms yeniden dizilir |
 | ⊞ / ☰ | Izgara ↔ liste; tercih hatırlanır | 200 ms crossfade |
 | Arama | Ad ve URL'de süzer, eşleşme yoksa "Sonuç yok" | Anlık |
 | "Son" / "Taslaklar" | Liste süzülür; seçim uygulama yeniden açılınca hatırlanır | 150 ms |
@@ -111,6 +112,7 @@ Kullanıcının kaydettiği birim. Bir markanın (mağazanın) tüm kurulumunu t
 - **Lider göstergesi:** imlecin üstünde olduğu viewport gök çerçeve ve parlak başlıkla vurgulanır; sekmesi de aynı renkte.
 - **"Senkron kaçtı" göstergesi:** başlıkta mercan üçgen, kartın altında "Element bu viewport'ta bulunamadı" notu; sekmede de üçgen.
 - Inspector şimdilik yok; gelince seçeneklere bakılır. Geliştirici paneli §3.3.
+- **Cihaz seçici (`Device/Picker`, "+ Cihaz" altına açılan popover, 660):** canvas görünür kalır. Üstte arama ("Cihaz ara ya da 1024×768 yaz": boyut yazınca doğrudan eklenir) ve motor seçici (WebKit; Chromium ve Firefox soluk "yakında"). Altında "SON" satırı: son kullanılan üç cihaz çip olarak. Gövde üç sütun: TELEFON / TABLET / MASAÜSTÜ, başlıkta cihaz sayısı; her sütun kendi sabit yükseklikli penceresinde (≈6 satır) bağımsız kayar, altta solma ve ince kaydırma çubuğu; liste uzamaz. Satır: ikon, ad, boyut, "+" (canvas'ta varsa gök tik). Altta "Özel boyut" W/H + sarı "Ekle"; sağda "Cihazları yönet… ↗" (M3, ayrı pencere). Frame: `Project Window · Cihaz seçici`. Reddedilen: tam ekran sheet (canvas kararır, küçük iş için ağır), tek sütun popover (uzun liste).
 
 **Etkileşim tablosu (kod için sözleşme):**
 
@@ -130,6 +132,11 @@ Kullanıcının kaydettiği birim. Bir markanın (mağazanın) tüm kurulumunu t
 | Zoom ▲ / ▼ | Kademeli zoom (25, 50, 100, 200, 400); basılı tutunca tekrar | 150 ms ease-out |
 | Zoom yüzdesini yatay sürükle | Sürekli zoom, 1 px = %1; ⇧ ile kademe atlar; imleç ↔ | Anlık |
 | Sidebar düğmesi / ⌘⇧S | Sidebar kapanır; ışıklar + nav + URL üst sol kapsüle taşınır | Sidebar 200 ms genişlik; kapsül 150 ms fade |
+| "+ Cihaz" / ⌘N | Cihaz seçici popover açılır, arama odaklı | 120 ms fade + 4 px |
+| Seçicide satıra tık | Cihaz canvas sonuna eklenir, sekme belirir, tik gelir; popover **açık kalır**; canvas ⌘1 ile sığdırılır | Kart 200 ms belirir; canvas 250 ms |
+| Seçicide ekli satıra tık | Canvas o karta kayar (çıkarmaz) | 250 ms |
+| Aramaya "W×H" yaz + ⏎ | Özel boyut eklenir | — |
+| Esc / dışarı tık | Popover kapanır | 100 ms |
 
 Kapat, döndür, senkrondan çıkar ve ekran görüntüsü eylemleri menü çubuğunda da bulunur (hover'a gizlenenler klavye ve menüden ulaşılabilir kalır).
 
@@ -160,6 +167,8 @@ Alt veya sağ panel. Motor diff listesi ("Buton Safari'de 12px aşağıda"), tı
 | Kart başlığında motor yalnızca ikon, sürüm hover tooltip'te; dar kartta gizlenme sırası boyut → ad kısaltma, motor ve kamera hep görünür. Tam ad/kısa kod rozetleri reddedildi (230 px'te uzun cihaz adıyla taşıyor). Motor ikonları özel SVG olacak (Lucide'de Chromium yok; logolar marka hakkı nedeniyle birebir kullanılmaz) | 2026-10-10 |
 | Zoom kontrolü Z2: yüzde + dikey mini stepper (macOS stepper); bölünmüş stepper, hover'da açılan ve scrubber reddedildi. Yüzde ayrıca sürüklenebilir | 2026-10-10 |
 | Giriş ekranı: başlık metni yok; şablon çipleri URL kutusunun altında kalır, sidebar'daki ŞABLONLAR bölümü M3'e ertelendi (MVP sidebar: Son, Taslaklar); kart küçük resmi canvas'ın son hali + ad yanında favicon; liste/boş durum/bağlam menüsü çizildiği gibi | 2026-10-10 |
+| "Kaldır" iki aşamalı alt menü (Listeden kaldır / Çöp Sepeti'ne taşı); "+ Yeni" gri kalır (tek vurgu) | 2026-10-10 |
+| Cihaz seçici: "+ Cihaz" altında 660 px popover, üç sütun (grup başına bağımsız kaydırma, sayı), SON çipleri, aramada boyut yazma, Özel boyut, "Cihazları yönet…" M3; sheet ve tek sütun reddedildi | 2026-10-10 |
 
 ## 5. Bekleyen tasarım kararları
 
@@ -169,7 +178,7 @@ Alt veya sağ panel. Motor diff listesi ("Buton Safari'de 12px aşağıda"), tı
 2. ~~Viewport kartı: başlık içeriği, cihaz çerçevesi~~ — verildi (bkz. §4). Kalan: kamera düğmesinin yeri onayı, selected rengi
 3. ~~Genel görsel dil~~ — verildi (koyu canvas ve palet, bkz. §4). Kalan: açık tema paleti, yüzey ve ink tonları
 4. ~~Giriş ekranının görsel tasarımı~~ — verildi (bkz. §3.1, §4)
-5. Cihaz seçici ve viewport ekleme akışı
+5. ~~Cihaz seçici ve viewport ekleme akışı~~ — verildi (bkz. §3.2)
 6. Lider ve "senkron kaçtı" göstergeleri
 7. Geliştirici panelinin yeri
 8. Uygulama ikonu
@@ -182,7 +191,7 @@ Alt veya sağ panel. Motor diff listesi ("Buton Safari'de 12px aşağıda"), tı
 **Renk** (koyu; açık tema bekliyor): `canvas`, `surface/bar`, `surface/card`, `surface/header`, `surface/header-leader`, `surface/pill`, `surface/tooltip`, `line`, `ink/primary`, `ink/secondary`, `accent`, `accent/ink`, `status/leader`, `status/warning`, `status/warning-bg`.
 **Köşe:** `radius/window` 16, `radius/bar` 14, `radius/card` 12, `radius/control` 8, `radius/badge` 6. **Aralık:** `space/1..8` = 4, 8, 12, 16, 24, 32. **Yazı:** `font/ui` (şimdilik Inter; hedef SF Pro), `font/title` 15, `font/body` 13, `font/label` 12, `font/caption` 11, `font/micro` 10. **Çizgi:** `stroke/hairline` 1, `stroke/focus` 2. **Boyut (yalnızca referans; pen.dev width/height'ta değişken çözmüyor, değerler sayı yazılır):** `size/sidebar` 220, `size/bar-height` 48, `size/card-header` 36, `size/icon` 16, `size/icon-sm` 14.
 
-**Bileşenler:** `Viewport/Card` (6 durum), `Viewport/HoverStrip`, `Window/Toast`, `Sidebar/Row`, `Toolbar/Button`, `Toolbar/DeviceTab` (durum ikonlu), `Toolbar/ZoomControl`, `Home/ProjectCard`, `Home/TemplateChip`, `Home/URLBox`. Yeni ekranlar yalnızca bu token ve bileşenlerle kurulur; eksik bir parça gerekirse önce bileşen olarak eklenir.
+**Bileşenler:** `Viewport/Card` (6 durum), `Viewport/HoverStrip`, `Window/Toast`, `Sidebar/Row`, `Toolbar/Button`, `Toolbar/DeviceTab` (durum ikonlu), `Toolbar/ZoomControl`, `Home/ProjectCard`, `Home/TemplateChip`, `Home/URLBox`, `Device/Picker`. Yeni ekranlar yalnızca bu token ve bileşenlerle kurulur; eksik bir parça gerekirse önce bileşen olarak eklenir.
 
 ## 7. Referanslar
 
