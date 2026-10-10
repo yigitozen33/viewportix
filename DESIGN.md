@@ -85,7 +85,7 @@ Referans: pen.dev'in giriş ekranı. AI istem kutusunun yerini URL kutusu alır.
 
 - **Sidebar (220, varsayılan açık):** üstte traffic lights, URL alanı ve geri/ileri/yenile; altında "SAYFALAR" listesi (tıklayınca tüm viewport'lar o sayfaya gider; ekleme, kaldırma, yeniden adlandırma, sürükleyerek sıralama; "+ Ekle"). Kapanınca ışıklar, sidebar düğmesi, nav ve URL canvas'ın üst solunda tek bir yüzen kapsüle taşınır (aynı sırayla), canvas tam genişliği alır.
 - **Cihaz sekmeleri (canvas üstünde yüzen şerit):** açık viewport'lar sırayla; her sekme kartla aynı durumu taşır (lider gök çerçeve, senkron kaçtı mercan üçgen, yükleniyor dönen ikon, snapshot resim ikonu). Sığmayınca şerit kayar (kenarda solma + ok); sağda "+N" çipi gizli cihazların en ciddi durumunu gösterir (hata > lider > yükleniyor > normal) ve menü açar ("GİZLİ CİHAZLAR"): her gizli cihaz için ad, boyut · motor · durum metni, odakla ve kapat düğmeleri. Etkileşimler aşağıdaki tabloda. Sekme adı asla kısaltılmaz, durum ikonu asla gizlenmez. Sonda "+ Cihaz".
-- **Alt yüzen çubuk (ikon-only):** Senkron (sarı zincir; kapalıyken gri kırık zincir), Sığdır, zoom yüzdesi (metin + menü; veri olduğu için ikonlaşmaz), ekran görüntüsü. Her ikonun hover'ında koyu tooltip: ad + kısayol. Bildirim kapsülü bu çubuğun üstüne çıkar; menü veya tooltip açıkken gösterilmez.
+- **Alt yüzen çubuk (ikon-only):** Senkron (sarı zincir; kapalıyken gri kırık zincir), Sığdır, zoom kontrolü (`Toolbar/ZoomControl`: yüzde metni + sağında dikey mini stepper ▲▼; yüzdeye tık → menü, ▲▼ kademeli zoom, yüzde yatay sürükle → sürekli zoom), ekran görüntüsü. Her ikonun hover'ında koyu tooltip: ad + kısayol. Bildirim kapsülü bu çubuğun üstüne çıkar; menü veya tooltip açıkken gösterilmez.
 - **Zoom menüsü (çubuğun üstüne açılır):** Sığdır ⌘1, Seçimi sığdır ⌘2 · 50% / 100% / 200% (geçerli olan işaretli) · Gerçek boyut ⌘0, Yakınlaştır ⌘+, Uzaklaştır ⌘−.
 - **Viewport kartı:** kompakt tek satır başlık: cihaz adı, boyut, sağda motor ikonu ve kamera düğmesi. Motor yalnızca ikon; hover'da tooltip "WebKit 26 · macOS 26". Sığmazsa gizlenme sırası: önce boyut, sonra ad ortadan kısaltılır; motor ikonu ve kamera asla gizlenmez. Sekmeler motor göstermez; aynı cihaz iki motorda açılırsa sekme adı "iPad · Chromium" olur. Hover'da kapat / döndür / senkrondan çıkar kartın üstünde yüzen şeritte. Durumlar §4'te.
 - **Lider göstergesi:** imlecin üstünde olduğu viewport gök çerçeve ve parlak başlıkla vurgulanır; sekmesi de aynı renkte.
@@ -106,7 +106,9 @@ Referans: pen.dev'in giriş ekranı. AI istem kutusunun yerini URL kutusu alır.
 | Motor ikonu hover | Tooltip: motor adı + sürüm, altında işletim sistemi | 400 ms gecikme, 100 ms fade |
 | Alt çubuk ikon hover | Tooltip (ad + kısayol) | 400 ms gecikme, 100 ms fade |
 | Senkron düğmesi | Senkron aç/kapa; sarı ↔ gri, zincir ↔ kırık zincir | 150 ms |
-| Zoom düğmesi | Zoom menüsü çubuğun üstüne açılır | 120 ms fade + 4 px |
+| Zoom yüzdesine tık | Zoom menüsü çubuğun üstüne açılır | 120 ms fade + 4 px |
+| Zoom ▲ / ▼ | Kademeli zoom (25, 50, 100, 200, 400); basılı tutunca tekrar | 150 ms ease-out |
+| Zoom yüzdesini yatay sürükle | Sürekli zoom, 1 px = %1; ⇧ ile kademe atlar; imleç ↔ | Anlık |
 | Sidebar düğmesi / ⌘⇧S | Sidebar kapanır; ışıklar + nav + URL üst sol kapsüle taşınır | Sidebar 200 ms genişlik; kapsül 150 ms fade |
 
 Kapat, döndür, senkrondan çıkar ve ekran görüntüsü eylemleri menü çubuğunda da bulunur (hover'a gizlenenler klavye ve menüden ulaşılabilir kalır).
@@ -136,6 +138,7 @@ Alt veya sağ panel. Motor diff listesi ("Buton Safari'de 12px aşağıda"), tı
 | Cihaz sekmeleri durum taşır (lider/senkron kaçtı/yükleniyor/snapshot); taşmada kaydırılabilir şerit + "+N" durum çipi + gizli cihaz menüsü; ad kısaltılmaz. İkon-only sekmeler reddedildi (hata hangi cihazda, tek bakışta okunmalı) | 2026-10-10 |
 | Alt çubuk ikon-only, tooltip koyu zeminli (ad + kısayol); zoom menüsü ve gizli cihaz menüsü çizildiği gibi; menüde "sidebar'da göster" yok, satırda seç (sekmeye kaydır + canvas'ta seç), odakla ve kapat var; davranışlar §3.2 etkileşim tablosunda | 2026-10-10 |
 | Kart başlığında motor yalnızca ikon, sürüm hover tooltip'te; dar kartta gizlenme sırası boyut → ad kısaltma, motor ve kamera hep görünür. Tam ad/kısa kod rozetleri reddedildi (230 px'te uzun cihaz adıyla taşıyor). Motor ikonları özel SVG olacak (Lucide'de Chromium yok; logolar marka hakkı nedeniyle birebir kullanılmaz) | 2026-10-10 |
+| Zoom kontrolü Z2: yüzde + dikey mini stepper (macOS stepper); bölünmüş stepper, hover'da açılan ve scrubber reddedildi. Yüzde ayrıca sürüklenebilir | 2026-10-10 |
 
 ## 5. Bekleyen tasarım kararları
 

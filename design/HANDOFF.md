@@ -15,7 +15,8 @@
 - Bileşenler: `Viewport/Card`, `Viewport/HoverStrip`, `Window/Toast`, `Sidebar/Row`, `Toolbar/Button`, `Toolbar/DeviceTab` (durum ikonlu).
 - Ek durumlar: `Project Window · 8 cihaz · menü açık` (+N menüsü), `· Zoom menüsü açık` (Sığdır ⌘1, Seçimi sığdır ⌘2, 50/100/200, Gerçek boyut ⌘0, Yakınlaştır/Uzaklaştır), `· İkon çubuklar + tooltip` (alt çubuk ikon-only, Sığdır üstünde tooltip). Karar: alt çubuk ikon-only; tooltip koyu; menü satırında seç/odakla/kapat. Davranışlar DESIGN.md §3.2 etkileşim tablosunda.
 - Motor rozeti → ikon + tooltip (`Engine Tooltip` frame, `card-engine-tooltip@2x.png`). Motor ikonları şimdilik Lucide yer tutucu (compass); üç özel glif tasarlanacak.
-- Bilinen eksikler: zoom düğmesinde chevron solda; sidebar hover/rename durumları; gizli-lider çip rengi yalnızca açıklamada; açık tema.
+- `Toolbar/ZoomControl` (Z2) kuruldu ve tüm pencere frame'lerine uygulandı.
+- Bilinen eksikler: sidebar hover/rename durumları; gizli-lider çip rengi yalnızca açıklamada; açık tema.
 
 ## Sıradaki iş
 
