@@ -59,7 +59,7 @@ Kullanıcının kaydettiği birim. Bir markanın (mağazanın) tüm kurulumunu t
 1040×700, proje penceresiyle aynı palet ve bileşenler. Başlık metni yok; kutu kendini anlatır.
 
 - **Sidebar (200):** ışıklar, "Son" (varsayılan seçili), "Taslaklar". "ŞABLONLAR" bölümü M3'te şablon yönetimiyle gelir; MVP'de şablon seçimi çiplerde.
-- **Sağ üst:** "Aç…" (dosya seçici) ve "+ Yeni" (boş proje, varsayılan şablonla).
+- **Sağ üst:** "Aç…" (dosya seçici), "+ Yeni" (boş proje, varsayılan şablonla) ve ikon-only ⚙ (Ayarlar). Giriş ekranında ray yok; ⚙ ya da ⌘, ayarlar panelini sağdan, üst satırın altından açar (⚙ görünür kalır ve basılı hal alır; arka plan hafif kararır; "Bu proje" bölümü gizli). Frame: `Home Window · Ayarlar paneli`.
 - **URL kutusu (`Home/URLBox`):** zincir ikonu, "URL yapıştır…", sağda sarı "Aç →". Yapıştırınca otomatik olarak https tamamlanır, geçersiz URL'de kutu mercan kenar alır ve altında kısa açıklama çıkar.
 - **Şablon çipleri (`Home/TemplateChip`):** Mobil odaklı (varsayılan), Tam matris, Motor karşılaştırma. Seçili çip sarı kenar + parlak zemin. URL + seçili şablon → proje penceresi.
 - **Son projeler:** "SON PROJELER" başlığı, arama alanı, ızgara/liste anahtarı. Kart (`Home/ProjectCard`): üstte canvas'ın son halinin küçük resmi (otomatik üretilen `thumbnail.png`), altta favicon + ad, meta satırı "2 sa. önce · 3 cihaz", sağda ⋯. Taslaklarda ad satırının yanında "Taslak" rozeti. Liste görünümü: Ad (favicon + ad + rozet), Cihazlar, Sayfalar, Düzenlendi, ⋯.
@@ -84,6 +84,7 @@ Kullanıcının kaydettiği birim. Bir markanın (mağazanın) tüm kurulumunu t
 | Arama | Ad ve URL'de süzer, eşleşme yoksa "Sonuç yok" | Anlık |
 | "Son" / "Taslaklar" | Liste süzülür; seçim uygulama yeniden açılınca hatırlanır | 150 ms |
 | ⌘O | "Aç…" dosya seçici | Sistem |
+| ⚙ / ⌘, | Ayarlar paneli sağdan, üst satırın altından kayar; ⚙ basılı; tekrar ⚙, ✕ ya da Esc kapatır | 200 ms |
 | Pencereye .viewportix sürükle | Dosya açılır; pencere kenarı gök çerçeve | 100 ms |
 
 ### 3.2 Proje penceresi
@@ -151,7 +152,7 @@ Kapat, döndür, senkrondan çıkar ve ekran görüntüsü eylemleri menü çubu
 
 ### 3.3 Sağ ray ve Ayarlar paneli
 
-Proje penceresinin sağ kenarında 44 px kalıcı **ray**: ⚙ Ayarlar, Cihazlar, MCP, Hesap; ayırıcı; Farklar, Senkron (M5); altta daralt. Rayın ikonuna tıklayınca ilgili panel açılır. **Varsayım (kullanımda doğrulanacak):** Ayarlar / Cihazlar / MCP / Hesap panelleri canvas'ın **üstüne kayar** (340 px, gölgeli, canvas yerinden oynamaz); Farklar ve Senkron panelleri canvas'ı **iter** (300 px, uzun süre açık kalır). Ayarlar panelinin başlığında yalnızca ✕; Farklar ve Senkron panellerinde ayrıca "pencereye çıkar" (⧉, ikinci ekrana almak için). ⌘, ayarları açar; yalnızca giriş ekranı açıksa aynı panel giriş ekranının sağından kayar ("Bu proje" bölümü gizli). Ayrı ayarlar penceresi yok.
+Proje penceresinin sağ kenarında 44 px **ray** (varsayılan açık; alttaki düğmeyle tamamen gizlenir, tercih hatırlanır; gizliyken ⌘, ya da ilgili kısayol paneli açar): ⚙ Ayarlar, Cihazlar, MCP, Hesap; ayırıcı; Farklar, Senkron (M5); altta daralt. Rayın ikonuna tıklayınca ilgili panel açılır. **Varsayım (kullanımda doğrulanacak):** Ayarlar / Cihazlar / MCP / Hesap panelleri canvas'ın **üstüne kayar** (340 px, gölgeli, canvas yerinden oynamaz); Farklar ve Senkron panelleri canvas'ı **iter** (300 px, uzun süre açık kalır). Ayarlar panelinin başlığında yalnızca ✕; Farklar ve Senkron panellerinde ayrıca "pencereye çıkar" (⧉, ikinci ekrana almak için). ⌘, ayarları açar. Giriş ekranında ray yok; ⚙ düğmesi ve ⌘, aynı paneli açar (§3.1). Ayrı ayarlar penceresi yok.
 
 **Ayarlar paneli içeriği** (`window-project-settings-panel@2x.png`: ray + üstüne kayan panel): üstte sekme çipleri Genel · Cihazlar · MCP · Hesap, arama; GÖRÜNÜM (Tema Sistem / Koyu / Açık; Dil), PROJE (Varsayılan şablon; Senkron açık başlasın; Taslakları sakla), EKRAN GÖRÜNTÜSÜ (Klasör; Panoya da kopyala; Ölçek 1× / 2×), **BU PROJE** (Cihazlar (n) → Cihazlar sekmesi; Motor). Sekme içerikleri:
 - **Cihazlar:** cihaz yönetimi; "Cihazları yönet…" buraya açılır. Arama, "İçe aktar…", "+ Cihaz"; tablo Ad (özel cihazda "özel"), Tür, Boyut, Ölçek, Seçicide (toggle; kapalıysa listede kalır, "+ Cihaz" menüsünde görünmez), ⋯. Yerleşik cihazlar silinemez, gizlenir; "Seçicide" kapatmak açık projelerdeki kartları etkilemez. Özel cihazlar uygulamayla saklanır.
@@ -165,7 +166,7 @@ Proje penceresinin sağ kenarında 44 px kalıcı **ray**: ⚙ Ayarlar, Cihazlar
 |---|---|---|
 | Ray ikonu / ⌘, | Panel açılır; aynı ikona tekrar tık kapatır | Kayan panel 200 ms sağdan; iten panel 200 ms genişlik |
 | Farklar/Senkron ⧉ | Aynı panel ayrı pencerede; panel kapanır | 200 ms |
-| ⌘, (yalnız giriş ekranı açık) | Ayarlar paneli giriş ekranının sağından kayar; "Bu proje" gizli | 200 ms |
+| Ray daralt düğmesi | Ray gizlenir, canvas genişler; tercih uygulamaya kaydedilir | 200 ms |
 | Toggle / segment / select | Anında uygulanır, kaydet yok | 150 ms |
 | Tema | Tüm pencereler anında | 200 ms crossfade |
 | Cihazlar › Seçicide toggle | Cihaz seçicide gizlenir/görünür | Anlık |
@@ -221,6 +222,7 @@ Sağ raydan açılır, canvas'ı iter (300 px). Tasarım ilkesi: **sakin ama tek
 | Cihaz seçici: "+ Cihaz" altında 660 px popover, üç sütun (grup başına bağımsız kaydırma, sayı), SON çipleri, aramada boyut yazma, Özel boyut, "Cihazları yönet…" M3; sheet ve tek sütun reddedildi | 2026-10-10 |
 | ~~Ayarlar ayrı pencere (880×680, sol sekmeler)~~ — kaldırıldı: ayarlar yalnızca sağ panel; giriş ekranında da aynı panel kayar | 2026-10-10 |
 | Sağ ray (44 px) + paneller: ayarlar üstüne kayar, Farklar/Senkron iter (varsayım, kullanımda doğrulanacak); ayarlar içeriği Genel/Cihazlar/MCP/Hesap; K1/K2/K3 kreatif ayar konseptleri reddedildi, K2 paleti ileride | 2026-10-10 |
+| Ray: proje penceresinde varsayılan açık, daraltılabilir, tercih hatırlanır (M5'te Farklar ikonundaki mercan nokta görünür kalsın). Giriş ekranında ray yok: sağ üstte ⚙ + ⌘, ayarlar panelini açar. Hep açık ray (B) ve otomatik gizlenen ray reddedildi | 2026-10-10 |
 | Geliştirici paneli sakin tasarım: iki seviye, tek renk = dikkat, tabular sayılar, kelime düğmeler; baseline = lider, Kabul/Yoksay/Takip et; senkron satırında "n / n" ve kaçıranın adı açılımda | 2026-10-10 |
 | Açık tema MVP dışı, ileride: token'lar `mode: light` değerleriyle hazır (hardal `#E6C800` vurgu; aynı sarı açık zeminde okunmuyor), `Project Window · Açık` ve `Home Window · Açık` frame'leri referans; uygulama şimdilik yalnızca koyu | 2026-10-10 |
 | URL alanında son 5 geçmiş menüsü (uygulamaya ait, projeye girmez); sidebar durumları (hover, yerinde yeniden adlandırma, sürükle-bırak, "Bu sayfayı ekle" ⌘D, boş durum); ekran görüntüsü menüsü içeriği | 2026-10-10 |
