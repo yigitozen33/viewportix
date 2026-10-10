@@ -13,7 +13,8 @@
 - `Viewport/Card` bileşeni kuruldu (`viewportix.pen`, çerçeve `Viewport States` altı durumu gösterir: default, leader, selected, syncMissed, snapshot, loading). Varsayımlar onay bekliyor: selected = `ink/primary` 2 px çerçeve (tutamaç yok), snapshot rozeti sayfa içeriğinin sol üstünde, loading = 3 px çizgi + dönen ikon (onaylandı, L1), syncMissed = başlıkta uyarı ikonu + altta not.
 - Proje penceresi kesinleşti (`Project Window`, B2 düzeni; ayrıca `Project Window · Sidebar kapalı` ve `Project Window · 8 cihaz`). Dışa aktarımlar: `window-project-dark@2x.png`, `window-project-sidebar-collapsed@2x.png`, `window-project-many-devices@2x.png`, `tab-states-overflow-menu@2x.png`. Alternatifler `Alt · …` adıyla dosyada arşiv.
 - Bileşenler: `Viewport/Card`, `Viewport/HoverStrip`, `Window/Toast`, `Sidebar/Row`, `Toolbar/Button`, `Toolbar/DeviceTab` (durum ikonlu).
-- Bilinen eksikler: zoom düğmesinde chevron solda; sidebar hover/rename durumları; "+N" menüsü ve gizli-lider çip rengi yalnızca açıklamada; açık tema.
+- Ek durumlar: `Project Window · 8 cihaz · menü açık` (+N menüsü), `· Zoom menüsü açık` (Sığdır ⌘1, Seçimi sığdır ⌘2, 50/100/200, Gerçek boyut ⌘0, Yakınlaştır/Uzaklaştır), `· İkon çubuklar + tooltip` (alt çubuk ikon-only, Sığdır üstünde tooltip). Karar bekliyor: alt çubuk metinli mi ikon-only mi.
+- Bilinen eksikler: zoom düğmesinde chevron solda; sidebar hover/rename durumları; gizli-lider çip rengi yalnızca açıklamada; açık tema.
 
 ## Sıradaki iş
 
