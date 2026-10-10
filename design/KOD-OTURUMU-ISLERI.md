@@ -51,3 +51,7 @@ Tasarım toolbar ve sidebar dahil tamamen özel olacak (DESIGN.md §1 ve §4). K
 - [ ] Korunacak sistem davranışları: menü çubuğu ve kısayollar, klavye gezinmesi, VoiceOver etiketleri, sidebar aç/kapa ve genişlik ayarı (kendin yaz).
 - [ ] Kendi yüzeylerimizde Liquid Glass kullanma. Görünüm macOS 26 ve sonrasında aynı olacak.
 - [ ] Mimari etkisi büyükse PLAN.md'ye sen işle (tasarım oturumu PLAN.md'ye dokunmaz). Tasarım gelene kadar mevcut sistem görünümü kalsın.
+
+## 6. Etkileşim sözleşmesi (2026-10-10)
+
+DESIGN.md §3.2 sonundaki **etkileşim tablosu** tetikleyici → etki → hareket (süre/easing) biçiminde; her ekran için aynı biçim kullanılacak. Kod bu tabloyu doğrudan uygular; soru varsa `docs/tasarim-istekleri.md`'ye yaz. Tasarım dosyasındaki frame adları (`Project Window · Zoom menüsü açık` gibi) tablodaki durumlara karşılık gelir.

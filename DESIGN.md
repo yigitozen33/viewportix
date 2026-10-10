@@ -84,12 +84,32 @@ Referans: pen.dev'in giriş ekranı. AI istem kutusunun yerini URL kutusu alır.
 Üst çubuk yok. Üç kontrol yüzeyi, her biri tek iş yapar:
 
 - **Sidebar (220, varsayılan açık):** üstte traffic lights, URL alanı ve geri/ileri/yenile; altında "SAYFALAR" listesi (tıklayınca tüm viewport'lar o sayfaya gider; ekleme, kaldırma, yeniden adlandırma, sürükleyerek sıralama; "+ Ekle"). Kapanınca ışıklar, sidebar düğmesi, nav ve URL canvas'ın üst solunda tek bir yüzen kapsüle taşınır (aynı sırayla), canvas tam genişliği alır.
-- **Cihaz sekmeleri (canvas üstünde yüzen şerit):** açık viewport'lar sırayla; her sekme kartla aynı durumu taşır (lider gök çerçeve, senkron kaçtı mercan üçgen, yükleniyor dönen ikon, snapshot resim ikonu). Sığmayınca şerit kayar (kenarda solma + ok); sağda "+N" çipi gizli cihazların en ciddi durumunu gösterir (hata > lider > yükleniyor > normal) ve menü açar: her gizli cihaz için ad, boyut · motor · durum metni, odakla düğmesi; altta "Tümünü sidebar'da göster". Sekme adı asla kısaltılmaz, durum ikonu asla gizlenmez. Sonda "+ Cihaz".
-- **Alt yüzen çubuk:** Senkron açık/kapalı (sarı), Sığdır, zoom yüzdesi (menü), ekran görüntüsü menüsü. Bildirim kapsülü bu çubuğun üstüne çıkar.
+- **Cihaz sekmeleri (canvas üstünde yüzen şerit):** açık viewport'lar sırayla; her sekme kartla aynı durumu taşır (lider gök çerçeve, senkron kaçtı mercan üçgen, yükleniyor dönen ikon, snapshot resim ikonu). Sığmayınca şerit kayar (kenarda solma + ok); sağda "+N" çipi gizli cihazların en ciddi durumunu gösterir (hata > lider > yükleniyor > normal) ve menü açar ("GİZLİ CİHAZLAR"): her gizli cihaz için ad, boyut · motor · durum metni, odakla ve kapat düğmeleri. Etkileşimler aşağıdaki tabloda. Sekme adı asla kısaltılmaz, durum ikonu asla gizlenmez. Sonda "+ Cihaz".
+- **Alt yüzen çubuk (ikon-only):** Senkron (sarı zincir; kapalıyken gri kırık zincir), Sığdır, zoom yüzdesi (metin + menü; veri olduğu için ikonlaşmaz), ekran görüntüsü. Her ikonun hover'ında koyu tooltip: ad + kısayol. Bildirim kapsülü bu çubuğun üstüne çıkar; menü veya tooltip açıkken gösterilmez.
+- **Zoom menüsü (çubuğun üstüne açılır):** Sığdır ⌘1, Seçimi sığdır ⌘2 · 50% / 100% / 200% (geçerli olan işaretli) · Gerçek boyut ⌘0, Yakınlaştır ⌘+, Uzaklaştır ⌘−.
 - **Viewport kartı:** kompakt tek satır başlık: cihaz adı, boyut, sağda motor ve kamera düğmesi. Hover'da kapat / döndür / senkrondan çıkar kartın üstünde yüzen şeritte. Durumlar §4'te.
 - **Lider göstergesi:** imlecin üstünde olduğu viewport gök çerçeve ve parlak başlıkla vurgulanır; sekmesi de aynı renkte.
 - **"Senkron kaçtı" göstergesi:** başlıkta mercan üçgen, kartın altında "Element bu viewport'ta bulunamadı" notu; sekmede de üçgen.
 - Inspector şimdilik yok; gelince seçeneklere bakılır. Geliştirici paneli §3.3.
+
+**Etkileşim tablosu (kod için sözleşme):**
+
+| Tetikleyici | Etki | Hareket |
+|---|---|---|
+| Sekmeye tık | Canvas o karta kayar, kart `selected` olur | Canvas pan 250 ms ease-out; şerit gerekirse sekmeyi görünüre kaydırır |
+| Sekmedeki ✕ | Viewport kapanır; sağdakiler sola kayar | Sekme 150 ms daralıp kaybolur; canvas yeniden dizilir 250 ms |
+| "+N" çipine tık | Gizli cihaz menüsü açılır | 120 ms fade + 4 px yukarıdan |
+| Menü satırına tık | Şerit o sekmeye kayar, sekme `selected`, canvas karta kayar, menü kapanır | Şerit kaydırma 250 ms; canvas pan 250 ms |
+| Menü satırı odakla düğmesi | Canvas karta kayar ve kart `selected`; menü **açık kalır** | Canvas pan 250 ms |
+| Menü satırı ✕ | Viewport kapanır, satır menüden düşer, N azalır | Satır 150 ms daralır |
+| İmleç kartın üstünde | Kart `leader`; sekmesi gök çerçeve; hover şeridi belirir | 100 ms |
+| Alt çubuk ikon hover | Tooltip (ad + kısayol) | 400 ms gecikme, 100 ms fade |
+| Senkron düğmesi | Senkron aç/kapa; sarı ↔ gri, zincir ↔ kırık zincir | 150 ms |
+| Zoom düğmesi | Zoom menüsü çubuğun üstüne açılır | 120 ms fade + 4 px |
+| Sidebar düğmesi / ⌘⇧S | Sidebar kapanır; ışıklar + nav + URL üst sol kapsüle taşınır | Sidebar 200 ms genişlik; kapsül 150 ms fade |
+
+Kapat, döndür, senkrondan çıkar ve ekran görüntüsü eylemleri menü çubuğunda da bulunur (hover'a gizlenenler klavye ve menüden ulaşılabilir kalır).
+
 
 ### 3.3 Geliştirici paneli (M5+)
 
@@ -113,6 +133,7 @@ Alt veya sağ panel. Motor diff listesi ("Buton Safari'de 12px aşağıda"), tı
 | ~~Toolbar iki satır (üstte nav+URL+senkron, altta cihaz sekmeleri + zoom)~~ — yerini aldı, aşağıya bak | 2026-10-10 |
 | Proje penceresi düzeni (B2): üst çubuk yok; URL ve nav sidebar'ın tepesinde; cihaz sekmeleri canvas üstünde yüzen şerit; senkron/sığdır/zoom/ekran görüntüsü alt yüzen çubukta; sidebar varsayılan açık (220), kapanınca ışıklar+nav+URL üst sol kapsüle taşınır; inspector sonra. Gerekçe: araştırmada zoom/sığdır hiçbir canvas aracında üst çubukta değil; yüzen paneller (Figma UI3, Sketch) geri alındı, yalnızca alt araç çubuğu kaldı; cihaz sekmeleri çoklu önizlemede canvas'ı tekrarlar, bu yüzden durum taşıyarak değer kazanır | 2026-10-10 |
 | Cihaz sekmeleri durum taşır (lider/senkron kaçtı/yükleniyor/snapshot); taşmada kaydırılabilir şerit + "+N" durum çipi + gizli cihaz menüsü; ad kısaltılmaz. İkon-only sekmeler reddedildi (hata hangi cihazda, tek bakışta okunmalı) | 2026-10-10 |
+| Alt çubuk ikon-only, tooltip koyu zeminli (ad + kısayol); zoom menüsü ve gizli cihaz menüsü çizildiği gibi; menüde "sidebar'da göster" yok, satırda seç (sekmeye kaydır + canvas'ta seç), odakla ve kapat var; davranışlar §3.2 etkileşim tablosunda | 2026-10-10 |
 
 ## 5. Bekleyen tasarım kararları
 
