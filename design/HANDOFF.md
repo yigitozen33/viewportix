@@ -24,7 +24,7 @@ Dışa aktarım adları: `window-project-*` (proje penceresi halleri), `window-h
 
 ## Açık tasarım işleri (M3'ün beklediği, sırayla)
 
-2026-10-11: dördü de çizildi, kullanıcı onayı bekliyor (DESIGN.md §5 madde 12–16). Kod oturumu bunlara onaydan önce başlamasın.
+2026-10-11: dördü de çizildi ve kullanıcı onayladı (DESIGN.md §4; §5 madde 12–16 kapandı; sidebar V1, odak gök). **Kullanıcı kararı: henüz koda aktarılmıyor** — KOD-OTURUMU-ISLERI'ye yazılmadı; kod oturumu bu beş konuya kullanıcı açıkça aktarana kadar başlamasın.
 
 
 1. Viewport kartında **sayfa yüklenemedi** halleri (ağ, sertifika, `localhost` kapalı).

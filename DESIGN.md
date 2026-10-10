@@ -266,6 +266,12 @@ Sağ raydan açılır, canvas'ı iter (320 px). Tasarım ilkesi: **sakin ama tek
 | Ray gizliyken sağ kenarda tutamaç (R2): ray ikonu + Farklar bulgusunda mercan nokta, tık / ⌥⌘0 geri getirir; frame `Project Window · Ray gizli`. Elenen: R1 hiçbir şey, R3 alt çubukta "Farklar n" çipi | 2026-10-11 |
 | Sidebar 240 px (önceki "220" superseded; çizimler zaten 240) | 2026-10-11 |
 | Boş URL alanı ipucu: "Adres yaz ya da yapıştır" (globe ikonu) | 2026-10-11 |
+| Sayfa yüklenemedi halleri (`Card Load Errors`): hata kartın içinde, başlık + sekmede mercan üçgen; ağ / sertifika ("Bu oturumda güven", yalnız o ana makine) / `localhost` kapalı (2 sn'de bir otomatik dener) / adres bulunamadı; altta mono hata kodu; hepsi hatadaysa kapsül "Hepsini dene"; sitenin 404/500 sayfası olduğu gibi | 2026-10-11 |
+| Kartı elle sürükleme: başlıktan tutulur, gölgeyle kalkar, hover şeridi gizli; gök hizalama çizgileri + eşit aralık rozetleri; ⌥ hizalamayı kapatır; konum projeye; Viewport › Kartları Diz otomatiğe döner | 2026-10-11 |
+| Gruplama: Görünüm › Grupla (Yok / Cihaz türü / Motor); canvas'ta grup alanı (çizgi, köşe 16, hafif zemin) + katlanır başlık "TELEFON 2"; şeritte gruplar arası ince ayırıcı | 2026-10-11 |
+| Sidebar yalnızca sayfalar (V1): cihaz listesi ve gruplar şeritte ve canvas'ta; PLAN.md M3 "Sidebar'da viewport listesi ve gruplar" maddesi şeride taşınır (PLAN'ı kod oturumu günceller). Elenen: V2 sidebar'da CİHAZLAR bölümü, V3 Sayfalar/Cihazlar sekmesi | 2026-10-11 |
+| Klavye odak halkası gök (`status/leader`), 2 px, 2 px dışarıda, yalnız klavyede (F1). Elenen: F2 krem (seçim halkasıyla karışır) | 2026-10-11 |
+| Sidebar genişlik tutamacı (6 px, hover/sürükleme 2 px gök kenar + genişlik etiketi, sınır 200–360, varsayılan 240, 200 altı kapatmaz); giriş ekranında aramada sonuç yok ("“…” ile eşleşen proje yok", Aramayı temizle Esc) | 2026-10-11 |
 
 ## 5. Bekleyen tasarım kararları
 
@@ -283,11 +289,11 @@ Sağ raydan açılır, canvas'ı iter (320 px). Tasarım ilkesi: **sakin ama tek
 10. ~~Ekran görüntüsü menüsü~~ — verildi (§3.2 alt çubuk)
 11. ~~Bildirim kapsülü~~ — verildi (`Window/Toast`, §3.2)
 
-12. **Sayfa yüklenemedi halleri** — taslak, onay bekliyor (`Card Load Errors`, `card-load-errors@2x.png`): hata kartın içinde sayfanın yerinde; başlıkta ve sekmede mercan üçgen. Ağ hatası (Yeniden dene; ⌘R hepsi), Sertifika (Geri dön · Bu oturumda güven — yalnız o ana makine, uygulama kapanana kadar), `localhost` kapalı (2 sn'de bir kendiliğinden dener + Şimdi dene), Adres bulunamadı (Adresi düzenle → ⌘L). Altta küçük mono hata kodu. Hepsi aynı hatadaysa kapsül "Sayfa n viewport'ta açılamadı · Hepsini dene". Sitenin kendi 404/500 sayfası olduğu gibi görünür.
-13. **Kartı elle sürükleme** — taslak (`Project Window · Kart sürükleniyor`, `window-project-dragging@2x.png`): kart başlığından tutulur (sayfa alanı web içeriğidir); kart gölgeyle kalkar, hover şeridi gizlenir; gök hizalama çizgileri (üst/alt/kenar) ve eşit aralık rozetleri; ⌥ basılıyken hizalama kapalı. Konum projeye kaydedilir; Viewport menüsünde "Kartları Diz" otomatik dizilime döndürür.
-14. **Gruplama** — taslak (`Project Window · Gruplar (cihaz türü)`, `window-project-groups@2x.png`): Görünüm › Grupla: Yok / Cihaz türü / Motor. Canvas'ta grup alanı (ince çizgi, köşe 16, çok hafif zemin) ve başlık "TELEFON 2" + katla oku; şeritte gruplar arasında ince ayırıcı.
-15. **Sidebar'da cihaz listesi** — karar bekliyor (`Sidebar · Cihaz listesi seçenekleri`, `sidebar-device-list-options@2x.png`): V1 sidebar yalnız sayfalar, liste şeritte (öneri) · V2 sayfaların altında CİHAZLAR bölümü · V3 Sayfalar | Cihazlar sekmesi.
-16. **Küçük durumlar** — taslak + bir karar (`Misc States`, `misc-states@2x.png`): sidebar genişlik tutamacı (6 px görünmez, hover/sürüklemede 2 px gök kenar + genişlik etiketi, sınır 200–360, bırakınca kaydedilir, 200 altı kapatmaz); klavye odak halkası 2 px, yalnız klavyede — renk F1 gök (öneri) / F2 krem; giriş ekranında aramada sonuç yok ("“…” ile eşleşen proje yok", "Aramayı temizle Esc").
+12. ~~Sayfa yüklenemedi halleri~~ — verildi (2026-10-11, §4) (`Card Load Errors`, `card-load-errors@2x.png`): hata kartın içinde sayfanın yerinde; başlıkta ve sekmede mercan üçgen. Ağ hatası (Yeniden dene; ⌘R hepsi), Sertifika (Geri dön · Bu oturumda güven — yalnız o ana makine, uygulama kapanana kadar), `localhost` kapalı (2 sn'de bir kendiliğinden dener + Şimdi dene), Adres bulunamadı (Adresi düzenle → ⌘L). Altta küçük mono hata kodu. Hepsi aynı hatadaysa kapsül "Sayfa n viewport'ta açılamadı · Hepsini dene". Sitenin kendi 404/500 sayfası olduğu gibi görünür.
+13. ~~Kartı elle sürükleme~~ — verildi (2026-10-11, §4) (`Project Window · Kart sürükleniyor`, `window-project-dragging@2x.png`): kart başlığından tutulur (sayfa alanı web içeriğidir); kart gölgeyle kalkar, hover şeridi gizlenir; gök hizalama çizgileri (üst/alt/kenar) ve eşit aralık rozetleri; ⌥ basılıyken hizalama kapalı. Konum projeye kaydedilir; Viewport menüsünde "Kartları Diz" otomatik dizilime döndürür.
+14. ~~Gruplama~~ — verildi (2026-10-11, §4) (`Project Window · Gruplar (cihaz türü)`, `window-project-groups@2x.png`): Görünüm › Grupla: Yok / Cihaz türü / Motor. Canvas'ta grup alanı (ince çizgi, köşe 16, çok hafif zemin) ve başlık "TELEFON 2" + katla oku; şeritte gruplar arasında ince ayırıcı.
+15. ~~Sidebar'da cihaz listesi~~ — verildi: V1 (2026-10-11, §4). Seçenekler arşivde (`Archive · Sidebar · Cihaz listesi seçenekleri`, `sidebar-device-list-options@2x.png`).
+16. ~~Küçük durumlar~~ — verildi (2026-10-11, §4; `Misc States`, `misc-states@2x.png`): sidebar genişlik tutamacı (6 px görünmez, hover/sürüklemede 2 px gök kenar + genişlik etiketi, sınır 200–360, bırakınca kaydedilir, 200 altı kapatmaz); klavye odak halkası 2 px, yalnız klavyede — renk gök (F1; F2 krem reddedildi); giriş ekranında aramada sonuç yok ("“…” ile eşleşen proje yok", "Aramayı temizle Esc").
 
 ## 6. Tasarım sistemi (`design/viewportix.pen`)
 
