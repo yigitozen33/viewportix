@@ -27,26 +27,31 @@
 - Tasarım sistemi kuruldu: `Design System · Tokens` panosu + `design/tokens/` (JSON, Swift taslağı, README). Ekranlar 6 bölümde gruplandı (DESIGN.md §6). Ana `Project Window`'a kalıcı ray eklendi; `Project Window · Ayarlar paneli` (ray + kayan panel) çizildi.
 - Ayarlar ayrı penceresi kaldırıldı (kullanıcı sildi, karar: yalnızca sağ panel); ayarlar panelinden ⧉ kaldırıldı. Giriş ekranında ⚙ + kayan panel (`Home Window · Ayarlar paneli`); ray proje penceresinde varsayılan açık, daraltılabilir.
 - Dosya düzeni: asıl tasarımlar x ≥ 0; keşifler "Archive ·" önekiyle solda (x < −400), açık tema "Future ·" önekiyle arşivin altında. Kart `selected` kararı: S3 çift halka (`Viewport States` içinde `selected` ve `selected + leader` sütunları).
-- Bilinen eksikler: `viewportix.lib.pen` kütüphane dönüşümü yapılmadı (pen.dev'de elle "Turn into library"); Adım 6 teslim paketi (HTML/CSS ölçü dışa aktarımı, Swift token dosyası) üretilmedi; Icon Composer dosyası yok.
+- Bilinen eksikler: `viewportix.lib.pen` kütüphane dönüşümü yapılmadı (pen.dev'de elle); Icon Composer dosyası yok; HTML/CSS ölçü dışa aktarımı yapılmadı (token dosyaları var).
 
 ## Sıradaki iş
 
-1. `.pen` dosyalarını `design/viewportix.lib.pen` ve `design/viewportix.pen` olarak repoya taşı (kullanıcı pen.dev'de yeniden açacak).
-2. Referans: Apple HIG sayfaları ve kullanıcının vereceği Finder/Keynote ekran görüntüleri.
-3. Icon Composer: B6 Vx monogram, 1024 px, katmanlar zemin / bracket'ler / Vx; dışa aktar `design/icon/Viewportix.icon`. Açık tema ileride.
-4. Boyut ve aralık değişkenleri; zoom düğmesi varyantı; sidebar durumları.
-5. Kod oturumundan gelen yeni öğeler tasarıma girecek (DESIGN.md §5, madde 9–11): kart başlığında kamera düğmesi (`Viewport/Card` hover/başlık satırı), toolbar'da ekran görüntüsü menüsü, pencere altında bildirim kapsülü ("Kaydedildi ve kopyalandı · Finder'da Göster").
-6. Her görsel karar kullanıcıya sorulur, DESIGN.md §4'e tarihiyle işlenir.
+Kod oturumunun istekleri (`docs/tasarim-istekleri.md`) ile karşılaştırıldı, 2026-10-10:
 
-## Açık sorular (kullanıcıya)
+**Tasarımda karşılandı (kod oturumu DESIGN.md'den uygulasın):** sayfa listesi boş durumu, yerinde yeniden adlandırma ve sürükle-bırak (sidebar durumları), giriş ekranı boş durumu, cihaz ekleme menüsü (`Device/Picker`), viewport kartı + lider + senkron kaçtı, döndür/kapat düğmeleri (hover şeridinde, başlıkta değil), kapsülde glass yok.
 
-- `.pen` dosyalarının taşınması ve referans kaynağı (HIG sayfaları mı, ekran görüntüsü mü).
-- Başlangıç: değişkenlerle mi, kaba proje penceresiyle mi.
+**Açık tasarım işleri:**
+1. Kısayol haritası: çakışmalar var (⌘S belge kaydetme ile, ⌘⇧S hem sidebar hem tüm ekran görüntüsü, ⌘N yeni belge ile); menü çubuğu adları.
+2. Canvas boş durumu ("Viewport yok").
+3. Viewport kartı başlığı sağ tık menüsü (Döndür, Boyutu düzenle…, Senkronu kapat, Ekran görüntüsü, Tam sayfa, Kaldır).
+4. Kartın "senkron kapalı" durumu (yeni durum).
+5. Boyut düzenleme: mevcut kartın boyutunu değiştirme yeri (cihaz seçicinin "Özel boyut" satırı yeni kart için; düzenleme için popover/sheet).
+6. Kapsülün ilerleme ve hata halleri + metinleri.
+7. Zoom yüzde yazımı (%50 mi 50% mi) ve menüde %25.
+8. Sayfa satırı sağ tık menüsü maddeleri (Yeniden adlandır, URL'yi kopyala, Kaldır).
+9. "Arka plandaki viewport'larda medyayı duraklat" ayarı → Ayarlar › Genel'e taşınabilir.
+
+**İleride:** Icon Composer (B6), açık tema, inspector. **Kullanıcıda:** `viewportix.lib.pen` kütüphane dönüşümü.
 
 ## Oturum başında oku
 
 - `docs/tasarim-istekleri.md` (kod oturumunun tasarıma bıraktığı istekler): son işlenen girdiden sonrakileri DESIGN.md §5'e işle ve aşağıya "son işlenen" yaz.
-- Son işlenen: yok (dosya henüz oluşturulmadı)
+- Son işlenen: "Görünüm menüsünde Arka Plandaki Viewport'larda Medyayı Duraklat" (2026-10-10), 12 girdi okundu
 
 ## Kurallar
 
