@@ -11,7 +11,9 @@
 - Palet onaylandı (DESIGN.md §4): koyu canvas, vurgu `#FFF36B`, lider `#8EC9E6`, uyarı `#FF8F85`, zemin `#161412`. Denemeler `viewportix.pen` içinde (`Style Exploration`, `Palette Exploration`, `Yellow Palette Exploration`, `Leader Softening`, `Palette Candidate`); onaylanan örnek `Palette Candidate`.
 - Değişkenler (koyu) kuruldu; açık tema değerleri bekliyor.
 - `Viewport/Card` bileşeni kuruldu (`viewportix.pen`, çerçeve `Viewport States` altı durumu gösterir: default, leader, selected, syncMissed, snapshot, loading). Varsayımlar onay bekliyor: selected = `ink/primary` 2 px çerçeve (tutamaç yok), snapshot rozeti sayfa içeriğinin sol üstünde, loading = 3 px çizgi + dönen ikon (onaylandı, L1), syncMissed = başlıkta uyarı ikonu + altta not.
-- Henüz yok: hover şeridi (`Viewport/HoverStrip`, denemesi `Compact Hover Options` içinde), `Window/Toast`, toolbar, sidebar, ekranlar.
+- Proje penceresi çizildi (`Project Window`, 1440×900, koyu): sidebar 220 açık, iki satırlı toolbar, üç kart (iPad lider ve hover şeridi, Masaüstü syncMissed), bildirim kapsülü. Bileşenler: `Viewport/HoverStrip`, `Window/Toast`, `Sidebar/Row`, `Toolbar/Button`, `Toolbar/DeviceTab`. Dışa aktarım: `design/exports/window-project-dark@2x.png`.
+- Bilinen eksikler: zoom düğmesinde chevron solda (sağda olmalı), sidebar/toolbar durumları (hover, rename), seçili cihaz sekmesi, açık tema.
+- Henüz yok (eski satır, çoğu çözüldü): hover şeridi (`Viewport/HoverStrip`, denemesi `Compact Hover Options` içinde), `Window/Toast`, toolbar, sidebar, ekranlar.
 
 ## Sıradaki iş
 
