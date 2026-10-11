@@ -315,17 +315,17 @@ Sağ raydan açılır, canvas'ı iter (320 px). Tasarım ilkesi: **sakin ama tek
 17. **Katlanmış grup ve motora göre gruplama** — taslak, onay bekliyor: `Project Window · Gruplar · katlanmış` (`window-project-groups-collapsed@2x.png`), `Project Window · Gruplar (motor, M4)` (`window-project-groups-engine@2x.png`; grup başlığında motor glifi, sekmede "iPhone 16 · Chromium").
 18. **Proje dosyası sorunları** — taslak, onay bekliyor (`Home File Errors`, `home-file-errors@2x.png`): dosyası bulunamayan kart (soluk küçük resim, mercan "Dosya bulunamadı", Bul…), açılamayan proje için sistem uyarısı metinleri.
 19. **VoiceOver etiketleri** — taslak, onay bekliyor (§6 "Erişilebilirlik etiketleri").
-20. **Küçük ayrıntılar** — öneriler, karar bekliyor (çizim gerekmiyor; onaylanınca §3'e işlenir):
-    - a. Pencere en küçük boyutu **1024 × 640** (sidebar + iki kart + ray sığar).
-    - b. Tam ekranda trafik ışıkları yok: sidebar'ın üstündeki 48 px satır **16 px**'e iner.
-    - c. Ray öğelerinde tooltip (ad + kısayol): Ayarlar ⌘, · Cihazlar · MCP · Hesap · Farklar ⌥⌘1 · Senkron Kaydı ⌥⌘2 · Rayı Gizle ⌥⌘0; 400 ms.
-    - d. Kısaltma: URL alanında alan adı korunur, yol ortadan kısalır ("marka.com/…/keten-gomlek"); sayfa ve sekme adı sondan "…", hover'da tam ad tooltip'te.
-    - e. Kapsül: aynı anda tek kapsül; yenisi eskinin yerine geçer; hata kapsülü başarı kapsülüyle ezilmez.
-    - f. Kart kapatınca kapsül "iPad kapatıldı · Geri al" (5 sn, ⌘Z da geri alır).
-    - g. Pencereye bağlantı sürükle-bırak: canvas'ta gök kenar + "Bu adresi aç"; bırakınca URL yüklenir.
-    - h. Sayfada senkron hiç kurulamazsa (CSP vb.): kart başlığında gri ‖ + tooltip "Bu sayfada senkron çalışmıyor"; kapsül bir kez.
-    - i. Grup başlığında ⋯: Katla · Grubu sığdır · Gruptakileri kapat.
-    - j. Çoklu kart seçimi (⇧ tık, birlikte sürükle / kapat) — MVP dışı önerisi.
+20. **Küçük ayrıntılar** — çizildi, onay bekliyor (`misc-states-2@2x.png`; a ve b için `window-project-min-size@2x.png`, `window-project-fullscreen@2x.png`):
+    - a. Pencere en küçük boyutu **1024 × 640**; o boyutta sidebar + iki kart + ray sığar, üçüncü kart canvas'ta kaydırılır (frame `Project Window · En küçük boyut`).
+    - b. Tam ekranda trafik ışıkları yok: sidebar'ın üstündeki 48 px satır **16 px**'e iner; pencere köşeleri düz (`Project Window · Tam ekran`).
+    - c. Ray tooltip'leri öğenin solunda, 8 px boşlukla: Ayarlar ⌘, · Cihazlar · MCP · Hesap · Farklar ⌥⌘1 ("Farklar · 3 bulgu") · Senkron Kaydı ⌥⌘2 · Rayı Gizle ⌥⌘0; 400 ms.
+    - d. Kısaltma: URL alanında alan adı korunur, yol ortadan kısalır ("marka.com/…/keten-gomlek"); sayfa satırı ve sekme (en çok 140 px) sondan "…", hover'da tam ad tooltip'te.
+    - e. Aynı anda tek kapsül; yenisi eskisinin yerine geçer (150 ms crossfade); hata kapsülü başarı kapsülüyle ezilmez, başarı hata kapanana kadar bekler.
+    - f. Kart kapatınca kapsül "iPad kapatıldı · Geri al" (5 sn; ⌘Z de geri alır; süre dolunca kesinleşir).
+    - g. Pencereye bağlantı sürükle-bırak: canvas 2 px gök iç kenar + ortada "Bu adresi aç · marka.com/kampanya" kapsülü; bırakınca adres tüm viewport'larda açılır (listeye eklenmez, ⌘D ekler).
+    - h. Sayfada senkron kurulamazsa (CSP, sandbox, about:blank, PDF): başlıkta gri ‖ + tooltip "Bu sayfada senkron çalışmıyor"; hover şeridinde zincir pasif; kapsül yalnız ilk seferde ("Neden?" açıklama).
+    - i. Grup başlığında hover'da ⋯ (sağ tık da açar): Katla · Grubu sığdır · — · Gruptakileri kapat (mercan).
+    - j. Çoklu seçim (⇧ tık; birlikte sürükle, ⌫ hepsini kapat, ⌘2 seçimi sığdır; "2 seçili" etiketi) — **MVP dışı**, çizim ileride için.
 
 ## 6. Tasarım sistemi (`design/viewportix.pen`)
 

@@ -36,7 +36,7 @@ Dışa aktarım adları: `window-project-*` (proje penceresi halleri), `window-h
 
 ## Onay bekleyenler (2026-10-11)
 
-DESIGN.md §5 madde 17–20: katlanmış grup + motora göre gruplama, proje dosyası sorunları, VoiceOver etiketleri, küçük ayrıntılar (a–j). Bunlar da koda aktarılmadı.
+DESIGN.md §5 madde 17–20: katlanmış grup + motora göre gruplama, proje dosyası sorunları, VoiceOver etiketleri, küçük ayrıntılar a–j (hepsi çizildi: `misc-states-2`, `window-project-min-size`, `window-project-fullscreen`). Bunlar da koda aktarılmadı.
 
 ## Oturum başında oku
 
