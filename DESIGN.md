@@ -289,6 +289,9 @@ Sağ raydan açılır, canvas'ı iter (320 px). Tasarım ilkesi: **sakin ama tek
 | Sidebar yalnızca sayfalar (V1): cihaz listesi ve gruplar şeritte ve canvas'ta; PLAN.md M3 "Sidebar'da viewport listesi ve gruplar" maddesi şeride taşınır (PLAN'ı kod oturumu günceller). Elenen: V2 sidebar'da CİHAZLAR bölümü, V3 Sayfalar/Cihazlar sekmesi | 2026-10-11 |
 | Klavye odak halkası gök (`status/leader`), 2 px, 2 px dışarıda, yalnız klavyede (F1). Elenen: F2 krem (seçim halkasıyla karışır) | 2026-10-11 |
 | Sidebar genişlik tutamacı (6 px, hover/sürükleme 2 px gök kenar + genişlik etiketi, sınır 200–360, varsayılan 240, 200 altı kapatmaz); giriş ekranında aramada sonuç yok ("“…” ile eşleşen proje yok", Aramayı temizle Esc) | 2026-10-11 |
+| Katlanmış grup: alan başlık çipine iner, şeritte "Telefon 2 ›" çipi; motora göre gruplama: grup başlığında motor glifi, sekme adı "iPhone 16 · Chromium" (M4) | 2026-10-13 |
+| Proje dosyası sorunları: dosyası bulunamayan kart soluk + mercan "Dosya bulunamadı" + Bul…; açılamayan proje sistem uyarısı (bozuk → Son taslağı aç / Finder'da Göster / Vazgeç; yeni sürüm → Güncellemeleri Denetle / Vazgeç) | 2026-10-13 |
+| VoiceOver etiket tablosu (§6) ve küçük ayrıntılar a–i (§5 madde 20: en küçük pencere 1024×640, tam ekranda 16 px üst boşluk, ray tooltip'leri, kısaltma kuralları, tek kapsül + Geri al, bağlantı bırakma, "senkron kurulamıyor" ‖, grup menüsü); j çoklu seçim MVP dışı. Kart başlığındaki ‖ işareti korunur (kırık zincir önerisi reddedildi) | 2026-10-13 |
 
 ## 5. Bekleyen tasarım kararları
 
@@ -312,10 +315,10 @@ Sağ raydan açılır, canvas'ı iter (320 px). Tasarım ilkesi: **sakin ama tek
 15. ~~Sidebar'da cihaz listesi~~ — verildi: V1 (2026-10-11, §4). Seçenekler arşivde (`Archive · Sidebar · Cihaz listesi seçenekleri`, `sidebar-device-list-options@2x.png`).
 16. ~~Küçük durumlar~~ — verildi (2026-10-11, §4; `Misc States`, `misc-states@2x.png`): sidebar genişlik tutamacı (6 px görünmez, hover/sürüklemede 2 px gök kenar + genişlik etiketi, sınır 200–360, bırakınca kaydedilir, 200 altı kapatmaz); klavye odak halkası 2 px, yalnız klavyede — renk gök (F1; F2 krem reddedildi); giriş ekranında aramada sonuç yok ("“…” ile eşleşen proje yok", "Aramayı temizle Esc").
 
-17. **Katlanmış grup ve motora göre gruplama** — taslak, onay bekliyor: `Project Window · Gruplar · katlanmış` (`window-project-groups-collapsed@2x.png`), `Project Window · Gruplar (motor, M4)` (`window-project-groups-engine@2x.png`; grup başlığında motor glifi, sekmede "iPhone 16 · Chromium").
-18. **Proje dosyası sorunları** — taslak, onay bekliyor (`Home File Errors`, `home-file-errors@2x.png`): dosyası bulunamayan kart (soluk küçük resim, mercan "Dosya bulunamadı", Bul…), açılamayan proje için sistem uyarısı metinleri.
-19. **VoiceOver etiketleri** — taslak, onay bekliyor (§6 "Erişilebilirlik etiketleri").
-20. **Küçük ayrıntılar** — çizildi, onay bekliyor (`misc-states-2@2x.png`; a ve b için `window-project-min-size@2x.png`, `window-project-fullscreen@2x.png`):
+17. ~~Katlanmış grup ve motora göre gruplama~~ — verildi (2026-10-13, §4): `Project Window · Gruplar · katlanmış` (`window-project-groups-collapsed@2x.png`), `Project Window · Gruplar (motor, M4)` (`window-project-groups-engine@2x.png`; grup başlığında motor glifi, sekmede "iPhone 16 · Chromium").
+18. ~~Proje dosyası sorunları~~ — verildi (2026-10-13, §4) (`Home File Errors`, `home-file-errors@2x.png`): dosyası bulunamayan kart (soluk küçük resim, mercan "Dosya bulunamadı", Bul…), açılamayan proje için sistem uyarısı metinleri.
+19. ~~VoiceOver etiketleri~~ — verildi (2026-10-13; §6 "Erişilebilirlik etiketleri").
+20. ~~Küçük ayrıntılar~~ — verildi (2026-10-13, §4; j MVP dışı) (`misc-states-2@2x.png`; a ve b için `window-project-min-size@2x.png`, `window-project-fullscreen@2x.png`):
     - a. Pencere en küçük boyutu **1024 × 640**; o boyutta sidebar + iki kart + ray sığar, üçüncü kart canvas'ta kaydırılır (frame `Project Window · En küçük boyut`).
     - b. Tam ekranda trafik ışıkları yok: sidebar'ın üstündeki 48 px satır **16 px**'e iner; pencere köşeleri düz (`Project Window · Tam ekran`).
     - c. Ray tooltip'leri öğenin solunda, 8 px boşlukla: Ayarlar ⌘, · Cihazlar · MCP · Hesap · Farklar ⌥⌘1 ("Farklar · 3 bulgu") · Senkron Kaydı ⌥⌘2 · Rayı Gizle ⌥⌘0; 400 ms.
@@ -358,7 +361,7 @@ Sağ raydan açılır, canvas'ı iter (320 px). Tasarım ilkesi: **sakin ama tek
 
 **Pencere chrome'u** (`Chrome Spec` frame'i, 05 bölümü; `chrome-spec@2x.png`): her parçanın ölçüsü, token'ları ve durumları orada. Yerleşim: `DeviceStrip` canvas'ın üstünde ortada, üstten 16 px; `BottomBar` altta ortada, alttan 31 px; `CollapsedSidebarHeader` canvas sol üstünde 16, 16; `InspectorRail` pencerenin sağ kenarında, canvas'tan sonra. Ortalama canvas'a göredir (sidebar, ray ve iten panel çıkarıldıktan sonra kalan alan); bu parçalara bağlı menüler (zoom, ekran görüntüsü, "+N", cihaz seçici, tooltip) tetikleyicisine hizalı açılır ve onunla birlikte kayar.
 
-**Erişilebilirlik etiketleri (VoiceOver, taslak):** ikon-only her denetimin etiketi Türkçe; durum "değer" olarak okunur.
+**Erişilebilirlik etiketleri (VoiceOver, 2026-10-13 onaylandı):** ikon-only her denetimin etiketi Türkçe; durum "değer" olarak okunur.
 
 | Denetim | Etiket | Değer / ipucu |
 |---|---|---|

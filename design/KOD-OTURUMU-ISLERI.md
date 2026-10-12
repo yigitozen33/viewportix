@@ -123,3 +123,18 @@ Tasarım hazır; M3 "Arayüz tasarımının uygulanması" için önerilen sıra 
 Her etkileşim için DESIGN.md'deki etkileşim tablosu sözleşmedir. Arayüze dokunan her değişikliği `docs/tasarim-istekleri.md`'ye eklemeye devam et; tasarımda olmayan bir hal çıkarsa oraya yaz.
 
 - Not (medya): kullanıcı "Arka Plandaki Medyayı Duraklat"ı **varsayılan açık** istedi (§10). Gerekçe performans değil, birden çok viewport'ta seslerin üst üste binmesi; PLAN.md'deki "ölçülebilir kazanç yok" bulgusu bu kararı değiştirmez.
+
+## 13. 10–13 Ekim kararları: yeni haller (2026-10-13, kullanıcı "aktar" dedi)
+
+§12'deki iskelet bitince sırayla. Her biri DESIGN.md §3.2 etkileşim tablosunda ve §4'te; görseller `design/exports/`.
+
+- [ ] **Sayfa yüklenemedi** (`card-load-errors@2x.png`): ağ, sertifika ("Bu oturumda güven" yalnız o host, uygulama kapanana kadar), `localhost` kapalı (2 sn'de bir otomatik dene), adres bulunamadı; kapsül "Sayfa n viewport'ta açılamadı · Hepsini dene". Hata kodu mono küçük.
+- [ ] **Kartı sürükleme** (`window-project-dragging@2x.png`): başlıktan tutulur, gölge, gök hizalama çizgileri + eşit aralık rozetleri, 6 px yapışma, ⌥ hizalamayı kapatır; konum projeye; Viewport › Kartları Diz.
+- [ ] **Gruplama** (`window-project-groups*.png`): Görünüm › Grupla (Yok / Cihaz Türü / Motor); grup alanı + katlanır başlık; şeritte ayırıcı; katlı grup şeritte tek çip; grup başlığı ⋯ menüsü (Katla · Grubu sığdır · Gruptakileri kapat).
+- [ ] **Sidebar yalnız sayfalar (V1):** PLAN.md M3 "Sidebar'da viewport listesi ve gruplar" maddesini şeride/canvas'a taşı (PLAN'ı sen güncelle; tasarım dokunmaz).
+- [ ] **Sidebar genişlik tutamacı:** 6 px, hover/sürüklemede 2 px gök + genişlik etiketi, 200–360, varsayılan 240, bırakınca kaydet; 200 altı kapatmaz.
+- [ ] **Klavye odak halkası:** 2 px `status/leader`, 2 px dışarıda, yalnız klavye odağında; Tab sırası DESIGN.md §3.2.
+- [ ] **Giriş ekranı:** aramada sonuç yok; dosyası bulunamayan kart (Bul…); açılamayan proje NSAlert metinleri (`home-file-errors@2x.png`).
+- [ ] **Küçük ayrıntılar** (`misc-states-2@2x.png`): en küçük pencere 1024×640; tam ekranda sidebar üst boşluğu 16; ray tooltip'leri; kısaltma kuralları (URL ortadan, ad/sekme sondan, sekme ≤140); tek kapsül kuralı + "Geri al" 5 sn / ⌘Z; bağlantı sürükle-bırak; sayfada senkron kurulamıyor (‖ + "Neden?"); çoklu seçim MVP dışı.
+- [ ] **VoiceOver etiketleri:** DESIGN.md §6 tablosu birebir.
+- [ ] **Menü:** Görünüm › Grupla ›, Viewport › Kartları Diz (kısayolsuz). Ayarlar › Tema satırı açık temaya kadar yok.
