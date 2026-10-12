@@ -29,9 +29,14 @@ Yok (2026-10-13). MVP ve M3 kapsamı çizildi, onaylandı ve koda aktarıldı (`
 **Kilometre taşıyla gelecekler:** lisans/takım akışı (iş modeli), MCP istemci onayı (M7), güncelleme bildirimi (dağıtım), Farklar paneli yükleniyor/boş halleri (M5), Chromium canlı / Firefox snapshot kart halleri (M4/M6).
 **İleride:** Icon Composer (B6), açık tema, inspector, tam yükseklik modu, çoklu seçim. **Kullanıcıda:** `viewportix.lib.pen` dönüşümü.
 
+## Sürmekte olan iş: aktarım paketi
+
+Plan ve ilerleme: `design/handoff/PLAN.md` ([[PLAN]]). Birden çok oturuma yayılır; yeni oturum önce o dosyayı okur ve ilk tamamlanmamış aşamadan devam eder.
+
 ## Oturum başında oku
 
 - `docs/HANDOFF.md` ve `docs/tasarim-istekleri.md`: son işlenenden sonraki girdileri işle.
+- `design/handoff/PLAN.md`: aktarım paketi ilerlemesi.
 - Son işlenen: "Görünüm menüsünde Arka Plandaki Viewport'larda Medyayı Duraklat" (2026-10-10), 12 girdi.
 
 ## Kurallar
