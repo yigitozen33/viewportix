@@ -14362,10 +14362,11 @@
     {
       "type": "frame",
       "id": "pDYzq",
-      "x": 4478,
-      "y": 6040,
+      "x": 4603,
+      "y": 6650,
       "name": "Tab States & Overflow Menu",
       "width": 1000,
+      "height": 410,
       "fill": "$canvas",
       "cornerRadius": 14,
       "layout": "vertical",
@@ -55130,8 +55131,11 @@
                             {
                               "type": "frame",
                               "id": "HgSlC",
+                              "x": 0,
+                              "y": 22,
                               "name": "Row Tema",
-                              "width": "fill_container",
+                              "enabled": false,
+                              "width": "fill_container(312)",
                               "stroke": "$line",
                               "strokeWidth": {
                                 "bottom": 1
@@ -59267,8 +59271,11 @@
                         {
                           "type": "frame",
                           "id": "VFrfL",
+                          "x": 0,
+                          "y": 22,
                           "name": "Row Tema",
-                          "width": "fill_container",
+                          "enabled": false,
+                          "width": "fill_container(312)",
                           "stroke": "$line",
                           "strokeWidth": {
                             "bottom": 1
@@ -62999,6 +63006,41 @@
                       ]
                     },
                     {
+                      "type": "frame",
+                      "id": "U9wZ2",
+                      "name": "Item Grupla ›  Yok · Cihaz Türü · Motor",
+                      "width": "fill_container",
+                      "gap": 8,
+                      "padding": [
+                        6,
+                        10
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "gfpXQ",
+                          "name": "L",
+                          "fill": "$ink/primary",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Grupla ›  Yok · Cihaz Türü · Motor",
+                          "fontFamily": "$font/ui",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "D8g3VW",
+                          "name": "K",
+                          "fill": "$ink/secondary",
+                          "fontFamily": "$font/ui",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
                       "type": "rectangle",
                       "id": "KHIZm",
                       "name": "Divider",
@@ -63444,6 +63486,41 @@
                           "name": "K",
                           "fill": "$ink/secondary",
                           "content": "⌥⌘N",
+                          "fontFamily": "$font/ui",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "rMyK6",
+                      "name": "Item Kartları Diz",
+                      "width": "fill_container",
+                      "gap": 8,
+                      "padding": [
+                        6,
+                        10
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "gO4oK",
+                          "name": "L",
+                          "fill": "$ink/primary",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Kartları Diz",
+                          "fontFamily": "$font/ui",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "tIlTv",
+                          "name": "K",
+                          "fill": "$ink/secondary",
                           "fontFamily": "$font/ui",
                           "fontSize": 12,
                           "fontWeight": "normal"
@@ -64984,6 +65061,115 @@
                       "descendants": {
                         "qmgAT": {
                           "enabled": false
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "iHjRx",
+                  "name": "State Gruplu",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "bEaYr",
+                      "fill": "$ink/secondary",
+                      "content": "Gruplu (Görünüm › Grupla): gruplar arası 1×18 ayırıcı, ink/secondary %45",
+                      "fontFamily": "$font/ui",
+                      "fontSize": 10,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "id": "QP5Qx",
+                      "type": "ref",
+                      "ref": "Z3xtg",
+                      "name": "Device Strip",
+                      "x": 0,
+                      "y": 20,
+                      "descendants": {
+                        "qmgAT": {
+                          "type": "frame",
+                          "id": "EhlK0",
+                          "name": "Tabs",
+                          "gap": 4,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "id": "oh4BS",
+                              "type": "ref",
+                              "ref": "FpUpU",
+                              "name": "Tab iPhone SE",
+                              "strokeAlignment": "inner",
+                              "descendants": {
+                                "U4TOHr": {
+                                  "content": "iPhone SE"
+                                }
+                              }
+                            },
+                            {
+                              "id": "Ow0Qm",
+                              "type": "ref",
+                              "ref": "FpUpU",
+                              "name": "Tab iPhone 16",
+                              "strokeAlignment": "inner",
+                              "descendants": {
+                                "U4TOHr": {
+                                  "content": "iPhone 16"
+                                }
+                              }
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "I3cZNv",
+                              "name": "Group divider",
+                              "opacity": 0.45,
+                              "fill": "$ink/secondary",
+                              "width": 1,
+                              "height": 18
+                            },
+                            {
+                              "id": "EplNb",
+                              "type": "ref",
+                              "ref": "FpUpU",
+                              "name": "Tab iPad",
+                              "fill": "$surface/header-leader",
+                              "stroke": "$status/leader",
+                              "strokeWidth": 1,
+                              "strokeAlignment": "inner",
+                              "descendants": {
+                                "U4TOHr": {
+                                  "content": "iPad"
+                                }
+                              }
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "HhDD5",
+                              "name": "Group divider",
+                              "opacity": 0.45,
+                              "fill": "$ink/secondary",
+                              "width": 1,
+                              "height": 18
+                            },
+                            {
+                              "id": "j9Sad",
+                              "type": "ref",
+                              "ref": "FpUpU",
+                              "name": "Tab Masaüstü",
+                              "strokeAlignment": "inner",
+                              "descendants": {
+                                "U4TOHr": {
+                                  "content": "Masaüstü"
+                                },
+                                "qwSGl": {
+                                  "enabled": true
+                                }
+                              }
+                            }
+                          ]
                         }
                       }
                     }
@@ -73622,6 +73808,3791 @@
                       "fontFamily": "$font/ui",
                       "fontSize": 11,
                       "fontWeight": "600"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "B1aeP",
+      "x": 12480,
+      "y": 3280,
+      "name": "Project Window · Gruplar · katlanmış",
+      "clip": true,
+      "width": 1440,
+      "height": 900,
+      "fill": "$canvas",
+      "cornerRadius": 16,
+      "children": [
+        {
+          "type": "frame",
+          "id": "eFwNg",
+          "name": "Sidebar",
+          "width": 240,
+          "height": "fill_container",
+          "fill": "$surface/bar",
+          "stroke": "$line",
+          "strokeWidth": {
+            "right": 1
+          },
+          "strokeAlignment": "inner",
+          "layout": "vertical",
+          "gap": 4,
+          "padding": [
+            0,
+            12,
+            12,
+            12
+          ],
+          "children": [
+            {
+              "id": "VpX8W",
+              "type": "ref",
+              "ref": "tzWBu",
+              "name": "Sidebar Header",
+              "width": "fill_container"
+            },
+            {
+              "type": "frame",
+              "id": "a9StMA",
+              "name": "Section SAYFALAR",
+              "padding": [
+                14,
+                10,
+                6,
+                10
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "SNwae",
+                  "name": "Title",
+                  "fill": "$ink/secondary",
+                  "content": "SAYFALAR",
+                  "fontFamily": "$font/ui",
+                  "fontSize": 10,
+                  "fontWeight": "600",
+                  "letterSpacing": 0.8
+                }
+              ]
+            },
+            {
+              "id": "bXUmf",
+              "type": "ref",
+              "ref": "UCIzS",
+              "name": "Row Ana sayfa",
+              "width": "fill_container",
+              "descendants": {
+                "oEGVV": {
+                  "icon": "house",
+                  "fill": "$ink/secondary"
+                },
+                "hPpHB": {
+                  "content": "Ana sayfa",
+                  "fill": "$ink/primary"
+                },
+                "gQenr": {
+                  "enabled": false
+                }
+              }
+            },
+            {
+              "id": "PujIa",
+              "type": "ref",
+              "ref": "UCIzS",
+              "name": "Row Ürün",
+              "width": "fill_container",
+              "fill": "$surface/header",
+              "descendants": {
+                "oEGVV": {
+                  "icon": "package",
+                  "fill": "$ink/primary"
+                },
+                "hPpHB": {
+                  "content": "Ürün",
+                  "fill": "$ink/primary"
+                },
+                "gQenr": {
+                  "enabled": true
+                }
+              }
+            },
+            {
+              "id": "L0xra",
+              "type": "ref",
+              "ref": "UCIzS",
+              "name": "Row Sepet",
+              "width": "fill_container",
+              "descendants": {
+                "oEGVV": {
+                  "icon": "shopping-cart",
+                  "fill": "$ink/secondary"
+                },
+                "hPpHB": {
+                  "content": "Sepet",
+                  "fill": "$ink/primary"
+                },
+                "gQenr": {
+                  "enabled": false
+                }
+              }
+            },
+            {
+              "id": "M2ucJ",
+              "type": "ref",
+              "ref": "UCIzS",
+              "name": "Row Ödeme",
+              "width": "fill_container",
+              "descendants": {
+                "oEGVV": {
+                  "icon": "credit-card",
+                  "fill": "$ink/secondary"
+                },
+                "hPpHB": {
+                  "content": "Ödeme",
+                  "fill": "$ink/primary"
+                },
+                "gQenr": {
+                  "enabled": false
+                }
+              }
+            },
+            {
+              "id": "J5iBmx",
+              "type": "ref",
+              "ref": "UCIzS",
+              "name": "Row Ekle",
+              "width": "fill_container",
+              "descendants": {
+                "oEGVV": {
+                  "icon": "plus",
+                  "fill": "$ink/secondary"
+                },
+                "hPpHB": {
+                  "content": "Ekle",
+                  "fill": "$ink/secondary"
+                },
+                "gQenr": {
+                  "enabled": false
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "c08qW0",
+          "name": "Main",
+          "width": "fill_container",
+          "height": "fill_container",
+          "children": [
+            {
+              "type": "frame",
+              "id": "WTiHx",
+              "name": "Canvas",
+              "width": "fill_container",
+              "height": "fill_container",
+              "fill": "$canvas",
+              "layout": "none",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "J3HFB",
+                  "x": 24,
+                  "y": 64,
+                  "name": "Group TELEFON",
+                  "width": 132,
+                  "height": 36,
+                  "fill": "#FFFFFF05",
+                  "cornerRadius": 16,
+                  "stroke": "$line",
+                  "strokeWidth": 1,
+                  "layout": "none",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "ScJR7",
+                      "x": 12,
+                      "y": 9,
+                      "name": "Group Header",
+                      "gap": 6,
+                      "padding": [
+                        2,
+                        4
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "mR727",
+                          "width": 12,
+                          "height": 12,
+                          "icon": "chevron-right",
+                          "library": "lucide",
+                          "fill": "$ink/secondary"
+                        },
+                        {
+                          "type": "text",
+                          "id": "uw7qK",
+                          "fill": "$ink/secondary",
+                          "content": "TELEFON",
+                          "fontFamily": "$font/ui",
+                          "fontSize": 10,
+                          "fontWeight": "600",
+                          "letterSpacing": 0.8
+                        },
+                        {
+                          "type": "text",
+                          "id": "H605jD",
+                          "fill": "$ink/secondary",
+                          "content": "2",
+                          "fontFamily": "$font/ui",
+                          "fontSize": 10,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "ViTW5",
+                  "x": 172,
+                  "y": 64,
+                  "name": "Group TABLET",
+                  "width": 360,
+                  "height": 600,
+                  "fill": "#FFFFFF05",
+                  "cornerRadius": 16,
+                  "stroke": "$line",
+                  "strokeWidth": 1,
+                  "layout": "none",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "AtIfN",
+                      "x": 12,
+                      "y": 10,
+                      "name": "Group Header",
+                      "gap": 6,
+                      "padding": [
+                        2,
+                        4
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "PgWt1",
+                          "width": 12,
+                          "height": 12,
+                          "icon": "chevron-down",
+                          "library": "lucide",
+                          "fill": "$ink/secondary"
+                        },
+                        {
+                          "type": "text",
+                          "id": "pcqY2",
+                          "fill": "$ink/secondary",
+                          "content": "TABLET",
+                          "fontFamily": "$font/ui",
+                          "fontSize": 10,
+                          "fontWeight": "600",
+                          "letterSpacing": 0.8
+                        },
+                        {
+                          "type": "text",
+                          "id": "ujIMd",
+                          "fill": "$ink/secondary",
+                          "content": "1",
+                          "fontFamily": "$font/ui",
+                          "fontSize": 10,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "P7qVcm",
+                  "x": 556,
+                  "y": 64,
+                  "name": "Group MASAÜSTÜ",
+                  "width": 520,
+                  "height": 600,
+                  "fill": "#FFFFFF05",
+                  "cornerRadius": 16,
+                  "stroke": "$line",
+                  "strokeWidth": 1,
+                  "layout": "none",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "nXZQx",
+                      "x": 12,
+                      "y": 10,
+                      "name": "Group Header",
+                      "gap": 6,
+                      "padding": [
+                        2,
+                        4
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "YAFN0",
+                          "width": 12,
+                          "height": 12,
+                          "icon": "chevron-down",
+                          "library": "lucide",
+                          "fill": "$ink/secondary"
+                        },
+                        {
+                          "type": "text",
+                          "id": "ysJy5",
+                          "fill": "$ink/secondary",
+                          "content": "MASAÜSTÜ",
+                          "fontFamily": "$font/ui",
+                          "fontSize": 10,
+                          "fontWeight": "600",
+                          "letterSpacing": 0.8
+                        },
+                        {
+                          "type": "text",
+                          "id": "C6GgaI",
+                          "fill": "$ink/secondary",
+                          "content": "1",
+                          "fontFamily": "$font/ui",
+                          "fontSize": 10,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "D15cY5",
+                  "x": 280,
+                  "y": 100,
+                  "name": "Wrap iPhone 16",
+                  "enabled": false,
+                  "layout": "vertical",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "fVLKa",
+                      "name": "Strip Space",
+                      "width": 10,
+                      "height": 28
+                    },
+                    {
+                      "id": "MXaHj",
+                      "type": "ref",
+                      "ref": "Ngw0t",
+                      "name": "Card iPhone 16",
+                      "width": 216,
+                      "descendants": {
+                        "ObOub": {
+                          "content": "iPhone 16"
+                        },
+                        "PRv7d": {
+                          "content": "393×852"
+                        },
+                        "zTEI3": {
+                          "height": 440
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "eniCj",
+                  "x": 188,
+                  "y": 100,
+                  "name": "Wrap iPad",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "alignItems": "end",
+                  "children": [
+                    {
+                      "id": "EwzQ2",
+                      "type": "ref",
+                      "ref": "TgJMN",
+                      "name": "Hover Strip"
+                    },
+                    {
+                      "id": "C64QXc",
+                      "type": "ref",
+                      "ref": "Ngw0t",
+                      "name": "Card iPad",
+                      "width": 328,
+                      "stroke": "$status/leader",
+                      "strokeWidth": 2,
+                      "descendants": {
+                        "oDaLl": {
+                          "fill": "$surface/header-leader"
+                        },
+                        "ObOub": {
+                          "content": "iPad"
+                        },
+                        "PRv7d": {
+                          "content": "820×1180"
+                        },
+                        "soNCM": {
+                          "fill": "$status/leader"
+                        },
+                        "zTEI3": {
+                          "height": 444
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "FdqGa",
+                  "x": 572,
+                  "y": 100,
+                  "name": "Wrap Masaüstü",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "XPcVw",
+                      "name": "Strip Space",
+                      "width": 10,
+                      "height": 28
+                    },
+                    {
+                      "id": "EuEgQ",
+                      "type": "ref",
+                      "ref": "Ngw0t",
+                      "name": "Card Masaüstü",
+                      "width": 461,
+                      "descendants": {
+                        "ObOub": {
+                          "content": "Masaüstü"
+                        },
+                        "PRv7d": {
+                          "content": "1440×900"
+                        },
+                        "vO1MI": {
+                          "enabled": true
+                        },
+                        "zTEI3": {
+                          "height": 270
+                        },
+                        "MDe1d": {
+                          "enabled": true
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "id": "OvM1W",
+                  "type": "ref",
+                  "ref": "I3EMY",
+                  "name": "Bottom Bar",
+                  "layoutPosition": "absolute",
+                  "x": 473,
+                  "y": 820
+                },
+                {
+                  "id": "dduUI",
+                  "type": "ref",
+                  "ref": "Z3xtg",
+                  "name": "Device Strip",
+                  "layoutPosition": "absolute",
+                  "x": 393,
+                  "y": 16,
+                  "descendants": {
+                    "qmgAT": {
+                      "type": "frame",
+                      "id": "QEfD1",
+                      "name": "Tabs",
+                      "gap": 4,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "nq8S9",
+                          "name": "Collapsed group chip",
+                          "fill": "$surface/card",
+                          "cornerRadius": "$radius/control",
+                          "gap": 6,
+                          "padding": [
+                            6,
+                            10
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "PFttw",
+                              "fill": "$ink/primary",
+                              "content": "Telefon",
+                              "fontFamily": "$font/ui",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "text",
+                              "id": "JeDkZ",
+                              "fill": "$ink/secondary",
+                              "content": "2",
+                              "fontFamily": "$font/ui",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "icon",
+                              "id": "m7v8s4",
+                              "width": 12,
+                              "height": 12,
+                              "icon": "chevron-right",
+                              "library": "lucide",
+                              "fill": "$ink/secondary"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "rectangle",
+                          "id": "YAirz",
+                          "name": "Group divider",
+                          "opacity": 0.45,
+                          "fill": "$ink/secondary",
+                          "width": 1,
+                          "height": 18
+                        },
+                        {
+                          "id": "Lm3PT",
+                          "type": "ref",
+                          "ref": "FpUpU",
+                          "name": "Tab iPad",
+                          "fill": "$surface/header-leader",
+                          "stroke": "$status/leader",
+                          "strokeWidth": 1,
+                          "strokeAlignment": "inner",
+                          "descendants": {
+                            "U4TOHr": {
+                              "content": "iPad"
+                            }
+                          }
+                        },
+                        {
+                          "type": "rectangle",
+                          "id": "QmZ2y",
+                          "name": "Group divider",
+                          "opacity": 0.45,
+                          "fill": "$ink/secondary",
+                          "width": 1,
+                          "height": 18
+                        },
+                        {
+                          "id": "U6TSpR",
+                          "type": "ref",
+                          "ref": "FpUpU",
+                          "name": "Tab Masaüstü",
+                          "strokeAlignment": "inner",
+                          "descendants": {
+                            "U4TOHr": {
+                              "content": "Masaüstü"
+                            },
+                            "qwSGl": {
+                              "enabled": true
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "type": "frame",
+                  "id": "g0g1lR",
+                  "x": 40,
+                  "y": 100,
+                  "name": "Wrap iPhone SE",
+                  "enabled": false,
+                  "layout": "vertical",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "fAUiO",
+                      "name": "Strip Space",
+                      "width": 10,
+                      "height": 28
+                    },
+                    {
+                      "id": "ZOCsg",
+                      "type": "ref",
+                      "ref": "Ngw0t",
+                      "name": "Card iPhone 16",
+                      "width": 216,
+                      "descendants": {
+                        "ObOub": {
+                          "content": "iPhone SE"
+                        },
+                        "PRv7d": {
+                          "content": "375×667"
+                        },
+                        "zTEI3": {
+                          "height": 340
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "qsC0i",
+              "type": "ref",
+              "ref": "O8YpHG",
+              "name": "Rail",
+              "height": "fill_container",
+              "descendants": {
+                "nfqaz": {
+                  "enabled": true
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "SlUcW",
+      "x": 14040,
+      "y": 3280,
+      "name": "Project Window · Gruplar (motor, M4)",
+      "clip": true,
+      "width": 1440,
+      "height": 900,
+      "fill": "$canvas",
+      "cornerRadius": 16,
+      "children": [
+        {
+          "type": "frame",
+          "id": "cSp8d",
+          "name": "Sidebar",
+          "width": 240,
+          "height": "fill_container",
+          "fill": "$surface/bar",
+          "stroke": "$line",
+          "strokeWidth": {
+            "right": 1
+          },
+          "strokeAlignment": "inner",
+          "layout": "vertical",
+          "gap": 4,
+          "padding": [
+            0,
+            12,
+            12,
+            12
+          ],
+          "children": [
+            {
+              "id": "riBt3",
+              "type": "ref",
+              "ref": "tzWBu",
+              "name": "Sidebar Header",
+              "width": "fill_container"
+            },
+            {
+              "type": "frame",
+              "id": "TFsZu",
+              "name": "Section SAYFALAR",
+              "padding": [
+                14,
+                10,
+                6,
+                10
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "IEK3z",
+                  "name": "Title",
+                  "fill": "$ink/secondary",
+                  "content": "SAYFALAR",
+                  "fontFamily": "$font/ui",
+                  "fontSize": 10,
+                  "fontWeight": "600",
+                  "letterSpacing": 0.8
+                }
+              ]
+            },
+            {
+              "id": "rvjwI",
+              "type": "ref",
+              "ref": "UCIzS",
+              "name": "Row Ana sayfa",
+              "width": "fill_container",
+              "descendants": {
+                "oEGVV": {
+                  "icon": "house",
+                  "fill": "$ink/secondary"
+                },
+                "hPpHB": {
+                  "content": "Ana sayfa",
+                  "fill": "$ink/primary"
+                },
+                "gQenr": {
+                  "enabled": false
+                }
+              }
+            },
+            {
+              "id": "J8MIN",
+              "type": "ref",
+              "ref": "UCIzS",
+              "name": "Row Ürün",
+              "width": "fill_container",
+              "fill": "$surface/header",
+              "descendants": {
+                "oEGVV": {
+                  "icon": "package",
+                  "fill": "$ink/primary"
+                },
+                "hPpHB": {
+                  "content": "Ürün",
+                  "fill": "$ink/primary"
+                },
+                "gQenr": {
+                  "enabled": true
+                }
+              }
+            },
+            {
+              "id": "kpCg7",
+              "type": "ref",
+              "ref": "UCIzS",
+              "name": "Row Sepet",
+              "width": "fill_container",
+              "descendants": {
+                "oEGVV": {
+                  "icon": "shopping-cart",
+                  "fill": "$ink/secondary"
+                },
+                "hPpHB": {
+                  "content": "Sepet",
+                  "fill": "$ink/primary"
+                },
+                "gQenr": {
+                  "enabled": false
+                }
+              }
+            },
+            {
+              "id": "zl8lx",
+              "type": "ref",
+              "ref": "UCIzS",
+              "name": "Row Ödeme",
+              "width": "fill_container",
+              "descendants": {
+                "oEGVV": {
+                  "icon": "credit-card",
+                  "fill": "$ink/secondary"
+                },
+                "hPpHB": {
+                  "content": "Ödeme",
+                  "fill": "$ink/primary"
+                },
+                "gQenr": {
+                  "enabled": false
+                }
+              }
+            },
+            {
+              "id": "irVI8",
+              "type": "ref",
+              "ref": "UCIzS",
+              "name": "Row Ekle",
+              "width": "fill_container",
+              "descendants": {
+                "oEGVV": {
+                  "icon": "plus",
+                  "fill": "$ink/secondary"
+                },
+                "hPpHB": {
+                  "content": "Ekle",
+                  "fill": "$ink/secondary"
+                },
+                "gQenr": {
+                  "enabled": false
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "YQtX6",
+          "name": "Main",
+          "width": "fill_container",
+          "height": "fill_container",
+          "children": [
+            {
+              "type": "frame",
+              "id": "f7gbMF",
+              "name": "Canvas",
+              "width": "fill_container",
+              "height": "fill_container",
+              "fill": "$canvas",
+              "layout": "none",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "k38NFC",
+                  "x": 24,
+                  "y": 64,
+                  "name": "Group TELEFON",
+                  "width": 600,
+                  "height": 600,
+                  "fill": "#FFFFFF05",
+                  "cornerRadius": 16,
+                  "stroke": "$line",
+                  "strokeWidth": 1,
+                  "layout": "none",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "K1Tcj",
+                      "x": 12,
+                      "y": 10,
+                      "name": "Group Header",
+                      "gap": 6,
+                      "padding": [
+                        2,
+                        4
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "izwjw",
+                          "width": 12,
+                          "height": 12,
+                          "icon": "chevron-down",
+                          "library": "lucide",
+                          "fill": "$ink/secondary"
+                        },
+                        {
+                          "type": "path",
+                          "id": "pcqPq",
+                          "name": "WebKit 16",
+                          "geometry": "M8 1a7 7 0 1 1 0 14 7 7 0 1 1 0-14z m0 2a5 5 0 1 0 0 10 5 5 0 1 0 0-10z m0 1.5l1.2 2.3 2.3 1.2-2.3 1.2-1.2 2.3-1.2-2.3-2.3-1.2 2.3-1.2z",
+                          "fillRule": "evenodd",
+                          "viewBox": [
+                            0,
+                            0,
+                            16,
+                            16
+                          ],
+                          "fill": "$ink/secondary",
+                          "width": 12,
+                          "height": 12
+                        },
+                        {
+                          "type": "text",
+                          "id": "SiRsj",
+                          "fill": "$ink/secondary",
+                          "content": "WEBKIT",
+                          "fontFamily": "$font/ui",
+                          "fontSize": 10,
+                          "fontWeight": "600",
+                          "letterSpacing": 0.8
+                        },
+                        {
+                          "type": "text",
+                          "id": "G98DxH",
+                          "fill": "$ink/secondary",
+                          "content": "2",
+                          "fontFamily": "$font/ui",
+                          "fontSize": 10,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "ZnNjE",
+                  "x": 640,
+                  "y": 64,
+                  "name": "Group MASAÜSTÜ",
+                  "width": 760,
+                  "height": 600,
+                  "fill": "#FFFFFF05",
+                  "cornerRadius": 16,
+                  "stroke": "$line",
+                  "strokeWidth": 1,
+                  "layout": "none",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "fjNKD",
+                      "x": 12,
+                      "y": 10,
+                      "name": "Group Header",
+                      "gap": 6,
+                      "padding": [
+                        2,
+                        4
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "KSj7C",
+                          "width": 12,
+                          "height": 12,
+                          "icon": "chevron-down",
+                          "library": "lucide",
+                          "fill": "$ink/secondary"
+                        },
+                        {
+                          "type": "path",
+                          "id": "pMwcg",
+                          "name": "Chromium 16",
+                          "geometry": "M9.22 1.11a7 7 0 0 1 5.36 9.28l-1.88-0.68a5 5 0 0 0-3.83-6.63z m4.14 11.39a7 7 0 0 1-10.72 0l1.53-1.29a5 5 0 0 0 7.66 0z m-11.94-2.11a7 7 0 0 1 5.36-9.28l0.35 1.97a5 5 0 0 0-3.83 6.63z m6.58-4.39a2 2 0 1 1 0 4 2 2 0 1 1 0-4z",
+                          "fillRule": "evenodd",
+                          "viewBox": [
+                            0,
+                            0,
+                            16,
+                            16
+                          ],
+                          "fill": "$ink/secondary",
+                          "width": 12,
+                          "height": 12
+                        },
+                        {
+                          "type": "text",
+                          "id": "giWSO",
+                          "fill": "$ink/secondary",
+                          "content": "CHROMIUM",
+                          "fontFamily": "$font/ui",
+                          "fontSize": 10,
+                          "fontWeight": "600",
+                          "letterSpacing": 0.8
+                        },
+                        {
+                          "type": "text",
+                          "id": "rrd32",
+                          "fill": "$ink/secondary",
+                          "content": "2",
+                          "fontFamily": "$font/ui",
+                          "fontSize": 10,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "P2XLS",
+                  "x": 40,
+                  "y": 100,
+                  "name": "Wrap iPhone 16",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "SK74M",
+                      "name": "Strip Space",
+                      "width": 10,
+                      "height": 28
+                    },
+                    {
+                      "id": "BqQtp",
+                      "type": "ref",
+                      "ref": "Ngw0t",
+                      "name": "Card iPhone 16",
+                      "width": 216,
+                      "descendants": {
+                        "ObOub": {
+                          "content": "iPhone 16"
+                        },
+                        "PRv7d": {
+                          "content": "393×852"
+                        },
+                        "zTEI3": {
+                          "height": 440
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "Dh0J6",
+                  "x": 280,
+                  "y": 100,
+                  "name": "Wrap iPad",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "alignItems": "end",
+                  "children": [
+                    {
+                      "id": "RTeL4",
+                      "type": "ref",
+                      "ref": "TgJMN",
+                      "name": "Hover Strip"
+                    },
+                    {
+                      "id": "zMNYV",
+                      "type": "ref",
+                      "ref": "Ngw0t",
+                      "name": "Card iPad",
+                      "width": 328,
+                      "stroke": "$status/leader",
+                      "strokeWidth": 2,
+                      "descendants": {
+                        "oDaLl": {
+                          "fill": "$surface/header-leader"
+                        },
+                        "ObOub": {
+                          "content": "iPad"
+                        },
+                        "PRv7d": {
+                          "content": "820×1180"
+                        },
+                        "soNCM": {
+                          "fill": "$status/leader"
+                        },
+                        "zTEI3": {
+                          "height": 444
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "i4PWSi",
+                  "x": 896,
+                  "y": 100,
+                  "name": "Wrap Masaüstü",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "YGZna",
+                      "name": "Strip Space",
+                      "width": 10,
+                      "height": 28
+                    },
+                    {
+                      "id": "h7Shb",
+                      "type": "ref",
+                      "ref": "Ngw0t",
+                      "name": "Card Masaüstü",
+                      "width": 461,
+                      "descendants": {
+                        "ObOub": {
+                          "content": "Masaüstü"
+                        },
+                        "PRv7d": {
+                          "content": "1440×900"
+                        },
+                        "vO1MI": {
+                          "enabled": true
+                        },
+                        "NrvNA": {
+                          "type": "frame",
+                          "id": "UZvLb",
+                          "name": "Engine",
+                          "width": 14,
+                          "height": 14,
+                          "children": [
+                            {
+                              "type": "path",
+                              "id": "IAX2u",
+                              "name": "Chromium 16",
+                              "geometry": "M9.22 1.11a7 7 0 0 1 5.36 9.28l-1.88-0.68a5 5 0 0 0-3.83-6.63z m4.14 11.39a7 7 0 0 1-10.72 0l1.53-1.29a5 5 0 0 0 7.66 0z m-11.94-2.11a7 7 0 0 1 5.36-9.28l0.35 1.97a5 5 0 0 0-3.83 6.63z m6.58-4.39a2 2 0 1 1 0 4 2 2 0 1 1 0-4z",
+                              "fillRule": "evenodd",
+                              "viewBox": [
+                                0,
+                                0,
+                                16,
+                                16
+                              ],
+                              "fill": "$ink/secondary",
+                              "width": 14,
+                              "height": 14
+                            }
+                          ]
+                        },
+                        "zTEI3": {
+                          "height": 270
+                        },
+                        "MDe1d": {
+                          "enabled": true
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "id": "KXPN5",
+                  "type": "ref",
+                  "ref": "I3EMY",
+                  "name": "Bottom Bar",
+                  "layoutPosition": "absolute",
+                  "x": 473,
+                  "y": 820
+                },
+                {
+                  "id": "e3YCE",
+                  "type": "ref",
+                  "ref": "Z3xtg",
+                  "name": "Device Strip",
+                  "layoutPosition": "absolute",
+                  "x": 260,
+                  "y": 16,
+                  "descendants": {
+                    "qmgAT": {
+                      "type": "frame",
+                      "id": "lJXr1",
+                      "name": "Tabs",
+                      "gap": 4,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "id": "KL8x7",
+                          "type": "ref",
+                          "ref": "FpUpU",
+                          "name": "Tab iPhone 16",
+                          "strokeAlignment": "inner",
+                          "descendants": {
+                            "U4TOHr": {
+                              "content": "iPhone 16"
+                            }
+                          }
+                        },
+                        {
+                          "id": "R2HqE",
+                          "type": "ref",
+                          "ref": "FpUpU",
+                          "name": "Tab iPad",
+                          "fill": "$surface/header-leader",
+                          "stroke": "$status/leader",
+                          "strokeWidth": 1,
+                          "strokeAlignment": "inner",
+                          "descendants": {
+                            "U4TOHr": {
+                              "content": "iPad"
+                            }
+                          }
+                        },
+                        {
+                          "type": "rectangle",
+                          "id": "e53he",
+                          "name": "Group divider",
+                          "opacity": 0.45,
+                          "fill": "$ink/secondary",
+                          "width": 1,
+                          "height": 18
+                        },
+                        {
+                          "id": "FhfBs",
+                          "type": "ref",
+                          "ref": "FpUpU",
+                          "name": "Tab iPhone 16 · Chromium",
+                          "strokeAlignment": "inner",
+                          "descendants": {
+                            "U4TOHr": {
+                              "content": "iPhone 16 · Chromium"
+                            }
+                          }
+                        },
+                        {
+                          "id": "gdyzo",
+                          "type": "ref",
+                          "ref": "FpUpU",
+                          "name": "Tab Masaüstü · Chromium",
+                          "strokeAlignment": "inner",
+                          "descendants": {
+                            "U4TOHr": {
+                              "content": "Masaüstü · Chromium"
+                            },
+                            "qwSGl": {
+                              "enabled": true
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "type": "frame",
+                  "id": "ycT0e",
+                  "x": 656,
+                  "y": 100,
+                  "name": "Wrap iPhone SE",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "bxPNj",
+                      "name": "Strip Space",
+                      "width": 10,
+                      "height": 28
+                    },
+                    {
+                      "id": "BbuHG",
+                      "type": "ref",
+                      "ref": "Ngw0t",
+                      "name": "Card iPhone 16",
+                      "width": 216,
+                      "descendants": {
+                        "ObOub": {
+                          "content": "iPhone 16"
+                        },
+                        "PRv7d": {
+                          "content": "393×852"
+                        },
+                        "NrvNA": {
+                          "type": "frame",
+                          "id": "d4Tn0a",
+                          "name": "Engine",
+                          "width": 14,
+                          "height": 14,
+                          "children": [
+                            {
+                              "type": "path",
+                              "id": "APZZ7",
+                              "name": "Chromium 16",
+                              "geometry": "M9.22 1.11a7 7 0 0 1 5.36 9.28l-1.88-0.68a5 5 0 0 0-3.83-6.63z m4.14 11.39a7 7 0 0 1-10.72 0l1.53-1.29a5 5 0 0 0 7.66 0z m-11.94-2.11a7 7 0 0 1 5.36-9.28l0.35 1.97a5 5 0 0 0-3.83 6.63z m6.58-4.39a2 2 0 1 1 0 4 2 2 0 1 1 0-4z",
+                              "fillRule": "evenodd",
+                              "viewBox": [
+                                0,
+                                0,
+                                16,
+                                16
+                              ],
+                              "fill": "$ink/secondary",
+                              "width": 14,
+                              "height": 14
+                            }
+                          ]
+                        },
+                        "zTEI3": {
+                          "height": 440
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "W7KyvD",
+              "type": "ref",
+              "ref": "O8YpHG",
+              "name": "Rail",
+              "height": "fill_container",
+              "descendants": {
+                "nfqaz": {
+                  "enabled": true
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "BQurR",
+      "x": 13600,
+      "y": 6040,
+      "name": "Home File Errors",
+      "width": 1100,
+      "fill": "$canvas",
+      "cornerRadius": "$radius/card",
+      "layout": "vertical",
+      "gap": 24,
+      "padding": 28,
+      "children": [
+        {
+          "type": "text",
+          "id": "DTNw7",
+          "fill": "$ink/primary",
+          "content": "Giriş ekranı · proje dosyası sorunları",
+          "lineHeight": 1.4,
+          "fontFamily": "$font/ui",
+          "fontSize": 15,
+          "fontWeight": "600"
+        },
+        {
+          "type": "frame",
+          "id": "zq98y",
+          "gap": 28,
+          "children": [
+            {
+              "type": "frame",
+              "id": "yvf2c",
+              "width": 236,
+              "layout": "vertical",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "uNvnl",
+                  "fill": "$ink/secondary",
+                  "content": "Normal",
+                  "lineHeight": 1.4,
+                  "fontFamily": "$font/ui",
+                  "fontSize": 10,
+                  "fontWeight": "normal"
+                },
+                {
+                  "id": "izEXr",
+                  "type": "ref",
+                  "ref": "sACvk"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "h9thI",
+              "width": 236,
+              "layout": "vertical",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "ZBmdV",
+                  "fill": "$ink/secondary",
+                  "content": "Dosya bulunamadı (taşındı / silindi)",
+                  "lineHeight": 1.4,
+                  "fontFamily": "$font/ui",
+                  "fontSize": 10,
+                  "fontWeight": "normal"
+                },
+                {
+                  "id": "O66mEw",
+                  "type": "ref",
+                  "ref": "sACvk",
+                  "descendants": {
+                    "J7QxYL": {
+                      "opacity": 0.3
+                    },
+                    "yG6Du": {
+                      "content": "Marka C",
+                      "fill": "$ink/secondary"
+                    },
+                    "jSlmZ": {
+                      "content": "Dosya bulunamadı",
+                      "fill": "$status/warning"
+                    }
+                  }
+                },
+                {
+                  "type": "text",
+                  "id": "k2Mav",
+                  "fill": "$ink/secondary",
+                  "textGrowth": "fixed-width",
+                  "width": 236,
+                  "content": "Küçük resim soluk, meta mercan. Tık → “Bul…” (dosya seçici; yeni yer hatırlanır). ⋯ menüsünde Bul… ve Listeden kaldır; Çoğalt / Finder'da göster pasif.",
+                  "lineHeight": 1.4,
+                  "fontFamily": "$font/ui",
+                  "fontSize": 11,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "i4aFi",
+              "width": 520,
+              "layout": "vertical",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "HJfyv",
+                  "fill": "$ink/secondary",
+                  "content": "Liste görünümünde aynı satır",
+                  "lineHeight": 1.4,
+                  "fontFamily": "$font/ui",
+                  "fontSize": 10,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "MeYh8",
+                  "width": "fill_container",
+                  "fill": "$surface/card",
+                  "cornerRadius": 8,
+                  "gap": 10,
+                  "padding": [
+                    8,
+                    10
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "vUkZI",
+                      "width": 14,
+                      "height": 14,
+                      "fill": "$surface/pill",
+                      "cornerRadius": 3
+                    },
+                    {
+                      "type": "text",
+                      "id": "t7y8Tq",
+                      "fill": "$ink/secondary",
+                      "textGrowth": "fixed-width",
+                      "width": 120,
+                      "content": "Marka C",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$font/ui",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "WHWC8",
+                      "fill": "$status/warning",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Dosya bulunamadı",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$font/ui",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "yzGXX",
+                      "fill": "$surface/header",
+                      "cornerRadius": "$radius/control",
+                      "stroke": "$line",
+                      "strokeWidth": 1,
+                      "padding": [
+                        3,
+                        8
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "PBn6A",
+                          "fill": "$ink/primary",
+                          "content": "Bul…",
+                          "lineHeight": 1.4,
+                          "fontFamily": "$font/ui",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "icon",
+                      "id": "j57XPl",
+                      "width": 14,
+                      "height": 14,
+                      "icon": "ellipsis",
+                      "library": "lucide",
+                      "fill": "$ink/secondary"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "L3Lv3c",
+          "fill": "$ink/primary",
+          "content": "Proje açılamadı · sistem uyarısı (NSAlert): yalnız metin ve düğmeler bizden, görünüm sistemin",
+          "lineHeight": 1.4,
+          "fontFamily": "$font/ui",
+          "fontSize": 13,
+          "fontWeight": "600"
+        },
+        {
+          "type": "frame",
+          "id": "tWgdW",
+          "gap": 28,
+          "children": [
+            {
+              "type": "frame",
+              "id": "oH3MQ",
+              "layout": "vertical",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "c8IBMh",
+                  "fill": "$ink/secondary",
+                  "content": "Dosya bozuk / okunamıyor",
+                  "lineHeight": 1.4,
+                  "fontFamily": "$font/ui",
+                  "fontSize": 10,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "I3S5Zp",
+                  "name": "Alert mock",
+                  "width": 280,
+                  "fill": "#2A2725",
+                  "cornerRadius": 16,
+                  "stroke": "$line",
+                  "strokeWidth": 1,
+                  "layout": "vertical",
+                  "gap": 10,
+                  "padding": 20,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "vRSLo",
+                      "width": 48,
+                      "height": 48,
+                      "fill": "#161412",
+                      "cornerRadius": 11,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "gueYI",
+                          "fill": "#FAF8F5",
+                          "content": "Vx",
+                          "fontFamily": "$font/ui",
+                          "fontSize": 17,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "l0hrj8",
+                      "fill": "$ink/primary",
+                      "textGrowth": "fixed-width",
+                      "width": 240,
+                      "content": "“Marka A.viewportix” açılamadı",
+                      "lineHeight": 1.4,
+                      "textAlign": "center",
+                      "fontFamily": "$font/ui",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "Bhz0p",
+                      "fill": "$ink/secondary",
+                      "textGrowth": "fixed-width",
+                      "width": 240,
+                      "content": "Dosya bozuk ya da eksik. Taslaklar açıksa son taslak kurtarılabilir.",
+                      "lineHeight": 1.4,
+                      "textAlign": "center",
+                      "fontFamily": "$font/ui",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "q4qsjS",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 6,
+                      "padding": [
+                        6,
+                        0,
+                        0,
+                        0
+                      ],
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "d6D6u",
+                          "width": "fill_container",
+                          "fill": "#3B82F6",
+                          "cornerRadius": 6,
+                          "padding": [
+                            6,
+                            0
+                          ],
+                          "justifyContent": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "ulsq7",
+                              "fill": "#FFFFFF",
+                              "content": "Son taslağı aç",
+                              "lineHeight": 1.4,
+                              "fontFamily": "$font/ui",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "JY5By",
+                          "width": "fill_container",
+                          "fill": "#4A4542",
+                          "cornerRadius": 6,
+                          "padding": [
+                            6,
+                            0
+                          ],
+                          "justifyContent": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "UUOaC",
+                              "fill": "#FFFFFF",
+                              "content": "Finder'da Göster",
+                              "lineHeight": 1.4,
+                              "fontFamily": "$font/ui",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "vfe2f",
+                          "width": "fill_container",
+                          "fill": "#4A4542",
+                          "cornerRadius": 6,
+                          "padding": [
+                            6,
+                            0
+                          ],
+                          "justifyContent": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "rDEmn",
+                              "fill": "#FFFFFF",
+                              "content": "Vazgeç",
+                              "lineHeight": 1.4,
+                              "fontFamily": "$font/ui",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "a3k2jd",
+              "layout": "vertical",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "H7rnu4",
+                  "fill": "$ink/secondary",
+                  "content": "Daha yeni sürümle kaydedilmiş",
+                  "lineHeight": 1.4,
+                  "fontFamily": "$font/ui",
+                  "fontSize": 10,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "j9F9KB",
+                  "name": "Alert mock",
+                  "width": 280,
+                  "fill": "#2A2725",
+                  "cornerRadius": 16,
+                  "stroke": "$line",
+                  "strokeWidth": 1,
+                  "layout": "vertical",
+                  "gap": 10,
+                  "padding": 20,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "ANnsY",
+                      "width": 48,
+                      "height": 48,
+                      "fill": "#161412",
+                      "cornerRadius": 11,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "ByCFf",
+                          "fill": "#FAF8F5",
+                          "content": "Vx",
+                          "fontFamily": "$font/ui",
+                          "fontSize": 17,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "lQqri",
+                      "fill": "$ink/primary",
+                      "textGrowth": "fixed-width",
+                      "width": 240,
+                      "content": "“Marka A.viewportix” bu sürümde açılamıyor",
+                      "lineHeight": 1.4,
+                      "textAlign": "center",
+                      "fontFamily": "$font/ui",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "PUCkV",
+                      "fill": "$ink/secondary",
+                      "textGrowth": "fixed-width",
+                      "width": 240,
+                      "content": "Proje Viewportix'in daha yeni bir sürümüyle kaydedilmiş (sürüm 0.3). Güncelleyip tekrar dene.",
+                      "lineHeight": 1.4,
+                      "textAlign": "center",
+                      "fontFamily": "$font/ui",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "W6vUP",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 6,
+                      "padding": [
+                        6,
+                        0,
+                        0,
+                        0
+                      ],
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "s7DXf",
+                          "width": "fill_container",
+                          "fill": "#3B82F6",
+                          "cornerRadius": 6,
+                          "padding": [
+                            6,
+                            0
+                          ],
+                          "justifyContent": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "t4227",
+                              "fill": "#FFFFFF",
+                              "content": "Güncellemeleri Denetle",
+                              "lineHeight": 1.4,
+                              "fontFamily": "$font/ui",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "TOuAK",
+                          "width": "fill_container",
+                          "fill": "#4A4542",
+                          "cornerRadius": 6,
+                          "padding": [
+                            6,
+                            0
+                          ],
+                          "justifyContent": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "TXEwZ",
+                              "fill": "#FFFFFF",
+                              "content": "Vazgeç",
+                              "lineHeight": 1.4,
+                              "fontFamily": "$font/ui",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "cH7YS",
+          "fill": "$ink/secondary",
+          "textGrowth": "fixed-width",
+          "width": 900,
+          "content": "Mavi varsayılan düğme sistem rengidir (NSAlert); bizim sarı burada kullanılmaz. Taslak yoksa “Son taslağı aç” görünmez, varsayılan “Tamam” olur.",
+          "lineHeight": 1.4,
+          "fontFamily": "$font/ui",
+          "fontSize": 11,
+          "fontWeight": "normal"
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "hJrjk",
+      "x": 15600,
+      "y": 1900,
+      "name": "Project Window · En küçük boyut (1024×640)",
+      "clip": true,
+      "width": 1024,
+      "height": 640,
+      "fill": "$canvas",
+      "cornerRadius": 16,
+      "children": [
+        {
+          "type": "frame",
+          "id": "jxp6B",
+          "name": "Sidebar",
+          "width": 240,
+          "height": "fill_container",
+          "fill": "$surface/bar",
+          "stroke": "$line",
+          "strokeWidth": {
+            "right": 1
+          },
+          "strokeAlignment": "inner",
+          "layout": "vertical",
+          "gap": 4,
+          "padding": [
+            0,
+            12,
+            12,
+            12
+          ],
+          "children": [
+            {
+              "id": "X4q77d",
+              "type": "ref",
+              "ref": "tzWBu",
+              "name": "Sidebar Header",
+              "width": "fill_container"
+            },
+            {
+              "type": "frame",
+              "id": "iQ7dx",
+              "name": "Section SAYFALAR",
+              "padding": [
+                14,
+                10,
+                6,
+                10
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "F0jTkT",
+                  "name": "Title",
+                  "fill": "$ink/secondary",
+                  "content": "SAYFALAR",
+                  "fontFamily": "$font/ui",
+                  "fontSize": 10,
+                  "fontWeight": "600",
+                  "letterSpacing": 0.8
+                }
+              ]
+            },
+            {
+              "id": "cZK8f",
+              "type": "ref",
+              "ref": "UCIzS",
+              "name": "Row Ana sayfa",
+              "width": "fill_container",
+              "descendants": {
+                "oEGVV": {
+                  "icon": "house",
+                  "fill": "$ink/secondary"
+                },
+                "hPpHB": {
+                  "content": "Ana sayfa",
+                  "fill": "$ink/primary"
+                },
+                "gQenr": {
+                  "enabled": false
+                }
+              }
+            },
+            {
+              "id": "X1hnN",
+              "type": "ref",
+              "ref": "UCIzS",
+              "name": "Row Ürün",
+              "width": "fill_container",
+              "fill": "$surface/header",
+              "descendants": {
+                "oEGVV": {
+                  "icon": "package",
+                  "fill": "$ink/primary"
+                },
+                "hPpHB": {
+                  "content": "Ürün",
+                  "fill": "$ink/primary"
+                },
+                "gQenr": {
+                  "enabled": true
+                }
+              }
+            },
+            {
+              "id": "rmhfv",
+              "type": "ref",
+              "ref": "UCIzS",
+              "name": "Row Sepet",
+              "width": "fill_container",
+              "descendants": {
+                "oEGVV": {
+                  "icon": "shopping-cart",
+                  "fill": "$ink/secondary"
+                },
+                "hPpHB": {
+                  "content": "Sepet",
+                  "fill": "$ink/primary"
+                },
+                "gQenr": {
+                  "enabled": false
+                }
+              }
+            },
+            {
+              "id": "cQ3JX",
+              "type": "ref",
+              "ref": "UCIzS",
+              "name": "Row Ödeme",
+              "width": "fill_container",
+              "descendants": {
+                "oEGVV": {
+                  "icon": "credit-card",
+                  "fill": "$ink/secondary"
+                },
+                "hPpHB": {
+                  "content": "Ödeme",
+                  "fill": "$ink/primary"
+                },
+                "gQenr": {
+                  "enabled": false
+                }
+              }
+            },
+            {
+              "id": "XOTKP",
+              "type": "ref",
+              "ref": "UCIzS",
+              "name": "Row Ekle",
+              "width": "fill_container",
+              "descendants": {
+                "oEGVV": {
+                  "icon": "plus",
+                  "fill": "$ink/secondary"
+                },
+                "hPpHB": {
+                  "content": "Ekle",
+                  "fill": "$ink/secondary"
+                },
+                "gQenr": {
+                  "enabled": false
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "Ox1Uh",
+          "name": "Main",
+          "width": "fill_container",
+          "height": "fill_container",
+          "children": [
+            {
+              "type": "frame",
+              "id": "qOiXm",
+              "name": "Canvas",
+              "clip": true,
+              "width": "fill_container",
+              "height": "fill_container",
+              "fill": "$canvas",
+              "gap": 32,
+              "padding": [
+                72,
+                32
+              ],
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "ozObQ",
+                  "name": "Wrap iPhone 16",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "PdK8H",
+                      "name": "Strip Space",
+                      "width": 10,
+                      "height": 28
+                    },
+                    {
+                      "id": "zmYit",
+                      "type": "ref",
+                      "ref": "Ngw0t",
+                      "name": "Card iPhone 16",
+                      "width": 216,
+                      "descendants": {
+                        "ObOub": {
+                          "content": "iPhone 16"
+                        },
+                        "PRv7d": {
+                          "content": "393×852"
+                        },
+                        "zTEI3": {
+                          "height": 330
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "xI4Du",
+                  "name": "Wrap iPad",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "alignItems": "end",
+                  "children": [
+                    {
+                      "id": "FLIjD",
+                      "type": "ref",
+                      "ref": "TgJMN",
+                      "name": "Hover Strip"
+                    },
+                    {
+                      "id": "hk61r",
+                      "type": "ref",
+                      "ref": "Ngw0t",
+                      "name": "Card iPad",
+                      "width": 328,
+                      "stroke": "$status/leader",
+                      "strokeWidth": 2,
+                      "descendants": {
+                        "oDaLl": {
+                          "fill": "$surface/header-leader"
+                        },
+                        "ObOub": {
+                          "content": "iPad"
+                        },
+                        "PRv7d": {
+                          "content": "820×1180"
+                        },
+                        "soNCM": {
+                          "fill": "$status/leader"
+                        },
+                        "zTEI3": {
+                          "height": 334
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "z4BVL",
+                  "name": "Wrap Masaüstü",
+                  "opacity": 0.5,
+                  "layout": "vertical",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "VLEhK",
+                      "name": "Strip Space",
+                      "width": 10,
+                      "height": 28
+                    },
+                    {
+                      "id": "X4Z9N7",
+                      "type": "ref",
+                      "ref": "Ngw0t",
+                      "name": "Card Masaüstü",
+                      "width": 461,
+                      "descendants": {
+                        "ObOub": {
+                          "content": "Masaüstü"
+                        },
+                        "PRv7d": {
+                          "content": "1440×900"
+                        },
+                        "vO1MI": {
+                          "enabled": true
+                        },
+                        "zTEI3": {
+                          "height": 226
+                        },
+                        "MDe1d": {
+                          "enabled": true
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "id": "e71ydc",
+                  "type": "ref",
+                  "ref": "t3Hr4",
+                  "name": "Toast",
+                  "layoutPosition": "absolute",
+                  "x": 425,
+                  "y": 756,
+                  "enabled": false
+                },
+                {
+                  "id": "XYOav",
+                  "type": "ref",
+                  "ref": "I3EMY",
+                  "name": "Bottom Bar",
+                  "layoutPosition": "absolute",
+                  "x": 265,
+                  "y": 560,
+                  "descendants": {
+                    "P7glc/ahVQ8": {
+                      "content": "%75"
+                    }
+                  }
+                },
+                {
+                  "id": "J5hfg",
+                  "type": "ref",
+                  "ref": "Z3xtg",
+                  "name": "Device Strip",
+                  "layoutPosition": "absolute",
+                  "x": 185,
+                  "y": 16
+                }
+              ]
+            },
+            {
+              "id": "UPJrK",
+              "type": "ref",
+              "ref": "O8YpHG",
+              "name": "Rail",
+              "height": "fill_container",
+              "descendants": {
+                "nfqaz": {
+                  "enabled": true
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "IVxFw",
+      "x": 17160,
+      "y": 1900,
+      "name": "Project Window · Tam ekran",
+      "clip": true,
+      "width": 1440,
+      "height": 900,
+      "fill": "$canvas",
+      "children": [
+        {
+          "type": "frame",
+          "id": "b17Tm",
+          "name": "Sidebar",
+          "width": 240,
+          "height": "fill_container",
+          "fill": "$surface/bar",
+          "stroke": "$line",
+          "strokeWidth": {
+            "right": 1
+          },
+          "strokeAlignment": "inner",
+          "layout": "vertical",
+          "gap": 4,
+          "padding": [
+            0,
+            12,
+            12,
+            12
+          ],
+          "children": [
+            {
+              "id": "DiFRw",
+              "type": "ref",
+              "ref": "tzWBu",
+              "name": "Sidebar Header",
+              "width": "fill_container",
+              "descendants": {
+                "vYZPa": {
+                  "height": 16
+                },
+                "gEFYE": {
+                  "enabled": false
+                },
+                "vm5wt": {
+                  "enabled": false
+                },
+                "m6gFxB": {
+                  "enabled": false
+                }
+              }
+            },
+            {
+              "type": "frame",
+              "id": "hihGi",
+              "name": "Section SAYFALAR",
+              "padding": [
+                14,
+                10,
+                6,
+                10
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "NXmVL",
+                  "name": "Title",
+                  "fill": "$ink/secondary",
+                  "content": "SAYFALAR",
+                  "fontFamily": "$font/ui",
+                  "fontSize": 10,
+                  "fontWeight": "600",
+                  "letterSpacing": 0.8
+                }
+              ]
+            },
+            {
+              "id": "hGAXO",
+              "type": "ref",
+              "ref": "UCIzS",
+              "name": "Row Ana sayfa",
+              "width": "fill_container",
+              "descendants": {
+                "oEGVV": {
+                  "icon": "house",
+                  "fill": "$ink/secondary"
+                },
+                "hPpHB": {
+                  "content": "Ana sayfa",
+                  "fill": "$ink/primary"
+                },
+                "gQenr": {
+                  "enabled": false
+                }
+              }
+            },
+            {
+              "id": "wwRXN",
+              "type": "ref",
+              "ref": "UCIzS",
+              "name": "Row Ürün",
+              "width": "fill_container",
+              "fill": "$surface/header",
+              "descendants": {
+                "oEGVV": {
+                  "icon": "package",
+                  "fill": "$ink/primary"
+                },
+                "hPpHB": {
+                  "content": "Ürün",
+                  "fill": "$ink/primary"
+                },
+                "gQenr": {
+                  "enabled": true
+                }
+              }
+            },
+            {
+              "id": "QLCJp",
+              "type": "ref",
+              "ref": "UCIzS",
+              "name": "Row Sepet",
+              "width": "fill_container",
+              "descendants": {
+                "oEGVV": {
+                  "icon": "shopping-cart",
+                  "fill": "$ink/secondary"
+                },
+                "hPpHB": {
+                  "content": "Sepet",
+                  "fill": "$ink/primary"
+                },
+                "gQenr": {
+                  "enabled": false
+                }
+              }
+            },
+            {
+              "id": "S5BrW",
+              "type": "ref",
+              "ref": "UCIzS",
+              "name": "Row Ödeme",
+              "width": "fill_container",
+              "descendants": {
+                "oEGVV": {
+                  "icon": "credit-card",
+                  "fill": "$ink/secondary"
+                },
+                "hPpHB": {
+                  "content": "Ödeme",
+                  "fill": "$ink/primary"
+                },
+                "gQenr": {
+                  "enabled": false
+                }
+              }
+            },
+            {
+              "id": "uswgA",
+              "type": "ref",
+              "ref": "UCIzS",
+              "name": "Row Ekle",
+              "width": "fill_container",
+              "descendants": {
+                "oEGVV": {
+                  "icon": "plus",
+                  "fill": "$ink/secondary"
+                },
+                "hPpHB": {
+                  "content": "Ekle",
+                  "fill": "$ink/secondary"
+                },
+                "gQenr": {
+                  "enabled": false
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "qEmL3",
+          "name": "Main",
+          "width": "fill_container",
+          "height": "fill_container",
+          "children": [
+            {
+              "type": "frame",
+              "id": "f5JtZ",
+              "name": "Canvas",
+              "width": "fill_container",
+              "height": "fill_container",
+              "fill": "$canvas",
+              "gap": 32,
+              "padding": [
+                72,
+                32
+              ],
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "BR8BT",
+                  "name": "Wrap iPhone 16",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "X8G32Y",
+                      "name": "Strip Space",
+                      "width": 10,
+                      "height": 28
+                    },
+                    {
+                      "id": "rQD7W",
+                      "type": "ref",
+                      "ref": "Ngw0t",
+                      "name": "Card iPhone 16",
+                      "width": 216,
+                      "descendants": {
+                        "ObOub": {
+                          "content": "iPhone 16"
+                        },
+                        "PRv7d": {
+                          "content": "393×852"
+                        },
+                        "zTEI3": {
+                          "height": 440
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "myBOJ",
+                  "name": "Wrap iPad",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "alignItems": "end",
+                  "children": [
+                    {
+                      "id": "CfxX5",
+                      "type": "ref",
+                      "ref": "TgJMN",
+                      "name": "Hover Strip"
+                    },
+                    {
+                      "id": "oYFo2",
+                      "type": "ref",
+                      "ref": "Ngw0t",
+                      "name": "Card iPad",
+                      "width": 328,
+                      "stroke": "$status/leader",
+                      "strokeWidth": 2,
+                      "descendants": {
+                        "oDaLl": {
+                          "fill": "$surface/header-leader"
+                        },
+                        "ObOub": {
+                          "content": "iPad"
+                        },
+                        "PRv7d": {
+                          "content": "820×1180"
+                        },
+                        "soNCM": {
+                          "fill": "$status/leader"
+                        },
+                        "zTEI3": {
+                          "height": 444
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "s5b2c",
+                  "name": "Wrap Masaüstü",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "vKbhP",
+                      "name": "Strip Space",
+                      "width": 10,
+                      "height": 28
+                    },
+                    {
+                      "id": "Lc8Mf",
+                      "type": "ref",
+                      "ref": "Ngw0t",
+                      "name": "Card Masaüstü",
+                      "width": 461,
+                      "descendants": {
+                        "ObOub": {
+                          "content": "Masaüstü"
+                        },
+                        "PRv7d": {
+                          "content": "1440×900"
+                        },
+                        "vO1MI": {
+                          "enabled": true
+                        },
+                        "zTEI3": {
+                          "height": 270
+                        },
+                        "MDe1d": {
+                          "enabled": true
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "id": "SptlG",
+                  "type": "ref",
+                  "ref": "t3Hr4",
+                  "name": "Toast",
+                  "layoutPosition": "absolute",
+                  "x": 425,
+                  "y": 756,
+                  "enabled": false
+                },
+                {
+                  "id": "ljr3V",
+                  "type": "ref",
+                  "ref": "I3EMY",
+                  "name": "Bottom Bar",
+                  "layoutPosition": "absolute",
+                  "x": 473,
+                  "y": 820
+                },
+                {
+                  "id": "Ahjdw",
+                  "type": "ref",
+                  "ref": "Z3xtg",
+                  "name": "Device Strip",
+                  "layoutPosition": "absolute",
+                  "x": 393,
+                  "y": 16
+                }
+              ]
+            },
+            {
+              "id": "bJ2SA",
+              "type": "ref",
+              "ref": "O8YpHG",
+              "name": "Rail",
+              "height": "fill_container",
+              "descendants": {
+                "nfqaz": {
+                  "enabled": true
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "hTxn0",
+      "x": 14900,
+      "y": 6040,
+      "name": "Misc States 2",
+      "width": 1400,
+      "fill": "$canvas",
+      "cornerRadius": "$radius/card",
+      "layout": "vertical",
+      "gap": 28,
+      "padding": 28,
+      "children": [
+        {
+          "type": "text",
+          "id": "iZxjZ",
+          "fill": "$ink/primary",
+          "content": "Küçük ayrıntılar · c–j",
+          "lineHeight": 1.4,
+          "fontFamily": "$font/ui",
+          "fontSize": 15,
+          "fontWeight": "600"
+        },
+        {
+          "type": "frame",
+          "id": "Q8AsK4",
+          "layout": "vertical",
+          "gap": 10,
+          "children": [
+            {
+              "type": "text",
+              "id": "ByqIh",
+              "fill": "$ink/primary",
+              "content": "c · Ray tooltip'leri",
+              "lineHeight": 1.4,
+              "fontFamily": "$font/ui",
+              "fontSize": 13,
+              "fontWeight": "600"
+            },
+            {
+              "type": "text",
+              "id": "DfMpj",
+              "fill": "$ink/secondary",
+              "textGrowth": "fixed-width",
+              "width": 900,
+              "content": "Öğenin solunda, 8 px boşlukla; ad + kısayol (varsa). 400 ms gecikme. Ayarlar ⌘, · Cihazlar · MCP · Hesap · Farklar ⌥⌘1 · Senkron Kaydı ⌥⌘2 · Rayı Gizle ⌥⌘0",
+              "lineHeight": 1.4,
+              "fontFamily": "$font/ui",
+              "fontSize": 11,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "n3378",
+              "clip": true,
+              "width": 260,
+              "height": 320,
+              "fill": "$canvas",
+              "cornerRadius": 8,
+              "stroke": "$line",
+              "strokeWidth": 1,
+              "layout": "none",
+              "children": [
+                {
+                  "id": "lcD0B",
+                  "type": "ref",
+                  "ref": "O8YpHG",
+                  "x": 216,
+                  "y": 0,
+                  "height": 320,
+                  "descendants": {
+                    "Y5aQq6": {
+                      "fill": "$surface/header-leader"
+                    },
+                    "nfqaz": {
+                      "enabled": true
+                    }
+                  }
+                },
+                {
+                  "type": "frame",
+                  "id": "gaFPA",
+                  "x": 132,
+                  "y": 52,
+                  "name": "Tooltip",
+                  "layout": "vertical",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "qQWqD",
+                      "name": "Tooltip Body",
+                      "fill": "$surface/tooltip",
+                      "cornerRadius": 8,
+                      "stroke": "$line",
+                      "strokeWidth": 1,
+                      "strokeAlignment": "inner",
+                      "gap": 8,
+                      "padding": [
+                        6,
+                        10
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "Fm1Um",
+                          "name": "TipText",
+                          "fill": "$ink/primary",
+                          "content": "Cihazlar",
+                          "fontFamily": "$font/ui",
+                          "fontSize": 12,
+                          "fontWeight": "500"
+                        },
+                        {
+                          "type": "text",
+                          "id": "bLyuz",
+                          "x": 52,
+                          "y": 7,
+                          "name": "TipKey",
+                          "enabled": false,
+                          "fill": "$ink/secondary",
+                          "content": "⌘1",
+                          "fontFamily": "$font/ui",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "polygon",
+                      "polygonCount": 3,
+                      "id": "Sh4aD",
+                      "x": 45,
+                      "y": 33,
+                      "name": "Caret",
+                      "enabled": false,
+                      "rotation": 180,
+                      "fill": "$surface/tooltip",
+                      "width": 12,
+                      "height": 6
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "fwRPJ",
+                  "x": 60,
+                  "y": 226,
+                  "name": "Tooltip",
+                  "opacity": 0.45,
+                  "layout": "vertical",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "tlMG7",
+                      "name": "Tooltip Body",
+                      "fill": "$surface/tooltip",
+                      "cornerRadius": 8,
+                      "stroke": "$line",
+                      "strokeWidth": 1,
+                      "strokeAlignment": "inner",
+                      "gap": 8,
+                      "padding": [
+                        6,
+                        10
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "pOK1I",
+                          "name": "TipText",
+                          "fill": "$ink/primary",
+                          "content": "Farklar · 3 bulgu",
+                          "fontFamily": "$font/ui",
+                          "fontSize": 12,
+                          "fontWeight": "500"
+                        },
+                        {
+                          "type": "text",
+                          "id": "Ai5QQ",
+                          "name": "TipKey",
+                          "fill": "$ink/secondary",
+                          "content": "⌥⌘1",
+                          "fontFamily": "$font/ui",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "polygon",
+                      "polygonCount": 3,
+                      "id": "nMGcv",
+                      "x": 45,
+                      "y": 33,
+                      "name": "Caret",
+                      "enabled": false,
+                      "rotation": 180,
+                      "fill": "$surface/tooltip",
+                      "width": 12,
+                      "height": 6
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "V5DheZ",
+          "layout": "vertical",
+          "gap": 10,
+          "children": [
+            {
+              "type": "text",
+              "id": "s4JvNT",
+              "fill": "$ink/primary",
+              "content": "d · Uzun metinlerin kısaltılması",
+              "lineHeight": 1.4,
+              "fontFamily": "$font/ui",
+              "fontSize": 13,
+              "fontWeight": "600"
+            },
+            {
+              "type": "text",
+              "id": "V87o6T",
+              "fill": "$ink/secondary",
+              "textGrowth": "fixed-width",
+              "width": 900,
+              "content": "URL: alan adı korunur, yol ortadan kısalır. Sayfa adı ve sekme adı: sondan “…”, hover'da tam ad tooltip'te. Kart başlığı: §3.2 (önce boyut gizlenir, sonra ad).",
+              "lineHeight": 1.4,
+              "fontFamily": "$font/ui",
+              "fontSize": 11,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "NYxrv",
+              "gap": 32,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "Y6cFBf",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "b0hAW1",
+                      "fill": "$ink/secondary",
+                      "content": "URL alanı (216)",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$font/ui",
+                      "fontSize": 10,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "id": "kD6Ae",
+                      "type": "ref",
+                      "ref": "tzWBu",
+                      "descendants": {
+                        "vYZPa": {
+                          "enabled": false
+                        },
+                        "EDdLy": {
+                          "content": "marka.com/…/keten-gomlek"
+                        },
+                        "FBreJ": {
+                          "enabled": false
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "lFdlg",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "sj37P",
+                      "fill": "$ink/secondary",
+                      "content": "Sayfa satırı + tooltip",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$font/ui",
+                      "fontSize": 10,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "id": "h4Z2m",
+                      "type": "ref",
+                      "ref": "UCIzS",
+                      "descendants": {
+                        "hPpHB": {
+                          "content": "Kampanya · Sonbahar 20…"
+                        }
+                      }
+                    },
+                    {
+                      "type": "frame",
+                      "id": "uUtdW",
+                      "name": "Tooltip",
+                      "layout": "vertical",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "SWmoT",
+                          "name": "Tooltip Body",
+                          "fill": "$surface/tooltip",
+                          "cornerRadius": 8,
+                          "stroke": "$line",
+                          "strokeWidth": 1,
+                          "strokeAlignment": "inner",
+                          "gap": 8,
+                          "padding": [
+                            6,
+                            10
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "jS7Ka",
+                              "name": "TipText",
+                              "fill": "$ink/primary",
+                              "content": "Kampanya · Sonbahar 2026 koleksiyonu",
+                              "fontFamily": "$font/ui",
+                              "fontSize": 12,
+                              "fontWeight": "500"
+                            },
+                            {
+                              "type": "text",
+                              "id": "YNdCr",
+                              "x": 52,
+                              "y": 7,
+                              "name": "TipKey",
+                              "enabled": false,
+                              "fill": "$ink/secondary",
+                              "content": "⌘1",
+                              "fontFamily": "$font/ui",
+                              "fontSize": 11,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "polygon",
+                          "polygonCount": 3,
+                          "id": "HvRq0",
+                          "x": 45,
+                          "y": 33,
+                          "name": "Caret",
+                          "enabled": false,
+                          "rotation": 180,
+                          "fill": "$surface/tooltip",
+                          "width": 12,
+                          "height": 6
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "O8k38c",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "aNGoE",
+                      "fill": "$ink/secondary",
+                      "content": "Sekme (en çok 140 px)",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$font/ui",
+                      "fontSize": 10,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "id": "B3BKcI",
+                      "type": "ref",
+                      "ref": "FpUpU",
+                      "descendants": {
+                        "U4TOHr": {
+                          "content": "iPhone 16 Pro Ma…"
+                        }
+                      }
+                    },
+                    {
+                      "type": "frame",
+                      "id": "ERTsP",
+                      "name": "Tooltip",
+                      "layout": "vertical",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "vk4kC",
+                          "name": "Tooltip Body",
+                          "fill": "$surface/tooltip",
+                          "cornerRadius": 8,
+                          "stroke": "$line",
+                          "strokeWidth": 1,
+                          "strokeAlignment": "inner",
+                          "gap": 8,
+                          "padding": [
+                            6,
+                            10
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "ozFNN",
+                              "name": "TipText",
+                              "fill": "$ink/primary",
+                              "content": "iPhone 16 Pro Max · Chromium",
+                              "fontFamily": "$font/ui",
+                              "fontSize": 12,
+                              "fontWeight": "500"
+                            },
+                            {
+                              "type": "text",
+                              "id": "jqd9N",
+                              "x": 52,
+                              "y": 7,
+                              "name": "TipKey",
+                              "enabled": false,
+                              "fill": "$ink/secondary",
+                              "content": "⌘1",
+                              "fontFamily": "$font/ui",
+                              "fontSize": 11,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "polygon",
+                          "polygonCount": 3,
+                          "id": "EuTss",
+                          "x": 45,
+                          "y": 33,
+                          "name": "Caret",
+                          "enabled": false,
+                          "rotation": 180,
+                          "fill": "$surface/tooltip",
+                          "width": 12,
+                          "height": 6
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "jBQRM",
+          "layout": "vertical",
+          "gap": 10,
+          "children": [
+            {
+              "type": "text",
+              "id": "qqADI",
+              "fill": "$ink/primary",
+              "content": "e · f · Kapsül kuralları ve geri alma",
+              "lineHeight": 1.4,
+              "fontFamily": "$font/ui",
+              "fontSize": 13,
+              "fontWeight": "600"
+            },
+            {
+              "type": "text",
+              "id": "CWXEz",
+              "fill": "$ink/secondary",
+              "textGrowth": "fixed-width",
+              "width": 900,
+              "content": "Aynı anda tek kapsül: yenisi eskisinin yerine geçer (150 ms crossfade). Hata kapsülü başarı kapsülüyle ezilmez; hata kapanana kadar başarı kuyrukta bekler. Kart kapatınca 5 sn “Geri al” (⌘Z de geri alır); süre dolunca kapanış kesinleşir.",
+              "lineHeight": 1.4,
+              "fontFamily": "$font/ui",
+              "fontSize": 11,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "PbxYG",
+              "gap": 24,
+              "alignItems": "center",
+              "children": [
+                {
+                  "id": "YisT0",
+                  "type": "ref",
+                  "ref": "t3Hr4",
+                  "descendants": {
+                    "FtsiU": {
+                      "icon": "x",
+                      "fill": "$ink/secondary"
+                    },
+                    "U5GFa": {
+                      "content": "iPad kapatıldı"
+                    },
+                    "DoC9Q": {
+                      "content": "Geri al"
+                    }
+                  }
+                },
+                {
+                  "type": "icon",
+                  "id": "MDIn3",
+                  "width": 16,
+                  "height": 16,
+                  "icon": "arrow-right",
+                  "library": "lucide",
+                  "fill": "$ink/secondary"
+                },
+                {
+                  "id": "EfY0u",
+                  "type": "ref",
+                  "ref": "t3Hr4",
+                  "stroke": "$status/warning",
+                  "descendants": {
+                    "FtsiU": {
+                      "icon": "triangle-alert",
+                      "fill": "$status/warning"
+                    },
+                    "U5GFa": {
+                      "content": "Masaüstü yakalanamadı"
+                    },
+                    "DoC9Q": {
+                      "content": "Yeniden dene"
+                    }
+                  }
+                },
+                {
+                  "type": "text",
+                  "id": "Mxgnt",
+                  "fill": "$ink/secondary",
+                  "textGrowth": "fixed-width",
+                  "width": 220,
+                  "content": "← hata gelince geri alma kapsülü hemen yerini bırakır; geri alma süresi yine de işler",
+                  "lineHeight": 1.4,
+                  "fontFamily": "$font/ui",
+                  "fontSize": 10,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "fUjIE",
+          "layout": "vertical",
+          "gap": 10,
+          "children": [
+            {
+              "type": "text",
+              "id": "cBv7h",
+              "fill": "$ink/primary",
+              "content": "g · Pencereye bağlantı sürükle-bırak",
+              "lineHeight": 1.4,
+              "fontFamily": "$font/ui",
+              "fontSize": 13,
+              "fontWeight": "600"
+            },
+            {
+              "type": "text",
+              "id": "Q4Do0",
+              "fill": "$ink/secondary",
+              "textGrowth": "fixed-width",
+              "width": 900,
+              "content": "Tarayıcıdan ya da metinden URL sürüklenince canvas 2 px gök iç kenar alır, ortada kapsül; bırakınca adres tüm viewport'larda açılır (sayfa listesine eklenmez; ⌘D ekler).",
+              "lineHeight": 1.4,
+              "fontFamily": "$font/ui",
+              "fontSize": 11,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "i8cgBZ",
+              "width": 560,
+              "height": 220,
+              "fill": "$canvas",
+              "cornerRadius": 10,
+              "stroke": "$status/leader",
+              "strokeWidth": 2,
+              "strokeAlignment": "inner",
+              "layout": "none",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "ratv7",
+                  "x": 24,
+                  "y": 24,
+                  "opacity": 0.5,
+                  "width": 120,
+                  "height": 160,
+                  "fill": "#F7F5F1",
+                  "cornerRadius": 10
+                },
+                {
+                  "type": "frame",
+                  "id": "sTxKU",
+                  "x": 160,
+                  "y": 24,
+                  "opacity": 0.5,
+                  "width": 180,
+                  "height": 160,
+                  "fill": "#F7F5F1",
+                  "cornerRadius": 10
+                },
+                {
+                  "type": "frame",
+                  "id": "TKFSo",
+                  "x": 170,
+                  "y": 92,
+                  "fill": "$surface/header",
+                  "cornerRadius": 14,
+                  "stroke": "$line",
+                  "strokeWidth": 1,
+                  "gap": 8,
+                  "padding": [
+                    8,
+                    14
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "Q3eDG",
+                      "width": 14,
+                      "height": 14,
+                      "icon": "link",
+                      "library": "lucide",
+                      "fill": "$status/leader"
+                    },
+                    {
+                      "type": "text",
+                      "id": "tnaGw",
+                      "fill": "$ink/primary",
+                      "content": "Bu adresi aç",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$font/ui",
+                      "fontSize": 12,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "qOWII",
+                      "fill": "$ink/secondary",
+                      "content": "marka.com/kampanya",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$font/ui",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "icon",
+                  "id": "DNrE0",
+                  "x": 400,
+                  "y": 130,
+                  "width": 20,
+                  "height": 20,
+                  "icon": "mouse-pointer-2",
+                  "library": "lucide",
+                  "fill": "#F4EFE9"
+                },
+                {
+                  "type": "frame",
+                  "id": "IBjAp",
+                  "x": 414,
+                  "y": 146,
+                  "fill": "$surface/card",
+                  "cornerRadius": 6,
+                  "stroke": "$line",
+                  "strokeWidth": 1,
+                  "padding": [
+                    3,
+                    8
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "DnYRx",
+                      "fill": "$ink/secondary",
+                      "content": "marka.com/kampanya",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$font/ui",
+                      "fontSize": 10,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "Yjxgw",
+          "layout": "vertical",
+          "gap": 10,
+          "children": [
+            {
+              "type": "text",
+              "id": "cU9JN",
+              "fill": "$ink/primary",
+              "content": "h · Sayfada senkron kurulamıyor",
+              "lineHeight": 1.4,
+              "fontFamily": "$font/ui",
+              "fontSize": 13,
+              "fontWeight": "600"
+            },
+            {
+              "type": "text",
+              "id": "P8kY8O",
+              "fill": "$ink/secondary",
+              "textGrowth": "fixed-width",
+              "width": 900,
+              "content": "Sayfa ajanı kabul etmiyorsa (CSP, sandbox, about:blank, PDF): başlıkta gri ‖ + tooltip “Bu sayfada senkron çalışmıyor”; hover şeridinde zincir pasif; kapsül yalnız ilk seferde. Kullanıcının kapattığı senkronla aynı işaret, farklı tooltip.",
+              "lineHeight": 1.4,
+              "fontFamily": "$font/ui",
+              "fontSize": 11,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "Py3m2",
+              "gap": 24,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "NA3WR",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "id": "JYGcV",
+                      "type": "ref",
+                      "ref": "Ngw0t",
+                      "descendants": {
+                        "PRv7d": {
+                          "content": "393×852"
+                        },
+                        "vO1MI": {
+                          "enabled": true,
+                          "icon": "pause",
+                          "fill": "$ink/secondary"
+                        },
+                        "zTEI3": {
+                          "height": 200
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "Nje9F",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "padding": [
+                    8,
+                    0,
+                    0,
+                    0
+                  ],
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "GqA26",
+                      "name": "Tooltip",
+                      "layout": "vertical",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "JZNdv",
+                          "name": "Tooltip Body",
+                          "fill": "$surface/tooltip",
+                          "cornerRadius": 8,
+                          "stroke": "$line",
+                          "strokeWidth": 1,
+                          "strokeAlignment": "inner",
+                          "gap": 8,
+                          "padding": [
+                            6,
+                            10
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "AZtdt",
+                              "name": "TipText",
+                              "fill": "$ink/primary",
+                              "content": "Bu sayfada senkron çalışmıyor",
+                              "fontFamily": "$font/ui",
+                              "fontSize": 12,
+                              "fontWeight": "500"
+                            },
+                            {
+                              "type": "text",
+                              "id": "zPUyn",
+                              "x": 52,
+                              "y": 7,
+                              "name": "TipKey",
+                              "enabled": false,
+                              "fill": "$ink/secondary",
+                              "content": "⌘1",
+                              "fontFamily": "$font/ui",
+                              "fontSize": 11,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "polygon",
+                          "polygonCount": 3,
+                          "id": "guM4s",
+                          "x": 45,
+                          "y": 33,
+                          "name": "Caret",
+                          "enabled": false,
+                          "rotation": 180,
+                          "fill": "$surface/tooltip",
+                          "width": 12,
+                          "height": 6
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "i8RpSR",
+                      "fill": "$ink/secondary",
+                      "content": "↑ ‖ üstünde",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$font/ui",
+                      "fontSize": 10,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "id": "l51Ro",
+                      "type": "ref",
+                      "ref": "t3Hr4",
+                      "descendants": {
+                        "FtsiU": {
+                          "icon": "info",
+                          "fill": "$ink/secondary"
+                        },
+                        "U5GFa": {
+                          "content": "Bu sayfada senkron çalışmıyor"
+                        },
+                        "DoC9Q": {
+                          "content": "Neden?"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "feUuS",
+          "layout": "vertical",
+          "gap": 10,
+          "children": [
+            {
+              "type": "text",
+              "id": "Zmngj",
+              "fill": "$ink/primary",
+              "content": "i · Grup başlığı menüsü",
+              "lineHeight": 1.4,
+              "fontFamily": "$font/ui",
+              "fontSize": 13,
+              "fontWeight": "600"
+            },
+            {
+              "type": "text",
+              "id": "h4ZIO",
+              "fill": "$ink/secondary",
+              "textGrowth": "fixed-width",
+              "width": 900,
+              "content": "Başlık hover'ında ⋯ belirir; sağ tık da açar.",
+              "lineHeight": 1.4,
+              "fontFamily": "$font/ui",
+              "fontSize": 11,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "jirvK",
+              "width": 360,
+              "height": 200,
+              "fill": "$canvas",
+              "cornerRadius": 10,
+              "stroke": "$line",
+              "strokeWidth": 1,
+              "layout": "none",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "d0fgwO",
+                  "x": 16,
+                  "y": 16,
+                  "width": 328,
+                  "height": 168,
+                  "fill": "#FFFFFF05",
+                  "cornerRadius": 16,
+                  "stroke": "$line",
+                  "strokeWidth": 1,
+                  "layout": "none",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "rAUOR",
+                      "x": 12,
+                      "y": 10,
+                      "name": "Group Header",
+                      "gap": 6,
+                      "padding": [
+                        2,
+                        4
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "xdoIY",
+                          "width": 12,
+                          "height": 12,
+                          "icon": "chevron-down",
+                          "library": "lucide",
+                          "fill": "$ink/secondary"
+                        },
+                        {
+                          "type": "text",
+                          "id": "mni5T",
+                          "fill": "$ink/secondary",
+                          "content": "TELEFON",
+                          "fontFamily": "$font/ui",
+                          "fontSize": 10,
+                          "fontWeight": "600",
+                          "letterSpacing": 0.8
+                        },
+                        {
+                          "type": "text",
+                          "id": "K03ABZ",
+                          "fill": "$ink/secondary",
+                          "content": "2",
+                          "fontFamily": "$font/ui",
+                          "fontSize": 10,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "icon",
+                          "id": "u3mZSn",
+                          "width": 12,
+                          "height": 12,
+                          "icon": "ellipsis",
+                          "library": "lucide",
+                          "fill": "$ink/primary"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "vcc5P",
+                  "x": 110,
+                  "y": 46,
+                  "name": "Menu",
+                  "width": 200,
+                  "fill": "$surface/header",
+                  "cornerRadius": 10,
+                  "stroke": "$line",
+                  "strokeWidth": 1,
+                  "effect": {
+                    "type": "shadow",
+                    "shadowType": "outer",
+                    "color": "#00000066",
+                    "offset": {
+                      "x": 0,
+                      "y": 8
+                    },
+                    "blur": 24
+                  },
+                  "layout": "vertical",
+                  "gap": 2,
+                  "padding": 6,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "yPXPp",
+                      "width": "fill_container",
+                      "fill": "$surface/header-leader",
+                      "cornerRadius": 6,
+                      "gap": 8,
+                      "padding": [
+                        6,
+                        10
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "S40Oi",
+                          "fill": "$ink/primary",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Katla",
+                          "lineHeight": 1.4,
+                          "fontFamily": "$font/ui",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "pB5wu",
+                      "width": "fill_container",
+                      "cornerRadius": 6,
+                      "gap": 8,
+                      "padding": [
+                        6,
+                        10
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "w8sC7h",
+                          "fill": "$ink/primary",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Grubu sığdır",
+                          "lineHeight": 1.4,
+                          "fontFamily": "$font/ui",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "rectangle",
+                      "id": "savwh",
+                      "fill": "$line",
+                      "width": "fill_container",
+                      "height": 1
+                    },
+                    {
+                      "type": "frame",
+                      "id": "w4NMgo",
+                      "width": "fill_container",
+                      "cornerRadius": 6,
+                      "gap": 8,
+                      "padding": [
+                        6,
+                        10
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "OnvEg",
+                          "fill": "$status/warning",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Gruptakileri kapat",
+                          "lineHeight": 1.4,
+                          "fontFamily": "$font/ui",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "TCwMf",
+          "layout": "vertical",
+          "gap": 10,
+          "children": [
+            {
+              "type": "text",
+              "id": "A01qF",
+              "fill": "$ink/primary",
+              "content": "j · Çoklu seçim (MVP dışı önerisi)",
+              "lineHeight": 1.4,
+              "fontFamily": "$font/ui",
+              "fontSize": 13,
+              "fontWeight": "600"
+            },
+            {
+              "type": "text",
+              "id": "Kc71U",
+              "fill": "$ink/secondary",
+              "textGrowth": "fixed-width",
+              "width": 900,
+              "content": "⇧ tık ile birden çok kart seçilir; birlikte sürüklenir, ⌫ hepsini kapatır, ⌘2 seçimi sığdırır. Alt çubuğun üstünde “2 seçili” etiketi. MVP'de yok.",
+              "lineHeight": 1.4,
+              "fontFamily": "$font/ui",
+              "fontSize": 11,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "JJoGs",
+              "gap": 24,
+              "alignItems": "end",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "sUTTg",
+                  "cornerRadius": 15,
+                  "stroke": "$ink/primary",
+                  "strokeWidth": 1.5,
+                  "padding": 3,
+                  "children": [
+                    {
+                      "id": "yKdOk",
+                      "type": "ref",
+                      "ref": "Ngw0t",
+                      "descendants": {
+                        "ObOub": {
+                          "content": "iPhone 16"
+                        },
+                        "PRv7d": {
+                          "content": "393×852"
+                        },
+                        "zTEI3": {
+                          "height": 200
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "JGixj",
+                  "cornerRadius": 15,
+                  "stroke": "$ink/primary",
+                  "strokeWidth": 1.5,
+                  "padding": 3,
+                  "children": [
+                    {
+                      "id": "uEkl0",
+                      "type": "ref",
+                      "ref": "Ngw0t",
+                      "descendants": {
+                        "ObOub": {
+                          "content": "iPad"
+                        },
+                        "PRv7d": {
+                          "content": "820×1180"
+                        },
+                        "zTEI3": {
+                          "height": 240
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "C4n1n",
+                  "fill": "$surface/header",
+                  "cornerRadius": 8,
+                  "stroke": "$line",
+                  "strokeWidth": 1,
+                  "padding": [
+                    4,
+                    10
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "WC2Ai",
+                      "fill": "$ink/primary",
+                      "content": "2 seçili",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$font/ui",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
                     }
                   ]
                 }
