@@ -25,7 +25,7 @@
 | 6 | Örnek sayfa HTML'i | ✅ | 2026-10-13 | f223f0f |
 | 7 | Etkileşim tablolarına id, ekran başına bölme | ✅ | 2026-10-13 | 162a467 |
 | 8 | Parite döngüsü protokolü | ⬜ | | |
-| 9 | SwiftUI iskelet üretimi (deneme, isteğe bağlı) | ⬜ | | |
+| 9 | SwiftUI iskelet üretimi (deneme, isteğe bağlı) | 🟡 | | (bu commit) |
 
 Durum: ⬜ başlanmadı · 🟡 sürüyor · ✅ bitti · ⛔ vazgeçildi (nedeni raporda)
 
@@ -76,6 +76,7 @@ Durum: ⬜ başlanmadı · 🟡 sürüyor · ✅ bitti · ⛔ vazgeçildi (neden
 
 ## Açık sorular
 
+- Aşama 9: kabulün ikinci yarısı (kod oturumu "işe yarar" der) kod oturumunda; istek `KOD-OTURUMU-ISLERI.md` §14. Yaramazsa ⛔ ve nedeni rapora.
 - Aşama 3: kabulün son maddesi (kod oturumu `BottomBar`'ı PNG'siz kurar) kod oturumunda; istek `KOD-OTURUMU-ISLERI.md` §14. Yanıt gelince 3 → ✅.
 
 ## Oturum raporları
@@ -135,3 +136,11 @@ Yalnızca eklenir. Biçim: `### YYYY-MM-DD · <aşamalar>` altında: yapılan, k
 - Kanıt: WebKit (`WKWebView`, Safari'nin motoru; Safari uygulaması değil) ile 393 / 820 / 1440 genişlikte görüntü, üst 900 px `design/fixtures/renders/sample-product-<genişlik>.png`. Ölçüm: 393 → `.price fw=600`, `.product-title lh=36px`; 820 ve 1440 → `fw=500`, `lh=34px`; sayfa yüksekliği 2132 / 2656 / 2102 px (her genişlikte ≥ 640 px kaydırma, Senkron örneğindeki "scroll 640 px").
 - Düzeltme: ilk sürümde masaüstü iki sütundu ve üstte site çubuğu vardı; kartlardaki çizim tek sütun ve görselle başlıyor → tek sütuna döndü, gezinme alta indi.
 - Sonraki adım: 8 (parite döngüsü) kod oturumunun ilk ekranını bekliyor; 3'ün kabulü `BottomBar` denemesini bekliyor. 9 isteğe bağlı.
+
+### 2026-10-13 · aşama 9 (deneme)
+- Yapılan: `gen_skeleton.py` (spec JSON → SwiftUI): katman ağacı → `HStack`/`VStack`/`ZStack`, padding/spacing/köşe/renk/yazı `DesignTokens` üyeleri (ham sayılar literal), ikonlar `icons.md` eşlemesinden (`build_icons.MAP`), her metin ve ikon katmanı için init parametresi + kök `background`/`padding` (instance override'ları bunlarla geçer), çizili durumlardan `State` enum'u ve override'lardan ternary'ler; içteki bileşenler de üretilir. Çıktı: `skeleton/BottomBar.swift`, `ChromeButton.swift`, `ZoomControl.swift`, `SkeletonSymbol.swift` (özel sembol yardımcı görünümü).
+- Kanıt: `swiftc -typecheck skeleton/*.swift ../tokens/DesignTokens.swift` temiz. `ImageRenderer` ile dört durum (senkron açık / kapalı / hover / menü açık) çizildi: her biri 210×49, tasarımla aynı. Yan yana görüntü `skeleton/BottomBar-compare@2x.png` (sol tasarım, sağ iskelet).
+- Takılan: ilk sürüm `ChromeButton`'ın "+ Cihaz" örneğini durum sandı ve varsayılan ikonu `plus`'a zorladı (Sığdır düğmesi `plus` gösterecekti). Düzeltme: yalnız veri (metin, ikon, boyut) değiştiren örnekler durum sayılmıyor; tek kalan varsayılan görünümse enum üretilmiyor.
+- Bulgular (parite için): (1) SF Symbols aynı puntoda Lucide'den belirgin iri; uygulamada ikon boyutu küçültülmeli, oran görsel karar (kullanıcıya). (2) Senkron kapalı ikonu boş: `link.slash` özel sembolü Assets'e eklenince görünür. (3) Metinler SF Pro, tasarım Inter vekili; genişlikler aynı çıktı.
+- Sınırlar: durumlar tek enum (spec frame'lerindeki gibi); gerçek uygulamada senkron açık/kapalı ile düğme hover'ı bağımsız durumlar olmalı. Tooltip gibi yanına çizilen parçalar üretilmiyor, yorumda listeleniyor. Davranış (tık, menü) yok.
+- Sonraki adım: kod oturumunun değerlendirmesi → ✅ ya da ⛔.
