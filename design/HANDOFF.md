@@ -31,7 +31,7 @@ Yok (2026-10-13). MVP ve M3 kapsamı çizildi, onaylandı ve koda aktarıldı (`
 
 ## Sürmekte olan iş: aktarım paketi
 
-Plan ve ilerleme: `design/handoff/PLAN.md` ([[PLAN]]). Aşama 0–2 bitti; 3 (bileşen spec'leri) kod oturumunun `BottomBar` denemesini bekliyor (`KOD-OTURUMU-ISLERI.md` §14); 5 (ikon eşleme), 4 (CHK, hepsi PASS) ve 7 (etkileşim id'leri, 80 satır) bitti; sırada 6 (örnek sayfa HTML'i). Birden çok oturuma yayılır; yeni oturum önce o dosyayı okur ve ilk tamamlanmamış aşamadan devam eder.
+Plan ve ilerleme: `design/handoff/PLAN.md` ([[PLAN]]). Aşama 0–2 bitti; 3 (bileşen spec'leri) kod oturumunun `BottomBar` denemesini bekliyor (`KOD-OTURUMU-ISLERI.md` §14); 5 (ikon eşleme), 4 (CHK, hepsi PASS), 7 (etkileşim id'leri, 80 satır) ve 6 (örnek sayfa) bitti; 8 (parite) kod oturumunun ilk ekranını, 3'ün kabulü `BottomBar` denemesini bekliyor; 9 isteğe bağlı. Birden çok oturuma yayılır; yeni oturum önce o dosyayı okur ve ilk tamamlanmamış aşamadan devam eder.
 
 ## Oturum başında oku
 

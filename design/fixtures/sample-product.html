@@ -1,0 +1,127 @@
+<!doctype html>
+<!--
+  Viewportix sample page — the "Keten Gömlek ₺1.290" product page drawn inside every viewport card
+  (design/viewportix.pen › Viewport/Card › Page). Used by the design to show sync and DOM-diff examples;
+  copy to Packages/ViewportixKit/Tests/Fixtures/ (code session) and load it in every engine.
+
+  Selectors the design refers to (DESIGN.md §3.4, Dev Panel frames):
+    .product-title  .price  .add-to-cart  .size-m  #qty  — and at least 640 px to scroll at every width.
+  Responsive differences on purpose, so the Farklar panel has something to show (iPad = baseline):
+    phone (< 600 px)      .price weight 600 (tablet 500), .product-title line-height +2 px, .add-to-cart lower
+    image height 200 / 280 / 340 px (phone / tablet / desktop), one column everywhere as in the cards
+  Add ?missing-cart to the URL to drop .add-to-cart on desktop widths (reproduces "Masaüstü kaçırdı").
+-->
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Keten Gömlek · Marka</title>
+<style>
+  :root {
+    --page: #FAF8F5;
+    --image: #E6E1DA;
+    --ink: #1D1B19;
+    --muted: #6E6760;
+    --line: #E6E1DA;
+    --button: #1D1B19;
+    --button-ink: #FAF8F5;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--page); color: var(--ink); }
+  body { font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Inter", system-ui, sans-serif; }
+  main { padding: 24px 24px 48px; }
+  .product { display: flex; flex-direction: column; gap: 18px; }
+  .product-image { width: 100%; height: 200px; background: var(--image); border-radius: 6px; }
+  .product-info { display: flex; flex-direction: column; gap: 10px; }
+  .product-title { margin: 0; font-size: 28px; line-height: 34px; font-weight: 600; }
+  .price { margin: 0; font-size: 20px; font-weight: 500; color: var(--muted); }
+  .sizes { display: flex; gap: 8px; margin-top: 8px; }
+  .sizes button { min-width: 44px; height: 40px; border: 1px solid var(--line); border-radius: 6px; background: transparent; color: var(--ink); font: inherit; font-size: 14px; }
+  .sizes .size-m { border-color: var(--ink); }
+  .qty { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--muted); }
+  #qty { width: 64px; height: 40px; padding: 0 10px; border: 1px solid var(--line); border-radius: 6px; font: inherit; background: #fff; }
+  .add-to-cart { height: 48px; margin-top: 8px; border: 0; border-radius: 8px; background: var(--button); color: var(--button-ink); font: inherit; font-weight: 600; cursor: pointer; }
+  .details { margin-top: 40px; border-top: 1px solid var(--line); padding-top: 24px; color: var(--muted); }
+  .details h2, .related h2 { color: var(--ink); font-size: 18px; margin: 0 0 8px; }
+  .related { margin-top: 40px; }
+  .related ul { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .related li .thumb { aspect-ratio: 3 / 4; background: var(--image); border-radius: 6px; }
+  .related li p { margin: 6px 0 0; font-size: 14px; }
+
+  .reviews { margin-top: 40px; }
+  .reviews ol { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 16px; }
+  .reviews li { padding: 16px; border: 1px solid var(--line); border-radius: 8px; font-size: 14px; }
+  .reviews li p { margin: 6px 0 0; color: var(--muted); }
+  .site-footer { padding: 32px 24px 120px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; text-align: center; }
+  .site-footer nav a { color: var(--muted); margin: 0 8px; }
+
+  /* phone */
+  @media (max-width: 599px) {
+    .product-title { line-height: 36px; }
+    .price { font-weight: 600; }
+    .add-to-cart { margin-top: 20px; }
+  }
+  /* tablet */
+  @media (min-width: 600px) {
+    .product-image { height: 280px; }
+  }
+  /* desktop */
+  @media (min-width: 1024px) {
+    main { padding: 32px 40px 64px; }
+    .product-image { height: 340px; }
+    .product-info { max-width: 560px; }
+    .related ul { grid-template-columns: repeat(4, 1fr); }
+  }
+</style>
+</head>
+<body>
+  <main>
+    <section class="product">
+      <div class="product-image" role="img" aria-label="Keten gömlek"></div>
+      <div class="product-info">
+        <h1 class="product-title">Keten Gömlek</h1>
+        <p class="price">₺1.290</p>
+        <div class="sizes" role="group" aria-label="Beden">
+          <button class="size-s" type="button">S</button>
+          <button class="size-m" type="button" aria-pressed="true">M</button>
+          <button class="size-l" type="button">L</button>
+        </div>
+        <label class="qty">Adet <input id="qty" type="number" min="1" value="1"></label>
+        <button class="add-to-cart" type="button">Sepete ekle</button>
+      </div>
+    </section>
+    <section class="details">
+      <h2>Ürün bilgisi</h2>
+      <p>%100 keten, rahat kesim. Yıkamadan sonra hafif buruşukluk doğaldır. 30 °C'de yıkayın, ters çevirerek ütüleyin.</p>
+      <p>Model 1,82 m boyunda ve M beden giyiyor. Kargo 2–4 iş günü; 30 gün içinde ücretsiz iade.</p>
+    </section>
+    <section class="related">
+      <h2>Bunlar da hoşunuza gidebilir</h2>
+      <ul>
+        <li><div class="thumb"></div><p>Keten Pantolon · ₺1.490</p></li>
+        <li><div class="thumb"></div><p>Pamuk Tişört · ₺590</p></li>
+        <li><div class="thumb"></div><p>Hasır Şapka · ₺690</p></li>
+        <li><div class="thumb"></div><p>Bez Çanta · ₺450</p></li>
+      </ul>
+    </section>
+    <section class="reviews">
+      <h2>Yorumlar (4)</h2>
+      <ol>
+        <li><strong>Ayşe K.</strong> · ★★★★★<p>Kumaşı çok iyi, bir beden büyük aldım, rahat oldu.</p></li>
+        <li><strong>Mert D.</strong> · ★★★★☆<p>Rengi fotoğraftakinden biraz daha açık ama güzel.</p></li>
+        <li><strong>Zeynep A.</strong> · ★★★★★<p>Yazın tam aradığım gömlek, ikinci rengini de aldım.</p></li>
+        <li><strong>Can Y.</strong> · ★★★☆☆<p>Kollar biraz uzun geldi, iade süreci kolaydı.</p></li>
+      </ol>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <nav><a href="#">Ana sayfa</a><a href="#" aria-current="page">Ürün</a><a href="#">Sepet</a></nav>
+    <p>© 2026 Marka · Yardım · İade ve değişim · Gizlilik</p>
+  </footer>
+  <script>
+    if (location.search.includes("missing-cart") && matchMedia("(min-width: 1024px)").matches) {
+      document.querySelector(".add-to-cart").remove();
+    }
+  </script>
+</body>
+</html>

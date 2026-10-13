@@ -22,8 +22,8 @@
 | 3 | Bileşen spec'leri (ölçülü katman ağacı) | 🟡 | | 36fa3fa, 2ed5d9d |
 | 4 | CHK tutarlılık kontrolleri | ✅ | 2026-10-13 | f717fc8 |
 | 5 | İkon eşleme (Lucide → SF Symbols) | ✅ | 2026-10-13 | 13e2899 |
-| 6 | Örnek sayfa HTML'i | ⬜ | | |
-| 7 | Etkileşim tablolarına id, ekran başına bölme | ✅ | 2026-10-13 | (bu commit) |
+| 6 | Örnek sayfa HTML'i | ✅ | 2026-10-13 | (bu commit) |
+| 7 | Etkileşim tablolarına id, ekran başına bölme | ✅ | 2026-10-13 | 162a467 |
 | 8 | Parite döngüsü protokolü | ⬜ | | |
 | 9 | SwiftUI iskelet üretimi (deneme, isteğe bağlı) | ⬜ | | |
 
@@ -129,3 +129,9 @@ Yalnızca eklenir. Biçim: `### YYYY-MM-DD · <aşamalar>` altında: yapılan, k
 - Kanıt: dönüşüm sonrası eski 80 satırın 80'i yeni tablolarda birebir (script denetimi, eksik 0); `grep -c "^| [A-Z]*-[0-9][0-9] |" DESIGN.md` → 80; `build_manifest.py` → `openQuestions=0`.
 - Plandan sapma: planda "120+ satır" tahmini vardı, gerçek sayı 80. Menü çubuğu tablosu (§3.2.1) tetikleyici–etki tablosu değil, kısayol kaynağı; id almadı.
 - Sonraki adım: aşama 6 (örnek sayfa HTML'i).
+
+### 2026-10-13 · aşama 6
+- Yapılan: `design/fixtures/sample-product.html` (tek dosya, gömülü CSS): kartlardaki "Keten Gömlek ₺1.290" sayfası; tek sütun (görsel 200 / 280 / 340 px, başlık, fiyat), altında beden (`.size-m`), adet (`#qty`), `.add-to-cart`, ürün bilgisi, öneriler, yorumlar, gezinme linkleri. Dev Panel çizimlerindeki seçicilerin hepsi var. Farklar paneli için bilinçli farklar: telefonda `.price` 600 (tablette 500), `.product-title` satır yüksekliği +2 px, `.add-to-cart` daha aşağıda; `?missing-cart` masaüstünde düğmeyi kaldırır ("Masaüstü kaçırdı" örneği).
+- Kanıt: WebKit (`WKWebView`, Safari'nin motoru; Safari uygulaması değil) ile 393 / 820 / 1440 genişlikte görüntü, üst 900 px `design/fixtures/renders/sample-product-<genişlik>.png`. Ölçüm: 393 → `.price fw=600`, `.product-title lh=36px`; 820 ve 1440 → `fw=500`, `lh=34px`; sayfa yüksekliği 2132 / 2656 / 2102 px (her genişlikte ≥ 640 px kaydırma, Senkron örneğindeki "scroll 640 px").
+- Düzeltme: ilk sürümde masaüstü iki sütundu ve üstte site çubuğu vardı; kartlardaki çizim tek sütun ve görselle başlıyor → tek sütuna döndü, gezinme alta indi.
+- Sonraki adım: 8 (parite döngüsü) kod oturumunun ilk ekranını bekliyor; 3'ün kabulü `BottomBar` denemesini bekliyor. 9 isteğe bağlı.
