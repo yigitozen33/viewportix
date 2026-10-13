@@ -4,6 +4,8 @@
 
 Tür: **1:1** aynı anlam ve şekil · **yakın** aynı anlam, şekil biraz farklı · **öneri** birebir karşılık yok, öneri (onaylandı, DESIGN.md §4 2026-10-13) · **özel** Assets'e özel sembol gerekir · **sistem** sembol değil, AppKit çizer.
 
+**Boyut:** SF Symbol puntosu = tasarımdaki Lucide kutusu × 0.875, ağırlık regular (16 → 14 pt, 14 → 12,25, 10 → 8,75); aynı puntoda SF Symbols Lucide'den iri görünür. Karşılaştırma `skeleton/icon-size-options@2x.png`, karar DESIGN.md §4 (2026-10-13).
+
 SF adları macOS 26'da `NSImage(systemSymbolName:)` ile doğrulandı (`python3 build_icons.py --verify`).
 
 | Nerede | Lucide | SF Symbol | Tür | Not | Kaynak (bileşen · ekran) |
@@ -22,7 +24,6 @@ SF adları macOS 26'da `NSImage(systemSymbolName:)` ile doğrulandı (`python3 b
 | Kaldır › Listeden kaldır | `list-x` | `text.badge.xmark` | yakın |  | Home Window ×1 |
 | Ray › Rayı gizle | `panel-right-close` | `sidebar.right` | yakın | SF'de aç/kapa ayrımı yok; aynı sembol. | `Window/Rail`, Dev Panel ×3, Project Window ×21, 2 durum frame'i |
 | Ray tutamacı › Rayı göster | `panel-right-open` | `sidebar.right` | yakın | SF'de aç/kapa ayrımı yok; aynı sembol. | `Window/RailHandle`, Project Window ×1, 1 durum frame'i |
-| Ray › MCP | `plug` | `powerplug` | yakın |  | `Window/Rail`, Dev Panel ×3, Home Window ×1, Project Window ×21, 2 durum frame'i |
 | Aramada sonuç yok | `search-x` | `magnifyingglass` | yakın | SF'de çarpılı büyüteç yok. | 1 durum frame'i |
 | Boyut popover'ı › en ↔ boy | `arrow-left-right` | `arrow.left.arrow.right` | 1:1 |  | 1 durum frame'i |
 | URL kutusu › Aç → | `arrow-right` | `arrow.right` | 1:1 |  | `Home/URLBox`, Home Window ×6, 2 durum frame'i |
@@ -55,6 +56,7 @@ SF adları macOS 26'da `NSImage(systemSymbolName:)` ile doğrulandı (`python3 b
 | Kenar çubuğu düğmesi (kapsülde) | `panel-left` | `sidebar.left` | 1:1 |  | `Window/CollapsedHeader`, Project Window ×2, 1 durum frame'i |
 | Kart başlığı › senkron kapalı ‖ | `pause` | `pause` | 1:1 |  | 2 durum frame'i |
 | Yeniden adlandır | `pencil` | `pencil` | 1:1 |  | Home Window ×2, 1 durum frame'i |
+| Ray › MCP | `plug` | `powerplug.portrait` | 1:1 | Dikey fiş, Lucide ile aynı yön (DESIGN.md §4). | `Window/Rail`, Dev Panel ×3, Home Window ×1, Project Window ×21, 2 durum frame'i |
 | + Cihaz, + Ekle, + Yeni | `plus` | `plus` | 1:1 |  | `Device/Picker`, `Toolbar/Button`, `Window/DeviceStrip`, Dev Panel ×3, Home Window ×6, Project Window ×22, 4 durum frame'i |
 | Sidebar nav › Yenile | `rotate-cw` | `arrow.clockwise` | 1:1 |  | `Sidebar/Header`, `Window/CollapsedHeader`, Dev Panel ×3, Project Window ×22, 2 durum frame'i |
 | Cihaz seçici › Özel boyut | `ruler` | `ruler` | 1:1 |  | `Device/Picker`, Project Window ×2 |

@@ -28,8 +28,7 @@ public struct BottomBar: View {
         HStack(alignment: .center, spacing: DesignTokens.Space.s2) {  // Window/BottomBar
             HStack(alignment: .center, spacing: 6) {  // Sync Toggle
                 if let syncIcon {
-                    SkeletonSymbol(name: (state == .senkronKapali ? "link.slash" : syncIcon))
-                        .font(.system(size: syncIconSize))
+                    SkeletonSymbol(name: (state == .senkronKapali ? "link.slash" : syncIcon), size: syncIconSize)
                         .frame(width: syncIconSize, height: syncIconSize)
                         .foregroundStyle((state == .senkronKapali ? DesignTokens.Color.inkSecondary : DesignTokens.Color.accentInk))
                 }

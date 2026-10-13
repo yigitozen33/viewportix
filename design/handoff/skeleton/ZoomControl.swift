@@ -30,8 +30,7 @@ public struct ZoomControl: View {
             VStack(alignment: .leading, spacing: 1) {  // Stepper
                 HStack(alignment: .center, spacing: 0) {  // Up
                     if let upIcon {
-                        SkeletonSymbol(name: upIcon)
-                            .font(.system(size: upIconSize))
+                        SkeletonSymbol(name: upIcon, size: upIconSize)
                             .frame(width: upIconSize, height: upIconSize)
                             .foregroundStyle(DesignTokens.Color.inkSecondary)
                     }
@@ -40,8 +39,7 @@ public struct ZoomControl: View {
                 .background(DesignTokens.Color.surfacePill, in: RoundedRectangle(cornerRadius: 0, style: .continuous))
                 HStack(alignment: .center, spacing: 0) {  // Down
                     if let downIcon {
-                        SkeletonSymbol(name: downIcon)
-                            .font(.system(size: downIconSize))
+                        SkeletonSymbol(name: downIcon, size: downIconSize)
                             .frame(width: downIconSize, height: downIconSize)
                             .foregroundStyle(DesignTokens.Color.inkSecondary)
                     }

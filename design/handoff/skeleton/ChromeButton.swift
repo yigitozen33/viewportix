@@ -19,8 +19,7 @@ public struct ChromeButton: View {
     public var body: some View {
         HStack(alignment: .center, spacing: 6) {  // Toolbar/Button
             if let icon {
-                SkeletonSymbol(name: icon)
-                    .font(.system(size: iconSize))
+                SkeletonSymbol(name: icon, size: iconSize)
                     .frame(width: iconSize, height: iconSize)
                     .foregroundStyle(DesignTokens.Color.inkPrimary)
             }

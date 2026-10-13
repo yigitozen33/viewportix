@@ -63,7 +63,7 @@ MAP = {
     "panel-right-open": ("Ray tutamacı › Rayı göster", "sidebar.right", "yakın", "SF'de aç/kapa ayrımı yok; aynı sembol."),
     "pause": ("Kart başlığı › senkron kapalı ‖", "pause", "1:1", ""),
     "pencil": ("Yeniden adlandır", "pencil", "1:1", ""),
-    "plug": ("Ray › MCP", "powerplug", "yakın", ""),
+    "plug": ("Ray › MCP", "powerplug.portrait", "1:1", "Dikey fiş, Lucide ile aynı yön (DESIGN.md §4)."),
     "plus": ("+ Cihaz, + Ekle, + Yeni", "plus", "1:1", ""),
     "rotate-ccw": ("Hover şeridi › Döndür", "rectangle.portrait.rotate", "öneri", "`arrow.counterclockwise` Geri al ile karışır; cihaz döndürme sembolü daha açık."),
     "rotate-cw": ("Sidebar nav › Yenile", "arrow.clockwise", "1:1", ""),
@@ -118,6 +118,8 @@ def main():
          "Arşiv dışı tüm görünür ikon düğümleri, instance içleri dahil.", "",
          "Tür: **1:1** aynı anlam ve şekil · **yakın** aynı anlam, şekil biraz farklı · **öneri** birebir karşılık yok, öneri "
          "(onaylandı, DESIGN.md §4 2026-10-13) · **özel** Assets'e özel sembol gerekir · **sistem** sembol değil, AppKit çizer.", "",
+         "**Boyut:** SF Symbol puntosu = tasarımdaki Lucide kutusu × 0.875, ağırlık regular (16 → 14 pt, 14 → 12,25, 10 → 8,75); "
+         "aynı puntoda SF Symbols Lucide'den iri görünür. Karşılaştırma `skeleton/icon-size-options@2x.png`, karar DESIGN.md §4 (2026-10-13).", "",
          ("SF adları macOS 26'da `NSImage(systemSymbolName:)` ile doğrulandı (`python3 build_icons.py --verify`)."
           if checked else "SF adları bu çalıştırmada doğrulanmadı (`--verify` yok)."), "",
          "| Nerede | Lucide | SF Symbol | Tür | Not | Kaynak (bileşen · ekran) |", "|---|---|---|---|---|---|"]

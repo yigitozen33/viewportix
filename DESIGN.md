@@ -333,6 +333,8 @@ Sağ raydan açılır, canvas'ı iter (320 px). Tasarım ilkesi: **sakin ama tek
 | Cihaz seçicinin motor sütununda da kart başlığındaki motor glifleri (`Engine Glyphs`) kullanılır; Lucide yer tutucuları (pusula, kesikli halka, alev) kaldırıldı | 2026-10-13 |
 | Token'a eşit ham değer kuralı ekranlara da uygulandı (138 yazı boyutu, 13 renk, 19 boş dolgu); grup alanı zemini yeni token `surface/group` (koyu `#FFFFFF05`, açık `#0000000A`); "Drag hint" zemini `surface/tooltip`'e bağlandı (`#0E0D0C` → `#0B0A09`). Elenen: grup zemini ham kalsın | 2026-10-13 |
 | Belgeleme panoları (`Design System · Tokens`, `Shortcut Map`, `Engine Glyphs`, `App Icon · B variants`) ve keşif `Selected Options` CHK-1 (token dışı değer) dışında; arayüz frame'leri için kural sıkı | 2026-10-13 |
+| SF Symbols boyutu: punto = tasarımdaki Lucide kutusu × 0.875, ağırlık regular (B; 16 → 14 pt, 14 → 12,25). Aynı puntoda SF Symbols Lucide'den iri görünüyor; karşılaştırma `design/handoff/skeleton/icon-size-options@2x.png` (gerçek SF Symbols, macOS 26). Elenen: A 1.0 (iri), C 0.8125 (rayda cılız), D 0.8125 light (ikincil renkte soluk) | 2026-10-13 |
+| MCP ikonu `powerplug.portrait` (dikey fiş, Lucide `plug` ile aynı yön); önceki `powerplug` superseded | 2026-10-13 |
 
 ## 5. Bekleyen tasarım kararları
 
