@@ -15,6 +15,7 @@ Sözleşme, üç cümle:
 | `checks.js` + `checks-hash.js` → `CHECKS.md` | Tutarlılık kontrolleri CHK-1…6; `export-hashes.json` PNG tabanı | Her tasarım değişikliğinden sonra iki snippet → `python3 checks.py <çıktılar>`; PNG dışa aktarınca `--accept <frame>` |
 | `../fixtures/sample-product.html` | Kartlardaki örnek ürün sayfası (sync / DOM diff fixture) + `../fixtures/renders/` WebKit görüntüleri | Elle; değişince üç genişlikte yeniden çek |
 | `icons.md` | Lucide → SF Symbols (+ özel semboller) | `dump-icons.js` → `save_dump.py <çıktı> icons-dump.json` → `python3 build_icons.py --verify`; yeni ikonda `build_icons.py` › `MAP`'e satır ekle |
+| `symbols/link.slash.symbolset` | Özel SF sembolü (27 varyant), Assets.xcassets'e kopyalanır | `swift symbols/make_link_slash.swift symbols` (SF Symbols.app gerekir); `xcrun actool` ile derlenerek doğrulanır |
 | `skeleton/*.swift` | Spec'ten SwiftUI iskeleti (deneme, aşama 9) | `python3 gen_skeleton.py BottomBar`; `swiftc -typecheck skeleton/*.swift ../tokens/DesignTokens.swift` |
 | `PARITY.md` | Kod önizlemesi ↔ tasarım farkları | Parite turlarında |
 | `../tokens/` | Token zinciri | `export-variables.js` → `pen-variables.json`; `gen_swift.py` |
