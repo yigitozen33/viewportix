@@ -78,7 +78,7 @@ SF adları macOS 26'da `NSImage(systemSymbolName:)` ile doğrulandı (`python3 b
 ## Özel semboller (Assets'e eklenecek)
 
 - `link.slash`: hazır — `symbols/link.slash.symbolset` (Assets.xcassets'e kopyala). Apple'ın `link` glifinden 27 varyant (9 ağırlık × S/M/L), eğik çizgi Apple'ın `wifi.slash` ölçüleriyle (45°, ağırlık başına kalınlık ve boşluk); üreteç `symbols/make_link_slash.swift`. `actool` derledi (27 Vector Glyph), `NSImage(symbolName:bundle:)` yükledi; kontrol panosu `skeleton/link-slash@2x.png`. DESIGN.md §4, 2026-10-13.
-- Motor glifleri `engine.webkit`, `engine.chromium`, `engine.firefox`: pen.dev `Engine Glyphs` frame'i (16×16 ızgara, 2 px band); geometri `specs/ViewportCard.json` › Header › Engine ve `specs/DevicePicker.json` › EngIcon (`viewBox` 0 0 16 16). Kart başlığı ve cihaz seçici aynı glifi kullanır.
+- Motor glifleri `engine.webkit`, `engine.chromium`, `engine.firefox`: hazır — `symbols/engine.*.symbolset` (27 varyant), pen.dev `Engine Glyphs` çiziminden; boyut SF `circle` halkasına oturtuldu (dış çap 14 ızgara = halka çapı), bant her ağırlıkta SF halkası kadar (W1, en az 0,6 birim). Üreteç `symbols/make_engine_symbols.swift`; kart başlığı ve cihaz seçici aynı sembolü kullanır. Seçenekler `skeleton/engine-weights-options@2x.png`, kontrol `symbols/custom-symbols-check@2x.png`. DESIGN.md §4, 2026-10-13.
 
 ## Açık sorular
 

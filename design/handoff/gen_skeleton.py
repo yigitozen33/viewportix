@@ -193,7 +193,11 @@ class Gen:
         if t == "rectangle":
             return [f"{pad}RoundedRectangle(cornerRadius: {tok(n.get('cornerRadius', 0))}).fill({tok(n.get('fill', '#000000'))})"] + [f"{pad}{m}" for m in self.frame_mods(n)]
         if t == "path":
-            return [f"{pad}Image({json.dumps(n['name'])})  // path glyph — custom symbol, see icons.md"] + [f"{pad}{m}" for m in self.frame_mods(n)]
+            if n["name"] in ("Engine", "EngIcon"):  # engine glyph → custom symbol (symbols/engine.*.symbolset)
+                w = n.get("size", {}).get("w", 14)
+                return [f"{pad}SkeletonSymbol(name: \"engine.webkit\", size: {w:g})  // engine.webkit / .chromium / .firefox per viewport",
+                        f"{pad}    .foregroundStyle({tok(n.get('fill', '$ink/secondary'))})"]
+            return [f"{pad}// path `{n['name']}` not emitted (vector drawing)"]
         return [f"{pad}// {t} `{n['name']}` not emitted"]
 
     def frame_mods(self, n):
@@ -270,7 +274,8 @@ class Gen:
         params = self.init_params()
         L.append(f"public struct {self.swift}: View {{")
         if self.state_names:
-            L.append(f"    public enum State {{ case {', '.join(self.state_names)} }}")
+            KW = {"default", "case", "class", "struct", "enum", "func", "let", "var", "if", "else", "for", "in", "return", "self", "init", "switch", "where", "while", "repeat", "import", "public", "private", "static", "true", "false", "nil", "is", "as", "do", "try", "throw", "protocol", "extension", "operator", "internal", "fileprivate", "subscript", "guard", "defer", "break", "continue", "fallthrough", "inout", "super"}
+            L.append(f"    public enum State {{ case {', '.join(f'`{n}`' if n in KW else n for n in self.state_names)} }}")
             L.append(f"    public var state: State = .{self.state_names[0]}")
         for name, typ, default in params:
             L.append(f"    public var {name}: {typ} = {default}")

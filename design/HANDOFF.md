@@ -31,7 +31,7 @@ Yok (2026-10-13). MVP ve M3 kapsamı çizildi, onaylandı ve koda aktarıldı (`
 
 ## Sürmekte olan iş: aktarım paketi
 
-Plan ve ilerleme: `design/handoff/PLAN.md` ([[PLAN]]). Aşama 0–2 bitti; 3 (bileşen spec'leri) kod oturumunun `BottomBar` denemesini bekliyor (`KOD-OTURUMU-ISLERI.md` §14); 5 (ikon eşleme), 4 (CHK, hepsi PASS), 7 (etkileşim id'leri, 80 satır) ve 6 (örnek sayfa) bitti; 8 (parite) kod oturumunun ilk ekranını, 3'ün kabulü `BottomBar` denemesini, 9 (iskelet denemesi; typecheck temiz, ölçüler tutuyor) kod oturumunun değerlendirmesini bekliyor. İkon boyutu kararı verildi (SF = Lucide × 0.875). `link.slash` asset'i hazır (`design/handoff/symbols/`, actool ile doğrulandı). Birden çok oturuma yayılır; yeni oturum önce o dosyayı okur ve ilk tamamlanmamış aşamadan devam eder.
+Plan ve ilerleme: `design/handoff/PLAN.md` ([[PLAN]]). Aşama 0–2 bitti; 3 (bileşen spec'leri) kod oturumunun `BottomBar` denemesini bekliyor (`KOD-OTURUMU-ISLERI.md` §14); 5 (ikon eşleme), 4 (CHK, hepsi PASS), 7 (etkileşim id'leri, 80 satır) ve 6 (örnek sayfa) bitti; 8 (parite) kod oturumunun ilk ekranını, 3'ün kabulü `BottomBar` denemesini, 9 (iskelet denemesi; typecheck temiz, ölçüler tutuyor) kod oturumunun değerlendirmesini bekliyor. İkon boyutu kararı verildi (SF = Lucide × 0.875). Özel semboller hazır: `link.slash` ve motor glifleri (`design/handoff/symbols/`, actool ile doğrulandı). Birden çok oturuma yayılır; yeni oturum önce o dosyayı okur ve ilk tamamlanmamış aşamadan devam eder.
 
 ## Oturum başında oku
 
