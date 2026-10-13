@@ -15183,7 +15183,7 @@
                   "fill": "$ink/secondary",
                   "content": "SAYFALAR",
                   "fontFamily": "$font/ui",
-                  "fontSize": 10,
+                  "fontSize": "$font/micro",
                   "fontWeight": "600",
                   "letterSpacing": 0.8
                 }
@@ -15786,7 +15786,7 @@
                   "fill": "$ink/secondary",
                   "content": "SAYFALAR",
                   "fontFamily": "$font/ui",
-                  "fontSize": 10,
+                  "fontSize": "$font/micro",
                   "fontWeight": "600",
                   "letterSpacing": 0.8
                 }
@@ -16254,7 +16254,7 @@
                               "fill": "$ink/primary",
                               "content": "+3",
                               "fontFamily": "$font/ui",
-                              "fontSize": 12,
+                              "fontSize": "$font/label",
                               "fontWeight": "600"
                             },
                             {
@@ -16359,7 +16359,7 @@
                   "fill": "$ink/secondary",
                   "content": "SAYFALAR",
                   "fontFamily": "$font/ui",
-                  "fontSize": 10,
+                  "fontSize": "$font/micro",
                   "fontWeight": "600",
                   "letterSpacing": 0.8
                 }
@@ -16827,7 +16827,7 @@
                               "fill": "$ink/primary",
                               "content": "+3",
                               "fontFamily": "$font/ui",
-                              "fontSize": 12,
+                              "fontSize": "$font/label",
                               "fontWeight": "600"
                             },
                             {
@@ -16901,7 +16901,7 @@
                           "fill": "$ink/secondary",
                           "content": "GİZLİ CİHAZLAR · tıkla: sekmeye kaydır",
                           "fontFamily": "$font/ui",
-                          "fontSize": 10,
+                          "fontSize": "$font/micro",
                           "fontWeight": "600",
                           "letterSpacing": 0.8
                         }
@@ -16946,7 +16946,7 @@
                               "fill": "$ink/primary",
                               "content": "Laptop",
                               "fontFamily": "$font/ui",
-                              "fontSize": 12,
+                              "fontSize": "$font/label",
                               "fontWeight": "500"
                             },
                             {
@@ -16956,7 +16956,7 @@
                               "fill": "$status/warning",
                               "content": "1280×800 · WebKit 26 · Element bulunamadı",
                               "fontFamily": "$font/ui",
-                              "fontSize": 11,
+                              "fontSize": "$font/caption",
                               "fontWeight": "normal"
                             }
                           ]
@@ -17031,7 +17031,7 @@
                               "fill": "$ink/primary",
                               "content": "Geniş ekran",
                               "fontFamily": "$font/ui",
-                              "fontSize": 12,
+                              "fontSize": "$font/label",
                               "fontWeight": "500"
                             },
                             {
@@ -17041,7 +17041,7 @@
                               "fill": "$ink/secondary",
                               "content": "1920×1080 · WebKit 26",
                               "fontFamily": "$font/ui",
-                              "fontSize": 11,
+                              "fontSize": "$font/caption",
                               "fontWeight": "normal"
                             }
                           ]
@@ -17106,7 +17106,7 @@
                               "fill": "$ink/primary",
                               "content": "Masaüstü",
                               "fontFamily": "$font/ui",
-                              "fontSize": 12,
+                              "fontSize": "$font/label",
                               "fontWeight": "500"
                             },
                             {
@@ -17116,7 +17116,7 @@
                               "fill": "$ink/secondary",
                               "content": "1440×900 · WebKit 26 · Yükleniyor",
                               "fontFamily": "$font/ui",
-                              "fontSize": 11,
+                              "fontSize": "$font/caption",
                               "fontWeight": "normal"
                             }
                           ]
@@ -17231,7 +17231,7 @@
                   "fill": "$ink/secondary",
                   "content": "SAYFALAR",
                   "fontFamily": "$font/ui",
-                  "fontSize": 10,
+                  "fontSize": "$font/micro",
                   "fontWeight": "600",
                   "letterSpacing": 0.8
                 }
@@ -17599,8 +17599,7 @@
                           "width": 14,
                           "height": 14,
                           "icon": "check",
-                          "library": "lucide",
-                          "fill": "#00000000"
+                          "library": "lucide"
                         },
                         {
                           "type": "text",
@@ -17611,7 +17610,7 @@
                           "width": "fill_container",
                           "content": "Sığdır",
                           "fontFamily": "$font/ui",
-                          "fontSize": 12,
+                          "fontSize": "$font/label",
                           "fontWeight": "normal"
                         },
                         {
@@ -17621,7 +17620,7 @@
                           "fill": "$ink/secondary",
                           "content": "⌘1",
                           "fontFamily": "$font/ui",
-                          "fontSize": 11,
+                          "fontSize": "$font/caption",
                           "fontWeight": "normal"
                         }
                       ]
@@ -17646,8 +17645,7 @@
                           "width": 14,
                           "height": 14,
                           "icon": "check",
-                          "library": "lucide",
-                          "fill": "#00000000"
+                          "library": "lucide"
                         },
                         {
                           "type": "text",
@@ -17658,7 +17656,7 @@
                           "width": "fill_container",
                           "content": "Seçimi sığdır",
                           "fontFamily": "$font/ui",
-                          "fontSize": 12,
+                          "fontSize": "$font/label",
                           "fontWeight": "normal"
                         },
                         {
@@ -17668,7 +17666,7 @@
                           "fill": "$ink/secondary",
                           "content": "⌘2",
                           "fontFamily": "$font/ui",
-                          "fontSize": 11,
+                          "fontSize": "$font/caption",
                           "fontWeight": "normal"
                         }
                       ]
@@ -17701,8 +17699,7 @@
                           "width": 14,
                           "height": 14,
                           "icon": "check",
-                          "library": "lucide",
-                          "fill": "#00000000"
+                          "library": "lucide"
                         },
                         {
                           "type": "text",
@@ -17713,7 +17710,7 @@
                           "width": "fill_container",
                           "content": "%25",
                           "fontFamily": "$font/ui",
-                          "fontSize": 12,
+                          "fontSize": "$font/label",
                           "fontWeight": "normal"
                         }
                       ]
@@ -17738,8 +17735,7 @@
                           "width": 14,
                           "height": 14,
                           "icon": "check",
-                          "library": "lucide",
-                          "fill": "#00000000"
+                          "library": "lucide"
                         },
                         {
                           "type": "text",
@@ -17750,7 +17746,7 @@
                           "width": "fill_container",
                           "content": "%50",
                           "fontFamily": "$font/ui",
-                          "fontSize": 12,
+                          "fontSize": "$font/label",
                           "fontWeight": "normal"
                         }
                       ]
@@ -17787,7 +17783,7 @@
                           "width": "fill_container",
                           "content": "%100",
                           "fontFamily": "$font/ui",
-                          "fontSize": 12,
+                          "fontSize": "$font/label",
                           "fontWeight": "normal"
                         }
                       ]
@@ -17812,8 +17808,7 @@
                           "width": 14,
                           "height": 14,
                           "icon": "check",
-                          "library": "lucide",
-                          "fill": "#00000000"
+                          "library": "lucide"
                         },
                         {
                           "type": "text",
@@ -17824,7 +17819,7 @@
                           "width": "fill_container",
                           "content": "%200",
                           "fontFamily": "$font/ui",
-                          "fontSize": 12,
+                          "fontSize": "$font/label",
                           "fontWeight": "normal"
                         }
                       ]
@@ -17857,8 +17852,7 @@
                           "width": 14,
                           "height": 14,
                           "icon": "check",
-                          "library": "lucide",
-                          "fill": "#00000000"
+                          "library": "lucide"
                         },
                         {
                           "type": "text",
@@ -17869,7 +17863,7 @@
                           "width": "fill_container",
                           "content": "Gerçek boyut",
                           "fontFamily": "$font/ui",
-                          "fontSize": 12,
+                          "fontSize": "$font/label",
                           "fontWeight": "normal"
                         },
                         {
@@ -17879,7 +17873,7 @@
                           "fill": "$ink/secondary",
                           "content": "⌘0",
                           "fontFamily": "$font/ui",
-                          "fontSize": 11,
+                          "fontSize": "$font/caption",
                           "fontWeight": "normal"
                         }
                       ]
@@ -17904,8 +17898,7 @@
                           "width": 14,
                           "height": 14,
                           "icon": "check",
-                          "library": "lucide",
-                          "fill": "#00000000"
+                          "library": "lucide"
                         },
                         {
                           "type": "text",
@@ -17916,7 +17909,7 @@
                           "width": "fill_container",
                           "content": "Yakınlaştır",
                           "fontFamily": "$font/ui",
-                          "fontSize": 12,
+                          "fontSize": "$font/label",
                           "fontWeight": "normal"
                         },
                         {
@@ -17926,7 +17919,7 @@
                           "fill": "$ink/secondary",
                           "content": "⌘+",
                           "fontFamily": "$font/ui",
-                          "fontSize": 11,
+                          "fontSize": "$font/caption",
                           "fontWeight": "normal"
                         }
                       ]
@@ -17951,8 +17944,7 @@
                           "width": 14,
                           "height": 14,
                           "icon": "check",
-                          "library": "lucide",
-                          "fill": "#00000000"
+                          "library": "lucide"
                         },
                         {
                           "type": "text",
@@ -17963,7 +17955,7 @@
                           "width": "fill_container",
                           "content": "Uzaklaştır",
                           "fontFamily": "$font/ui",
-                          "fontSize": 12,
+                          "fontSize": "$font/label",
                           "fontWeight": "normal"
                         },
                         {
@@ -17973,7 +17965,7 @@
                           "fill": "$ink/secondary",
                           "content": "⌘−",
                           "fontFamily": "$font/ui",
-                          "fontSize": 11,
+                          "fontSize": "$font/caption",
                           "fontWeight": "normal"
                         }
                       ]
@@ -18760,7 +18752,7 @@
                   "fill": "$ink/secondary",
                   "content": "SAYFALAR",
                   "fontFamily": "$font/ui",
-                  "fontSize": 10,
+                  "fontSize": "$font/micro",
                   "fontWeight": "600",
                   "letterSpacing": 0.8
                 }
@@ -27517,7 +27509,7 @@
                   "fill": "$ink/secondary",
                   "content": "SAYFALAR",
                   "fontFamily": "$font/ui",
-                  "fontSize": 10,
+                  "fontSize": "$font/micro",
                   "fontWeight": "600",
                   "letterSpacing": 0.8
                 }
@@ -45340,7 +45332,7 @@
                   "fill": "$ink/secondary",
                   "content": "SAYFALAR",
                   "fontFamily": "$font/ui",
-                  "fontSize": 10,
+                  "fontSize": "$font/micro",
                   "fontWeight": "600",
                   "letterSpacing": 0.8
                 }
@@ -46016,7 +46008,6 @@
                               "type": "ellipse",
                               "id": "i7625",
                               "name": "Dot",
-                              "fill": "#00000000",
                               "width": 6,
                               "height": 6
                             },
@@ -46089,7 +46080,6 @@
                               "type": "ellipse",
                               "id": "xChqO",
                               "name": "Dot",
-                              "fill": "#00000000",
                               "width": 6,
                               "height": 6
                             },
@@ -46285,7 +46275,7 @@
                   "fill": "$ink/secondary",
                   "content": "SAYFALAR",
                   "fontFamily": "$font/ui",
-                  "fontSize": 10,
+                  "fontSize": "$font/micro",
                   "fontWeight": "600",
                   "letterSpacing": 0.8
                 }
@@ -47498,7 +47488,7 @@
                   "fill": "$ink/secondary",
                   "content": "SAYFALAR",
                   "fontFamily": "$font/ui",
-                  "fontSize": 10,
+                  "fontSize": "$font/micro",
                   "fontWeight": "600",
                   "letterSpacing": 0.8
                 }
@@ -50078,7 +50068,7 @@
                   "fill": "$ink/secondary",
                   "content": "SAYFALAR",
                   "fontFamily": "$font/ui",
-                  "fontSize": 10,
+                  "fontSize": "$font/micro",
                   "fontWeight": "600",
                   "letterSpacing": 0.8
                 }
@@ -51778,7 +51768,7 @@
                   "fill": "$ink/secondary",
                   "content": "SAYFALAR",
                   "fontFamily": "$font/ui",
-                  "fontSize": 10,
+                  "fontSize": "$font/micro",
                   "fontWeight": "600",
                   "letterSpacing": 0.8
                 }
@@ -52144,7 +52134,7 @@
                           "fill": "$ink/secondary",
                           "content": "EKRAN GÖRÜNTÜSÜ · 3 VIEWPORT",
                           "fontFamily": "$font/ui",
-                          "fontSize": 10,
+                          "fontSize": "$font/micro",
                           "fontWeight": "600",
                           "letterSpacing": 0.8
                         }
@@ -52189,7 +52179,7 @@
                               "fill": "$ink/primary",
                               "content": "Görünen alan",
                               "fontFamily": "$font/ui",
-                              "fontSize": 12,
+                              "fontSize": "$font/label",
                               "fontWeight": "500"
                             },
                             {
@@ -52199,7 +52189,7 @@
                               "fill": "$ink/secondary",
                               "content": "Her viewport'un şu an ekranda olan kısmı",
                               "fontFamily": "$font/ui",
-                              "fontSize": 10,
+                              "fontSize": "$font/micro",
                               "fontWeight": "normal"
                             }
                           ]
@@ -52211,7 +52201,7 @@
                           "fill": "$ink/secondary",
                           "content": "⌥⌘S",
                           "fontFamily": "$font/ui",
-                          "fontSize": 11,
+                          "fontSize": "$font/caption",
                           "fontWeight": "normal"
                         }
                       ]
@@ -52254,7 +52244,7 @@
                               "fill": "$ink/primary",
                               "content": "Tam sayfa",
                               "fontFamily": "$font/ui",
-                              "fontSize": 12,
+                              "fontSize": "$font/label",
                               "fontWeight": "500"
                             },
                             {
@@ -52264,7 +52254,7 @@
                               "fill": "$ink/secondary",
                               "content": "Her viewport'un sayfanın tamamı",
                               "fontFamily": "$font/ui",
-                              "fontSize": 10,
+                              "fontSize": "$font/micro",
                               "fontWeight": "normal"
                             }
                           ]
@@ -52276,7 +52266,7 @@
                           "fill": "$ink/secondary",
                           "content": "⌃⌥⌘S",
                           "fontFamily": "$font/ui",
-                          "fontSize": 11,
+                          "fontSize": "$font/caption",
                           "fontWeight": "normal"
                         }
                       ]
@@ -52310,7 +52300,7 @@
                           "width": "fill_container",
                           "content": "Panoya kopyala ✓ · 2× · ~/Desktop/Viewportix — Ayarlar'da",
                           "fontFamily": "$font/ui",
-                          "fontSize": 11,
+                          "fontSize": "$font/caption",
                           "fontWeight": "normal"
                         }
                       ]
@@ -54388,7 +54378,7 @@
                   "fill": "$ink/secondary",
                   "content": "SAYFALAR",
                   "fontFamily": "$font/ui",
-                  "fontSize": 10,
+                  "fontSize": "$font/micro",
                   "fontWeight": "600",
                   "letterSpacing": 0.8
                 }
@@ -56648,6 +56638,56 @@
                       "name": "Hex",
                       "fill": "$ink/secondary",
                       "content": "#4F4945",
+                      "fontFamily": "$font/mono",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "pi7tT",
+              "name": "Swatch Row",
+              "gap": 16,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "D29Aze",
+                  "name": "Swatch surface/group",
+                  "width": 260,
+                  "layout": "vertical",
+                  "gap": 6,
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 10,
+                      "id": "xB415",
+                      "name": "Chip",
+                      "fill": "$surface/group",
+                      "width": "fill_container",
+                      "height": 72,
+                      "stroke": "$line",
+                      "strokeWidth": 1,
+                      "strokeAlignment": "inner"
+                    },
+                    {
+                      "type": "text",
+                      "id": "OKMyr",
+                      "name": "Name",
+                      "fill": "$ink/primary",
+                      "content": "surface/group",
+                      "fontFamily": "$font/ui",
+                      "fontSize": 12,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "L8IZL",
+                      "name": "Hex",
+                      "fill": "$ink/secondary",
+                      "content": "#FFFFFF05",
                       "fontFamily": "$font/mono",
                       "fontSize": 11,
                       "fontWeight": "normal"
@@ -60226,7 +60266,7 @@
                   "fill": "$ink/secondary",
                   "content": "SAYFALAR",
                   "fontFamily": "$font/ui",
-                  "fontSize": 10,
+                  "fontSize": "$font/micro",
                   "fontWeight": "600",
                   "letterSpacing": 0.8
                 }
@@ -60455,7 +60495,7 @@
                       "fill": "$ink/primary",
                       "content": "Henüz viewport yok",
                       "fontFamily": "$font/ui",
-                      "fontSize": 13,
+                      "fontSize": "$font/body",
                       "fontWeight": "600"
                     },
                     {
@@ -60472,7 +60512,7 @@
                       "fill": "$ink/secondary",
                       "content": "Bir cihaz ekle ya da şablon seç.",
                       "fontFamily": "$font/ui",
-                      "fontSize": 11,
+                      "fontSize": "$font/caption",
                       "fontWeight": "normal"
                     },
                     {
@@ -60508,7 +60548,7 @@
                               "fill": "$accent/ink",
                               "content": "+ Cihaz ekle",
                               "fontFamily": "$font/ui",
-                              "fontSize": 12,
+                              "fontSize": "$font/label",
                               "fontWeight": "600"
                             }
                           ]
@@ -60520,7 +60560,7 @@
                           "fill": "$ink/secondary",
                           "content": "Mobil odaklı · Tam matris · Motor karşılaştırma",
                           "fontFamily": "$font/ui",
-                          "fontSize": 12,
+                          "fontSize": "$font/label",
                           "fontWeight": "normal"
                         }
                       ]
@@ -60539,7 +60579,7 @@
                       "fill": "$ink/secondary",
                       "content": "⌥⌘N",
                       "fontFamily": "$font/ui",
-                      "fontSize": 10,
+                      "fontSize": "$font/micro",
                       "fontWeight": "normal"
                     }
                   ]
@@ -65962,7 +66002,7 @@
                   "fill": "$ink/secondary",
                   "content": "SAYFALAR",
                   "fontFamily": "$font/ui",
-                  "fontSize": 10,
+                  "fontSize": "$font/micro",
                   "fontWeight": "600",
                   "letterSpacing": 0.8
                 }
@@ -66372,7 +66412,6 @@
                           "type": "frame",
                           "id": "O1HWi",
                           "name": "PTab Genel",
-                          "fill": "#00000000",
                           "cornerRadius": "$radius/control",
                           "gap": 5,
                           "padding": [
@@ -66442,7 +66481,6 @@
                           "type": "frame",
                           "id": "B4A7QV",
                           "name": "PTab MCP",
-                          "fill": "#00000000",
                           "cornerRadius": "$radius/control",
                           "gap": 5,
                           "padding": [
@@ -66477,7 +66515,6 @@
                           "type": "frame",
                           "id": "g0Q9rN",
                           "name": "PTab Hesap",
-                          "fill": "#00000000",
                           "cornerRadius": "$radius/control",
                           "gap": 5,
                           "padding": [
@@ -66597,7 +66634,7 @@
                               "content": "23 cihaz · 2 özel",
                               "lineHeight": 1.4,
                               "fontFamily": "$font/ui",
-                              "fontSize": 11,
+                              "fontSize": "$font/caption",
                               "fontWeight": "normal"
                             },
                             {
@@ -66620,7 +66657,7 @@
                                   "content": "İçe aktar…",
                                   "lineHeight": 1.4,
                                   "fontFamily": "$font/ui",
-                                  "fontSize": 11,
+                                  "fontSize": "$font/caption",
                                   "fontWeight": "normal"
                                 }
                               ]
@@ -66654,7 +66691,7 @@
                                   "content": "Cihaz",
                                   "lineHeight": 1.4,
                                   "fontFamily": "$font/ui",
-                                  "fontSize": 11,
+                                  "fontSize": "$font/caption",
                                   "fontWeight": "600"
                                 }
                               ]
@@ -66686,7 +66723,7 @@
                                   "content": "Tümü",
                                   "lineHeight": 1.4,
                                   "fontFamily": "$font/ui",
-                                  "fontSize": 11,
+                                  "fontSize": "$font/caption",
                                   "fontWeight": "normal"
                                 }
                               ]
@@ -66707,7 +66744,7 @@
                                   "content": "Telefon",
                                   "lineHeight": 1.4,
                                   "fontFamily": "$font/ui",
-                                  "fontSize": 11,
+                                  "fontSize": "$font/caption",
                                   "fontWeight": "normal"
                                 }
                               ]
@@ -66728,7 +66765,7 @@
                                   "content": "Tablet",
                                   "lineHeight": 1.4,
                                   "fontFamily": "$font/ui",
-                                  "fontSize": 11,
+                                  "fontSize": "$font/caption",
                                   "fontWeight": "normal"
                                 }
                               ]
@@ -66749,7 +66786,7 @@
                                   "content": "Masaüstü",
                                   "lineHeight": 1.4,
                                   "fontFamily": "$font/ui",
-                                  "fontSize": 11,
+                                  "fontSize": "$font/caption",
                                   "fontWeight": "normal"
                                 }
                               ]
@@ -66770,7 +66807,7 @@
                                   "content": "Özel",
                                   "lineHeight": 1.4,
                                   "fontFamily": "$font/ui",
-                                  "fontSize": 11,
+                                  "fontSize": "$font/caption",
                                   "fontWeight": "normal"
                                 }
                               ]
@@ -66830,7 +66867,7 @@
                                           "content": "iPhone SE",
                                           "lineHeight": 1.4,
                                           "fontFamily": "$font/ui",
-                                          "fontSize": 12,
+                                          "fontSize": "$font/label",
                                           "fontWeight": "normal"
                                         }
                                       ]
@@ -66842,7 +66879,7 @@
                                       "content": "375×667 · 2× · Telefon",
                                       "lineHeight": 1.4,
                                       "fontFamily": "$font/ui",
-                                      "fontSize": 11,
+                                      "fontSize": "$font/caption",
                                       "fontWeight": "normal"
                                     }
                                   ]
@@ -66919,7 +66956,7 @@
                                           "content": "iPhone 16",
                                           "lineHeight": 1.4,
                                           "fontFamily": "$font/ui",
-                                          "fontSize": 12,
+                                          "fontSize": "$font/label",
                                           "fontWeight": "normal"
                                         }
                                       ]
@@ -66931,7 +66968,7 @@
                                       "content": "393×852 · 3× · Telefon",
                                       "lineHeight": 1.4,
                                       "fontFamily": "$font/ui",
-                                      "fontSize": 11,
+                                      "fontSize": "$font/caption",
                                       "fontWeight": "normal"
                                     }
                                   ]
@@ -67015,7 +67052,7 @@
                                           "content": "Pixel 9",
                                           "lineHeight": 1.4,
                                           "fontFamily": "$font/ui",
-                                          "fontSize": 12,
+                                          "fontSize": "$font/label",
                                           "fontWeight": "normal"
                                         }
                                       ]
@@ -67027,7 +67064,7 @@
                                       "content": "412×915 · 2.6× · Telefon",
                                       "lineHeight": 1.4,
                                       "fontFamily": "$font/ui",
-                                      "fontSize": 11,
+                                      "fontSize": "$font/caption",
                                       "fontWeight": "normal"
                                     }
                                   ]
@@ -67101,7 +67138,7 @@
                                           "content": "iPad",
                                           "lineHeight": 1.4,
                                           "fontFamily": "$font/ui",
-                                          "fontSize": 12,
+                                          "fontSize": "$font/label",
                                           "fontWeight": "normal"
                                         }
                                       ]
@@ -67113,7 +67150,7 @@
                                       "content": "820×1180 · 2× · Tablet",
                                       "lineHeight": 1.4,
                                       "fontFamily": "$font/ui",
-                                      "fontSize": 11,
+                                      "fontSize": "$font/caption",
                                       "fontWeight": "normal"
                                     }
                                   ]
@@ -67188,7 +67225,7 @@
                                           "content": "Masaüstü",
                                           "lineHeight": 1.4,
                                           "fontFamily": "$font/ui",
-                                          "fontSize": 12,
+                                          "fontSize": "$font/label",
                                           "fontWeight": "normal"
                                         }
                                       ]
@@ -67200,7 +67237,7 @@
                                       "content": "1440×900 · 1× · Masaüstü",
                                       "lineHeight": 1.4,
                                       "fontFamily": "$font/ui",
-                                      "fontSize": 11,
+                                      "fontSize": "$font/caption",
                                       "fontWeight": "normal"
                                     }
                                   ]
@@ -67275,7 +67312,7 @@
                                           "content": "Marka kiosk",
                                           "lineHeight": 1.4,
                                           "fontFamily": "$font/ui",
-                                          "fontSize": 12,
+                                          "fontSize": "$font/label",
                                           "fontWeight": "normal"
                                         },
                                         {
@@ -67295,7 +67332,7 @@
                                               "content": "özel",
                                               "lineHeight": 1.4,
                                               "fontFamily": "$font/ui",
-                                              "fontSize": 10,
+                                              "fontSize": "$font/micro",
                                               "fontWeight": "normal"
                                             }
                                           ]
@@ -67309,7 +67346,7 @@
                                       "content": "1080×1920 · 1× · Özel",
                                       "lineHeight": 1.4,
                                       "fontFamily": "$font/ui",
-                                      "fontSize": 11,
+                                      "fontSize": "$font/caption",
                                       "fontWeight": "normal"
                                     }
                                   ]
@@ -67349,7 +67386,7 @@
                           "content": "Seçicide kapalı = “+ Cihaz” menüsünde görünmez, açık projelerdeki kartlar kalır. Yerleşik cihaz silinmez, gizlenir.",
                           "lineHeight": 1.4,
                           "fontFamily": "$font/ui",
-                          "fontSize": 10,
+                          "fontSize": "$font/micro",
                           "fontWeight": "normal"
                         }
                       ]
@@ -67444,7 +67481,7 @@
                   "fill": "$ink/secondary",
                   "content": "SAYFALAR",
                   "fontFamily": "$font/ui",
-                  "fontSize": 10,
+                  "fontSize": "$font/micro",
                   "fontWeight": "600",
                   "letterSpacing": 0.8
                 }
@@ -67854,7 +67891,6 @@
                           "type": "frame",
                           "id": "aBaB8",
                           "name": "PTab Genel",
-                          "fill": "#00000000",
                           "cornerRadius": "$radius/control",
                           "gap": 5,
                           "padding": [
@@ -67889,7 +67925,6 @@
                           "type": "frame",
                           "id": "U50gn",
                           "name": "PTab Cihazlar",
-                          "fill": "#00000000",
                           "cornerRadius": "$radius/control",
                           "gap": 5,
                           "padding": [
@@ -67959,7 +67994,6 @@
                           "type": "frame",
                           "id": "zuOUw",
                           "name": "PTab Hesap",
-                          "fill": "#00000000",
                           "cornerRadius": "$radius/control",
                           "gap": 5,
                           "padding": [
@@ -68083,7 +68117,7 @@
                                   "content": "SUNUCU",
                                   "lineHeight": 1.4,
                                   "fontFamily": "$font/ui",
-                                  "fontSize": 10,
+                                  "fontSize": "$font/micro",
                                   "fontWeight": "600",
                                   "letterSpacing": 0.8
                                 }
@@ -68127,7 +68161,7 @@
                                       "content": "Çalışıyor",
                                       "lineHeight": 1.4,
                                       "fontFamily": "$font/ui",
-                                      "fontSize": 12,
+                                      "fontSize": "$font/label",
                                       "fontWeight": "normal"
                                     },
                                     {
@@ -68137,7 +68171,7 @@
                                       "content": "stdio · 2 istemci · 14 araç",
                                       "lineHeight": 1.4,
                                       "fontFamily": "$font/ui",
-                                      "fontSize": 11,
+                                      "fontSize": "$font/caption",
                                       "fontWeight": "normal"
                                     }
                                   ]
@@ -68162,7 +68196,7 @@
                                       "content": "Durdur",
                                       "lineHeight": 1.4,
                                       "fontFamily": "$font/ui",
-                                      "fontSize": 11,
+                                      "fontSize": "$font/caption",
                                       "fontWeight": "normal"
                                     }
                                   ]
@@ -68195,7 +68229,7 @@
                                   "content": "Taşıma",
                                   "lineHeight": 1.4,
                                   "fontFamily": "$font/ui",
-                                  "fontSize": 12,
+                                  "fontSize": "$font/label",
                                   "fontWeight": "normal"
                                 },
                                 {
@@ -68222,7 +68256,7 @@
                                           "content": "stdio",
                                           "lineHeight": 1.4,
                                           "fontFamily": "$font/ui",
-                                          "fontSize": 11,
+                                          "fontSize": "$font/caption",
                                           "fontWeight": "normal"
                                         }
                                       ]
@@ -68243,7 +68277,7 @@
                                           "content": "HTTP",
                                           "lineHeight": 1.4,
                                           "fontFamily": "$font/ui",
-                                          "fontSize": 11,
+                                          "fontSize": "$font/caption",
                                           "fontWeight": "normal"
                                         }
                                       ]
@@ -68282,7 +68316,7 @@
                                       "content": "viewportix mcp --stdio",
                                       "lineHeight": 1.4,
                                       "fontFamily": "$font/mono",
-                                      "fontSize": 11,
+                                      "fontSize": "$font/caption",
                                       "fontWeight": "normal"
                                     }
                                   ]
@@ -68316,7 +68350,7 @@
                                       "content": "Kopyala",
                                       "lineHeight": 1.4,
                                       "fontFamily": "$font/ui",
-                                      "fontSize": 11,
+                                      "fontSize": "$font/caption",
                                       "fontWeight": "normal"
                                     }
                                   ]
@@ -68352,7 +68386,7 @@
                                   "content": "İZİNLER",
                                   "lineHeight": 1.4,
                                   "fontFamily": "$font/ui",
-                                  "fontSize": 10,
+                                  "fontSize": "$font/micro",
                                   "fontWeight": "600",
                                   "letterSpacing": 0.8
                                 }
@@ -68384,7 +68418,7 @@
                                   "content": "Ekran görüntüsü alma",
                                   "lineHeight": 1.4,
                                   "fontFamily": "$font/ui",
-                                  "fontSize": 12,
+                                  "fontSize": "$font/label",
                                   "fontWeight": "normal"
                                 },
                                 {
@@ -68437,7 +68471,7 @@
                                   "content": "Gezinme ve tıklama",
                                   "lineHeight": 1.4,
                                   "fontFamily": "$font/ui",
-                                  "fontSize": 12,
+                                  "fontSize": "$font/label",
                                   "fontWeight": "normal"
                                 },
                                 {
@@ -68490,7 +68524,7 @@
                                   "content": "DOM diff okuma",
                                   "lineHeight": 1.4,
                                   "fontFamily": "$font/ui",
-                                  "fontSize": 12,
+                                  "fontSize": "$font/label",
                                   "fontWeight": "normal"
                                 },
                                 {
@@ -68543,7 +68577,7 @@
                                   "content": "Proje dosyası yazma",
                                   "lineHeight": 1.4,
                                   "fontFamily": "$font/ui",
-                                  "fontSize": 12,
+                                  "fontSize": "$font/label",
                                   "fontWeight": "normal"
                                 },
                                 {
@@ -68598,7 +68632,7 @@
                                   "content": "BAĞLI İSTEMCİLER",
                                   "lineHeight": 1.4,
                                   "fontFamily": "$font/ui",
-                                  "fontSize": 10,
+                                  "fontSize": "$font/micro",
                                   "fontWeight": "600",
                                   "letterSpacing": 0.8
                                 }
@@ -68635,7 +68669,7 @@
                                       "content": "Claude Code",
                                       "lineHeight": 1.4,
                                       "fontFamily": "$font/ui",
-                                      "fontSize": 12,
+                                      "fontSize": "$font/label",
                                       "fontWeight": "normal"
                                     },
                                     {
@@ -68645,7 +68679,7 @@
                                       "content": "son istek 2 sn önce",
                                       "lineHeight": 1.4,
                                       "fontFamily": "$font/ui",
-                                      "fontSize": 11,
+                                      "fontSize": "$font/caption",
                                       "fontWeight": "normal"
                                     }
                                   ]
@@ -68657,7 +68691,7 @@
                                   "content": "Bağlantıyı kes",
                                   "lineHeight": 1.4,
                                   "fontFamily": "$font/ui",
-                                  "fontSize": 11,
+                                  "fontSize": "$font/caption",
                                   "fontWeight": "normal"
                                 }
                               ]
@@ -68693,7 +68727,7 @@
                                       "content": "Cursor",
                                       "lineHeight": 1.4,
                                       "fontFamily": "$font/ui",
-                                      "fontSize": 12,
+                                      "fontSize": "$font/label",
                                       "fontWeight": "normal"
                                     },
                                     {
@@ -68703,7 +68737,7 @@
                                       "content": "son istek 5 dk önce",
                                       "lineHeight": 1.4,
                                       "fontFamily": "$font/ui",
-                                      "fontSize": 11,
+                                      "fontSize": "$font/caption",
                                       "fontWeight": "normal"
                                     }
                                   ]
@@ -68715,7 +68749,7 @@
                                   "content": "Bağlantıyı kes",
                                   "lineHeight": 1.4,
                                   "fontFamily": "$font/ui",
-                                  "fontSize": 11,
+                                  "fontSize": "$font/caption",
                                   "fontWeight": "normal"
                                 }
                               ]
@@ -68814,7 +68848,7 @@
                   "fill": "$ink/secondary",
                   "content": "SAYFALAR",
                   "fontFamily": "$font/ui",
-                  "fontSize": 10,
+                  "fontSize": "$font/micro",
                   "fontWeight": "600",
                   "letterSpacing": 0.8
                 }
@@ -69224,7 +69258,6 @@
                           "type": "frame",
                           "id": "qde6s",
                           "name": "PTab Genel",
-                          "fill": "#00000000",
                           "cornerRadius": "$radius/control",
                           "gap": 5,
                           "padding": [
@@ -69259,7 +69292,6 @@
                           "type": "frame",
                           "id": "d2pUoP",
                           "name": "PTab Cihazlar",
-                          "fill": "#00000000",
                           "cornerRadius": "$radius/control",
                           "gap": 5,
                           "padding": [
@@ -69294,7 +69326,6 @@
                           "type": "frame",
                           "id": "DQgNB",
                           "name": "PTab MCP",
-                          "fill": "#00000000",
                           "cornerRadius": "$radius/control",
                           "gap": 5,
                           "padding": [
@@ -69456,7 +69487,7 @@
                                   "content": "AS",
                                   "lineHeight": 1.4,
                                   "fontFamily": "$font/ui",
-                                  "fontSize": 13,
+                                  "fontSize": "$font/body",
                                   "fontWeight": "600"
                                 }
                               ]
@@ -69475,7 +69506,7 @@
                                   "content": "Ad Soyad",
                                   "lineHeight": 1.4,
                                   "fontFamily": "$font/ui",
-                                  "fontSize": 13,
+                                  "fontSize": "$font/body",
                                   "fontWeight": "600"
                                 },
                                 {
@@ -69485,7 +69516,7 @@
                                   "content": "ad@sirket.com",
                                   "lineHeight": 1.4,
                                   "fontFamily": "$font/ui",
-                                  "fontSize": 11,
+                                  "fontSize": "$font/caption",
                                   "fontWeight": "normal"
                                 }
                               ]
@@ -69510,7 +69541,7 @@
                                   "content": "Çıkış yap",
                                   "lineHeight": 1.4,
                                   "fontFamily": "$font/ui",
-                                  "fontSize": 11,
+                                  "fontSize": "$font/caption",
                                   "fontWeight": "normal"
                                 }
                               ]
@@ -69544,7 +69575,7 @@
                                   "content": "TAKIM",
                                   "lineHeight": 1.4,
                                   "fontFamily": "$font/ui",
-                                  "fontSize": 10,
+                                  "fontSize": "$font/micro",
                                   "fontWeight": "600",
                                   "letterSpacing": 0.8
                                 }
@@ -69576,7 +69607,7 @@
                                   "content": "Şirket takımı",
                                   "lineHeight": 1.4,
                                   "fontFamily": "$font/ui",
-                                  "fontSize": 12,
+                                  "fontSize": "$font/label",
                                   "fontWeight": "normal"
                                 },
                                 {
@@ -69586,7 +69617,7 @@
                                   "content": "6 kişi",
                                   "lineHeight": 1.4,
                                   "fontFamily": "$font/ui",
-                                  "fontSize": 11,
+                                  "fontSize": "$font/caption",
                                   "fontWeight": "normal"
                                 }
                               ]
@@ -69620,7 +69651,7 @@
                                   "content": "LİSANS",
                                   "lineHeight": 1.4,
                                   "fontFamily": "$font/ui",
-                                  "fontSize": 10,
+                                  "fontSize": "$font/micro",
                                   "fontWeight": "600",
                                   "letterSpacing": 0.8
                                 }
@@ -69652,7 +69683,7 @@
                                   "content": "Plan",
                                   "lineHeight": 1.4,
                                   "fontFamily": "$font/ui",
-                                  "fontSize": 12,
+                                  "fontSize": "$font/label",
                                   "fontWeight": "normal"
                                 },
                                 {
@@ -69662,7 +69693,7 @@
                                   "content": "Dahili",
                                   "lineHeight": 1.4,
                                   "fontFamily": "$font/ui",
-                                  "fontSize": 11,
+                                  "fontSize": "$font/caption",
                                   "fontWeight": "normal"
                                 }
                               ]
@@ -69696,7 +69727,7 @@
                                   "content": "GÜNCELLEME",
                                   "lineHeight": 1.4,
                                   "fontFamily": "$font/ui",
-                                  "fontSize": 10,
+                                  "fontSize": "$font/micro",
                                   "fontWeight": "600",
                                   "letterSpacing": 0.8
                                 }
@@ -69733,7 +69764,7 @@
                                       "content": "Sürüm 0.1 (12)",
                                       "lineHeight": 1.4,
                                       "fontFamily": "$font/ui",
-                                      "fontSize": 12,
+                                      "fontSize": "$font/label",
                                       "fontWeight": "normal"
                                     },
                                     {
@@ -69743,7 +69774,7 @@
                                       "content": "Güncel",
                                       "lineHeight": 1.4,
                                       "fontFamily": "$font/ui",
-                                      "fontSize": 11,
+                                      "fontSize": "$font/caption",
                                       "fontWeight": "normal"
                                     }
                                   ]
@@ -69768,7 +69799,7 @@
                                       "content": "Denetle",
                                       "lineHeight": 1.4,
                                       "fontFamily": "$font/ui",
-                                      "fontSize": 11,
+                                      "fontSize": "$font/caption",
                                       "fontWeight": "normal"
                                     }
                                   ]
@@ -69801,7 +69832,7 @@
                                   "content": "Otomatik güncelle",
                                   "lineHeight": 1.4,
                                   "fontFamily": "$font/ui",
-                                  "fontSize": 12,
+                                  "fontSize": "$font/label",
                                   "fontWeight": "normal"
                                 },
                                 {
@@ -69969,7 +70000,7 @@
                   "fill": "$ink/secondary",
                   "content": "SAYFALAR",
                   "fontFamily": "$font/ui",
-                  "fontSize": 10,
+                  "fontSize": "$font/micro",
                   "fontWeight": "600",
                   "letterSpacing": 0.8
                 }
@@ -71077,7 +71108,7 @@
                   "fill": "$ink/secondary",
                   "content": "SAYFALAR",
                   "fontFamily": "$font/ui",
-                  "fontSize": 10,
+                  "fontSize": "$font/micro",
                   "fontWeight": "600",
                   "letterSpacing": 0.8
                 }
@@ -71407,10 +71438,10 @@
                     {
                       "type": "text",
                       "id": "BLoBh",
-                      "fill": "#141210",
+                      "fill": "$accent/ink",
                       "content": "62",
                       "fontFamily": "$font/mono",
-                      "fontSize": 10,
+                      "fontSize": "$font/micro",
                       "fontWeight": "600"
                     }
                   ]
@@ -71459,10 +71490,10 @@
                     {
                       "type": "text",
                       "id": "CIzur",
-                      "fill": "#141210",
+                      "fill": "$accent/ink",
                       "content": "62",
                       "fontFamily": "$font/mono",
-                      "fontSize": 10,
+                      "fontSize": "$font/micro",
                       "fontWeight": "600"
                     }
                   ]
@@ -71477,7 +71508,7 @@
                   "height": 20,
                   "icon": "hand-grab",
                   "library": "lucide",
-                  "fill": "#F4EFE9"
+                  "fill": "$ink/primary"
                 },
                 {
                   "type": "frame",
@@ -71485,7 +71516,7 @@
                   "x": 446,
                   "y": 136,
                   "name": "Drag hint",
-                  "fill": "#0E0D0C",
+                  "fill": "$surface/tooltip",
                   "cornerRadius": 6,
                   "gap": 6,
                   "padding": [
@@ -71499,7 +71530,7 @@
                       "fill": "$ink/secondary",
                       "content": "⌥ basılıyken hizalama kapalı",
                       "fontFamily": "$font/ui",
-                      "fontSize": 10,
+                      "fontSize": "$font/micro",
                       "fontWeight": "normal"
                     }
                   ]
@@ -71580,7 +71611,7 @@
                   "fill": "$ink/secondary",
                   "content": "SAYFALAR",
                   "fontFamily": "$font/ui",
-                  "fontSize": 10,
+                  "fontSize": "$font/micro",
                   "fontWeight": "600",
                   "letterSpacing": 0.8
                 }
@@ -71713,7 +71744,7 @@
                   "name": "Group TELEFON",
                   "width": 488,
                   "height": 600,
-                  "fill": "#FFFFFF05",
+                  "fill": "$surface/group",
                   "cornerRadius": 16,
                   "stroke": "$line",
                   "strokeWidth": 1,
@@ -71747,7 +71778,7 @@
                           "fill": "$ink/secondary",
                           "content": "TELEFON",
                           "fontFamily": "$font/ui",
-                          "fontSize": 10,
+                          "fontSize": "$font/micro",
                           "fontWeight": "600",
                           "letterSpacing": 0.8
                         },
@@ -71757,7 +71788,7 @@
                           "fill": "$ink/secondary",
                           "content": "2",
                           "fontFamily": "$font/ui",
-                          "fontSize": 10,
+                          "fontSize": "$font/micro",
                           "fontWeight": "normal"
                         }
                       ]
@@ -71772,7 +71803,7 @@
                   "name": "Group TABLET",
                   "width": 360,
                   "height": 600,
-                  "fill": "#FFFFFF05",
+                  "fill": "$surface/group",
                   "cornerRadius": 16,
                   "stroke": "$line",
                   "strokeWidth": 1,
@@ -71806,7 +71837,7 @@
                           "fill": "$ink/secondary",
                           "content": "TABLET",
                           "fontFamily": "$font/ui",
-                          "fontSize": 10,
+                          "fontSize": "$font/micro",
                           "fontWeight": "600",
                           "letterSpacing": 0.8
                         },
@@ -71816,7 +71847,7 @@
                           "fill": "$ink/secondary",
                           "content": "1",
                           "fontFamily": "$font/ui",
-                          "fontSize": 10,
+                          "fontSize": "$font/micro",
                           "fontWeight": "normal"
                         }
                       ]
@@ -71831,7 +71862,7 @@
                   "name": "Group MASAÜSTÜ",
                   "width": 520,
                   "height": 600,
-                  "fill": "#FFFFFF05",
+                  "fill": "$surface/group",
                   "cornerRadius": 16,
                   "stroke": "$line",
                   "strokeWidth": 1,
@@ -71865,7 +71896,7 @@
                           "fill": "$ink/secondary",
                           "content": "MASAÜSTÜ",
                           "fontFamily": "$font/ui",
-                          "fontSize": 10,
+                          "fontSize": "$font/micro",
                           "fontWeight": "600",
                           "letterSpacing": 0.8
                         },
@@ -71875,7 +71906,7 @@
                           "fill": "$ink/secondary",
                           "content": "1",
                           "fontFamily": "$font/ui",
-                          "fontSize": 10,
+                          "fontSize": "$font/micro",
                           "fontWeight": "normal"
                         }
                       ]
@@ -73838,7 +73869,7 @@
                   "fill": "$ink/secondary",
                   "content": "SAYFALAR",
                   "fontFamily": "$font/ui",
-                  "fontSize": 10,
+                  "fontSize": "$font/micro",
                   "fontWeight": "600",
                   "letterSpacing": 0.8
                 }
@@ -73971,7 +74002,7 @@
                   "name": "Group TELEFON",
                   "width": 132,
                   "height": 36,
-                  "fill": "#FFFFFF05",
+                  "fill": "$surface/group",
                   "cornerRadius": 16,
                   "stroke": "$line",
                   "strokeWidth": 1,
@@ -74005,7 +74036,7 @@
                           "fill": "$ink/secondary",
                           "content": "TELEFON",
                           "fontFamily": "$font/ui",
-                          "fontSize": 10,
+                          "fontSize": "$font/micro",
                           "fontWeight": "600",
                           "letterSpacing": 0.8
                         },
@@ -74015,7 +74046,7 @@
                           "fill": "$ink/secondary",
                           "content": "2",
                           "fontFamily": "$font/ui",
-                          "fontSize": 10,
+                          "fontSize": "$font/micro",
                           "fontWeight": "normal"
                         }
                       ]
@@ -74030,7 +74061,7 @@
                   "name": "Group TABLET",
                   "width": 360,
                   "height": 600,
-                  "fill": "#FFFFFF05",
+                  "fill": "$surface/group",
                   "cornerRadius": 16,
                   "stroke": "$line",
                   "strokeWidth": 1,
@@ -74064,7 +74095,7 @@
                           "fill": "$ink/secondary",
                           "content": "TABLET",
                           "fontFamily": "$font/ui",
-                          "fontSize": 10,
+                          "fontSize": "$font/micro",
                           "fontWeight": "600",
                           "letterSpacing": 0.8
                         },
@@ -74074,7 +74105,7 @@
                           "fill": "$ink/secondary",
                           "content": "1",
                           "fontFamily": "$font/ui",
-                          "fontSize": 10,
+                          "fontSize": "$font/micro",
                           "fontWeight": "normal"
                         }
                       ]
@@ -74089,7 +74120,7 @@
                   "name": "Group MASAÜSTÜ",
                   "width": 520,
                   "height": 600,
-                  "fill": "#FFFFFF05",
+                  "fill": "$surface/group",
                   "cornerRadius": 16,
                   "stroke": "$line",
                   "strokeWidth": 1,
@@ -74123,7 +74154,7 @@
                           "fill": "$ink/secondary",
                           "content": "MASAÜSTÜ",
                           "fontFamily": "$font/ui",
-                          "fontSize": 10,
+                          "fontSize": "$font/micro",
                           "fontWeight": "600",
                           "letterSpacing": 0.8
                         },
@@ -74133,7 +74164,7 @@
                           "fill": "$ink/secondary",
                           "content": "1",
                           "fontFamily": "$font/ui",
-                          "fontSize": 10,
+                          "fontSize": "$font/micro",
                           "fontWeight": "normal"
                         }
                       ]
@@ -74307,7 +74338,7 @@
                               "fill": "$ink/primary",
                               "content": "Telefon",
                               "fontFamily": "$font/ui",
-                              "fontSize": 12,
+                              "fontSize": "$font/label",
                               "fontWeight": "normal"
                             },
                             {
@@ -74316,7 +74347,7 @@
                               "fill": "$ink/secondary",
                               "content": "2",
                               "fontFamily": "$font/ui",
-                              "fontSize": 12,
+                              "fontSize": "$font/label",
                               "fontWeight": "normal"
                             },
                             {
@@ -74495,7 +74526,7 @@
                   "fill": "$ink/secondary",
                   "content": "SAYFALAR",
                   "fontFamily": "$font/ui",
-                  "fontSize": 10,
+                  "fontSize": "$font/micro",
                   "fontWeight": "600",
                   "letterSpacing": 0.8
                 }
@@ -74628,7 +74659,7 @@
                   "name": "Group TELEFON",
                   "width": 600,
                   "height": 600,
-                  "fill": "#FFFFFF05",
+                  "fill": "$surface/group",
                   "cornerRadius": 16,
                   "stroke": "$line",
                   "strokeWidth": 1,
@@ -74678,7 +74709,7 @@
                           "fill": "$ink/secondary",
                           "content": "WEBKIT",
                           "fontFamily": "$font/ui",
-                          "fontSize": 10,
+                          "fontSize": "$font/micro",
                           "fontWeight": "600",
                           "letterSpacing": 0.8
                         },
@@ -74688,7 +74719,7 @@
                           "fill": "$ink/secondary",
                           "content": "2",
                           "fontFamily": "$font/ui",
-                          "fontSize": 10,
+                          "fontSize": "$font/micro",
                           "fontWeight": "normal"
                         }
                       ]
@@ -74703,7 +74734,7 @@
                   "name": "Group MASAÜSTÜ",
                   "width": 760,
                   "height": 600,
-                  "fill": "#FFFFFF05",
+                  "fill": "$surface/group",
                   "cornerRadius": 16,
                   "stroke": "$line",
                   "strokeWidth": 1,
@@ -74753,7 +74784,7 @@
                           "fill": "$ink/secondary",
                           "content": "CHROMIUM",
                           "fontFamily": "$font/ui",
-                          "fontSize": 10,
+                          "fontSize": "$font/micro",
                           "fontWeight": "600",
                           "letterSpacing": 0.8
                         },
@@ -74763,7 +74794,7 @@
                           "fill": "$ink/secondary",
                           "content": "2",
                           "fontFamily": "$font/ui",
-                          "fontSize": 10,
+                          "fontSize": "$font/micro",
                           "fontWeight": "normal"
                         }
                       ]
@@ -75691,7 +75722,7 @@
                   "fill": "$ink/secondary",
                   "content": "SAYFALAR",
                   "fontFamily": "$font/ui",
-                  "fontSize": 10,
+                  "fontSize": "$font/micro",
                   "fontWeight": "600",
                   "letterSpacing": 0.8
                 }
@@ -76060,7 +76091,7 @@
                   "fill": "$ink/secondary",
                   "content": "SAYFALAR",
                   "fontFamily": "$font/ui",
-                  "fontSize": 10,
+                  "fontSize": "$font/micro",
                   "fontWeight": "600",
                   "letterSpacing": 0.8
                 }
@@ -76772,6 +76803,7 @@
                   "id": "ratv7",
                   "x": 24,
                   "y": 24,
+                  "name": "Page",
                   "opacity": 0.5,
                   "width": 120,
                   "height": 160,
@@ -76783,6 +76815,7 @@
                   "id": "sTxKU",
                   "x": 160,
                   "y": 24,
+                  "name": "Page",
                   "opacity": 0.5,
                   "width": 180,
                   "height": 160,
@@ -77044,7 +77077,7 @@
                   "y": 16,
                   "width": 328,
                   "height": 168,
-                  "fill": "#FFFFFF05",
+                  "fill": "$surface/group",
                   "cornerRadius": 16,
                   "stroke": "$line",
                   "strokeWidth": 1,
@@ -78162,6 +78195,23 @@
         },
         {
           "value": "#C7C0B4",
+          "theme": {
+            "mode": "light"
+          }
+        }
+      ]
+    },
+    "surface/group": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#FFFFFF05",
+          "theme": {
+            "mode": "dark"
+          }
+        },
+        {
+          "value": "#0000000A",
           "theme": {
             "mode": "light"
           }

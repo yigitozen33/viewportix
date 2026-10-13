@@ -16,12 +16,12 @@
 
 | # | Aşama | Durum | Bitiş | Commit |
 |---|---|---|---|---|
-| 0 | Klasör ve sözleşme | ✅ | 2026-10-13 | (bu commit) |
-| 1 | Token zinciri (pen → JSON → Swift) | ✅ | 2026-10-13 | (bu commit) |
-| 2 | Manifest (bileşen · ekran · PNG · nodeId) | ✅ | 2026-10-13 | (bu commit) |
-| 3 | Bileşen spec'leri (ölçülü katman ağacı) | 🟡 | | 36fa3fa |
-| 4 | CHK tutarlılık kontrolleri | ⬜ | | |
-| 5 | İkon eşleme (Lucide → SF Symbols) | ✅ | 2026-10-13 | (bu commit) |
+| 0 | Klasör ve sözleşme | ✅ | 2026-10-13 | 06b3e3b |
+| 1 | Token zinciri (pen → JSON → Swift) | ✅ | 2026-10-13 | 06b3e3b |
+| 2 | Manifest (bileşen · ekran · PNG · nodeId) | ✅ | 2026-10-13 | 0459780 |
+| 3 | Bileşen spec'leri (ölçülü katman ağacı) | 🟡 | | 36fa3fa, 2ed5d9d |
+| 4 | CHK tutarlılık kontrolleri | ✅ | 2026-10-13 | (bu commit) |
+| 5 | İkon eşleme (Lucide → SF Symbols) | ✅ | 2026-10-13 | 13e2899 |
 | 6 | Örnek sayfa HTML'i | ⬜ | | |
 | 7 | Etkileşim tablolarına id, ekran başına bölme | ⬜ | | |
 | 8 | Parite döngüsü protokolü | ⬜ | | |
@@ -116,3 +116,10 @@ Yalnızca eklenir. Biçim: `### YYYY-MM-DD · <aşamalar>` altında: yapılan, k
 - Kullanıcı kararları (DESIGN.md §4): `link.slash` özel sembol; seçicide glifler; Farklar `square.split.2x1`, Senkron kaydı `waveform.path.ecg`; Döndür `rectangle.portrait.rotate`, Taslaklar `square.and.pencil`, localhost kapalı `server.rack`.
 - Not: `save_dump.py` 12 KB'lık satır içi çıktıyı da stdin'den (`-`) hash'le doğruluyor; ikinci dökümde JSON eskisinden türetildi ve snippet'in hash'iyle eşleşti (elle kopya yok).
 - Sonraki adım: aşama 4 (CHK kontrolleri).
+
+### 2026-10-13 · aşama 4
+- Yapılan: `checks.js` (CHK-1, 2, 5, 6 + bileşen listesi; salt-okunur), `checks-hash.js` (her frame'in çözülmüş ağacının FNV özeti; tek snippet execute süre sınırına takıldığı için ayrı), `checks.py` (CHK-3 DESIGN.md §6 ↔ bileşenler, CHK-4 PNG eksik/eski; `CHECKS.md` yazar, FAIL'de exit 1; `--accept <frame>` dışa aktarımdan sonra tabanı günceller), `export-hashes.json` (taban).
+- Plandan sapma: CHK-4 commit tarihi yerine içerik özeti kullanır; `.pen` her commit'te değiştiği için tarih her PNG'yi eski gösterirdi. Kanıt: taban yokken `CHK|4|FAIL|49`; `Design System · Tokens`'a örnek eklenince yalnız o frame `FAIL|1` (`PNG eski: design-system-tokens@2x.png`), PNG yenilenip `--accept` sonrası `PASS`.
+- İlk tarama (bağlamadan önce) CHK-1'de yüzlerce bulgu verdi: ekranlarda token'a eşit yazı boyutları, boş dolgular, `#FFFFFF05` grup zemini, `#0E0D0C` drag hint, ad verilmemiş örnek sayfa katmanları. Uygulanan: 138 yazı boyutu + 13 renk bağlandı, 19 boş dolgu kaldırıldı, iki katman `Page` adını aldı; kullanıcı kararıyla `surface/group` token'ı (zincir: JSON → Swift, `gen_swift.py` artık alfa kanalını da yazıyor; önce `#FFFFFF05` opak beyaz üretirdi), drag hint `surface/tooltip`, panolar CHK-1 dışı.
+- Kanıt: `CHK|1..6|PASS` (CHECKS.md); `gen_swift.py --diff` → `DIFF: none`, typecheck temiz; `build_specs.py` → açık soru 0; `build_manifest.py` → açık soru 0.
+- Sonraki adım: aşama 7 (etkileşim tablolarına id).

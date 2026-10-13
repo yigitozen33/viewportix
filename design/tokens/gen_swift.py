@@ -54,6 +54,8 @@ def fmt(n):
 def rgb(hexstr):
     h = hexstr.lstrip("#")
     r, g, b = (int(h[i:i + 2], 16) / 255 for i in (0, 2, 4))
+    if len(h) == 8:  # #RRGGBBAA
+        return f"SwiftUI.Color(red: {r:.4f}, green: {g:.4f}, blue: {b:.4f}, opacity: {int(h[6:8], 16) / 255:.4f})"
     return f"SwiftUI.Color(red: {r:.4f}, green: {g:.4f}, blue: {b:.4f})"
 
 

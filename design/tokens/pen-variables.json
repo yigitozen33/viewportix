@@ -477,6 +477,23 @@
           }
         }
       ]
+    },
+    "surface/group": {
+      "type": "color",
+      "values": [
+        {
+          "value": "#FFFFFF05",
+          "theme": {
+            "mode": "dark"
+          }
+        },
+        {
+          "value": "#0000000A",
+          "theme": {
+            "mode": "light"
+          }
+        }
+      ]
     }
   },
   "_generatedBy": "export-variables.js (pen.dev execute) — snapshot, do not edit",

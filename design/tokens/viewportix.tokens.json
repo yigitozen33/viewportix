@@ -50,6 +50,14 @@
         "$extensions": {
           "viewportix.light": "#FBF9F6"
         }
+      },
+      "group": {
+        "$type": "color",
+        "$value": "#FFFFFF05",
+        "$extensions": {
+          "viewportix.light": "#0000000A"
+        },
+        "$description": "Canvas group area background (Görünüm › Grupla)"
       }
     },
     "line": {

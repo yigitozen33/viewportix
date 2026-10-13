@@ -1,0 +1,201 @@
+{
+  "_description": "Frame name -> resolved-tree hash recorded when its PNG was exported (checks-hash.js). Update with `checks.py ... --accept <frame>` right after exporting that PNG.",
+  "hashes": {
+    "Viewport States": {
+      "hash": 3586468320,
+      "accepted": "2026-10-13"
+    },
+    "Tab States & Overflow Menu": {
+      "hash": 3071888474,
+      "accepted": "2026-10-13"
+    },
+    "Project Window": {
+      "hash": 1967369374,
+      "accepted": "2026-10-13"
+    },
+    "Project Window · Sidebar kapalı": {
+      "hash": 4175921200,
+      "accepted": "2026-10-13"
+    },
+    "Project Window · 8 cihaz": {
+      "hash": 2799224361,
+      "accepted": "2026-10-13"
+    },
+    "Project Window · 8 cihaz · menü açık": {
+      "hash": 3148403150,
+      "accepted": "2026-10-13"
+    },
+    "Project Window · Zoom menüsü açık": {
+      "hash": 1142536493,
+      "accepted": "2026-10-13"
+    },
+    "Project Window · İkon çubuklar + tooltip": {
+      "hash": 3035125663,
+      "accepted": "2026-10-13"
+    },
+    "Engine Tooltip": {
+      "hash": 2413645278,
+      "accepted": "2026-10-13"
+    },
+    "Project Window · Motor tooltip": {
+      "hash": 1330473974,
+      "accepted": "2026-10-13"
+    },
+    "Home Window": {
+      "hash": 4108405384,
+      "accepted": "2026-10-13"
+    },
+    "Home Window · Liste": {
+      "hash": 307726158,
+      "accepted": "2026-10-13"
+    },
+    "Home Window · Boş durum": {
+      "hash": 551967290,
+      "accepted": "2026-10-13"
+    },
+    "Home Window · Bağlam menüsü": {
+      "hash": 372641169,
+      "accepted": "2026-10-13"
+    },
+    "Home Window · Kaldır alt menüsü": {
+      "hash": 1599386100,
+      "accepted": "2026-10-13"
+    },
+    "Project Window · Cihaz seçici (birleşik)": {
+      "hash": 3835395359,
+      "accepted": "2026-10-13"
+    },
+    "Dev Panel · Farklar (sakin)": {
+      "hash": 79529387,
+      "accepted": "2026-10-13"
+    },
+    "Dev Panel · Senkron (sakin)": {
+      "hash": 3856943721,
+      "accepted": "2026-10-13"
+    },
+    "Dev Panel · Fark yok (sakin)": {
+      "hash": 4230973338,
+      "accepted": "2026-10-13"
+    },
+    "Engine Glyphs": {
+      "hash": 2703444576,
+      "accepted": "2026-10-13"
+    },
+    "Project Window · URL son 5": {
+      "hash": 3248623709,
+      "accepted": "2026-10-13"
+    },
+    "Sidebar States": {
+      "hash": 452151647,
+      "accepted": "2026-10-13"
+    },
+    "Project Window · Ekran görüntüsü menüsü": {
+      "hash": 1781417541,
+      "accepted": "2026-10-13"
+    },
+    "App Icon · B variants": {
+      "hash": 2226255816,
+      "accepted": "2026-10-13"
+    },
+    "Selected Options": {
+      "hash": 2605166772,
+      "accepted": "2026-10-13"
+    },
+    "Project Window · Ayarlar paneli": {
+      "hash": 2900184622,
+      "accepted": "2026-10-13"
+    },
+    "Design System · Tokens": {
+      "hash": 1015365385,
+      "accepted": "2026-10-13"
+    },
+    "Home Window · Ayarlar paneli": {
+      "hash": 2893297260,
+      "accepted": "2026-10-13"
+    },
+    "Project Window · Canvas boş": {
+      "hash": 1967960660,
+      "accepted": "2026-10-13"
+    },
+    "Card Actions": {
+      "hash": 3012133227,
+      "accepted": "2026-10-13"
+    },
+    "Toast States": {
+      "hash": 1691766266,
+      "accepted": "2026-10-13"
+    },
+    "Sidebar · Sayfa sağ tık menüsü": {
+      "hash": 3683503940,
+      "accepted": "2026-10-13"
+    },
+    "Shortcut Map · Menü çubuğu": {
+      "hash": 2375911835,
+      "accepted": "2026-10-13"
+    },
+    "Chrome Spec": {
+      "hash": 3002498889,
+      "accepted": "2026-10-13"
+    },
+    "Project Window · Ayarlar › Cihazlar": {
+      "hash": 3799134021,
+      "accepted": "2026-10-13"
+    },
+    "Project Window · Ayarlar › MCP": {
+      "hash": 886190394,
+      "accepted": "2026-10-13"
+    },
+    "Project Window · Ayarlar › Hesap": {
+      "hash": 2168781011,
+      "accepted": "2026-10-13"
+    },
+    "Project Window · Ray gizli": {
+      "hash": 451669735,
+      "accepted": "2026-10-13"
+    },
+    "Card Load Errors": {
+      "hash": 758679214,
+      "accepted": "2026-10-13"
+    },
+    "Project Window · Kart sürükleniyor": {
+      "hash": 2327184133,
+      "accepted": "2026-10-13"
+    },
+    "Project Window · Gruplar (cihaz türü)": {
+      "hash": 304340719,
+      "accepted": "2026-10-13"
+    },
+    "Misc States": {
+      "hash": 3736051574,
+      "accepted": "2026-10-13"
+    },
+    "Project Window · Gruplar · katlanmış": {
+      "hash": 1050844249,
+      "accepted": "2026-10-13"
+    },
+    "Project Window · Gruplar (motor, M4)": {
+      "hash": 3591290720,
+      "accepted": "2026-10-13"
+    },
+    "Home File Errors": {
+      "hash": 3309216490,
+      "accepted": "2026-10-13"
+    },
+    "Project Window · En küçük boyut (1024×640)": {
+      "hash": 1736708703,
+      "accepted": "2026-10-13"
+    },
+    "Project Window · Tam ekran": {
+      "hash": 1481945474,
+      "accepted": "2026-10-13"
+    },
+    "Misc States 2": {
+      "hash": 63855709,
+      "accepted": "2026-10-13"
+    },
+    "Home States": {
+      "hash": 2504142828,
+      "accepted": "2026-10-13"
+    }
+  }
+}

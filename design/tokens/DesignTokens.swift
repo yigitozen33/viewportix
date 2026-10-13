@@ -19,6 +19,8 @@ public enum DesignTokens {
         public static let surfacePill = SwiftUI.Color(red: 0.2275, green: 0.2039, blue: 0.1882)
         /// surface/tooltip · dark #0B0A09 · light #FBF9F6
         public static let surfaceTooltip = SwiftUI.Color(red: 0.0431, green: 0.0392, blue: 0.0353)
+        /// surface/group · dark #FFFFFF05 · light #0000000A
+        public static let surfaceGroup = SwiftUI.Color(red: 1.0000, green: 1.0000, blue: 1.0000, opacity: 0.0196)
         /// line · dark #3A3532 · light #D9D3C9
         public static let line = SwiftUI.Color(red: 0.2275, green: 0.2078, blue: 0.1961)
         /// line-strong · dark #4F4945 · light #C7C0B4
