@@ -17,15 +17,56 @@ public extension EnvironmentValues {
     }
 }
 
-/// SF Symbol, or an asset-catalog symbol for the custom ones in design/handoff/icons.md (`link.slash`, engine glyphs).
+/// SF Symbol, `link.slash` composed in code, or an asset-catalog image for the engine glyphs (design/handoff/icons.md).
 public struct SkeletonSymbol: View {
-    public static let custom: Set<String> = ["link.slash", "engine.webkit", "engine.chromium", "engine.firefox"]
+    public static let custom: Set<String> = ["engine.webkit", "engine.chromium", "engine.firefox"]
     @Environment(\.skeletonIconStyle) private var style
     public let name: String
     public let size: CGFloat
     public init(name: String, size: CGFloat) { self.name = name; self.size = size }
     public var body: some View {
-        Group { if Self.custom.contains(name) { Image(name) } else { Image(systemName: name) } }
-            .font(.system(size: size * style.scale, weight: style.weight))
+        if name == "link.slash" {
+            LinkSlashSymbol(weight: style.weight).font(.system(size: size * style.scale, weight: style.weight))
+        } else {
+            Group { if Self.custom.contains(name) { Image(name) } else { Image(systemName: name) } }
+                .font(.system(size: size * style.scale, weight: style.weight))
+        }
+    }
+}
+
+/// `link` with an SF-style slash (DESIGN.md §4, 2026-10-13): SF Symbols has no broken chain, so the system `link`
+/// glyph is drawn as is and a slash is added the way Apple's `*.slash` symbols do it — top-left to bottom-right,
+/// line = the glyph's stroke weight, a clear band on both sides. `link` is diagonal, so its ink box has empty
+/// corners; the slash stays inside 14–86 % × 10–90 % of the frame instead of running corner to corner.
+/// Inherits size and weight from the font, so it follows the 0.875 icon rule like any other symbol.
+public struct LinkSlashSymbol: View {
+    @Environment(\.font) private var font
+    public var weight: Font.Weight
+    public init(weight: Font.Weight = .regular) { self.weight = weight }
+    // Measured on SF Symbols (macOS 26): link ink spans 8.7–90.5 % × 8.1–91.1 % of its image frame.
+    static let x0 = 0.14, x1 = 0.86, y0 = 0.10, y1 = 0.90
+    static let line: [Font.Weight: CGFloat] = [.ultraLight: 0.025, .thin: 0.035, .light: 0.052, .regular: 0.068, .medium: 0.078, .semibold: 0.088, .bold: 0.10]
+    func slash(_ s: CGSize) -> Path {
+        Path { p in
+            p.move(to: CGPoint(x: s.width * Self.x0, y: s.height * Self.y0))
+            p.addLine(to: CGPoint(x: s.width * Self.x1, y: s.height * Self.y1))
+        }
+    }
+    public var body: some View {
+        Image(systemName: "link")
+            .mask {
+                GeometryReader { g in
+                    let lw = (Self.line[weight] ?? 0.068) * g.size.height
+                    ZStack {
+                        Rectangle()
+                        slash(g.size).stroke(style: StrokeStyle(lineWidth: lw * 2.8, lineCap: .round)).blendMode(.destinationOut)
+                    }.compositingGroup()
+                }
+            }
+            .overlay {
+                GeometryReader { g in
+                    slash(g.size).stroke(style: StrokeStyle(lineWidth: (Self.line[weight] ?? 0.068) * g.size.height, lineCap: .round))
+                }
+            }
     }
 }

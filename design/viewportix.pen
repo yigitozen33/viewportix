@@ -8959,7 +8959,7 @@
           "name": "SyncOff",
           "width": 16,
           "height": 16,
-          "icon": "unlink",
+          "icon": "link-2-off",
           "library": "lucide",
           "fill": "$ink/secondary"
         },
@@ -64897,7 +64897,7 @@
                           "fill": "$surface/card"
                         },
                         "ZQ57w": {
-                          "icon": "unlink-2",
+                          "icon": "link-2-off",
                           "fill": "$ink/secondary"
                         }
                       }

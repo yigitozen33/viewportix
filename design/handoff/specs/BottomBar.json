@@ -233,7 +233,7 @@
        "node": "Window/BottomBar › Sync Toggle › SyncIcon",
        "nodeId": "ZQ57w",
        "set": {
-        "icon": "unlink-2",
+        "icon": "link-2-off",
         "fill": "$ink/secondary"
        }
       }

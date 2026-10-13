@@ -10,9 +10,7 @@ SF adları macOS 26'da `NSImage(systemSymbolName:)` ile doğrulandı (`python3 b
 
 | Nerede | Lucide | SF Symbol | Tür | Not | Kaynak (bileşen · ekran) |
 |---|---|---|---|---|---|
-| Kart yükleme hatası › adres hatalı | `link-2-off` | link.slash (özel) | özel | SF'de yok; `link`'ten türetilmiş özel sembol. | 1 durum frame'i |
-| Hover şeridi › Senkrondan çıkar | `unlink` | link.slash (özel) | özel | SF'de yok; `link`'ten türetilmiş özel sembol. | `Viewport/HoverStrip`, Dev Panel ×3, Project Window ×21 |
-| Alt çubuk › senkron kapalı | `unlink-2` | link.slash (özel) | özel | SF'de yok; `link`'ten türetilmiş özel sembol. | 1 durum frame'i |
+| Senkron kapalı (alt çubuk), Senkrondan çıkar (hover şeridi), adres hatalı | `link-2-off` | link.slash (özel) | özel | SF'de yok; `link`'ten türetilmiş özel sembol (`.symbolset`). Pen'de de eğik çizgili zincir (DESIGN.md §4). | `Viewport/HoverStrip`, Dev Panel ×3, Project Window ×21, 2 durum frame'i |
 | Ray › Senkron kaydı | `activity` | `waveform.path.ecg` | öneri | Alternatif `list.bullet.rectangle`. | `Window/Rail`, Dev Panel ×3, Project Window ×21, 2 durum frame'i |
 | Giriş sidebar › Taslaklar | `file-pen` | `square.and.pencil` | öneri | Alternatif `doc.badge.ellipsis`. | Home Window ×6 |
 | Ray › Farklar | `git-compare` | `square.split.2x1` | öneri | Yan yana karşılaştırma; alternatif `arrow.left.and.right.square`. | `Window/Rail`, Dev Panel ×3, Home Window ×6, Project Window ×21, 2 durum frame'i |
@@ -79,7 +77,7 @@ SF adları macOS 26'da `NSImage(systemSymbolName:)` ile doğrulandı (`python3 b
 
 ## Özel semboller (Assets'e eklenecek)
 
-- `link.slash`: SF Symbols uygulamasında `link` → *Duplicate as Custom Symbol*, çapraz çizgi (`wifi.slash` ile aynı açı ve kalınlık); senkron kapalı, Senkrondan çıkar, adres hatalı. DESIGN.md §4, 2026-10-13.
+- `link.slash`: `link` şablonundan türetilen `.symbolset` (eğik çizgi sol üst → sağ alt, kalınlık = glif çizgisi, iki yanda boşluk; `bell.slash` / `wifi.slash` gibi). Oranlar `skeleton/link-slash@2x.png` panosunda; şablon SF Symbols uygulamasından dışa aktarılınca tasarım oturumu eğik çizgiyi ekler ve `actool` ile doğrular. O zamana kadar iskelet `LinkSlashSymbol` (kodda bileşim) ile çizer. DESIGN.md §4, 2026-10-13.
 - Motor glifleri `engine.webkit`, `engine.chromium`, `engine.firefox`: pen.dev `Engine Glyphs` frame'i (16×16 ızgara, 2 px band); geometri `specs/ViewportCard.json` › Header › Engine ve `specs/DevicePicker.json` › EngIcon (`viewBox` 0 0 16 16). Kart başlığı ve cihaz seçici aynı glifi kullanır.
 
 ## Açık sorular

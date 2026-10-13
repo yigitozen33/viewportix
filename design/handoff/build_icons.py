@@ -48,7 +48,7 @@ MAP = {
     "layout-grid": ("Giriş › ızgara görünümü", "square.grid.2x2", "1:1", ""),
     "link": ("URL kutusu, hover şeridi › Senkrona kat", "link", "1:1", ""),
     "link-2": ("Alt çubuk › senkron açık", "link", "yakın", "SF'de tek zincir şekli var; `link` ile aynı sembol."),
-    "link-2-off": ("Kart yükleme hatası › adres hatalı", "link.slash (özel)", "özel", "SF'de yok; `link`'ten türetilmiş özel sembol."),
+    "link-2-off": ("Senkron kapalı (alt çubuk), Senkrondan çıkar (hover şeridi), adres hatalı", "link.slash (özel)", "özel", "SF'de yok; `link`'ten türetilmiş özel sembol (`.symbolset`). Pen'de de eğik çizgili zincir (DESIGN.md §4)."),
     "list": ("Giriş › liste görünümü", "list.bullet", "1:1", ""),
     "list-x": ("Kaldır › Listeden kaldır", "text.badge.xmark", "yakın", ""),
     "loader-circle": ("Yükleniyor (kart, sekme, kapsül)", "ProgressView", "sistem", "`ProgressView().controlSize(.small)`; sembol değil."),
@@ -79,8 +79,6 @@ MAP = {
     "tablet": ("Cihaz türü tablet", "ipad", "1:1", ""),
     "trash-2": ("Kaldır › Çöp Sepeti'ne taşı", "trash", "1:1", ""),
     "triangle-alert": ("Uyarı: senkron kaçtı, hata, \"+N\" durumu", "exclamationmark.triangle", "1:1", ""),
-    "unlink": ("Hover şeridi › Senkrondan çıkar", "link.slash (özel)", "özel", "SF'de yok; `link`'ten türetilmiş özel sembol."),
-    "unlink-2": ("Alt çubuk › senkron kapalı", "link.slash (özel)", "özel", "SF'de yok; `link`'ten türetilmiş özel sembol."),
     "user": ("Ray › Hesap", "person", "1:1", ""),
     "wifi-off": ("Kart yükleme hatası › ağ", "wifi.slash", "1:1", ""),
     "x": ("Kapat (sekme, kart, menü satırı, panel)", "xmark", "1:1", ""),
@@ -129,8 +127,9 @@ def main():
         sf_cell = sf if kind in ("özel", "sistem") or sf == "—" else f"`{sf}`"
         L.append(f"| {place} | `{k}` | {sf_cell} | {kind} | {note} | {where(icons[k])} |")
     L += ["", "## Özel semboller (Assets'e eklenecek)", "",
-          "- `link.slash`: SF Symbols uygulamasında `link` → *Duplicate as Custom Symbol*, çapraz çizgi (`wifi.slash` ile aynı açı ve kalınlık); "
-          "senkron kapalı, Senkrondan çıkar, adres hatalı. DESIGN.md §4, 2026-10-13.",
+          "- `link.slash`: `link` şablonundan türetilen `.symbolset` (eğik çizgi sol üst → sağ alt, kalınlık = glif çizgisi, iki yanda boşluk; "
+          "`bell.slash` / `wifi.slash` gibi). Oranlar `skeleton/link-slash@2x.png` panosunda; şablon SF Symbols uygulamasından dışa aktarılınca tasarım oturumu "
+          "eğik çizgiyi ekler ve `actool` ile doğrular. O zamana kadar iskelet `LinkSlashSymbol` (kodda bileşim) ile çizer. DESIGN.md §4, 2026-10-13.",
           "- Motor glifleri `engine.webkit`, `engine.chromium`, `engine.firefox`: pen.dev `Engine Glyphs` frame'i (16×16 ızgara, 2 px band); "
           "geometri `specs/ViewportCard.json` › Header › Engine ve `specs/DevicePicker.json` › EngIcon (`viewBox` 0 0 16 16). Kart başlığı ve cihaz seçici aynı glifi kullanır.",
           "", "## Açık sorular", ""] + ([f"- {p}" for p in problems] or ["- (yok)"])

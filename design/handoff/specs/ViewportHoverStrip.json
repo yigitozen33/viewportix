@@ -89,7 +89,7 @@
     },
     "fill": "$ink/secondary",
     "icon": {
-     "lucide": "unlink",
+     "lucide": "link-2-off",
      "library": "lucide"
     }
    },

@@ -493,15 +493,23 @@
   },
   "link-2-off": {
    "library": "lucide",
-   "count": 1,
+   "count": 27,
    "layers": [
-    "?"
+    "?",
+    "SyncIcon",
+    "SyncOff"
    ],
-   "components": [],
+   "components": [
+    "Viewport/HoverStrip"
+   ],
    "specFrames": [
-    "Card Load Errors"
+    "Card Load Errors",
+    "Chrome Spec"
    ],
-   "screens": {}
+   "screens": {
+    "Dev Panel": 3,
+    "Project Window": 21
+   }
   },
   "list": {
    "library": "lucide",
@@ -1013,33 +1021,6 @@
     "Dev Panel": 3,
     "Project Window": 21
    }
-  },
-  "unlink": {
-   "library": "lucide",
-   "count": 25,
-   "layers": [
-    "SyncOff"
-   ],
-   "components": [
-    "Viewport/HoverStrip"
-   ],
-   "specFrames": [],
-   "screens": {
-    "Dev Panel": 3,
-    "Project Window": 21
-   }
-  },
-  "unlink-2": {
-   "library": "lucide",
-   "count": 1,
-   "layers": [
-    "SyncIcon"
-   ],
-   "components": [],
-   "specFrames": [
-    "Chrome Spec"
-   ],
-   "screens": {}
   },
   "user": {
    "library": "lucide",
