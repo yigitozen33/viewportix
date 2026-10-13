@@ -22,7 +22,7 @@
 | 3 | Bileşen spec'leri (ölçülü katman ağacı) | 🟡 | | 36fa3fa, 2ed5d9d |
 | 4 | CHK tutarlılık kontrolleri | ✅ | 2026-10-13 | f717fc8 |
 | 5 | İkon eşleme (Lucide → SF Symbols) | ✅ | 2026-10-13 | 13e2899 |
-| 6 | Örnek sayfa HTML'i | ✅ | 2026-10-13 | (bu commit) |
+| 6 | Örnek sayfa HTML'i | ✅ | 2026-10-13 | f223f0f |
 | 7 | Etkileşim tablolarına id, ekran başına bölme | ✅ | 2026-10-13 | 162a467 |
 | 8 | Parite döngüsü protokolü | ⬜ | | |
 | 9 | SwiftUI iskelet üretimi (deneme, isteğe bağlı) | ⬜ | | |
