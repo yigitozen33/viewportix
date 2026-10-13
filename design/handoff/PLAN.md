@@ -25,7 +25,7 @@
 | 6 | Örnek sayfa HTML'i | ✅ | 2026-10-13 | f223f0f |
 | 7 | Etkileşim tablolarına id, ekran başına bölme | ✅ | 2026-10-13 | 162a467 |
 | 8 | Parite döngüsü protokolü | ⬜ | | |
-| 9 | SwiftUI iskelet üretimi (deneme, isteğe bağlı) | 🟡 | | (bu commit) |
+| 9 | SwiftUI iskelet üretimi (deneme, isteğe bağlı) | 🟡 | | 91a9590 |
 
 Durum: ⬜ başlanmadı · 🟡 sürüyor · ✅ bitti · ⛔ vazgeçildi (nedeni raporda)
 
