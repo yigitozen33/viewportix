@@ -21,7 +21,7 @@
 | 2 | Manifest (bileşen · ekran · PNG · nodeId) | ✅ | 2026-10-13 | (bu commit) |
 | 3 | Bileşen spec'leri (ölçülü katman ağacı) | 🟡 | | 36fa3fa |
 | 4 | CHK tutarlılık kontrolleri | ⬜ | | |
-| 5 | İkon eşleme (Lucide → SF Symbols) | ⬜ | | |
+| 5 | İkon eşleme (Lucide → SF Symbols) | ✅ | 2026-10-13 | (bu commit) |
 | 6 | Örnek sayfa HTML'i | ⬜ | | |
 | 7 | Etkileşim tablolarına id, ekran başına bölme | ⬜ | | |
 | 8 | Parite döngüsü protokolü | ⬜ | | |
@@ -107,4 +107,12 @@ Yalnızca eklenir. Biçim: `### YYYY-MM-DD · <aşamalar>` altında: yapılan, k
 - Kullanıcı kararları (DESIGN.md §4, 2026-10-13) ve uygulama: (a) token'a eşit ham değerler bağlandı: 210 yazı boyutu (`$font/*`), 10 renk; 4 boş dolgu kaldırıldı (`fill: []`); (b) `Window/Tooltip` → `ChromeTooltip` bileşeni, 10 tooltip instance oldu (planlanan 8 + `Project Window · İkon çubuklar + tooltip` + `· Motor tooltip`); (c) tooltip–hedef 8 px: Chrome Spec `Tooltip wrap` gap 6 → 8, iki ekran tooltip'i 2 / 7 px kaydırıldı; (d) `Home States` frame'i: URLBox boş/dolu/geçersiz (Aç hep sarı, U2), ProjectCard normal/hover/taslak/sağ tık hedefi, TemplateChip normal/seçili; yeni token `line/strong` (#4F4945 / açık #C7C0B4; H2); ⋯ ana kopyada gizli, bağlam menüsü ekranlarındaki 2 kartta açık.
 - Kanıt: `build_manifest.py` → `components=18 screens=31 specFrames=18 openQuestions=0`; `build_specs.py` → `wrote 18 specs; raw colour/type values 37; open questions 0` (önce 119); `gen_swift.py --diff` → `DIFF: none`, `--check` güncel, `swiftc -typecheck` temiz; 13 PNG yeniden dışa aktarıldı + `home-states@2x.png`.
 - Sonraki adım: kod oturumunun `BottomBar` denemesi (§14) → 3 ✅; tasarım tarafında aşama 5 (ikon eşleme).
+- Commit: `2ed5d9d` (kararların uygulanması, `.pen` dahil).
 
+### 2026-10-13 · aşama 5
+- Yapılan: `dump-icons.js` (arşiv dışı görünür ikon düğümleri, instance içleri dahil; ikon → sayı, katman adları, bileşenler, durum frame'leri, pencere türüne göre ekran sayısı), `build_icons.py` (eşleme `MAP` elle; pen'de olup tabloda olmayan ya da tersini açık soru sayar; `--verify` her SF adını bu Mac'te `NSImage(systemSymbolName:)` ile dener) → `icons.md`.
+- Kanıt: `python3 build_icons.py --verify` → `wrote icons.md: 66 icons {'öneri': 5, '1:1': 46, 'yakın': 8, 'sistem': 4, 'özel': 3}; verified 55 SF names; problems 0` (macOS 26.6.1). Doğrulama gerçekten eler: `link.slash`, `xmark.magnifyingglass`, `doc.badge.arrow.down` → yok.
+- Bulgu: SF Symbols'te kırık zincir yok → özel sembol `link.slash`. Cihaz seçicide motor ikonları Lucide yer tutucusuydu (kartta özel glif) → pen'de `Engine Glyphs` path'leriyle değiştirildi (3 ikon; 69 → 66 ikon), `window-project-device-picker@2x.png` yenilendi, spec yeniden üretildi.
+- Kullanıcı kararları (DESIGN.md §4): `link.slash` özel sembol; seçicide glifler; Farklar `square.split.2x1`, Senkron kaydı `waveform.path.ecg`; Döndür `rectangle.portrait.rotate`, Taslaklar `square.and.pencil`, localhost kapalı `server.rack`.
+- Not: `save_dump.py` 12 KB'lık satır içi çıktıyı da stdin'den (`-`) hash'le doğruluyor; ikinci dökümde JSON eskisinden türetildi ve snippet'in hash'iyle eşleşti (elle kopya yok).
+- Sonraki adım: aşama 4 (CHK kontrolleri).

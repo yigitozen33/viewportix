@@ -1422,14 +1422,20 @@
           "alignItems": "center",
           "children": [
            {
-            "type": "icon",
-            "id": "Wt3Zl",
+            "type": "path",
+            "id": "huHAt",
             "name": "EngIcon",
+            "geometry": "...",
+            "fillRule": "evenodd",
+            "viewBox": [
+             0,
+             0,
+             16,
+             16
+            ],
+            "fill": "$ink/primary",
             "width": 13,
-            "height": 13,
-            "icon": "compass",
-            "library": "lucide",
-            "fill": "$ink/primary"
+            "height": 13
            }
           ]
          },
@@ -1447,14 +1453,20 @@
           "alignItems": "center",
           "children": [
            {
-            "type": "icon",
-            "id": "UZ7Cu",
+            "type": "path",
+            "id": "V8pCEk",
             "name": "EngIcon",
+            "geometry": "...",
+            "fillRule": "evenodd",
+            "viewBox": [
+             0,
+             0,
+             16,
+             16
+            ],
+            "fill": "$ink/secondary",
             "width": 13,
-            "height": 13,
-            "icon": "circle-dashed",
-            "library": "lucide",
-            "fill": "$ink/secondary"
+            "height": 13
            },
            {
             "type": "text",
@@ -1482,14 +1494,20 @@
           "alignItems": "center",
           "children": [
            {
-            "type": "icon",
-            "id": "BbVpC",
+            "type": "path",
+            "id": "w8VHc",
             "name": "EngIcon",
+            "geometry": "...",
+            "fillRule": "evenodd",
+            "viewBox": [
+             0,
+             0,
+             16,
+             16
+            ],
+            "fill": "$ink/secondary",
             "width": 13,
-            "height": 13,
-            "icon": "flame",
-            "library": "lucide",
-            "fill": "$ink/secondary"
+            "height": 13
            },
            {
             "type": "text",
@@ -3229,7 +3247,7 @@
      29,
      25
     ],
-    "Wt3Zl": [
+    "huHAt": [
      13,
      13
     ],
@@ -3237,7 +3255,7 @@
      70,
      25
     ],
-    "UZ7Cu": [
+    "V8pCEk": [
      13,
      13
     ],
@@ -3249,7 +3267,7 @@
      70,
      25
     ],
-    "BbVpC": [
+    "w8VHc": [
      13,
      13
     ],

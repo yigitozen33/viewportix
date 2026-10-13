@@ -1,0 +1,1104 @@
+{
+ "generatedAt": "2026-10-13",
+ "icons": {
+  "activity": {
+   "library": "lucide",
+   "count": 30,
+   "layers": [
+    "RIcon"
+   ],
+   "components": [
+    "Window/Rail"
+   ],
+   "specFrames": [
+    "Chrome Spec",
+    "Misc States 2"
+   ],
+   "screens": {
+    "Dev Panel": 3,
+    "Project Window": 21
+   }
+  },
+  "arrow-left-right": {
+   "library": "lucide",
+   "count": 1,
+   "layers": [
+    "SwapIcon"
+   ],
+   "components": [],
+   "specFrames": [
+    "Card Actions"
+   ],
+   "screens": {}
+  },
+  "arrow-right": {
+   "library": "lucide",
+   "count": 11,
+   "layers": [
+    "?",
+    "OpenIcon"
+   ],
+   "components": [
+    "Home/URLBox"
+   ],
+   "specFrames": [
+    "Home States",
+    "Misc States 2"
+   ],
+   "screens": {
+    "Home Window": 6
+   }
+  },
+  "arrow-up-right": {
+   "library": "lucide",
+   "count": 2,
+   "layers": [
+    "ManageIcon"
+   ],
+   "components": [
+    "Device/Picker"
+   ],
+   "specFrames": [],
+   "screens": {
+    "Project Window": 1
+   }
+  },
+  "camera": {
+   "library": "lucide",
+   "count": 133,
+   "layers": [
+    "Camera",
+    "Icon"
+   ],
+   "components": [
+    "Viewport/Card",
+    "Window/BottomBar"
+   ],
+   "specFrames": [
+    "Card Actions",
+    "Card Load Errors",
+    "Chrome Spec",
+    "Engine Tooltip",
+    "Misc States 2",
+    "Selected Options",
+    "Viewport States"
+   ],
+   "screens": {
+    "Dev Panel": 3,
+    "Project Window": 22
+   }
+  },
+  "check": {
+   "library": "lucide",
+   "count": 24,
+   "layers": [
+    "Added",
+    "Check"
+   ],
+   "components": [
+    "Device/Picker",
+    "Window/Toast"
+   ],
+   "specFrames": [
+    "Toast States"
+   ],
+   "screens": {
+    "Project Window": 9
+   }
+  },
+  "chevron-down": {
+   "library": "lucide",
+   "count": 58,
+   "layers": [
+    "?",
+    "C",
+    "Chevron",
+    "DownIcon",
+    "MenuChevron",
+    "MoreIcon"
+   ],
+   "components": [
+    "Toolbar/ZoomControl",
+    "Window/BottomBar"
+   ],
+   "specFrames": [
+    "Chrome Spec",
+    "Misc States 2",
+    "Tab States & Overflow Menu"
+   ],
+   "screens": {
+    "Dev Panel": 3,
+    "Home Window": 1,
+    "Project Window": 22
+   }
+  },
+  "chevron-left": {
+   "library": "lucide",
+   "count": 32,
+   "layers": [
+    "Back"
+   ],
+   "components": [
+    "Sidebar/Header",
+    "Window/CollapsedHeader"
+   ],
+   "specFrames": [
+    "Chrome Spec",
+    "Misc States 2"
+   ],
+   "screens": {
+    "Dev Panel": 3,
+    "Project Window": 22
+   }
+  },
+  "chevron-right": {
+   "library": "lucide",
+   "count": 40,
+   "layers": [
+    "?",
+    "Arrow",
+    "Forward",
+    "ScrollRight",
+    "SubArrow"
+   ],
+   "components": [
+    "Sidebar/Header",
+    "Window/CollapsedHeader"
+   ],
+   "specFrames": [
+    "Chrome Spec",
+    "Misc States 2"
+   ],
+   "screens": {
+    "Dev Panel": 3,
+    "Home Window": 2,
+    "Project Window": 22
+   }
+  },
+  "chevron-up": {
+   "library": "lucide",
+   "count": 31,
+   "layers": [
+    "UpIcon"
+   ],
+   "components": [
+    "Toolbar/ZoomControl",
+    "Window/BottomBar"
+   ],
+   "specFrames": [
+    "Chrome Spec"
+   ],
+   "screens": {
+    "Dev Panel": 3,
+    "Project Window": 22
+   }
+  },
+  "copy": {
+   "library": "lucide",
+   "count": 3,
+   "layers": [
+    "?",
+    "ItemIcon"
+   ],
+   "components": [],
+   "specFrames": [],
+   "screens": {
+    "Home Window": 2,
+    "Project Window": 1
+   }
+  },
+  "credit-card": {
+   "library": "lucide",
+   "count": 28,
+   "layers": [
+    "Icon"
+   ],
+   "components": [],
+   "specFrames": [
+    "Sidebar States",
+    "Sidebar · Sayfa sağ tık menüsü"
+   ],
+   "screens": {
+    "Dev Panel": 3,
+    "Project Window": 20
+   }
+  },
+  "ellipsis": {
+   "library": "lucide",
+   "count": 15,
+   "layers": [
+    "?",
+    "More",
+    "MoreR"
+   ],
+   "components": [],
+   "specFrames": [
+    "Home File Errors",
+    "Home States",
+    "Misc States 2",
+    "Sidebar States"
+   ],
+   "screens": {
+    "Dev Panel": 3,
+    "Home Window": 3,
+    "Project Window": 1
+   }
+  },
+  "eye": {
+   "library": "lucide",
+   "count": 1,
+   "layers": [
+    "S"
+   ],
+   "components": [],
+   "specFrames": [
+    "Tab States & Overflow Menu"
+   ],
+   "screens": {}
+  },
+  "file-down": {
+   "library": "lucide",
+   "count": 2,
+   "layers": [
+    "OI"
+   ],
+   "components": [],
+   "specFrames": [
+    "Card Actions"
+   ],
+   "screens": {
+    "Project Window": 1
+   }
+  },
+  "file-pen": {
+   "library": "lucide",
+   "count": 6,
+   "layers": [
+    "Icon"
+   ],
+   "components": [],
+   "specFrames": [],
+   "screens": {
+    "Home Window": 6
+   }
+  },
+  "file-text": {
+   "library": "lucide",
+   "count": 3,
+   "layers": [
+    "Icon"
+   ],
+   "components": [
+    "Sidebar/Row"
+   ],
+   "specFrames": [
+    "Misc States",
+    "Misc States 2"
+   ],
+   "screens": {}
+  },
+  "folder": {
+   "library": "lucide",
+   "count": 2,
+   "layers": [
+    "ItemIcon"
+   ],
+   "components": [],
+   "specFrames": [],
+   "screens": {
+    "Home Window": 2
+   }
+  },
+  "folder-open": {
+   "library": "lucide",
+   "count": 8,
+   "layers": [
+    "Icon",
+    "ItemIcon"
+   ],
+   "components": [],
+   "specFrames": [],
+   "screens": {
+    "Home Window": 6
+   }
+  },
+  "git-compare": {
+   "library": "lucide",
+   "count": 36,
+   "layers": [
+    "Icon",
+    "RIcon"
+   ],
+   "components": [
+    "Window/Rail"
+   ],
+   "specFrames": [
+    "Chrome Spec",
+    "Misc States 2"
+   ],
+   "screens": {
+    "Dev Panel": 3,
+    "Home Window": 6,
+    "Project Window": 21
+   }
+  },
+  "globe": {
+   "library": "lucide",
+   "count": 1,
+   "layers": [
+    "Lock"
+   ],
+   "components": [],
+   "specFrames": [
+    "Chrome Spec"
+   ],
+   "screens": {}
+  },
+  "hand-grab": {
+   "library": "lucide",
+   "count": 1,
+   "layers": [
+    "Grab cursor"
+   ],
+   "components": [],
+   "specFrames": [],
+   "screens": {
+    "Project Window": 1
+   }
+  },
+  "history": {
+   "library": "lucide",
+   "count": 6,
+   "layers": [
+    "Icon"
+   ],
+   "components": [],
+   "specFrames": [],
+   "screens": {
+    "Home Window": 6
+   }
+  },
+  "house": {
+   "library": "lucide",
+   "count": 28,
+   "layers": [
+    "Icon"
+   ],
+   "components": [],
+   "specFrames": [
+    "Sidebar States",
+    "Sidebar · Sayfa sağ tık menüsü"
+   ],
+   "screens": {
+    "Dev Panel": 3,
+    "Project Window": 20
+   }
+  },
+  "image": {
+   "library": "lucide",
+   "count": 4,
+   "layers": [
+    "Status"
+   ],
+   "components": [],
+   "specFrames": [
+    "Chrome Spec",
+    "Tab States & Overflow Menu"
+   ],
+   "screens": {
+    "Project Window": 2
+   }
+  },
+  "info": {
+   "library": "lucide",
+   "count": 1,
+   "layers": [
+    "Check"
+   ],
+   "components": [],
+   "specFrames": [
+    "Misc States 2"
+   ],
+   "screens": {}
+  },
+  "laptop": {
+   "library": "lucide",
+   "count": 4,
+   "layers": [
+    "DevIcon",
+    "RIcon"
+   ],
+   "components": [
+    "Device/Picker"
+   ],
+   "specFrames": [
+    "Tab States & Overflow Menu"
+   ],
+   "screens": {
+    "Project Window": 2
+   }
+  },
+  "layout-grid": {
+   "library": "lucide",
+   "count": 13,
+   "layers": [
+    "GridIcon",
+    "Icon"
+   ],
+   "components": [],
+   "specFrames": [
+    "Misc States"
+   ],
+   "screens": {
+    "Home Window": 6
+   }
+  },
+  "link": {
+   "library": "lucide",
+   "count": 14,
+   "layers": [
+    "?",
+    "ItemIcon",
+    "Link",
+    "SyncOff"
+   ],
+   "components": [
+    "Home/URLBox"
+   ],
+   "specFrames": [
+    "Card Actions",
+    "Home States",
+    "Misc States 2"
+   ],
+   "screens": {
+    "Home Window": 6
+   }
+  },
+  "link-2": {
+   "library": "lucide",
+   "count": 29,
+   "layers": [
+    "SyncIcon"
+   ],
+   "components": [
+    "Window/BottomBar"
+   ],
+   "specFrames": [
+    "Chrome Spec"
+   ],
+   "screens": {
+    "Dev Panel": 3,
+    "Project Window": 22
+   }
+  },
+  "link-2-off": {
+   "library": "lucide",
+   "count": 1,
+   "layers": [
+    "?"
+   ],
+   "components": [],
+   "specFrames": [
+    "Card Load Errors"
+   ],
+   "screens": {}
+  },
+  "list": {
+   "library": "lucide",
+   "count": 7,
+   "layers": [
+    "ListIcon"
+   ],
+   "components": [],
+   "specFrames": [
+    "Misc States"
+   ],
+   "screens": {
+    "Home Window": 6
+   }
+  },
+  "list-x": {
+   "library": "lucide",
+   "count": 1,
+   "layers": [
+    "ItemIcon"
+   ],
+   "components": [],
+   "specFrames": [],
+   "screens": {
+    "Home Window": 1
+   }
+  },
+  "loader-circle": {
+   "library": "lucide",
+   "count": 10,
+   "layers": [
+    "?",
+    "Camera",
+    "Check",
+    "RowStatus",
+    "S",
+    "Status"
+   ],
+   "components": [],
+   "specFrames": [
+    "Card Load Errors",
+    "Chrome Spec",
+    "Tab States & Overflow Menu",
+    "Toast States",
+    "Viewport States"
+   ],
+   "screens": {
+    "Project Window": 2
+   }
+  },
+  "lock": {
+   "library": "lucide",
+   "count": 32,
+   "layers": [
+    "?",
+    "Lock"
+   ],
+   "components": [
+    "Sidebar/Header",
+    "Window/CollapsedHeader"
+   ],
+   "specFrames": [
+    "Chrome Spec",
+    "Misc States",
+    "Misc States 2"
+   ],
+   "screens": {
+    "Dev Panel": 3,
+    "Project Window": 22
+   }
+  },
+  "maximize-2": {
+   "library": "lucide",
+   "count": 30,
+   "layers": [
+    "Icon"
+   ],
+   "components": [
+    "Window/BottomBar"
+   ],
+   "specFrames": [
+    "Chrome Spec"
+   ],
+   "screens": {
+    "Dev Panel": 3,
+    "Project Window": 22
+   }
+  },
+  "monitor": {
+   "library": "lucide",
+   "count": 15,
+   "layers": [
+    "?",
+    "DevIcon"
+   ],
+   "components": [
+    "Device/Picker"
+   ],
+   "specFrames": [
+    "Tab States & Overflow Menu"
+   ],
+   "screens": {
+    "Project Window": 3
+   }
+  },
+  "mouse-pointer-2": {
+   "library": "lucide",
+   "count": 1,
+   "layers": [
+    "?"
+   ],
+   "components": [],
+   "specFrames": [
+    "Misc States 2"
+   ],
+   "screens": {}
+  },
+  "move-horizontal": {
+   "library": "lucide",
+   "count": 2,
+   "layers": [
+    "?"
+   ],
+   "components": [],
+   "specFrames": [
+    "Misc States"
+   ],
+   "screens": {}
+  },
+  "package": {
+   "library": "lucide",
+   "count": 28,
+   "layers": [
+    "Icon"
+   ],
+   "components": [],
+   "specFrames": [
+    "Sidebar States",
+    "Sidebar · Sayfa sağ tık menüsü"
+   ],
+   "screens": {
+    "Dev Panel": 3,
+    "Project Window": 20
+   }
+  },
+  "panel-left": {
+   "library": "lucide",
+   "count": 4,
+   "layers": [
+    "SidebarToggle"
+   ],
+   "components": [
+    "Window/CollapsedHeader"
+   ],
+   "specFrames": [
+    "Chrome Spec"
+   ],
+   "screens": {
+    "Project Window": 2
+   }
+  },
+  "panel-right-close": {
+   "library": "lucide",
+   "count": 30,
+   "layers": [
+    "RIcon"
+   ],
+   "components": [
+    "Window/Rail"
+   ],
+   "specFrames": [
+    "Chrome Spec",
+    "Misc States 2"
+   ],
+   "screens": {
+    "Dev Panel": 3,
+    "Project Window": 21
+   }
+  },
+  "panel-right-open": {
+   "library": "lucide",
+   "count": 3,
+   "layers": [
+    "HIcon"
+   ],
+   "components": [
+    "Window/RailHandle"
+   ],
+   "specFrames": [
+    "Chrome Spec"
+   ],
+   "screens": {
+    "Project Window": 1
+   }
+  },
+  "pause": {
+   "library": "lucide",
+   "count": 3,
+   "layers": [
+    "WarningIcon"
+   ],
+   "components": [],
+   "specFrames": [
+    "Card Actions",
+    "Misc States 2"
+   ],
+   "screens": {}
+  },
+  "pencil": {
+   "library": "lucide",
+   "count": 3,
+   "layers": [
+    "ItemIcon",
+    "Rename"
+   ],
+   "components": [],
+   "specFrames": [
+    "Sidebar States"
+   ],
+   "screens": {
+    "Home Window": 2
+   }
+  },
+  "plug": {
+   "library": "lucide",
+   "count": 35,
+   "layers": [
+    "RIcon",
+    "TIcon"
+   ],
+   "components": [
+    "Window/Rail"
+   ],
+   "specFrames": [
+    "Chrome Spec",
+    "Misc States 2"
+   ],
+   "screens": {
+    "Dev Panel": 3,
+    "Home Window": 1,
+    "Project Window": 21
+   }
+  },
+  "plus": {
+   "library": "lucide",
+   "count": 100,
+   "layers": [
+    "?",
+    "Add",
+    "AddIcon",
+    "Icon"
+   ],
+   "components": [
+    "Device/Picker",
+    "Toolbar/Button",
+    "Window/DeviceStrip"
+   ],
+   "specFrames": [
+    "Chrome Spec",
+    "Misc States",
+    "Sidebar States",
+    "Tab States & Overflow Menu"
+   ],
+   "screens": {
+    "Dev Panel": 3,
+    "Home Window": 6,
+    "Project Window": 22
+   }
+  },
+  "rotate-ccw": {
+   "library": "lucide",
+   "count": 26,
+   "layers": [
+    "Rotate"
+   ],
+   "components": [
+    "Viewport/HoverStrip"
+   ],
+   "specFrames": [
+    "Card Actions"
+   ],
+   "screens": {
+    "Dev Panel": 3,
+    "Project Window": 21
+   }
+  },
+  "rotate-cw": {
+   "library": "lucide",
+   "count": 32,
+   "layers": [
+    "Reload"
+   ],
+   "components": [
+    "Sidebar/Header",
+    "Window/CollapsedHeader"
+   ],
+   "specFrames": [
+    "Chrome Spec",
+    "Misc States 2"
+   ],
+   "screens": {
+    "Dev Panel": 3,
+    "Project Window": 22
+   }
+  },
+  "ruler": {
+   "library": "lucide",
+   "count": 3,
+   "layers": [
+    "?",
+    "CustomIcon"
+   ],
+   "components": [
+    "Device/Picker"
+   ],
+   "specFrames": [],
+   "screens": {
+    "Project Window": 2
+   }
+  },
+  "scan": {
+   "library": "lucide",
+   "count": 8,
+   "layers": [
+    "Focus",
+    "OI"
+   ],
+   "components": [],
+   "specFrames": [
+    "Card Actions",
+    "Tab States & Overflow Menu"
+   ],
+   "screens": {
+    "Project Window": 2
+   }
+  },
+  "search": {
+   "library": "lucide",
+   "count": 14,
+   "layers": [
+    "SearchIcon"
+   ],
+   "components": [
+    "Device/Picker"
+   ],
+   "specFrames": [
+    "Misc States"
+   ],
+   "screens": {
+    "Home Window": 6,
+    "Project Window": 5
+   }
+  },
+  "search-x": {
+   "library": "lucide",
+   "count": 1,
+   "layers": [
+    "?"
+   ],
+   "components": [],
+   "specFrames": [
+    "Misc States"
+   ],
+   "screens": {}
+  },
+  "server-off": {
+   "library": "lucide",
+   "count": 1,
+   "layers": [
+    "?"
+   ],
+   "components": [],
+   "specFrames": [
+    "Card Load Errors"
+   ],
+   "screens": {}
+  },
+  "settings": {
+   "library": "lucide",
+   "count": 41,
+   "layers": [
+    "Icon",
+    "RIcon",
+    "TIcon"
+   ],
+   "components": [
+    "Window/Rail"
+   ],
+   "specFrames": [
+    "Chrome Spec",
+    "Misc States 2"
+   ],
+   "screens": {
+    "Dev Panel": 3,
+    "Home Window": 6,
+    "Project Window": 21
+   }
+  },
+  "shield-alert": {
+   "library": "lucide",
+   "count": 1,
+   "layers": [
+    "?"
+   ],
+   "components": [],
+   "specFrames": [
+    "Card Load Errors"
+   ],
+   "screens": {}
+  },
+  "shopping-cart": {
+   "library": "lucide",
+   "count": 28,
+   "layers": [
+    "Icon"
+   ],
+   "components": [],
+   "specFrames": [
+    "Sidebar States",
+    "Sidebar · Sayfa sağ tık menüsü"
+   ],
+   "screens": {
+    "Dev Panel": 3,
+    "Project Window": 20
+   }
+  },
+  "smartphone": {
+   "library": "lucide",
+   "count": 65,
+   "layers": [
+    "?",
+    "DevIcon",
+    "Icon",
+    "RIcon",
+    "TIcon"
+   ],
+   "components": [
+    "Device/Picker",
+    "Home/TemplateChip",
+    "Window/Rail"
+   ],
+   "specFrames": [
+    "Chrome Spec",
+    "Home States",
+    "Misc States 2"
+   ],
+   "screens": {
+    "Dev Panel": 3,
+    "Home Window": 6,
+    "Project Window": 21
+   }
+  },
+  "tablet": {
+   "library": "lucide",
+   "count": 15,
+   "layers": [
+    "?",
+    "DevIcon",
+    "RIcon"
+   ],
+   "components": [
+    "Device/Picker"
+   ],
+   "specFrames": [],
+   "screens": {
+    "Project Window": 2
+   }
+  },
+  "trash-2": {
+   "library": "lucide",
+   "count": 3,
+   "layers": [
+    "ItemIcon"
+   ],
+   "components": [],
+   "specFrames": [],
+   "screens": {
+    "Home Window": 2
+   }
+  },
+  "triangle-alert": {
+   "library": "lucide",
+   "count": 178,
+   "layers": [
+    "Check",
+    "MoreStatus",
+    "NoteIcon",
+    "RowStatus",
+    "S",
+    "Status",
+    "WarningIcon"
+   ],
+   "components": [
+    "Viewport/Card",
+    "Window/DeviceStrip"
+   ],
+   "specFrames": [
+    "Card Actions",
+    "Card Load Errors",
+    "Chrome Spec",
+    "Engine Tooltip",
+    "Misc States 2",
+    "Selected Options",
+    "Tab States & Overflow Menu",
+    "Toast States",
+    "Viewport States"
+   ],
+   "screens": {
+    "Dev Panel": 3,
+    "Project Window": 21
+   }
+  },
+  "unlink": {
+   "library": "lucide",
+   "count": 25,
+   "layers": [
+    "SyncOff"
+   ],
+   "components": [
+    "Viewport/HoverStrip"
+   ],
+   "specFrames": [],
+   "screens": {
+    "Dev Panel": 3,
+    "Project Window": 21
+   }
+  },
+  "unlink-2": {
+   "library": "lucide",
+   "count": 1,
+   "layers": [
+    "SyncIcon"
+   ],
+   "components": [],
+   "specFrames": [
+    "Chrome Spec"
+   ],
+   "screens": {}
+  },
+  "user": {
+   "library": "lucide",
+   "count": 35,
+   "layers": [
+    "RIcon",
+    "TIcon"
+   ],
+   "components": [
+    "Window/Rail"
+   ],
+   "specFrames": [
+    "Chrome Spec",
+    "Misc States 2"
+   ],
+   "screens": {
+    "Dev Panel": 3,
+    "Home Window": 1,
+    "Project Window": 21
+   }
+  },
+  "wifi-off": {
+   "library": "lucide",
+   "count": 1,
+   "layers": [
+    "?"
+   ],
+   "components": [],
+   "specFrames": [
+    "Card Load Errors"
+   ],
+   "screens": {}
+  },
+  "x": {
+   "library": "lucide",
+   "count": 151,
+   "layers": [
+    "Check",
+    "Close",
+    "CloseRow"
+   ],
+   "components": [
+    "Toolbar/DeviceTab",
+    "Viewport/HoverStrip",
+    "Window/DeviceStrip"
+   ],
+   "specFrames": [
+    "Card Actions",
+    "Card Load Errors",
+    "Chrome Spec",
+    "Misc States",
+    "Misc States 2",
+    "Tab States & Overflow Menu"
+   ],
+   "screens": {
+    "Dev Panel": 3,
+    "Home Window": 1,
+    "Project Window": 21
+   }
+  }
+ }
+}

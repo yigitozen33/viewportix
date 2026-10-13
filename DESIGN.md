@@ -298,6 +298,8 @@ Sağ raydan açılır, canvas'ı iter (320 px). Tasarım ilkesi: **sakin ama tek
 | Giriş bileşen durumları çizildi (`Home States`, `home-states@2x.png`): URL kutusu boş / dolu / geçersiz (mercan kenar + altında "Bu bir web adresi değil · örnek: marka.com"); "Aç →" **hep sarı** (U2; boşken tık alana odaklanır; §3.1'deki "etkinleşir" superseded). Elenen: U1 boşken gri | 2026-10-13 |
 | Proje kartı hover kenarı yeni token `line/strong` (koyu `#4F4945`, açık `#C7C0B4`; H2). Elenen: H1 `ink/secondary` (seçim gibi görünüyor) | 2026-10-13 |
 | Proje kartında ⋯ yalnız hover ve sağ tıkta görünür (ana kopyada gizli; bağlam menüsü ekranlarında açık). Önceki çizimlerde her kartta görünüyordu (superseded) | 2026-10-13 |
+| İkonlar uygulamada SF Symbols (eşleme `design/handoff/icons.md`). Karşılığı olmayanlar: kırık zincir için özel sembol `link.slash` (`link`'ten türetilir; senkron kapalı, Senkrondan çıkar, adres hatalı); Farklar `square.split.2x1`, Senkron kaydı `waveform.path.ecg`, Döndür `rectangle.portrait.rotate`, Taslaklar `square.and.pencil`, localhost kapalı `server.rack`. Elenen: renkle anlatılan gri `link`; `arrow.left.and.right.square` + `list.bullet.rectangle`; Lucide'e en yakınlar (`arrow.counterclockwise` Geri al ile karışır) | 2026-10-13 |
+| Cihaz seçicinin motor sütununda da kart başlığındaki motor glifleri (`Engine Glyphs`) kullanılır; Lucide yer tutucuları (pusula, kesikli halka, alev) kaldırıldı | 2026-10-13 |
 
 ## 5. Bekleyen tasarım kararları
 

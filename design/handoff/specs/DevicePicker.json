@@ -210,8 +210,8 @@
         "children": [
          {
           "name": "EngIcon",
-          "type": "icon",
-          "nodeId": "Wt3Zl",
+          "type": "path",
+          "nodeId": "huHAt",
           "size": {
            "w": 13,
            "h": 13,
@@ -221,9 +221,15 @@
            ]
           },
           "fill": "$ink/primary",
-          "icon": {
-           "lucide": "compass",
-           "library": "lucide"
+          "path": {
+           "geometry": "...",
+           "viewBox": [
+            0,
+            0,
+            16,
+            16
+           ],
+           "fillRule": "evenodd"
           }
          }
         ]
@@ -257,8 +263,8 @@
         "children": [
          {
           "name": "EngIcon",
-          "type": "icon",
-          "nodeId": "UZ7Cu",
+          "type": "path",
+          "nodeId": "V8pCEk",
           "size": {
            "w": 13,
            "h": 13,
@@ -268,9 +274,15 @@
            ]
           },
           "fill": "$ink/secondary",
-          "icon": {
-           "lucide": "circle-dashed",
-           "library": "lucide"
+          "path": {
+           "geometry": "...",
+           "viewBox": [
+            0,
+            0,
+            16,
+            16
+           ],
+           "fillRule": "evenodd"
           }
          },
          {
@@ -324,8 +336,8 @@
         "children": [
          {
           "name": "EngIcon",
-          "type": "icon",
-          "nodeId": "BbVpC",
+          "type": "path",
+          "nodeId": "w8VHc",
           "size": {
            "w": 13,
            "h": 13,
@@ -335,9 +347,15 @@
            ]
           },
           "fill": "$ink/secondary",
-          "icon": {
-           "lucide": "flame",
-           "library": "lucide"
+          "path": {
+           "geometry": "...",
+           "viewBox": [
+            0,
+            0,
+            16,
+            16
+           ],
+           "fillRule": "evenodd"
           }
          },
          {
