@@ -19,7 +19,7 @@
 | 0 | Klasör ve sözleşme | ✅ | 2026-10-13 | (bu commit) |
 | 1 | Token zinciri (pen → JSON → Swift) | ✅ | 2026-10-13 | (bu commit) |
 | 2 | Manifest (bileşen · ekran · PNG · nodeId) | ✅ | 2026-10-13 | (bu commit) |
-| 3 | Bileşen spec'leri (ölçülü katman ağacı) | ⬜ | | |
+| 3 | Bileşen spec'leri (ölçülü katman ağacı) | 🟡 | | (bu commit) |
 | 4 | CHK tutarlılık kontrolleri | ⬜ | | |
 | 5 | İkon eşleme (Lucide → SF Symbols) | ⬜ | | |
 | 6 | Örnek sayfa HTML'i | ⬜ | | |
@@ -76,7 +76,8 @@ Durum: ⬜ başlanmadı · 🟡 sürüyor · ✅ bitti · ⛔ vazgeçildi (neden
 
 ## Açık sorular
 
-- (yok)
+- Aşama 3: kabulün son maddesi (kod oturumu `BottomBar`'ı PNG'siz kurar) kod oturumunda; istek `KOD-OTURUMU-ISLERI.md` §14. Yanıt gelince 3 → ✅.
+- Aşama 3: token dışı değerler ve eksik durum çizimleri için kullanıcı kararı bekleniyor (aşağıdaki rapor, "Kullanıcıya").
 
 ## Oturum raporları
 
@@ -96,3 +97,13 @@ Yalnızca eklenir. Biçim: `### YYYY-MM-DD · <aşamalar>` altında: yapılan, k
 - `dump-manifest.js` (execute snippet, arşiv/future frame'leri atlar, dosya koruması), `canvas-dump.json`, `exports-map.json` (48 frame → PNG), `build_manifest.py` → `manifest.json` + `manifest.md`. Sonuç: 17 bileşen, 31 ekran frame'i, 17 durum/spec frame'i, açık soru 0.
 - Script DESIGN.md §6 tablosunu okuyup swiftName/states'i bağlıyor; tabloda olmayan bileşen, pen'de olmayan tablo satırı, PNG'si olmayan frame "açık soru" olarak çıkıyor. İlk çalışmada tek yanlış pozitif (`ZoomControl` yalnız `BottomBar` içinde kullanılıyor) → `usedVia` alanı eklendi.
 - Sonraki adım: aşama 3 (bileşen spec'leri); öncelik sırasına göre sonra 5 (ikon eşleme).
+
+### 2026-10-13 · aşama 3
+- Yapılan: `dump-specs.js` (ana kopya ağaçları + çözülmüş ölçüler, durum frame'lerindeki instance'lar + etiket + sarmalayıcı + yanına çizilen parçalar, Chrome Spec anatomi notları), `dump-instances.js` (ekran frame'lerindeki 388 instance; tek snippet execute süre sınırına takıldığı için ayrıldı), `save_dump.py` (çıktı dosyasından JSON'u FNV-1a hash + uzunlukla doğrulayarak kaydeder; 120 KB'lık döküm elle kopyalanmıyor), `build_specs.py` → `specs/<SwiftName>.json` ×17 + `specs/README.md` (indeks, durum kapsamı, token dışı değerler).
+- Kanıt: `python3 build_specs.py` → `wrote 17 specs; raw colour/type values 119; open questions 0`; iki çalıştırma çıktısı aynı (`diff -r` boş); `save_dump.py` → `specs-dump.json: 123999 chars, hash 2633899507`, `instances-dump.json: 114543 chars, hash 2632373712`.
+- Not: planda "17 bileşen + `RailHandle`" yazıyordu; `RailHandle` 17'nin içinde, toplam 17 spec.
+- Durum adları: etiket metninden; bir etiket birden çok örneği kapsıyorsa ya da etiket uzun bir notsa `build_specs.py` › `LABEL_BY_INSTANCE` / `LABEL_BY_PREFIX`. Sidebar satırında "selected (açık sayfa)" = `surface/header` + nokta; kanıt: aynı görünüm 23 Project Window frame'inde açık sayfa satırında. Yalnız veri (metin, ikon, boyut) ya da ana kopya değerini tekrarlayan örnekler atılır; `onScreens` ekranlardaki görünümleri çizili durumlara eşler.
+- `BottomBar` denemesi (tasarım tarafı): spec + `ChromeButton` + `ZoomControl` spec'leri ve `notes` ile kapsül, sıralama, senkron açık/kapalı, hover/basılı/menü açık (`surface/header-leader`), tooltip yerleşimi (`arrangement`: dikey, gap 6) ve konum (alttan 31) PNG'siz okunuyor. Eksik: ikon karşılıkları (Lucide adları; aşama 5).
+- Bulgular: (1) tooltip durum frame'lerinde 8 yerde bileşen değil elle çizilmiş frame (ekranlar sayılmadı), yazı boyutları token yerine sayı (12/11); (2) token'a eşit ham değerler: `SnapshotPill` (`#161412` = canvas, `#F4EFE9` = ink/primary), `ProjectCard` MiniHeader (`#2D2926` = surface/header), yazı boyutları 13/12/11/10; (3) bilinçli ham görünenler: kart içi örnek sayfa renkleri, trafik ışıkları, gölge renkleri (`#00000066/80/AA`), kaydırma solması (`#2D292600`); (4) `Window/Rail` › Rail Diff ve 3 ekran instance'ında `#00000000` dolgu (boş dolgu); (5) BottomBar notu "tooltip düğmenin 8 px üstünde" diyor, frame'de ok ile çubuk arası 6; (6) çizimi olmayan §6 durumları: `URLBox` boş/geçersiz, `ProjectCard` hover/taslak (ekranlarda 4 adsız görünüm), `TemplateChip` seçili yalnız ekranda.
+- Sonraki adım: kullanıcı kararları (bulgu 1–6) → gerekirse pen düzeltmesi + yeniden döküm; sonra aşama 5 (ikon eşleme).
+

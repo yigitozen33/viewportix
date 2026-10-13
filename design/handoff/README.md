@@ -11,7 +11,7 @@ Sözleşme, üç cümle:
 | `PLAN.md` | Aşamalar, ilerleme, oturum raporları | Her oturumda elle |
 | `manifest.json` / `manifest.md` | Bileşen · ekran · PNG · nodeId dökümü + açık sorular | `dump-manifest.js` pen.dev `execute` içinde → çıktı `canvas-dump.json`'a → `python3 build_manifest.py` (açık soru varsa exit 1) |
 | `exports-map.json` | Frame adı → PNG adı | Yeni frame dışa aktarılınca elle |
-| `specs/*.json` | Bileşen başına ölçülü katman ağacı | `dump-specs.js` ile, aynı yöntem |
+| `specs/*.json` + `specs/README.md` | Bileşen başına ölçülü katman ağacı, durum override'ları, ekranlardaki görünümler, token dışı değerler, durum kapsamı | `dump-specs.js` ve `dump-instances.js` pen.dev `execute` içinde → çıktıyı `python3 save_dump.py <çıktı> specs-dump.json` / `instances-dump.json` (hash denetimli) → `python3 build_specs.py` (açık soru varsa exit 1) |
 | `checks.js` → `CHECKS.md` | Tutarlılık kontrolleri | Her tasarım değişikliğinden sonra |
 | `icons.md` | Lucide → SF Symbols | Yeni ikon eklenince elle |
 | `PARITY.md` | Kod önizlemesi ↔ tasarım farkları | Parite turlarında |

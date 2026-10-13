@@ -1,0 +1,10021 @@
+{
+ "generatedAt": "2026-10-13",
+ "inScreens": [
+  {
+   "frame": "Project Window",
+   "component": "Sidebar/Header",
+   "instanceId": "yQXQv",
+   "size": [
+    216,
+    110
+   ],
+   "overrides": {
+    "width": "fill_container"
+   }
+  },
+  {
+   "frame": "Project Window",
+   "component": "Sidebar/Row",
+   "instanceId": "gxbMT",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "house",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ana sayfa",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window",
+   "component": "Sidebar/Row",
+   "instanceId": "OkKFU",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "fill": "$surface/header",
+    "descendants": {
+     "oEGVV": {
+      "icon": "package",
+      "fill": "$ink/primary"
+     },
+     "hPpHB": {
+      "content": "Ürün",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window",
+   "component": "Sidebar/Row",
+   "instanceId": "tJm9d",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "shopping-cart",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Sepet",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window",
+   "component": "Sidebar/Row",
+   "instanceId": "y1Ooy",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "credit-card",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ödeme",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window",
+   "component": "Sidebar/Row",
+   "instanceId": "D0yWf1",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "plus",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ekle",
+      "fill": "$ink/secondary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window",
+   "component": "Viewport/Card",
+   "instanceId": "vwlFU",
+   "size": [
+    216,
+    476
+   ],
+   "overrides": {
+    "width": 216,
+    "descendants": {
+     "ObOub": {
+      "content": "iPhone 16"
+     },
+     "PRv7d": {
+      "content": "393×852"
+     },
+     "zTEI3": {
+      "height": 440
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window",
+   "component": "Viewport/HoverStrip",
+   "instanceId": "qzrxj",
+   "size": [
+    88,
+    28
+   ],
+   "overrides": {}
+  },
+  {
+   "frame": "Project Window",
+   "component": "Viewport/Card",
+   "instanceId": "E1R9Fh",
+   "size": [
+    328,
+    480
+   ],
+   "overrides": {
+    "width": 328,
+    "stroke": "$status/leader",
+    "strokeWidth": 2,
+    "descendants": {
+     "oDaLl": {
+      "fill": "$surface/header-leader"
+     },
+     "ObOub": {
+      "content": "iPad"
+     },
+     "PRv7d": {
+      "content": "820×1180"
+     },
+     "soNCM": {
+      "fill": "$status/leader"
+     },
+     "zTEI3": {
+      "height": 444
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window",
+   "component": "Viewport/Card",
+   "instanceId": "Q6qzz",
+   "size": [
+    461,
+    336
+   ],
+   "overrides": {
+    "width": 461,
+    "descendants": {
+     "ObOub": {
+      "content": "Masaüstü"
+     },
+     "PRv7d": {
+      "content": "1440×900"
+     },
+     "vO1MI": {
+      "enabled": true
+     },
+     "zTEI3": {
+      "height": 270
+     },
+     "MDe1d": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window",
+   "component": "Window/Toast",
+   "instanceId": "uf9G2",
+   "size": [
+    306,
+    36
+   ],
+   "overrides": {
+    "layoutPosition": "absolute"
+   }
+  },
+  {
+   "frame": "Project Window",
+   "component": "Window/BottomBar",
+   "instanceId": "p5rhpE",
+   "size": [
+    210,
+    49
+   ],
+   "overrides": {
+    "layoutPosition": "absolute"
+   }
+  },
+  {
+   "frame": "Project Window",
+   "component": "Window/DeviceStrip",
+   "instanceId": "PDPVe",
+   "size": [
+    370,
+    35
+   ],
+   "overrides": {
+    "layoutPosition": "absolute"
+   }
+  },
+  {
+   "frame": "Project Window",
+   "component": "Window/Rail",
+   "instanceId": "Ov1tv",
+   "size": [
+    44,
+    900
+   ],
+   "overrides": {
+    "height": "fill_container",
+    "descendants": {
+     "nfqaz": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Sidebar kapalı",
+   "component": "Viewport/Card",
+   "instanceId": "SZQ0v",
+   "size": [
+    216,
+    476
+   ],
+   "overrides": {
+    "width": 216,
+    "descendants": {
+     "ObOub": {
+      "content": "iPhone 16"
+     },
+     "PRv7d": {
+      "content": "393×852"
+     },
+     "zTEI3": {
+      "height": 440
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Sidebar kapalı",
+   "component": "Viewport/HoverStrip",
+   "instanceId": "zHjeh",
+   "size": [
+    88,
+    28
+   ],
+   "overrides": {}
+  },
+  {
+   "frame": "Project Window · Sidebar kapalı",
+   "component": "Viewport/Card",
+   "instanceId": "tZ8MB",
+   "size": [
+    328,
+    480
+   ],
+   "overrides": {
+    "width": 328,
+    "stroke": "$status/leader",
+    "strokeWidth": 2,
+    "descendants": {
+     "oDaLl": {
+      "fill": "$surface/header-leader"
+     },
+     "ObOub": {
+      "content": "iPad"
+     },
+     "PRv7d": {
+      "content": "820×1180"
+     },
+     "soNCM": {
+      "fill": "$status/leader"
+     },
+     "zTEI3": {
+      "height": 444
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Sidebar kapalı",
+   "component": "Viewport/Card",
+   "instanceId": "oc4uB",
+   "size": [
+    461,
+    336
+   ],
+   "overrides": {
+    "width": 461,
+    "descendants": {
+     "ObOub": {
+      "content": "Masaüstü"
+     },
+     "PRv7d": {
+      "content": "1440×900"
+     },
+     "vO1MI": {
+      "enabled": true
+     },
+     "zTEI3": {
+      "height": 270
+     },
+     "MDe1d": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Sidebar kapalı",
+   "component": "Window/BottomBar",
+   "instanceId": "t8Xpo",
+   "size": [
+    210,
+    49
+   ],
+   "overrides": {
+    "layoutPosition": "absolute"
+   }
+  },
+  {
+   "frame": "Project Window · Sidebar kapalı",
+   "component": "Window/Toast",
+   "instanceId": "fWFZk",
+   "size": [
+    306,
+    36
+   ],
+   "overrides": {
+    "layoutPosition": "absolute"
+   }
+  },
+  {
+   "frame": "Project Window · Sidebar kapalı",
+   "component": "Window/CollapsedHeader",
+   "instanceId": "v7zAT",
+   "size": [
+    396,
+    38
+   ],
+   "overrides": {
+    "layoutPosition": "absolute"
+   }
+  },
+  {
+   "frame": "Project Window · Sidebar kapalı",
+   "component": "Window/DeviceStrip",
+   "instanceId": "zExGW",
+   "size": [
+    370,
+    35
+   ],
+   "overrides": {
+    "layoutPosition": "absolute",
+    "descendants": {
+     "qmgAT": {
+      "type": "frame",
+      "id": "IM61v",
+      "name": "Tabs",
+      "gap": 4,
+      "alignItems": "center",
+      "children": [
+       {
+        "id": "SmThP",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab iPhone 16",
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "iPhone 16"
+         }
+        }
+       },
+       {
+        "id": "m4scq",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab iPad",
+        "fill": "$surface/header-leader",
+        "stroke": "$status/leader",
+        "strokeWidth": 1,
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "iPad"
+         }
+        }
+       },
+       {
+        "id": "WvyRx",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab Masaüstü",
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "Masaüstü"
+         },
+         "qwSGl": {
+          "enabled": true
+         }
+        }
+       }
+      ]
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Sidebar kapalı",
+   "component": "Window/Rail",
+   "instanceId": "ONFVw",
+   "size": [
+    44,
+    900
+   ],
+   "overrides": {
+    "height": "fill_container",
+    "descendants": {
+     "nfqaz": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · 8 cihaz",
+   "component": "Sidebar/Header",
+   "instanceId": "zomHT",
+   "size": [
+    216,
+    110
+   ],
+   "overrides": {
+    "width": "fill_container"
+   }
+  },
+  {
+   "frame": "Project Window · 8 cihaz",
+   "component": "Sidebar/Row",
+   "instanceId": "w6Yu7",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "house",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ana sayfa",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · 8 cihaz",
+   "component": "Sidebar/Row",
+   "instanceId": "TLx5U",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "fill": "$surface/header",
+    "descendants": {
+     "oEGVV": {
+      "icon": "package",
+      "fill": "$ink/primary"
+     },
+     "hPpHB": {
+      "content": "Ürün",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · 8 cihaz",
+   "component": "Sidebar/Row",
+   "instanceId": "m5eExQ",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "shopping-cart",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Sepet",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · 8 cihaz",
+   "component": "Sidebar/Row",
+   "instanceId": "EKMSm",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "credit-card",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ödeme",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · 8 cihaz",
+   "component": "Sidebar/Row",
+   "instanceId": "koo2Y",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "plus",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ekle",
+      "fill": "$ink/secondary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · 8 cihaz",
+   "component": "Viewport/Card",
+   "instanceId": "J6cinf",
+   "size": [
+    216,
+    476
+   ],
+   "overrides": {
+    "width": 216,
+    "descendants": {
+     "ObOub": {
+      "content": "iPhone 16"
+     },
+     "PRv7d": {
+      "content": "393×852"
+     },
+     "zTEI3": {
+      "height": 440
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · 8 cihaz",
+   "component": "Viewport/HoverStrip",
+   "instanceId": "wYooB",
+   "size": [
+    88,
+    28
+   ],
+   "overrides": {}
+  },
+  {
+   "frame": "Project Window · 8 cihaz",
+   "component": "Viewport/Card",
+   "instanceId": "GlaYI",
+   "size": [
+    328,
+    480
+   ],
+   "overrides": {
+    "width": 328,
+    "stroke": "$status/leader",
+    "strokeWidth": 2,
+    "descendants": {
+     "oDaLl": {
+      "fill": "$surface/header-leader"
+     },
+     "ObOub": {
+      "content": "iPad"
+     },
+     "PRv7d": {
+      "content": "820×1180"
+     },
+     "soNCM": {
+      "fill": "$status/leader"
+     },
+     "zTEI3": {
+      "height": 444
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · 8 cihaz",
+   "component": "Viewport/Card",
+   "instanceId": "d3sdIe",
+   "size": [
+    461,
+    336
+   ],
+   "overrides": {
+    "width": 461,
+    "descendants": {
+     "ObOub": {
+      "content": "Masaüstü"
+     },
+     "PRv7d": {
+      "content": "1440×900"
+     },
+     "vO1MI": {
+      "enabled": true
+     },
+     "zTEI3": {
+      "height": 270
+     },
+     "MDe1d": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · 8 cihaz",
+   "component": "Window/BottomBar",
+   "instanceId": "h7ah9",
+   "size": [
+    210,
+    49
+   ],
+   "overrides": {
+    "layoutPosition": "absolute"
+   }
+  },
+  {
+   "frame": "Project Window · 8 cihaz",
+   "component": "Window/Toast",
+   "instanceId": "v4z7yw",
+   "size": [
+    306,
+    36
+   ],
+   "overrides": {
+    "layoutPosition": "absolute"
+   }
+  },
+  {
+   "frame": "Project Window · 8 cihaz",
+   "component": "Window/DeviceStrip",
+   "instanceId": "bKPki",
+   "size": [
+    740,
+    38
+   ],
+   "overrides": {
+    "layoutPosition": "absolute",
+    "descendants": {
+     "qmgAT": {
+      "type": "frame",
+      "id": "kxXXn",
+      "name": "Tabs",
+      "gap": 4,
+      "alignItems": "center",
+      "children": [
+       {
+        "type": "frame",
+        "id": "PguN3",
+        "name": "Scroll Window",
+        "clip": true,
+        "width": 560,
+        "height": 30,
+        "gap": 4,
+        "alignItems": "center",
+        "children": [
+         {
+          "id": "SXcKY",
+          "type": "ref",
+          "ref": "FpUpU",
+          "name": "Tab iPhone SE",
+          "strokeAlignment": "inner",
+          "descendants": {
+           "U4TOHr": {
+            "content": "iPhone SE"
+           }
+          }
+         },
+         {
+          "id": "NRUlW",
+          "type": "ref",
+          "ref": "FpUpU",
+          "name": "Tab iPhone 16",
+          "strokeAlignment": "inner",
+          "descendants": {
+           "U4TOHr": {
+            "content": "iPhone 16"
+           },
+           "qwSGl": {
+            "enabled": true,
+            "icon": "loader-circle",
+            "fill": "$ink/secondary"
+           }
+          }
+         },
+         {
+          "id": "ZpCoB",
+          "type": "ref",
+          "ref": "FpUpU",
+          "name": "Tab iPhone 16 Pro Max",
+          "strokeAlignment": "inner",
+          "descendants": {
+           "U4TOHr": {
+            "content": "iPhone 16 Pro Max"
+           },
+           "qwSGl": {
+            "enabled": true
+           }
+          }
+         },
+         {
+          "id": "FZjK6",
+          "type": "ref",
+          "ref": "FpUpU",
+          "name": "Tab iPad",
+          "fill": "$surface/header-leader",
+          "stroke": "$status/leader",
+          "strokeWidth": 1,
+          "strokeAlignment": "inner",
+          "descendants": {
+           "U4TOHr": {
+            "content": "iPad"
+           }
+          }
+         },
+         {
+          "id": "Q7SxoI",
+          "type": "ref",
+          "ref": "FpUpU",
+          "name": "Tab iPad Pro",
+          "strokeAlignment": "inner",
+          "descendants": {
+           "U4TOHr": {
+            "content": "iPad Pro"
+           },
+           "qwSGl": {
+            "enabled": true,
+            "icon": "image",
+            "fill": "$ink/secondary"
+           }
+          }
+         },
+         {
+          "id": "ziDYh",
+          "type": "ref",
+          "ref": "FpUpU",
+          "name": "Tab Laptop",
+          "strokeAlignment": "inner",
+          "descendants": {
+           "U4TOHr": {
+            "content": "Laptop"
+           },
+           "qwSGl": {
+            "enabled": true
+           }
+          }
+         },
+         {
+          "id": "f27Xh2",
+          "type": "ref",
+          "ref": "FpUpU",
+          "name": "Tab Geniş ekran",
+          "strokeAlignment": "inner",
+          "descendants": {
+           "U4TOHr": {
+            "content": "Geniş ekran"
+           }
+          }
+         },
+         {
+          "id": "T4WsxI",
+          "type": "ref",
+          "ref": "FpUpU",
+          "name": "Tab Masaüstü",
+          "strokeAlignment": "inner",
+          "descendants": {
+           "U4TOHr": {
+            "content": "Masaüstü"
+           }
+          }
+         },
+         {
+          "type": "rectangle",
+          "id": "pqmMh",
+          "layoutPosition": "absolute",
+          "x": 512,
+          "y": 0,
+          "name": "Fade",
+          "fill": {
+           "type": "gradient",
+           "gradientType": "linear",
+           "enabled": true,
+           "rotation": 270,
+           "size": {
+            "height": 1
+           },
+           "colors": [
+            {
+             "color": "#2D292600",
+             "position": 0
+            },
+            {
+             "color": "#2D2926",
+             "position": 1
+            }
+           ]
+          },
+          "width": 48,
+          "height": 30
+         }
+        ]
+       },
+       {
+        "type": "icon",
+        "id": "xFI0w",
+        "name": "ScrollRight",
+        "width": 14,
+        "height": 14,
+        "icon": "chevron-right",
+        "library": "lucide",
+        "fill": "$ink/secondary"
+       },
+       {
+        "type": "frame",
+        "id": "u4LYtZ",
+        "name": "Overflow Chip",
+        "fill": "$surface/pill",
+        "cornerRadius": 8,
+        "stroke": "$status/warning",
+        "strokeWidth": 1,
+        "strokeAlignment": "inner",
+        "gap": 6,
+        "padding": [
+         6,
+         10
+        ],
+        "alignItems": "center",
+        "children": [
+         {
+          "type": "text",
+          "id": "mmK9J",
+          "name": "MoreText",
+          "fill": "$ink/primary",
+          "content": "+3",
+          "fontFamily": "$font/ui",
+          "fontSize": 12,
+          "fontWeight": "600"
+         },
+         {
+          "type": "icon",
+          "id": "IW4Ea",
+          "name": "MoreStatus",
+          "width": 13,
+          "height": 13,
+          "icon": "triangle-alert",
+          "library": "lucide",
+          "fill": "$status/warning"
+         },
+         {
+          "type": "icon",
+          "id": "JPPQ2",
+          "name": "MoreIcon",
+          "width": 12,
+          "height": 12,
+          "icon": "chevron-down",
+          "library": "lucide",
+          "fill": "$ink/secondary"
+         }
+        ]
+       }
+      ]
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · 8 cihaz",
+   "component": "Window/Rail",
+   "instanceId": "Ivyv9",
+   "size": [
+    44,
+    900
+   ],
+   "overrides": {
+    "height": "fill_container",
+    "descendants": {
+     "nfqaz": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · 8 cihaz · menü açık",
+   "component": "Sidebar/Header",
+   "instanceId": "YiKFK",
+   "size": [
+    216,
+    110
+   ],
+   "overrides": {
+    "width": "fill_container"
+   }
+  },
+  {
+   "frame": "Project Window · 8 cihaz · menü açık",
+   "component": "Sidebar/Row",
+   "instanceId": "D0OQl",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "house",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ana sayfa",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · 8 cihaz · menü açık",
+   "component": "Sidebar/Row",
+   "instanceId": "zIbss",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "fill": "$surface/header",
+    "descendants": {
+     "oEGVV": {
+      "icon": "package",
+      "fill": "$ink/primary"
+     },
+     "hPpHB": {
+      "content": "Ürün",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · 8 cihaz · menü açık",
+   "component": "Sidebar/Row",
+   "instanceId": "S7fHV",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "shopping-cart",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Sepet",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · 8 cihaz · menü açık",
+   "component": "Sidebar/Row",
+   "instanceId": "qLMVG",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "credit-card",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ödeme",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · 8 cihaz · menü açık",
+   "component": "Sidebar/Row",
+   "instanceId": "iV9lt",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "plus",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ekle",
+      "fill": "$ink/secondary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · 8 cihaz · menü açık",
+   "component": "Viewport/Card",
+   "instanceId": "lskUU",
+   "size": [
+    216,
+    476
+   ],
+   "overrides": {
+    "width": 216,
+    "descendants": {
+     "ObOub": {
+      "content": "iPhone 16"
+     },
+     "PRv7d": {
+      "content": "393×852"
+     },
+     "zTEI3": {
+      "height": 440
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · 8 cihaz · menü açık",
+   "component": "Viewport/HoverStrip",
+   "instanceId": "YYH3H",
+   "size": [
+    88,
+    28
+   ],
+   "overrides": {}
+  },
+  {
+   "frame": "Project Window · 8 cihaz · menü açık",
+   "component": "Viewport/Card",
+   "instanceId": "f3yvZQ",
+   "size": [
+    328,
+    480
+   ],
+   "overrides": {
+    "width": 328,
+    "stroke": "$status/leader",
+    "strokeWidth": 2,
+    "descendants": {
+     "oDaLl": {
+      "fill": "$surface/header-leader"
+     },
+     "ObOub": {
+      "content": "iPad"
+     },
+     "PRv7d": {
+      "content": "820×1180"
+     },
+     "soNCM": {
+      "fill": "$status/leader"
+     },
+     "zTEI3": {
+      "height": 444
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · 8 cihaz · menü açık",
+   "component": "Viewport/Card",
+   "instanceId": "NfYUc",
+   "size": [
+    461,
+    336
+   ],
+   "overrides": {
+    "width": 461,
+    "descendants": {
+     "ObOub": {
+      "content": "Masaüstü"
+     },
+     "PRv7d": {
+      "content": "1440×900"
+     },
+     "vO1MI": {
+      "enabled": true
+     },
+     "zTEI3": {
+      "height": 270
+     },
+     "MDe1d": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · 8 cihaz · menü açık",
+   "component": "Window/BottomBar",
+   "instanceId": "z4o5z",
+   "size": [
+    210,
+    49
+   ],
+   "overrides": {
+    "layoutPosition": "absolute"
+   }
+  },
+  {
+   "frame": "Project Window · 8 cihaz · menü açık",
+   "component": "Window/Toast",
+   "instanceId": "ktlxE",
+   "size": [
+    306,
+    36
+   ],
+   "overrides": {
+    "layoutPosition": "absolute"
+   }
+  },
+  {
+   "frame": "Project Window · 8 cihaz · menü açık",
+   "component": "Window/DeviceStrip",
+   "instanceId": "fj5DH",
+   "size": [
+    740,
+    38
+   ],
+   "overrides": {
+    "layoutPosition": "absolute",
+    "descendants": {
+     "qmgAT": {
+      "type": "frame",
+      "id": "uCPcS",
+      "name": "Tabs",
+      "gap": 4,
+      "alignItems": "center",
+      "children": [
+       {
+        "type": "frame",
+        "id": "q3HSg",
+        "name": "Scroll Window",
+        "clip": true,
+        "width": 560,
+        "height": 30,
+        "gap": 4,
+        "alignItems": "center",
+        "children": [
+         {
+          "id": "KT4S5",
+          "type": "ref",
+          "ref": "FpUpU",
+          "name": "Tab iPhone SE",
+          "strokeAlignment": "inner",
+          "descendants": {
+           "U4TOHr": {
+            "content": "iPhone SE"
+           }
+          }
+         },
+         {
+          "id": "DGEwE",
+          "type": "ref",
+          "ref": "FpUpU",
+          "name": "Tab iPhone 16",
+          "strokeAlignment": "inner",
+          "descendants": {
+           "U4TOHr": {
+            "content": "iPhone 16"
+           },
+           "qwSGl": {
+            "enabled": true,
+            "icon": "loader-circle",
+            "fill": "$ink/secondary"
+           }
+          }
+         },
+         {
+          "id": "sCZFe",
+          "type": "ref",
+          "ref": "FpUpU",
+          "name": "Tab iPhone 16 Pro Max",
+          "strokeAlignment": "inner",
+          "descendants": {
+           "U4TOHr": {
+            "content": "iPhone 16 Pro Max"
+           },
+           "qwSGl": {
+            "enabled": true
+           }
+          }
+         },
+         {
+          "id": "mJVQC",
+          "type": "ref",
+          "ref": "FpUpU",
+          "name": "Tab iPad",
+          "fill": "$surface/header-leader",
+          "stroke": "$status/leader",
+          "strokeWidth": 1,
+          "strokeAlignment": "inner",
+          "descendants": {
+           "U4TOHr": {
+            "content": "iPad"
+           }
+          }
+         },
+         {
+          "id": "gJK2T",
+          "type": "ref",
+          "ref": "FpUpU",
+          "name": "Tab iPad Pro",
+          "strokeAlignment": "inner",
+          "descendants": {
+           "U4TOHr": {
+            "content": "iPad Pro"
+           },
+           "qwSGl": {
+            "enabled": true,
+            "icon": "image",
+            "fill": "$ink/secondary"
+           }
+          }
+         },
+         {
+          "id": "giOnk",
+          "type": "ref",
+          "ref": "FpUpU",
+          "name": "Tab Laptop",
+          "strokeAlignment": "inner",
+          "descendants": {
+           "U4TOHr": {
+            "content": "Laptop"
+           },
+           "qwSGl": {
+            "enabled": true
+           }
+          }
+         },
+         {
+          "id": "qImB8",
+          "type": "ref",
+          "ref": "FpUpU",
+          "name": "Tab Geniş ekran",
+          "strokeAlignment": "inner",
+          "descendants": {
+           "U4TOHr": {
+            "content": "Geniş ekran"
+           }
+          }
+         },
+         {
+          "id": "CyaxL",
+          "type": "ref",
+          "ref": "FpUpU",
+          "name": "Tab Masaüstü",
+          "strokeAlignment": "inner",
+          "descendants": {
+           "U4TOHr": {
+            "content": "Masaüstü"
+           }
+          }
+         },
+         {
+          "type": "rectangle",
+          "id": "Eogaq",
+          "layoutPosition": "absolute",
+          "x": 512,
+          "y": 0,
+          "name": "Fade",
+          "fill": {
+           "type": "gradient",
+           "gradientType": "linear",
+           "enabled": true,
+           "rotation": 270,
+           "size": {
+            "height": 1
+           },
+           "colors": [
+            {
+             "color": "#2D292600",
+             "position": 0
+            },
+            {
+             "color": "#2D2926",
+             "position": 1
+            }
+           ]
+          },
+          "width": 48,
+          "height": 30
+         }
+        ]
+       },
+       {
+        "type": "icon",
+        "id": "dmdoa",
+        "name": "ScrollRight",
+        "width": 14,
+        "height": 14,
+        "icon": "chevron-right",
+        "library": "lucide",
+        "fill": "$ink/secondary"
+       },
+       {
+        "type": "frame",
+        "id": "F5Wi3",
+        "name": "Overflow Chip",
+        "fill": "$surface/header-leader",
+        "cornerRadius": 8,
+        "stroke": "$status/warning",
+        "strokeWidth": 1,
+        "strokeAlignment": "inner",
+        "gap": 6,
+        "padding": [
+         6,
+         10
+        ],
+        "alignItems": "center",
+        "children": [
+         {
+          "type": "text",
+          "id": "h5U2PY",
+          "name": "MoreText",
+          "fill": "$ink/primary",
+          "content": "+3",
+          "fontFamily": "$font/ui",
+          "fontSize": 12,
+          "fontWeight": "600"
+         },
+         {
+          "type": "icon",
+          "id": "pqpY7",
+          "name": "MoreStatus",
+          "width": 13,
+          "height": 13,
+          "icon": "triangle-alert",
+          "library": "lucide",
+          "fill": "$status/warning"
+         },
+         {
+          "type": "icon",
+          "id": "fP71F",
+          "name": "MoreIcon",
+          "width": 12,
+          "height": 12,
+          "icon": "chevron-down",
+          "library": "lucide",
+          "fill": "$ink/secondary"
+         }
+        ]
+       }
+      ]
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · 8 cihaz · menü açık",
+   "component": "Window/Rail",
+   "instanceId": "KHrZV",
+   "size": [
+    44,
+    900
+   ],
+   "overrides": {
+    "height": "fill_container",
+    "descendants": {
+     "nfqaz": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Zoom menüsü açık",
+   "component": "Sidebar/Header",
+   "instanceId": "DmGXg",
+   "size": [
+    216,
+    110
+   ],
+   "overrides": {
+    "width": "fill_container"
+   }
+  },
+  {
+   "frame": "Project Window · Zoom menüsü açık",
+   "component": "Sidebar/Row",
+   "instanceId": "W318r",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "house",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ana sayfa",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Zoom menüsü açık",
+   "component": "Sidebar/Row",
+   "instanceId": "Xs7s5",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "fill": "$surface/header",
+    "descendants": {
+     "oEGVV": {
+      "icon": "package",
+      "fill": "$ink/primary"
+     },
+     "hPpHB": {
+      "content": "Ürün",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Zoom menüsü açık",
+   "component": "Sidebar/Row",
+   "instanceId": "EPViM",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "shopping-cart",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Sepet",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Zoom menüsü açık",
+   "component": "Sidebar/Row",
+   "instanceId": "kGxxF",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "credit-card",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ödeme",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Zoom menüsü açık",
+   "component": "Sidebar/Row",
+   "instanceId": "lRBlA",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "plus",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ekle",
+      "fill": "$ink/secondary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Zoom menüsü açık",
+   "component": "Viewport/Card",
+   "instanceId": "TzO6B",
+   "size": [
+    216,
+    476
+   ],
+   "overrides": {
+    "width": 216,
+    "descendants": {
+     "ObOub": {
+      "content": "iPhone 16"
+     },
+     "PRv7d": {
+      "content": "393×852"
+     },
+     "zTEI3": {
+      "height": 440
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Zoom menüsü açık",
+   "component": "Viewport/HoverStrip",
+   "instanceId": "l5Jw2s",
+   "size": [
+    88,
+    28
+   ],
+   "overrides": {}
+  },
+  {
+   "frame": "Project Window · Zoom menüsü açık",
+   "component": "Viewport/Card",
+   "instanceId": "vqtxI",
+   "size": [
+    328,
+    480
+   ],
+   "overrides": {
+    "width": 328,
+    "stroke": "$status/leader",
+    "strokeWidth": 2,
+    "descendants": {
+     "oDaLl": {
+      "fill": "$surface/header-leader"
+     },
+     "ObOub": {
+      "content": "iPad"
+     },
+     "PRv7d": {
+      "content": "820×1180"
+     },
+     "soNCM": {
+      "fill": "$status/leader"
+     },
+     "zTEI3": {
+      "height": 444
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Zoom menüsü açık",
+   "component": "Viewport/Card",
+   "instanceId": "P3H76j",
+   "size": [
+    461,
+    336
+   ],
+   "overrides": {
+    "width": 461,
+    "descendants": {
+     "ObOub": {
+      "content": "Masaüstü"
+     },
+     "PRv7d": {
+      "content": "1440×900"
+     },
+     "vO1MI": {
+      "enabled": true
+     },
+     "zTEI3": {
+      "height": 270
+     },
+     "MDe1d": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Zoom menüsü açık",
+   "component": "Window/BottomBar",
+   "instanceId": "ngUx8",
+   "size": [
+    210,
+    49
+   ],
+   "overrides": {
+    "layoutPosition": "absolute",
+    "descendants": {
+     "P7glc": {
+      "fill": "$surface/header-leader"
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Zoom menüsü açık",
+   "component": "Window/DeviceStrip",
+   "instanceId": "f84pcs",
+   "size": [
+    370,
+    35
+   ],
+   "overrides": {
+    "layoutPosition": "absolute",
+    "descendants": {
+     "qmgAT": {
+      "type": "frame",
+      "id": "vNSod",
+      "name": "Tabs",
+      "gap": 4,
+      "alignItems": "center",
+      "children": [
+       {
+        "id": "IMlyM",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab iPhone 16",
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "iPhone 16"
+         }
+        }
+       },
+       {
+        "id": "Dus9x",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab iPad",
+        "fill": "$surface/header-leader",
+        "stroke": "$status/leader",
+        "strokeWidth": 1,
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "iPad"
+         }
+        }
+       },
+       {
+        "id": "i9afAN",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab Masaüstü",
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "Masaüstü"
+         },
+         "qwSGl": {
+          "enabled": true
+         }
+        }
+       }
+      ]
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Zoom menüsü açık",
+   "component": "Window/Rail",
+   "instanceId": "N4tVF5",
+   "size": [
+    44,
+    900
+   ],
+   "overrides": {
+    "height": "fill_container",
+    "descendants": {
+     "nfqaz": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · İkon çubuklar + tooltip",
+   "component": "Viewport/Card",
+   "instanceId": "DlQgI",
+   "size": [
+    216,
+    476
+   ],
+   "overrides": {
+    "width": 216,
+    "descendants": {
+     "ObOub": {
+      "content": "iPhone 16"
+     },
+     "PRv7d": {
+      "content": "393×852"
+     },
+     "zTEI3": {
+      "height": 440
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · İkon çubuklar + tooltip",
+   "component": "Viewport/HoverStrip",
+   "instanceId": "vBx31",
+   "size": [
+    88,
+    28
+   ],
+   "overrides": {}
+  },
+  {
+   "frame": "Project Window · İkon çubuklar + tooltip",
+   "component": "Viewport/Card",
+   "instanceId": "BmFen",
+   "size": [
+    328,
+    480
+   ],
+   "overrides": {
+    "width": 328,
+    "stroke": "$status/leader",
+    "strokeWidth": 2,
+    "descendants": {
+     "oDaLl": {
+      "fill": "$surface/header-leader"
+     },
+     "ObOub": {
+      "content": "iPad"
+     },
+     "PRv7d": {
+      "content": "820×1180"
+     },
+     "soNCM": {
+      "fill": "$status/leader"
+     },
+     "zTEI3": {
+      "height": 444
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · İkon çubuklar + tooltip",
+   "component": "Viewport/Card",
+   "instanceId": "WdL7P",
+   "size": [
+    461,
+    336
+   ],
+   "overrides": {
+    "width": 461,
+    "descendants": {
+     "ObOub": {
+      "content": "Masaüstü"
+     },
+     "PRv7d": {
+      "content": "1440×900"
+     },
+     "vO1MI": {
+      "enabled": true
+     },
+     "zTEI3": {
+      "height": 270
+     },
+     "MDe1d": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · İkon çubuklar + tooltip",
+   "component": "Window/BottomBar",
+   "instanceId": "IrY0D",
+   "size": [
+    210,
+    49
+   ],
+   "overrides": {
+    "layoutPosition": "absolute",
+    "descendants": {
+     "P6XIZ": {
+      "fill": "$surface/header-leader"
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · İkon çubuklar + tooltip",
+   "component": "Window/CollapsedHeader",
+   "instanceId": "s40CK",
+   "size": [
+    396,
+    38
+   ],
+   "overrides": {
+    "layoutPosition": "absolute"
+   }
+  },
+  {
+   "frame": "Project Window · İkon çubuklar + tooltip",
+   "component": "Window/DeviceStrip",
+   "instanceId": "Rz8cf",
+   "size": [
+    370,
+    35
+   ],
+   "overrides": {
+    "layoutPosition": "absolute",
+    "descendants": {
+     "qmgAT": {
+      "type": "frame",
+      "id": "OG0ee",
+      "name": "Tabs",
+      "gap": 4,
+      "alignItems": "center",
+      "children": [
+       {
+        "id": "aJRb8",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab iPhone 16",
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "iPhone 16"
+         }
+        }
+       },
+       {
+        "id": "OHcXC",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab iPad",
+        "fill": "$surface/header-leader",
+        "stroke": "$status/leader",
+        "strokeWidth": 1,
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "iPad"
+         }
+        }
+       },
+       {
+        "id": "yEA6H",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab Masaüstü",
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "Masaüstü"
+         },
+         "qwSGl": {
+          "enabled": true
+         }
+        }
+       }
+      ]
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · İkon çubuklar + tooltip",
+   "component": "Window/Rail",
+   "instanceId": "KmycC",
+   "size": [
+    44,
+    900
+   ],
+   "overrides": {
+    "height": "fill_container",
+    "descendants": {
+     "nfqaz": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Motor tooltip",
+   "component": "Sidebar/Header",
+   "instanceId": "jdBsB",
+   "size": [
+    216,
+    110
+   ],
+   "overrides": {
+    "width": "fill_container"
+   }
+  },
+  {
+   "frame": "Project Window · Motor tooltip",
+   "component": "Sidebar/Row",
+   "instanceId": "GsBuU",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "house",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ana sayfa",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Motor tooltip",
+   "component": "Sidebar/Row",
+   "instanceId": "k6lQr",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "fill": "$surface/header",
+    "descendants": {
+     "oEGVV": {
+      "icon": "package",
+      "fill": "$ink/primary"
+     },
+     "hPpHB": {
+      "content": "Ürün",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Motor tooltip",
+   "component": "Sidebar/Row",
+   "instanceId": "z5zjDZ",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "shopping-cart",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Sepet",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Motor tooltip",
+   "component": "Sidebar/Row",
+   "instanceId": "B8vQs",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "credit-card",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ödeme",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Motor tooltip",
+   "component": "Sidebar/Row",
+   "instanceId": "E7MHKM",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "plus",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ekle",
+      "fill": "$ink/secondary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Motor tooltip",
+   "component": "Viewport/Card",
+   "instanceId": "U7ghdo",
+   "size": [
+    216,
+    476
+   ],
+   "overrides": {
+    "width": 216,
+    "descendants": {
+     "ObOub": {
+      "content": "iPhone 16"
+     },
+     "PRv7d": {
+      "content": "393×852"
+     },
+     "zTEI3": {
+      "height": 440
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Motor tooltip",
+   "component": "Viewport/HoverStrip",
+   "instanceId": "W6zsRq",
+   "size": [
+    88,
+    28
+   ],
+   "overrides": {}
+  },
+  {
+   "frame": "Project Window · Motor tooltip",
+   "component": "Viewport/Card",
+   "instanceId": "Mczh9",
+   "size": [
+    328,
+    480
+   ],
+   "overrides": {
+    "width": 328,
+    "stroke": "$status/leader",
+    "strokeWidth": 2,
+    "descendants": {
+     "oDaLl": {
+      "fill": "$surface/header-leader"
+     },
+     "ObOub": {
+      "content": "iPad"
+     },
+     "PRv7d": {
+      "content": "820×1180"
+     },
+     "soNCM": {
+      "fill": "$status/leader"
+     },
+     "zTEI3": {
+      "height": 444
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Motor tooltip",
+   "component": "Viewport/Card",
+   "instanceId": "FtaqE",
+   "size": [
+    461,
+    336
+   ],
+   "overrides": {
+    "width": 461,
+    "descendants": {
+     "ObOub": {
+      "content": "Masaüstü"
+     },
+     "PRv7d": {
+      "content": "1440×900"
+     },
+     "vO1MI": {
+      "enabled": true
+     },
+     "zTEI3": {
+      "height": 270
+     },
+     "MDe1d": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Motor tooltip",
+   "component": "Window/BottomBar",
+   "instanceId": "tswoe",
+   "size": [
+    210,
+    49
+   ],
+   "overrides": {
+    "layoutPosition": "absolute"
+   }
+  },
+  {
+   "frame": "Project Window · Motor tooltip",
+   "component": "Window/DeviceStrip",
+   "instanceId": "d9TIX",
+   "size": [
+    370,
+    35
+   ],
+   "overrides": {
+    "layoutPosition": "absolute",
+    "descendants": {
+     "qmgAT": {
+      "type": "frame",
+      "id": "wsyqq",
+      "name": "Tabs",
+      "gap": 4,
+      "alignItems": "center",
+      "children": [
+       {
+        "id": "RoOcT",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab iPhone 16",
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "iPhone 16"
+         }
+        }
+       },
+       {
+        "id": "bhXPq",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab iPad",
+        "fill": "$surface/header-leader",
+        "stroke": "$status/leader",
+        "strokeWidth": 1,
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "iPad"
+         }
+        }
+       },
+       {
+        "id": "Lj7zo",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab Masaüstü",
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "Masaüstü"
+         },
+         "qwSGl": {
+          "enabled": true
+         }
+        }
+       }
+      ]
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Motor tooltip",
+   "component": "Window/Rail",
+   "instanceId": "pDPWR",
+   "size": [
+    44,
+    900
+   ],
+   "overrides": {
+    "height": "fill_container",
+    "descendants": {
+     "nfqaz": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window",
+   "component": "Sidebar/Row",
+   "instanceId": "dZm3Z",
+   "size": [
+    176,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "fill": "$surface/header",
+    "descendants": {
+     "oEGVV": {
+      "icon": "history",
+      "fill": "$ink/primary"
+     },
+     "hPpHB": {
+      "content": "Son",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window",
+   "component": "Sidebar/Row",
+   "instanceId": "pxJTP",
+   "size": [
+    176,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "file-pen",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Taslaklar",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window",
+   "component": "Toolbar/Button",
+   "instanceId": "p1E21J",
+   "size": [
+    66,
+    27
+   ],
+   "overrides": {
+    "descendants": {
+     "de6zS": {
+      "icon": "folder-open"
+     },
+     "udP7c": {
+      "content": "Aç…"
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window",
+   "component": "Toolbar/Button",
+   "instanceId": "I1bOy",
+   "size": [
+    65,
+    27
+   ],
+   "overrides": {
+    "descendants": {
+     "de6zS": {
+      "icon": "plus"
+     },
+     "udP7c": {
+      "content": "Yeni"
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window",
+   "component": "Toolbar/Button",
+   "instanceId": "A4CdD",
+   "size": [
+    30,
+    30
+   ],
+   "overrides": {
+    "padding": 7,
+    "descendants": {
+     "de6zS": {
+      "icon": "settings",
+      "width": 16,
+      "height": 16
+     },
+     "udP7c": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window",
+   "component": "Home/URLBox",
+   "instanceId": "WtWcx",
+   "size": [
+    560,
+    47
+   ],
+   "overrides": {}
+  },
+  {
+   "frame": "Home Window",
+   "component": "Home/TemplateChip",
+   "instanceId": "kbNUa",
+   "size": [
+    115,
+    31
+   ],
+   "overrides": {
+    "stroke": "$accent",
+    "strokeWidth": "$stroke/hairline",
+    "strokeAlignment": "inner",
+    "fill": "$surface/header-leader",
+    "descendants": {
+     "OBZbH": {
+      "icon": "smartphone"
+     },
+     "MSK6I": {
+      "content": "Mobil odaklı"
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window",
+   "component": "Home/TemplateChip",
+   "instanceId": "j6RJZk",
+   "size": [
+    109,
+    31
+   ],
+   "overrides": {
+    "descendants": {
+     "OBZbH": {
+      "icon": "layout-grid"
+     },
+     "MSK6I": {
+      "content": "Tam matris"
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window",
+   "component": "Home/TemplateChip",
+   "instanceId": "RSV8G",
+   "size": [
+    155,
+    31
+   ],
+   "overrides": {
+    "descendants": {
+     "OBZbH": {
+      "icon": "git-compare"
+     },
+     "MSK6I": {
+      "content": "Motor karşılaştırma"
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window",
+   "component": "Home/ProjectCard",
+   "instanceId": "cEjSz",
+   "size": [
+    248,
+    195
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "qMvDs": {
+      "enabled": true,
+      "width": 52,
+      "height": 96
+     },
+     "QrPmW": {
+      "width": 44,
+      "height": 29
+     },
+     "DWfoK": {
+      "enabled": true,
+      "width": 80,
+      "height": 100
+     },
+     "W3t6so": {
+      "width": 72,
+      "height": 30
+     },
+     "HPXBl": {
+      "enabled": true,
+      "width": 96,
+      "height": 60
+     },
+     "BW3D9": {
+      "width": 88,
+      "height": 18
+     },
+     "XR1Ig": {
+      "enabled": false
+     },
+     "vTABp": {
+      "fill": "#C8553D"
+     },
+     "yG6Du": {
+      "content": "Marka A"
+     },
+     "jSlmZ": {
+      "content": "2 sa. önce · 3 cihaz"
+     },
+     "iItaA": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window",
+   "component": "Home/ProjectCard",
+   "instanceId": "wUslD",
+   "size": [
+    248,
+    195
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "qMvDs": {
+      "enabled": true,
+      "width": 40,
+      "height": 90
+     },
+     "QrPmW": {
+      "width": 32,
+      "height": 27
+     },
+     "DWfoK": {
+      "enabled": true,
+      "width": 40,
+      "height": 90
+     },
+     "W3t6so": {
+      "width": 32,
+      "height": 27
+     },
+     "HPXBl": {
+      "enabled": true,
+      "width": 64,
+      "height": 96
+     },
+     "BW3D9": {
+      "width": 56,
+      "height": 29
+     },
+     "XR1Ig": {
+      "enabled": true,
+      "width": 56,
+      "height": 54
+     },
+     "zi35w": {
+      "width": 48,
+      "height": 16
+     },
+     "vTABp": {
+      "fill": "#3D7FC8"
+     },
+     "yG6Du": {
+      "content": "Marka B"
+     },
+     "jSlmZ": {
+      "content": "Dün · 5 cihaz"
+     },
+     "iItaA": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window",
+   "component": "Home/ProjectCard",
+   "instanceId": "DFrDE",
+   "size": [
+    248,
+    195
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "qMvDs": {
+      "enabled": true,
+      "width": 52,
+      "height": 96
+     },
+     "QrPmW": {
+      "width": 44,
+      "height": 29
+     },
+     "DWfoK": {
+      "enabled": true,
+      "width": 96,
+      "height": 60
+     },
+     "W3t6so": {
+      "width": 88,
+      "height": 18
+     },
+     "HPXBl": {
+      "enabled": false
+     },
+     "XR1Ig": {
+      "enabled": false
+     },
+     "vTABp": {
+      "fill": "#8A7968"
+     },
+     "yG6Du": {
+      "content": "Untitled"
+     },
+     "jSlmZ": {
+      "content": "36 dk. önce · 2 cihaz"
+     },
+     "iItaA": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Liste",
+   "component": "Sidebar/Row",
+   "instanceId": "n0lU8",
+   "size": [
+    176,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "fill": "$surface/header",
+    "descendants": {
+     "oEGVV": {
+      "icon": "history",
+      "fill": "$ink/primary"
+     },
+     "hPpHB": {
+      "content": "Son",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Liste",
+   "component": "Sidebar/Row",
+   "instanceId": "VQKnB",
+   "size": [
+    176,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "file-pen",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Taslaklar",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Liste",
+   "component": "Toolbar/Button",
+   "instanceId": "Nw6ou",
+   "size": [
+    66,
+    27
+   ],
+   "overrides": {
+    "descendants": {
+     "de6zS": {
+      "icon": "folder-open"
+     },
+     "udP7c": {
+      "content": "Aç…"
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Liste",
+   "component": "Toolbar/Button",
+   "instanceId": "c0Jzzo",
+   "size": [
+    65,
+    27
+   ],
+   "overrides": {
+    "descendants": {
+     "de6zS": {
+      "icon": "plus"
+     },
+     "udP7c": {
+      "content": "Yeni"
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Liste",
+   "component": "Toolbar/Button",
+   "instanceId": "gvhRk",
+   "size": [
+    30,
+    30
+   ],
+   "overrides": {
+    "padding": 7,
+    "descendants": {
+     "de6zS": {
+      "icon": "settings",
+      "width": 16,
+      "height": 16
+     },
+     "udP7c": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Liste",
+   "component": "Home/URLBox",
+   "instanceId": "z8gc2",
+   "size": [
+    560,
+    47
+   ],
+   "overrides": {}
+  },
+  {
+   "frame": "Home Window · Liste",
+   "component": "Home/TemplateChip",
+   "instanceId": "Xyj2y",
+   "size": [
+    115,
+    31
+   ],
+   "overrides": {
+    "stroke": "$accent",
+    "strokeWidth": "$stroke/hairline",
+    "strokeAlignment": "inner",
+    "fill": "$surface/header-leader",
+    "descendants": {
+     "OBZbH": {
+      "icon": "smartphone"
+     },
+     "MSK6I": {
+      "content": "Mobil odaklı"
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Liste",
+   "component": "Home/TemplateChip",
+   "instanceId": "xhCez",
+   "size": [
+    109,
+    31
+   ],
+   "overrides": {
+    "descendants": {
+     "OBZbH": {
+      "icon": "layout-grid"
+     },
+     "MSK6I": {
+      "content": "Tam matris"
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Liste",
+   "component": "Home/TemplateChip",
+   "instanceId": "e2ywvI",
+   "size": [
+    155,
+    31
+   ],
+   "overrides": {
+    "descendants": {
+     "OBZbH": {
+      "icon": "git-compare"
+     },
+     "MSK6I": {
+      "content": "Motor karşılaştırma"
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Boş durum",
+   "component": "Sidebar/Row",
+   "instanceId": "GooXV",
+   "size": [
+    176,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "fill": "$surface/header",
+    "descendants": {
+     "oEGVV": {
+      "icon": "history",
+      "fill": "$ink/primary"
+     },
+     "hPpHB": {
+      "content": "Son",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Boş durum",
+   "component": "Sidebar/Row",
+   "instanceId": "v1R3Iu",
+   "size": [
+    176,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "file-pen",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Taslaklar",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Boş durum",
+   "component": "Toolbar/Button",
+   "instanceId": "YuSgS",
+   "size": [
+    66,
+    27
+   ],
+   "overrides": {
+    "descendants": {
+     "de6zS": {
+      "icon": "folder-open"
+     },
+     "udP7c": {
+      "content": "Aç…"
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Boş durum",
+   "component": "Toolbar/Button",
+   "instanceId": "X9tBu",
+   "size": [
+    65,
+    27
+   ],
+   "overrides": {
+    "descendants": {
+     "de6zS": {
+      "icon": "plus"
+     },
+     "udP7c": {
+      "content": "Yeni"
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Boş durum",
+   "component": "Toolbar/Button",
+   "instanceId": "k3WitU",
+   "size": [
+    30,
+    30
+   ],
+   "overrides": {
+    "padding": 7,
+    "descendants": {
+     "de6zS": {
+      "icon": "settings",
+      "width": 16,
+      "height": 16
+     },
+     "udP7c": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Boş durum",
+   "component": "Home/URLBox",
+   "instanceId": "ft2um",
+   "size": [
+    560,
+    47
+   ],
+   "overrides": {}
+  },
+  {
+   "frame": "Home Window · Boş durum",
+   "component": "Home/TemplateChip",
+   "instanceId": "yeAeA",
+   "size": [
+    115,
+    31
+   ],
+   "overrides": {
+    "stroke": "$accent",
+    "strokeWidth": "$stroke/hairline",
+    "strokeAlignment": "inner",
+    "fill": "$surface/header-leader",
+    "descendants": {
+     "OBZbH": {
+      "icon": "smartphone"
+     },
+     "MSK6I": {
+      "content": "Mobil odaklı"
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Boş durum",
+   "component": "Home/TemplateChip",
+   "instanceId": "Kf3IO",
+   "size": [
+    109,
+    31
+   ],
+   "overrides": {
+    "descendants": {
+     "OBZbH": {
+      "icon": "layout-grid"
+     },
+     "MSK6I": {
+      "content": "Tam matris"
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Boş durum",
+   "component": "Home/TemplateChip",
+   "instanceId": "sawGz",
+   "size": [
+    155,
+    31
+   ],
+   "overrides": {
+    "descendants": {
+     "OBZbH": {
+      "icon": "git-compare"
+     },
+     "MSK6I": {
+      "content": "Motor karşılaştırma"
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Bağlam menüsü",
+   "component": "Sidebar/Row",
+   "instanceId": "a7Cgn",
+   "size": [
+    176,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "fill": "$surface/header",
+    "descendants": {
+     "oEGVV": {
+      "icon": "history",
+      "fill": "$ink/primary"
+     },
+     "hPpHB": {
+      "content": "Son",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Bağlam menüsü",
+   "component": "Sidebar/Row",
+   "instanceId": "edywY",
+   "size": [
+    176,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "file-pen",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Taslaklar",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Bağlam menüsü",
+   "component": "Toolbar/Button",
+   "instanceId": "d1CJCR",
+   "size": [
+    66,
+    27
+   ],
+   "overrides": {
+    "descendants": {
+     "de6zS": {
+      "icon": "folder-open"
+     },
+     "udP7c": {
+      "content": "Aç…"
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Bağlam menüsü",
+   "component": "Toolbar/Button",
+   "instanceId": "k4EYK",
+   "size": [
+    65,
+    27
+   ],
+   "overrides": {
+    "descendants": {
+     "de6zS": {
+      "icon": "plus"
+     },
+     "udP7c": {
+      "content": "Yeni"
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Bağlam menüsü",
+   "component": "Toolbar/Button",
+   "instanceId": "x4hHkY",
+   "size": [
+    30,
+    30
+   ],
+   "overrides": {
+    "padding": 7,
+    "descendants": {
+     "de6zS": {
+      "icon": "settings",
+      "width": 16,
+      "height": 16
+     },
+     "udP7c": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Bağlam menüsü",
+   "component": "Home/URLBox",
+   "instanceId": "Sxk7d",
+   "size": [
+    560,
+    47
+   ],
+   "overrides": {}
+  },
+  {
+   "frame": "Home Window · Bağlam menüsü",
+   "component": "Home/TemplateChip",
+   "instanceId": "j1RYK",
+   "size": [
+    115,
+    31
+   ],
+   "overrides": {
+    "stroke": "$accent",
+    "strokeWidth": "$stroke/hairline",
+    "strokeAlignment": "inner",
+    "fill": "$surface/header-leader",
+    "descendants": {
+     "OBZbH": {
+      "icon": "smartphone"
+     },
+     "MSK6I": {
+      "content": "Mobil odaklı"
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Bağlam menüsü",
+   "component": "Home/TemplateChip",
+   "instanceId": "gQ4by",
+   "size": [
+    109,
+    31
+   ],
+   "overrides": {
+    "descendants": {
+     "OBZbH": {
+      "icon": "layout-grid"
+     },
+     "MSK6I": {
+      "content": "Tam matris"
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Bağlam menüsü",
+   "component": "Home/TemplateChip",
+   "instanceId": "x7V3k",
+   "size": [
+    155,
+    31
+   ],
+   "overrides": {
+    "descendants": {
+     "OBZbH": {
+      "icon": "git-compare"
+     },
+     "MSK6I": {
+      "content": "Motor karşılaştırma"
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Bağlam menüsü",
+   "component": "Home/ProjectCard",
+   "instanceId": "PhWTg",
+   "size": [
+    248,
+    195
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "qMvDs": {
+      "enabled": true,
+      "width": 52,
+      "height": 96
+     },
+     "QrPmW": {
+      "width": 44,
+      "height": 29
+     },
+     "DWfoK": {
+      "enabled": true,
+      "width": 80,
+      "height": 100
+     },
+     "W3t6so": {
+      "width": 72,
+      "height": 30
+     },
+     "HPXBl": {
+      "enabled": true,
+      "width": 96,
+      "height": 60
+     },
+     "BW3D9": {
+      "width": 88,
+      "height": 18
+     },
+     "XR1Ig": {
+      "enabled": false
+     },
+     "vTABp": {
+      "fill": "#C8553D"
+     },
+     "yG6Du": {
+      "content": "Marka A"
+     },
+     "jSlmZ": {
+      "content": "2 sa. önce · 3 cihaz"
+     },
+     "iItaA": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Bağlam menüsü",
+   "component": "Home/ProjectCard",
+   "instanceId": "YKTzq",
+   "size": [
+    248,
+    195
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "stroke": "$status/leader",
+    "strokeWidth": "$stroke/hairline",
+    "strokeAlignment": "inner",
+    "descendants": {
+     "qMvDs": {
+      "enabled": true,
+      "width": 40,
+      "height": 90
+     },
+     "QrPmW": {
+      "width": 32,
+      "height": 27
+     },
+     "DWfoK": {
+      "enabled": true,
+      "width": 40,
+      "height": 90
+     },
+     "W3t6so": {
+      "width": 32,
+      "height": 27
+     },
+     "HPXBl": {
+      "enabled": true,
+      "width": 64,
+      "height": 96
+     },
+     "BW3D9": {
+      "width": 56,
+      "height": 29
+     },
+     "XR1Ig": {
+      "enabled": true,
+      "width": 56,
+      "height": 54
+     },
+     "zi35w": {
+      "width": 48,
+      "height": 16
+     },
+     "vTABp": {
+      "fill": "#3D7FC8"
+     },
+     "yG6Du": {
+      "content": "Marka B"
+     },
+     "jSlmZ": {
+      "content": "Dün · 5 cihaz"
+     },
+     "iItaA": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Bağlam menüsü",
+   "component": "Home/ProjectCard",
+   "instanceId": "suJeR",
+   "size": [
+    248,
+    195
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "qMvDs": {
+      "enabled": true,
+      "width": 52,
+      "height": 96
+     },
+     "QrPmW": {
+      "width": 44,
+      "height": 29
+     },
+     "DWfoK": {
+      "enabled": true,
+      "width": 96,
+      "height": 60
+     },
+     "W3t6so": {
+      "width": 88,
+      "height": 18
+     },
+     "HPXBl": {
+      "enabled": false
+     },
+     "XR1Ig": {
+      "enabled": false
+     },
+     "vTABp": {
+      "fill": "#8A7968"
+     },
+     "yG6Du": {
+      "content": "Untitled"
+     },
+     "jSlmZ": {
+      "content": "36 dk. önce · 2 cihaz"
+     },
+     "iItaA": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Kaldır alt menüsü",
+   "component": "Sidebar/Row",
+   "instanceId": "iSysF",
+   "size": [
+    176,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "fill": "$surface/header",
+    "descendants": {
+     "oEGVV": {
+      "icon": "history",
+      "fill": "$ink/primary"
+     },
+     "hPpHB": {
+      "content": "Son",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Kaldır alt menüsü",
+   "component": "Sidebar/Row",
+   "instanceId": "E6c2ZB",
+   "size": [
+    176,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "file-pen",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Taslaklar",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Kaldır alt menüsü",
+   "component": "Toolbar/Button",
+   "instanceId": "Nm4mh",
+   "size": [
+    66,
+    27
+   ],
+   "overrides": {
+    "descendants": {
+     "de6zS": {
+      "icon": "folder-open"
+     },
+     "udP7c": {
+      "content": "Aç…"
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Kaldır alt menüsü",
+   "component": "Toolbar/Button",
+   "instanceId": "BZG7s",
+   "size": [
+    65,
+    27
+   ],
+   "overrides": {
+    "descendants": {
+     "de6zS": {
+      "icon": "plus"
+     },
+     "udP7c": {
+      "content": "Yeni"
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Kaldır alt menüsü",
+   "component": "Toolbar/Button",
+   "instanceId": "RTqSj",
+   "size": [
+    30,
+    30
+   ],
+   "overrides": {
+    "padding": 7,
+    "descendants": {
+     "de6zS": {
+      "icon": "settings",
+      "width": 16,
+      "height": 16
+     },
+     "udP7c": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Kaldır alt menüsü",
+   "component": "Home/URLBox",
+   "instanceId": "U9vVX6",
+   "size": [
+    560,
+    47
+   ],
+   "overrides": {}
+  },
+  {
+   "frame": "Home Window · Kaldır alt menüsü",
+   "component": "Home/TemplateChip",
+   "instanceId": "QAAD5",
+   "size": [
+    115,
+    31
+   ],
+   "overrides": {
+    "stroke": "$accent",
+    "strokeWidth": "$stroke/hairline",
+    "strokeAlignment": "inner",
+    "fill": "$surface/header-leader",
+    "descendants": {
+     "OBZbH": {
+      "icon": "smartphone"
+     },
+     "MSK6I": {
+      "content": "Mobil odaklı"
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Kaldır alt menüsü",
+   "component": "Home/TemplateChip",
+   "instanceId": "yEfKM",
+   "size": [
+    109,
+    31
+   ],
+   "overrides": {
+    "descendants": {
+     "OBZbH": {
+      "icon": "layout-grid"
+     },
+     "MSK6I": {
+      "content": "Tam matris"
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Kaldır alt menüsü",
+   "component": "Home/TemplateChip",
+   "instanceId": "GAd8t",
+   "size": [
+    155,
+    31
+   ],
+   "overrides": {
+    "descendants": {
+     "OBZbH": {
+      "icon": "git-compare"
+     },
+     "MSK6I": {
+      "content": "Motor karşılaştırma"
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Kaldır alt menüsü",
+   "component": "Home/ProjectCard",
+   "instanceId": "DCWti",
+   "size": [
+    248,
+    195
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "qMvDs": {
+      "enabled": true,
+      "width": 52,
+      "height": 96
+     },
+     "QrPmW": {
+      "width": 44,
+      "height": 29
+     },
+     "DWfoK": {
+      "enabled": true,
+      "width": 80,
+      "height": 100
+     },
+     "W3t6so": {
+      "width": 72,
+      "height": 30
+     },
+     "HPXBl": {
+      "enabled": true,
+      "width": 96,
+      "height": 60
+     },
+     "BW3D9": {
+      "width": 88,
+      "height": 18
+     },
+     "XR1Ig": {
+      "enabled": false
+     },
+     "vTABp": {
+      "fill": "#C8553D"
+     },
+     "yG6Du": {
+      "content": "Marka A"
+     },
+     "jSlmZ": {
+      "content": "2 sa. önce · 3 cihaz"
+     },
+     "iItaA": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Kaldır alt menüsü",
+   "component": "Home/ProjectCard",
+   "instanceId": "BoodR",
+   "size": [
+    248,
+    195
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "stroke": "$status/leader",
+    "strokeWidth": "$stroke/hairline",
+    "strokeAlignment": "inner",
+    "descendants": {
+     "qMvDs": {
+      "enabled": true,
+      "width": 40,
+      "height": 90
+     },
+     "QrPmW": {
+      "width": 32,
+      "height": 27
+     },
+     "DWfoK": {
+      "enabled": true,
+      "width": 40,
+      "height": 90
+     },
+     "W3t6so": {
+      "width": 32,
+      "height": 27
+     },
+     "HPXBl": {
+      "enabled": true,
+      "width": 64,
+      "height": 96
+     },
+     "BW3D9": {
+      "width": 56,
+      "height": 29
+     },
+     "XR1Ig": {
+      "enabled": true,
+      "width": 56,
+      "height": 54
+     },
+     "zi35w": {
+      "width": 48,
+      "height": 16
+     },
+     "vTABp": {
+      "fill": "#3D7FC8"
+     },
+     "yG6Du": {
+      "content": "Marka B"
+     },
+     "jSlmZ": {
+      "content": "Dün · 5 cihaz"
+     },
+     "iItaA": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Kaldır alt menüsü",
+   "component": "Home/ProjectCard",
+   "instanceId": "UMSLV",
+   "size": [
+    248,
+    195
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "qMvDs": {
+      "enabled": true,
+      "width": 52,
+      "height": 96
+     },
+     "QrPmW": {
+      "width": 44,
+      "height": 29
+     },
+     "DWfoK": {
+      "enabled": true,
+      "width": 96,
+      "height": 60
+     },
+     "W3t6so": {
+      "width": 88,
+      "height": 18
+     },
+     "HPXBl": {
+      "enabled": false
+     },
+     "XR1Ig": {
+      "enabled": false
+     },
+     "vTABp": {
+      "fill": "#8A7968"
+     },
+     "yG6Du": {
+      "content": "Untitled"
+     },
+     "jSlmZ": {
+      "content": "36 dk. önce · 2 cihaz"
+     },
+     "iItaA": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Cihaz seçici (birleşik)",
+   "component": "Sidebar/Header",
+   "instanceId": "U4zCh",
+   "size": [
+    216,
+    110
+   ],
+   "overrides": {
+    "width": "fill_container"
+   }
+  },
+  {
+   "frame": "Project Window · Cihaz seçici (birleşik)",
+   "component": "Sidebar/Row",
+   "instanceId": "WHgdt",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "house",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ana sayfa",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Cihaz seçici (birleşik)",
+   "component": "Sidebar/Row",
+   "instanceId": "RwO3t",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "fill": "$surface/header",
+    "descendants": {
+     "oEGVV": {
+      "icon": "package",
+      "fill": "$ink/primary"
+     },
+     "hPpHB": {
+      "content": "Ürün",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Cihaz seçici (birleşik)",
+   "component": "Sidebar/Row",
+   "instanceId": "TDFYb",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "shopping-cart",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Sepet",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Cihaz seçici (birleşik)",
+   "component": "Sidebar/Row",
+   "instanceId": "zVMoS",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "credit-card",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ödeme",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Cihaz seçici (birleşik)",
+   "component": "Sidebar/Row",
+   "instanceId": "B2tb6",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "plus",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ekle",
+      "fill": "$ink/secondary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Cihaz seçici (birleşik)",
+   "component": "Viewport/Card",
+   "instanceId": "PdxoH",
+   "size": [
+    216,
+    476
+   ],
+   "overrides": {
+    "width": 216,
+    "descendants": {
+     "ObOub": {
+      "content": "iPhone 16"
+     },
+     "PRv7d": {
+      "content": "393×852"
+     },
+     "zTEI3": {
+      "height": 440
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Cihaz seçici (birleşik)",
+   "component": "Viewport/HoverStrip",
+   "instanceId": "T8lZfP",
+   "size": [
+    88,
+    28
+   ],
+   "overrides": {}
+  },
+  {
+   "frame": "Project Window · Cihaz seçici (birleşik)",
+   "component": "Viewport/Card",
+   "instanceId": "PFS4b",
+   "size": [
+    328,
+    480
+   ],
+   "overrides": {
+    "width": 328,
+    "stroke": "$status/leader",
+    "strokeWidth": 2,
+    "descendants": {
+     "oDaLl": {
+      "fill": "$surface/header-leader"
+     },
+     "ObOub": {
+      "content": "iPad"
+     },
+     "PRv7d": {
+      "content": "820×1180"
+     },
+     "soNCM": {
+      "fill": "$status/leader"
+     },
+     "zTEI3": {
+      "height": 444
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Cihaz seçici (birleşik)",
+   "component": "Viewport/Card",
+   "instanceId": "DVyMn",
+   "size": [
+    461,
+    336
+   ],
+   "overrides": {
+    "width": 461,
+    "descendants": {
+     "ObOub": {
+      "content": "Masaüstü"
+     },
+     "PRv7d": {
+      "content": "1440×900"
+     },
+     "vO1MI": {
+      "enabled": true
+     },
+     "zTEI3": {
+      "height": 270
+     },
+     "MDe1d": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Cihaz seçici (birleşik)",
+   "component": "Window/BottomBar",
+   "instanceId": "T1i44",
+   "size": [
+    210,
+    49
+   ],
+   "overrides": {
+    "layoutPosition": "absolute"
+   }
+  },
+  {
+   "frame": "Project Window · Cihaz seçici (birleşik)",
+   "component": "Window/DeviceStrip",
+   "instanceId": "YcRB3",
+   "size": [
+    370,
+    35
+   ],
+   "overrides": {
+    "layoutPosition": "absolute",
+    "descendants": {
+     "qmgAT": {
+      "type": "frame",
+      "id": "qFM0n",
+      "name": "Tabs",
+      "gap": 4,
+      "alignItems": "center",
+      "children": [
+       {
+        "id": "ZHHN8",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab iPhone 16",
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "iPhone 16"
+         }
+        }
+       },
+       {
+        "id": "sFTIS",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab iPad",
+        "fill": "$surface/header-leader",
+        "stroke": "$status/leader",
+        "strokeWidth": 1,
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "iPad"
+         }
+        }
+       },
+       {
+        "id": "m30V9",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab Masaüstü",
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "Masaüstü"
+         },
+         "qwSGl": {
+          "enabled": true
+         }
+        }
+       }
+      ]
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Cihaz seçici (birleşik)",
+   "component": "Device/Picker",
+   "instanceId": "N5Dcr2",
+   "size": [
+    660,
+    345
+   ],
+   "overrides": {
+    "layoutPosition": "absolute"
+   }
+  },
+  {
+   "frame": "Project Window · Cihaz seçici (birleşik)",
+   "component": "Window/Rail",
+   "instanceId": "gIdxv",
+   "size": [
+    44,
+    900
+   ],
+   "overrides": {
+    "height": "fill_container",
+    "descendants": {
+     "nfqaz": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Dev Panel · Farklar (sakin)",
+   "component": "Sidebar/Header",
+   "instanceId": "M37rh9",
+   "size": [
+    216,
+    110
+   ],
+   "overrides": {
+    "width": "fill_container"
+   }
+  },
+  {
+   "frame": "Dev Panel · Farklar (sakin)",
+   "component": "Sidebar/Row",
+   "instanceId": "FVd7y",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "house",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ana sayfa",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Dev Panel · Farklar (sakin)",
+   "component": "Sidebar/Row",
+   "instanceId": "hQiWi",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "fill": "$surface/header",
+    "descendants": {
+     "oEGVV": {
+      "icon": "package",
+      "fill": "$ink/primary"
+     },
+     "hPpHB": {
+      "content": "Ürün",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Dev Panel · Farklar (sakin)",
+   "component": "Sidebar/Row",
+   "instanceId": "Jq6os",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "shopping-cart",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Sepet",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Dev Panel · Farklar (sakin)",
+   "component": "Sidebar/Row",
+   "instanceId": "HnYd4",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "credit-card",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ödeme",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Dev Panel · Farklar (sakin)",
+   "component": "Sidebar/Row",
+   "instanceId": "CGpl2",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "plus",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ekle",
+      "fill": "$ink/secondary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Dev Panel · Farklar (sakin)",
+   "component": "Viewport/Card",
+   "instanceId": "R4T7K",
+   "size": [
+    216,
+    476
+   ],
+   "overrides": {
+    "width": 216,
+    "descendants": {
+     "ObOub": {
+      "content": "iPhone 16"
+     },
+     "PRv7d": {
+      "content": "393×852"
+     },
+     "zTEI3": {
+      "height": 440
+     }
+    }
+   }
+  },
+  {
+   "frame": "Dev Panel · Farklar (sakin)",
+   "component": "Viewport/HoverStrip",
+   "instanceId": "X55wrY",
+   "size": [
+    88,
+    28
+   ],
+   "overrides": {}
+  },
+  {
+   "frame": "Dev Panel · Farklar (sakin)",
+   "component": "Viewport/Card",
+   "instanceId": "QZJdN",
+   "size": [
+    328,
+    480
+   ],
+   "overrides": {
+    "width": 328,
+    "stroke": "$status/leader",
+    "strokeWidth": 2,
+    "descendants": {
+     "oDaLl": {
+      "fill": "$surface/header-leader"
+     },
+     "ObOub": {
+      "content": "iPad"
+     },
+     "PRv7d": {
+      "content": "820×1180"
+     },
+     "soNCM": {
+      "fill": "$status/leader"
+     },
+     "zTEI3": {
+      "height": 444
+     }
+    }
+   }
+  },
+  {
+   "frame": "Dev Panel · Farklar (sakin)",
+   "component": "Viewport/Card",
+   "instanceId": "hDO0t",
+   "size": [
+    461,
+    336
+   ],
+   "overrides": {
+    "width": 461,
+    "descendants": {
+     "ObOub": {
+      "content": "Masaüstü"
+     },
+     "PRv7d": {
+      "content": "1440×900"
+     },
+     "vO1MI": {
+      "enabled": true
+     },
+     "zTEI3": {
+      "height": 270
+     },
+     "MDe1d": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Dev Panel · Farklar (sakin)",
+   "component": "Window/BottomBar",
+   "instanceId": "v7aGW",
+   "size": [
+    210,
+    49
+   ],
+   "overrides": {
+    "layoutPosition": "absolute"
+   }
+  },
+  {
+   "frame": "Dev Panel · Farklar (sakin)",
+   "component": "Window/DeviceStrip",
+   "instanceId": "ejjZ4",
+   "size": [
+    370,
+    35
+   ],
+   "overrides": {
+    "layoutPosition": "absolute",
+    "descendants": {
+     "qmgAT": {
+      "type": "frame",
+      "id": "o6oUrs",
+      "name": "Tabs",
+      "gap": 4,
+      "alignItems": "center",
+      "children": [
+       {
+        "id": "DSXbK",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab iPhone 16",
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "iPhone 16"
+         }
+        }
+       },
+       {
+        "id": "n4M4T",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab iPad",
+        "fill": "$surface/header-leader",
+        "stroke": "$status/leader",
+        "strokeWidth": 1,
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "iPad"
+         }
+        }
+       },
+       {
+        "id": "q3LnVG",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab Masaüstü",
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "Masaüstü"
+         },
+         "qwSGl": {
+          "enabled": true
+         }
+        }
+       }
+      ]
+     }
+    }
+   }
+  },
+  {
+   "frame": "Dev Panel · Farklar (sakin)",
+   "component": "Window/Rail",
+   "instanceId": "s2kJnE",
+   "size": [
+    44,
+    900
+   ],
+   "overrides": {
+    "height": "fill_container",
+    "descendants": {
+     "S40ZdW": {
+      "fill": "$surface/header-leader"
+     },
+     "VkxC5": {
+      "fill": "$ink/primary"
+     },
+     "nfqaz": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Dev Panel · Senkron (sakin)",
+   "component": "Sidebar/Header",
+   "instanceId": "JJgoz",
+   "size": [
+    216,
+    110
+   ],
+   "overrides": {
+    "width": "fill_container"
+   }
+  },
+  {
+   "frame": "Dev Panel · Senkron (sakin)",
+   "component": "Sidebar/Row",
+   "instanceId": "nUbtK",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "house",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ana sayfa",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Dev Panel · Senkron (sakin)",
+   "component": "Sidebar/Row",
+   "instanceId": "l9d2j",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "fill": "$surface/header",
+    "descendants": {
+     "oEGVV": {
+      "icon": "package",
+      "fill": "$ink/primary"
+     },
+     "hPpHB": {
+      "content": "Ürün",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Dev Panel · Senkron (sakin)",
+   "component": "Sidebar/Row",
+   "instanceId": "CCSo3",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "shopping-cart",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Sepet",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Dev Panel · Senkron (sakin)",
+   "component": "Sidebar/Row",
+   "instanceId": "mylhI",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "credit-card",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ödeme",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Dev Panel · Senkron (sakin)",
+   "component": "Sidebar/Row",
+   "instanceId": "K7DqX",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "plus",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ekle",
+      "fill": "$ink/secondary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Dev Panel · Senkron (sakin)",
+   "component": "Viewport/Card",
+   "instanceId": "ZzrDF",
+   "size": [
+    216,
+    476
+   ],
+   "overrides": {
+    "width": 216,
+    "descendants": {
+     "ObOub": {
+      "content": "iPhone 16"
+     },
+     "PRv7d": {
+      "content": "393×852"
+     },
+     "zTEI3": {
+      "height": 440
+     }
+    }
+   }
+  },
+  {
+   "frame": "Dev Panel · Senkron (sakin)",
+   "component": "Viewport/HoverStrip",
+   "instanceId": "OKTXP",
+   "size": [
+    88,
+    28
+   ],
+   "overrides": {}
+  },
+  {
+   "frame": "Dev Panel · Senkron (sakin)",
+   "component": "Viewport/Card",
+   "instanceId": "XyKHz",
+   "size": [
+    328,
+    480
+   ],
+   "overrides": {
+    "width": 328,
+    "stroke": "$status/leader",
+    "strokeWidth": 2,
+    "descendants": {
+     "oDaLl": {
+      "fill": "$surface/header-leader"
+     },
+     "ObOub": {
+      "content": "iPad"
+     },
+     "PRv7d": {
+      "content": "820×1180"
+     },
+     "soNCM": {
+      "fill": "$status/leader"
+     },
+     "zTEI3": {
+      "height": 444
+     }
+    }
+   }
+  },
+  {
+   "frame": "Dev Panel · Senkron (sakin)",
+   "component": "Viewport/Card",
+   "instanceId": "fQnQY",
+   "size": [
+    461,
+    336
+   ],
+   "overrides": {
+    "width": 461,
+    "descendants": {
+     "ObOub": {
+      "content": "Masaüstü"
+     },
+     "PRv7d": {
+      "content": "1440×900"
+     },
+     "vO1MI": {
+      "enabled": true
+     },
+     "zTEI3": {
+      "height": 270
+     },
+     "MDe1d": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Dev Panel · Senkron (sakin)",
+   "component": "Window/BottomBar",
+   "instanceId": "FZF1K",
+   "size": [
+    210,
+    49
+   ],
+   "overrides": {
+    "layoutPosition": "absolute"
+   }
+  },
+  {
+   "frame": "Dev Panel · Senkron (sakin)",
+   "component": "Window/DeviceStrip",
+   "instanceId": "oe1oX",
+   "size": [
+    370,
+    35
+   ],
+   "overrides": {
+    "layoutPosition": "absolute",
+    "descendants": {
+     "qmgAT": {
+      "type": "frame",
+      "id": "OJJPU",
+      "name": "Tabs",
+      "gap": 4,
+      "alignItems": "center",
+      "children": [
+       {
+        "id": "oCmNo",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab iPhone 16",
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "iPhone 16"
+         }
+        }
+       },
+       {
+        "id": "y30NZ",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab iPad",
+        "fill": "$surface/header-leader",
+        "stroke": "$status/leader",
+        "strokeWidth": 1,
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "iPad"
+         }
+        }
+       },
+       {
+        "id": "doPPn",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab Masaüstü",
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "Masaüstü"
+         },
+         "qwSGl": {
+          "enabled": true
+         }
+        }
+       }
+      ]
+     }
+    }
+   }
+  },
+  {
+   "frame": "Dev Panel · Senkron (sakin)",
+   "component": "Window/Rail",
+   "instanceId": "UfBF4",
+   "size": [
+    44,
+    900
+   ],
+   "overrides": {
+    "height": "fill_container",
+    "descendants": {
+     "nfqaz": {
+      "enabled": true
+     },
+     "lkD7H": {
+      "fill": "$surface/header-leader"
+     },
+     "wwFbT": {
+      "fill": "$ink/primary"
+     }
+    }
+   }
+  },
+  {
+   "frame": "Dev Panel · Fark yok (sakin)",
+   "component": "Sidebar/Header",
+   "instanceId": "S8kle",
+   "size": [
+    216,
+    110
+   ],
+   "overrides": {
+    "width": "fill_container"
+   }
+  },
+  {
+   "frame": "Dev Panel · Fark yok (sakin)",
+   "component": "Sidebar/Row",
+   "instanceId": "enHjc",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "house",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ana sayfa",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Dev Panel · Fark yok (sakin)",
+   "component": "Sidebar/Row",
+   "instanceId": "Vvw9n",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "fill": "$surface/header",
+    "descendants": {
+     "oEGVV": {
+      "icon": "package",
+      "fill": "$ink/primary"
+     },
+     "hPpHB": {
+      "content": "Ürün",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Dev Panel · Fark yok (sakin)",
+   "component": "Sidebar/Row",
+   "instanceId": "Il2iv",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "shopping-cart",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Sepet",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Dev Panel · Fark yok (sakin)",
+   "component": "Sidebar/Row",
+   "instanceId": "l0vjk",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "credit-card",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ödeme",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Dev Panel · Fark yok (sakin)",
+   "component": "Sidebar/Row",
+   "instanceId": "O3Q5s",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "plus",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ekle",
+      "fill": "$ink/secondary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Dev Panel · Fark yok (sakin)",
+   "component": "Viewport/Card",
+   "instanceId": "lYBqf",
+   "size": [
+    216,
+    476
+   ],
+   "overrides": {
+    "width": 216,
+    "descendants": {
+     "ObOub": {
+      "content": "iPhone 16"
+     },
+     "PRv7d": {
+      "content": "393×852"
+     },
+     "zTEI3": {
+      "height": 440
+     }
+    }
+   }
+  },
+  {
+   "frame": "Dev Panel · Fark yok (sakin)",
+   "component": "Viewport/HoverStrip",
+   "instanceId": "pMRDF",
+   "size": [
+    88,
+    28
+   ],
+   "overrides": {}
+  },
+  {
+   "frame": "Dev Panel · Fark yok (sakin)",
+   "component": "Viewport/Card",
+   "instanceId": "JkrwF",
+   "size": [
+    328,
+    480
+   ],
+   "overrides": {
+    "width": 328,
+    "stroke": "$status/leader",
+    "strokeWidth": 2,
+    "descendants": {
+     "oDaLl": {
+      "fill": "$surface/header-leader"
+     },
+     "ObOub": {
+      "content": "iPad"
+     },
+     "PRv7d": {
+      "content": "820×1180"
+     },
+     "soNCM": {
+      "fill": "$status/leader"
+     },
+     "zTEI3": {
+      "height": 444
+     }
+    }
+   }
+  },
+  {
+   "frame": "Dev Panel · Fark yok (sakin)",
+   "component": "Viewport/Card",
+   "instanceId": "GKvbt",
+   "size": [
+    461,
+    336
+   ],
+   "overrides": {
+    "width": 461,
+    "descendants": {
+     "ObOub": {
+      "content": "Masaüstü"
+     },
+     "PRv7d": {
+      "content": "1440×900"
+     },
+     "vO1MI": {
+      "enabled": true
+     },
+     "zTEI3": {
+      "height": 270
+     },
+     "MDe1d": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Dev Panel · Fark yok (sakin)",
+   "component": "Window/BottomBar",
+   "instanceId": "aZw9j",
+   "size": [
+    210,
+    49
+   ],
+   "overrides": {
+    "layoutPosition": "absolute"
+   }
+  },
+  {
+   "frame": "Dev Panel · Fark yok (sakin)",
+   "component": "Window/DeviceStrip",
+   "instanceId": "USUsM",
+   "size": [
+    370,
+    35
+   ],
+   "overrides": {
+    "layoutPosition": "absolute",
+    "descendants": {
+     "qmgAT": {
+      "type": "frame",
+      "id": "tL9r1",
+      "name": "Tabs",
+      "gap": 4,
+      "alignItems": "center",
+      "children": [
+       {
+        "id": "ScGsD",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab iPhone 16",
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "iPhone 16"
+         }
+        }
+       },
+       {
+        "id": "MBoZc",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab iPad",
+        "fill": "$surface/header-leader",
+        "stroke": "$status/leader",
+        "strokeWidth": 1,
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "iPad"
+         }
+        }
+       },
+       {
+        "id": "xl5Cw",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab Masaüstü",
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "Masaüstü"
+         },
+         "qwSGl": {
+          "enabled": true
+         }
+        }
+       }
+      ]
+     }
+    }
+   }
+  },
+  {
+   "frame": "Dev Panel · Fark yok (sakin)",
+   "component": "Window/Rail",
+   "instanceId": "pjpTL",
+   "size": [
+    44,
+    900
+   ],
+   "overrides": {
+    "height": "fill_container",
+    "descendants": {
+     "S40ZdW": {
+      "fill": "$surface/header-leader"
+     },
+     "VkxC5": {
+      "fill": "$ink/primary"
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · URL son 5",
+   "component": "Sidebar/Header",
+   "instanceId": "cFWGr",
+   "size": [
+    216,
+    110
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "A35B3": {
+      "stroke": "$status/leader",
+      "strokeWidth": 1,
+      "strokeAlignment": "inner"
+     },
+     "EDdLy": {
+      "content": "marka.com/"
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · URL son 5",
+   "component": "Sidebar/Row",
+   "instanceId": "GemIF",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "house",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ana sayfa",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · URL son 5",
+   "component": "Sidebar/Row",
+   "instanceId": "eAd5m",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "fill": "$surface/header",
+    "descendants": {
+     "oEGVV": {
+      "icon": "package",
+      "fill": "$ink/primary"
+     },
+     "hPpHB": {
+      "content": "Ürün",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · URL son 5",
+   "component": "Sidebar/Row",
+   "instanceId": "yp6XO",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "shopping-cart",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Sepet",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · URL son 5",
+   "component": "Sidebar/Row",
+   "instanceId": "o1Hj6",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "credit-card",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ödeme",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · URL son 5",
+   "component": "Sidebar/Row",
+   "instanceId": "ykLOI",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "plus",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ekle",
+      "fill": "$ink/secondary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · URL son 5",
+   "component": "Viewport/Card",
+   "instanceId": "eby7p",
+   "size": [
+    216,
+    476
+   ],
+   "overrides": {
+    "width": 216,
+    "descendants": {
+     "ObOub": {
+      "content": "iPhone 16"
+     },
+     "PRv7d": {
+      "content": "393×852"
+     },
+     "zTEI3": {
+      "height": 440
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · URL son 5",
+   "component": "Viewport/HoverStrip",
+   "instanceId": "S2gjV",
+   "size": [
+    88,
+    28
+   ],
+   "overrides": {}
+  },
+  {
+   "frame": "Project Window · URL son 5",
+   "component": "Viewport/Card",
+   "instanceId": "rnS2P",
+   "size": [
+    328,
+    480
+   ],
+   "overrides": {
+    "width": 328,
+    "stroke": "$status/leader",
+    "strokeWidth": 2,
+    "descendants": {
+     "oDaLl": {
+      "fill": "$surface/header-leader"
+     },
+     "ObOub": {
+      "content": "iPad"
+     },
+     "PRv7d": {
+      "content": "820×1180"
+     },
+     "soNCM": {
+      "fill": "$status/leader"
+     },
+     "zTEI3": {
+      "height": 444
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · URL son 5",
+   "component": "Viewport/Card",
+   "instanceId": "I0WpQJ",
+   "size": [
+    461,
+    336
+   ],
+   "overrides": {
+    "width": 461,
+    "descendants": {
+     "ObOub": {
+      "content": "Masaüstü"
+     },
+     "PRv7d": {
+      "content": "1440×900"
+     },
+     "vO1MI": {
+      "enabled": true
+     },
+     "zTEI3": {
+      "height": 270
+     },
+     "MDe1d": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · URL son 5",
+   "component": "Window/BottomBar",
+   "instanceId": "E7Lhcv",
+   "size": [
+    210,
+    49
+   ],
+   "overrides": {
+    "layoutPosition": "absolute"
+   }
+  },
+  {
+   "frame": "Project Window · URL son 5",
+   "component": "Window/DeviceStrip",
+   "instanceId": "Y7Og0p",
+   "size": [
+    370,
+    35
+   ],
+   "overrides": {
+    "layoutPosition": "absolute",
+    "descendants": {
+     "qmgAT": {
+      "type": "frame",
+      "id": "M0h2wK",
+      "name": "Tabs",
+      "gap": 4,
+      "alignItems": "center",
+      "children": [
+       {
+        "id": "XcHua",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab iPhone 16",
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "iPhone 16"
+         }
+        }
+       },
+       {
+        "id": "u5w4wH",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab iPad",
+        "fill": "$surface/header-leader",
+        "stroke": "$status/leader",
+        "strokeWidth": 1,
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "iPad"
+         }
+        }
+       },
+       {
+        "id": "QmzU4",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab Masaüstü",
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "Masaüstü"
+         },
+         "qwSGl": {
+          "enabled": true
+         }
+        }
+       }
+      ]
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · URL son 5",
+   "component": "Window/Rail",
+   "instanceId": "UiR5i",
+   "size": [
+    44,
+    900
+   ],
+   "overrides": {
+    "height": "fill_container",
+    "descendants": {
+     "nfqaz": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ekran görüntüsü menüsü",
+   "component": "Sidebar/Header",
+   "instanceId": "GDxWd",
+   "size": [
+    216,
+    110
+   ],
+   "overrides": {
+    "width": "fill_container"
+   }
+  },
+  {
+   "frame": "Project Window · Ekran görüntüsü menüsü",
+   "component": "Sidebar/Row",
+   "instanceId": "zINVj",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "house",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ana sayfa",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ekran görüntüsü menüsü",
+   "component": "Sidebar/Row",
+   "instanceId": "krv0p",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "fill": "$surface/header",
+    "descendants": {
+     "oEGVV": {
+      "icon": "package",
+      "fill": "$ink/primary"
+     },
+     "hPpHB": {
+      "content": "Ürün",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ekran görüntüsü menüsü",
+   "component": "Sidebar/Row",
+   "instanceId": "Mx4ig",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "shopping-cart",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Sepet",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ekran görüntüsü menüsü",
+   "component": "Sidebar/Row",
+   "instanceId": "Y0gspu",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "credit-card",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ödeme",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ekran görüntüsü menüsü",
+   "component": "Sidebar/Row",
+   "instanceId": "Tq9pZ",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "plus",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ekle",
+      "fill": "$ink/secondary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ekran görüntüsü menüsü",
+   "component": "Viewport/Card",
+   "instanceId": "q8VJKf",
+   "size": [
+    216,
+    476
+   ],
+   "overrides": {
+    "width": 216,
+    "descendants": {
+     "ObOub": {
+      "content": "iPhone 16"
+     },
+     "PRv7d": {
+      "content": "393×852"
+     },
+     "zTEI3": {
+      "height": 440
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ekran görüntüsü menüsü",
+   "component": "Viewport/HoverStrip",
+   "instanceId": "INzMv",
+   "size": [
+    88,
+    28
+   ],
+   "overrides": {}
+  },
+  {
+   "frame": "Project Window · Ekran görüntüsü menüsü",
+   "component": "Viewport/Card",
+   "instanceId": "Z4Ph47",
+   "size": [
+    328,
+    480
+   ],
+   "overrides": {
+    "width": 328,
+    "stroke": "$status/leader",
+    "strokeWidth": 2,
+    "descendants": {
+     "oDaLl": {
+      "fill": "$surface/header-leader"
+     },
+     "ObOub": {
+      "content": "iPad"
+     },
+     "PRv7d": {
+      "content": "820×1180"
+     },
+     "soNCM": {
+      "fill": "$status/leader"
+     },
+     "zTEI3": {
+      "height": 444
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ekran görüntüsü menüsü",
+   "component": "Viewport/Card",
+   "instanceId": "nqBZB",
+   "size": [
+    461,
+    336
+   ],
+   "overrides": {
+    "width": 461,
+    "descendants": {
+     "ObOub": {
+      "content": "Masaüstü"
+     },
+     "PRv7d": {
+      "content": "1440×900"
+     },
+     "vO1MI": {
+      "enabled": true
+     },
+     "zTEI3": {
+      "height": 270
+     },
+     "MDe1d": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ekran görüntüsü menüsü",
+   "component": "Window/BottomBar",
+   "instanceId": "Q9khGb",
+   "size": [
+    210,
+    49
+   ],
+   "overrides": {
+    "layoutPosition": "absolute",
+    "descendants": {
+     "v47s0": {
+      "fill": "$surface/header-leader"
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ekran görüntüsü menüsü",
+   "component": "Window/DeviceStrip",
+   "instanceId": "Tz8Tn",
+   "size": [
+    370,
+    35
+   ],
+   "overrides": {
+    "layoutPosition": "absolute",
+    "descendants": {
+     "qmgAT": {
+      "type": "frame",
+      "id": "Z45SQ",
+      "name": "Tabs",
+      "gap": 4,
+      "alignItems": "center",
+      "children": [
+       {
+        "id": "sZFJr",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab iPhone 16",
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "iPhone 16"
+         }
+        }
+       },
+       {
+        "id": "y410F",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab iPad",
+        "fill": "$surface/header-leader",
+        "stroke": "$status/leader",
+        "strokeWidth": 1,
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "iPad"
+         }
+        }
+       },
+       {
+        "id": "aZ29I",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab Masaüstü",
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "Masaüstü"
+         },
+         "qwSGl": {
+          "enabled": true
+         }
+        }
+       }
+      ]
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ekran görüntüsü menüsü",
+   "component": "Window/Rail",
+   "instanceId": "qrcZ2",
+   "size": [
+    44,
+    900
+   ],
+   "overrides": {
+    "height": "fill_container",
+    "descendants": {
+     "nfqaz": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar paneli",
+   "component": "Sidebar/Header",
+   "instanceId": "zrUGo",
+   "size": [
+    216,
+    110
+   ],
+   "overrides": {
+    "width": "fill_container"
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar paneli",
+   "component": "Sidebar/Row",
+   "instanceId": "KhAMq",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "house",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ana sayfa",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar paneli",
+   "component": "Sidebar/Row",
+   "instanceId": "coaUz",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "fill": "$surface/header",
+    "descendants": {
+     "oEGVV": {
+      "icon": "package",
+      "fill": "$ink/primary"
+     },
+     "hPpHB": {
+      "content": "Ürün",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar paneli",
+   "component": "Sidebar/Row",
+   "instanceId": "EL8v5",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "shopping-cart",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Sepet",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar paneli",
+   "component": "Sidebar/Row",
+   "instanceId": "We2zg",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "credit-card",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ödeme",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar paneli",
+   "component": "Sidebar/Row",
+   "instanceId": "r2lt5",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "plus",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ekle",
+      "fill": "$ink/secondary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar paneli",
+   "component": "Viewport/Card",
+   "instanceId": "c1mEQ",
+   "size": [
+    216,
+    476
+   ],
+   "overrides": {
+    "width": 216,
+    "descendants": {
+     "ObOub": {
+      "content": "iPhone 16"
+     },
+     "PRv7d": {
+      "content": "393×852"
+     },
+     "zTEI3": {
+      "height": 440
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar paneli",
+   "component": "Viewport/HoverStrip",
+   "instanceId": "zzvMb",
+   "size": [
+    88,
+    28
+   ],
+   "overrides": {}
+  },
+  {
+   "frame": "Project Window · Ayarlar paneli",
+   "component": "Viewport/Card",
+   "instanceId": "FPBPx",
+   "size": [
+    328,
+    480
+   ],
+   "overrides": {
+    "width": 328,
+    "stroke": "$status/leader",
+    "strokeWidth": 2,
+    "descendants": {
+     "oDaLl": {
+      "fill": "$surface/header-leader"
+     },
+     "ObOub": {
+      "content": "iPad"
+     },
+     "PRv7d": {
+      "content": "820×1180"
+     },
+     "soNCM": {
+      "fill": "$status/leader"
+     },
+     "zTEI3": {
+      "height": 444
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar paneli",
+   "component": "Viewport/Card",
+   "instanceId": "JwsRI",
+   "size": [
+    461,
+    336
+   ],
+   "overrides": {
+    "width": 461,
+    "descendants": {
+     "ObOub": {
+      "content": "Masaüstü"
+     },
+     "PRv7d": {
+      "content": "1440×900"
+     },
+     "vO1MI": {
+      "enabled": true
+     },
+     "zTEI3": {
+      "height": 270
+     },
+     "MDe1d": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar paneli",
+   "component": "Window/BottomBar",
+   "instanceId": "kLAxK",
+   "size": [
+    210,
+    49
+   ],
+   "overrides": {
+    "layoutPosition": "absolute"
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar paneli",
+   "component": "Window/DeviceStrip",
+   "instanceId": "Y1HMBr",
+   "size": [
+    370,
+    35
+   ],
+   "overrides": {
+    "layoutPosition": "absolute",
+    "descendants": {
+     "qmgAT": {
+      "type": "frame",
+      "id": "CShxi",
+      "name": "Tabs",
+      "gap": 4,
+      "alignItems": "center",
+      "children": [
+       {
+        "id": "coBzL",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab iPhone 16",
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "iPhone 16"
+         }
+        }
+       },
+       {
+        "id": "VcXLd",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab iPad",
+        "fill": "$surface/header-leader",
+        "stroke": "$status/leader",
+        "strokeWidth": 1,
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "iPad"
+         }
+        }
+       },
+       {
+        "id": "RWLOJ",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab Masaüstü",
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "Masaüstü"
+         },
+         "qwSGl": {
+          "enabled": true
+         }
+        }
+       }
+      ]
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar paneli",
+   "component": "Window/Rail",
+   "instanceId": "zcM26",
+   "size": [
+    44,
+    900
+   ],
+   "overrides": {
+    "height": "fill_container",
+    "descendants": {
+     "Ksj9i": {
+      "fill": "$surface/header-leader"
+     },
+     "Db9tR": {
+      "fill": "$ink/primary"
+     },
+     "nfqaz": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Ayarlar paneli",
+   "component": "Sidebar/Row",
+   "instanceId": "SWmXS",
+   "size": [
+    176,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "fill": "$surface/header",
+    "descendants": {
+     "oEGVV": {
+      "icon": "history",
+      "fill": "$ink/primary"
+     },
+     "hPpHB": {
+      "content": "Son",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Ayarlar paneli",
+   "component": "Sidebar/Row",
+   "instanceId": "E8vezE",
+   "size": [
+    176,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "file-pen",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Taslaklar",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Ayarlar paneli",
+   "component": "Toolbar/Button",
+   "instanceId": "wqbPp",
+   "size": [
+    66,
+    27
+   ],
+   "overrides": {
+    "descendants": {
+     "de6zS": {
+      "icon": "folder-open"
+     },
+     "udP7c": {
+      "content": "Aç…"
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Ayarlar paneli",
+   "component": "Toolbar/Button",
+   "instanceId": "p2eupO",
+   "size": [
+    65,
+    27
+   ],
+   "overrides": {
+    "descendants": {
+     "de6zS": {
+      "icon": "plus"
+     },
+     "udP7c": {
+      "content": "Yeni"
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Ayarlar paneli",
+   "component": "Toolbar/Button",
+   "instanceId": "b8eSJp",
+   "size": [
+    30,
+    30
+   ],
+   "overrides": {
+    "padding": 7,
+    "fill": "$surface/header-leader",
+    "descendants": {
+     "de6zS": {
+      "icon": "settings",
+      "width": 16,
+      "height": 16,
+      "fill": "$ink/primary"
+     },
+     "udP7c": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Ayarlar paneli",
+   "component": "Home/URLBox",
+   "instanceId": "I8XVz",
+   "size": [
+    560,
+    47
+   ],
+   "overrides": {}
+  },
+  {
+   "frame": "Home Window · Ayarlar paneli",
+   "component": "Home/TemplateChip",
+   "instanceId": "SJOhk",
+   "size": [
+    115,
+    31
+   ],
+   "overrides": {
+    "stroke": "$accent",
+    "strokeWidth": "$stroke/hairline",
+    "strokeAlignment": "inner",
+    "fill": "$surface/header-leader",
+    "descendants": {
+     "OBZbH": {
+      "icon": "smartphone"
+     },
+     "MSK6I": {
+      "content": "Mobil odaklı"
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Ayarlar paneli",
+   "component": "Home/TemplateChip",
+   "instanceId": "pMHVp",
+   "size": [
+    109,
+    31
+   ],
+   "overrides": {
+    "descendants": {
+     "OBZbH": {
+      "icon": "layout-grid"
+     },
+     "MSK6I": {
+      "content": "Tam matris"
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Ayarlar paneli",
+   "component": "Home/TemplateChip",
+   "instanceId": "Xljw5",
+   "size": [
+    155,
+    31
+   ],
+   "overrides": {
+    "descendants": {
+     "OBZbH": {
+      "icon": "git-compare"
+     },
+     "MSK6I": {
+      "content": "Motor karşılaştırma"
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Ayarlar paneli",
+   "component": "Home/ProjectCard",
+   "instanceId": "DqCKh",
+   "size": [
+    248,
+    195
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "qMvDs": {
+      "enabled": true,
+      "width": 52,
+      "height": 96
+     },
+     "QrPmW": {
+      "width": 44,
+      "height": 29
+     },
+     "DWfoK": {
+      "enabled": true,
+      "width": 80,
+      "height": 100
+     },
+     "W3t6so": {
+      "width": 72,
+      "height": 30
+     },
+     "HPXBl": {
+      "enabled": true,
+      "width": 96,
+      "height": 60
+     },
+     "BW3D9": {
+      "width": 88,
+      "height": 18
+     },
+     "XR1Ig": {
+      "enabled": false
+     },
+     "vTABp": {
+      "fill": "#C8553D"
+     },
+     "yG6Du": {
+      "content": "Marka A"
+     },
+     "jSlmZ": {
+      "content": "2 sa. önce · 3 cihaz"
+     },
+     "iItaA": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Ayarlar paneli",
+   "component": "Home/ProjectCard",
+   "instanceId": "qVnTz",
+   "size": [
+    248,
+    195
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "qMvDs": {
+      "enabled": true,
+      "width": 40,
+      "height": 90
+     },
+     "QrPmW": {
+      "width": 32,
+      "height": 27
+     },
+     "DWfoK": {
+      "enabled": true,
+      "width": 40,
+      "height": 90
+     },
+     "W3t6so": {
+      "width": 32,
+      "height": 27
+     },
+     "HPXBl": {
+      "enabled": true,
+      "width": 64,
+      "height": 96
+     },
+     "BW3D9": {
+      "width": 56,
+      "height": 29
+     },
+     "XR1Ig": {
+      "enabled": true,
+      "width": 56,
+      "height": 54
+     },
+     "zi35w": {
+      "width": 48,
+      "height": 16
+     },
+     "vTABp": {
+      "fill": "#3D7FC8"
+     },
+     "yG6Du": {
+      "content": "Marka B"
+     },
+     "jSlmZ": {
+      "content": "Dün · 5 cihaz"
+     },
+     "iItaA": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Home Window · Ayarlar paneli",
+   "component": "Home/ProjectCard",
+   "instanceId": "VkCnt",
+   "size": [
+    248,
+    195
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "qMvDs": {
+      "enabled": true,
+      "width": 52,
+      "height": 96
+     },
+     "QrPmW": {
+      "width": 44,
+      "height": 29
+     },
+     "DWfoK": {
+      "enabled": true,
+      "width": 96,
+      "height": 60
+     },
+     "W3t6so": {
+      "width": 88,
+      "height": 18
+     },
+     "HPXBl": {
+      "enabled": false
+     },
+     "XR1Ig": {
+      "enabled": false
+     },
+     "vTABp": {
+      "fill": "#8A7968"
+     },
+     "yG6Du": {
+      "content": "Untitled"
+     },
+     "jSlmZ": {
+      "content": "36 dk. önce · 2 cihaz"
+     },
+     "iItaA": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Canvas boş",
+   "component": "Sidebar/Header",
+   "instanceId": "jrZZn",
+   "size": [
+    216,
+    110
+   ],
+   "overrides": {
+    "width": "fill_container"
+   }
+  },
+  {
+   "frame": "Project Window · Canvas boş",
+   "component": "Sidebar/Row",
+   "instanceId": "rHm3F",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "house",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ana sayfa",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Canvas boş",
+   "component": "Sidebar/Row",
+   "instanceId": "eV0a7",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "fill": "$surface/header",
+    "descendants": {
+     "oEGVV": {
+      "icon": "package",
+      "fill": "$ink/primary"
+     },
+     "hPpHB": {
+      "content": "Ürün",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Canvas boş",
+   "component": "Sidebar/Row",
+   "instanceId": "Z0fuL",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "shopping-cart",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Sepet",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Canvas boş",
+   "component": "Sidebar/Row",
+   "instanceId": "xOZTe",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "credit-card",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ödeme",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Canvas boş",
+   "component": "Sidebar/Row",
+   "instanceId": "FbZx6",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "plus",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ekle",
+      "fill": "$ink/secondary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Canvas boş",
+   "component": "Window/BottomBar",
+   "instanceId": "RbmJo",
+   "size": [
+    210,
+    49
+   ],
+   "overrides": {
+    "layoutPosition": "absolute"
+   }
+  },
+  {
+   "frame": "Project Window · Canvas boş",
+   "component": "Window/DeviceStrip",
+   "instanceId": "CTvM3",
+   "size": [
+    81,
+    35
+   ],
+   "overrides": {
+    "layoutPosition": "absolute",
+    "descendants": {
+     "qmgAT": {
+      "type": "frame",
+      "id": "j2Qg5f",
+      "x": 4,
+      "y": 17.5,
+      "name": "Tabs",
+      "enabled": false,
+      "width": "fit_content(0)",
+      "height": "fit_content(0)",
+      "gap": 4,
+      "alignItems": "center"
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Canvas boş",
+   "component": "Window/Rail",
+   "instanceId": "yNNsk",
+   "size": [
+    44,
+    900
+   ],
+   "overrides": {
+    "height": "fill_container"
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar › Cihazlar",
+   "component": "Sidebar/Header",
+   "instanceId": "G1sFw",
+   "size": [
+    216,
+    110
+   ],
+   "overrides": {
+    "width": "fill_container"
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar › Cihazlar",
+   "component": "Sidebar/Row",
+   "instanceId": "y1tzA",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "house",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ana sayfa",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar › Cihazlar",
+   "component": "Sidebar/Row",
+   "instanceId": "zXNPY",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "fill": "$surface/header",
+    "descendants": {
+     "oEGVV": {
+      "icon": "package",
+      "fill": "$ink/primary"
+     },
+     "hPpHB": {
+      "content": "Ürün",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar › Cihazlar",
+   "component": "Sidebar/Row",
+   "instanceId": "tTe7N",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "shopping-cart",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Sepet",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar › Cihazlar",
+   "component": "Sidebar/Row",
+   "instanceId": "SaPjd",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "credit-card",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ödeme",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar › Cihazlar",
+   "component": "Sidebar/Row",
+   "instanceId": "ehVIp",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "plus",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ekle",
+      "fill": "$ink/secondary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar › Cihazlar",
+   "component": "Viewport/Card",
+   "instanceId": "GLczP",
+   "size": [
+    216,
+    476
+   ],
+   "overrides": {
+    "width": 216,
+    "descendants": {
+     "ObOub": {
+      "content": "iPhone 16"
+     },
+     "PRv7d": {
+      "content": "393×852"
+     },
+     "zTEI3": {
+      "height": 440
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar › Cihazlar",
+   "component": "Viewport/HoverStrip",
+   "instanceId": "FqcGU",
+   "size": [
+    88,
+    28
+   ],
+   "overrides": {}
+  },
+  {
+   "frame": "Project Window · Ayarlar › Cihazlar",
+   "component": "Viewport/Card",
+   "instanceId": "c6FXX",
+   "size": [
+    328,
+    480
+   ],
+   "overrides": {
+    "width": 328,
+    "stroke": "$status/leader",
+    "strokeWidth": 2,
+    "descendants": {
+     "oDaLl": {
+      "fill": "$surface/header-leader"
+     },
+     "ObOub": {
+      "content": "iPad"
+     },
+     "PRv7d": {
+      "content": "820×1180"
+     },
+     "soNCM": {
+      "fill": "$status/leader"
+     },
+     "zTEI3": {
+      "height": 444
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar › Cihazlar",
+   "component": "Viewport/Card",
+   "instanceId": "frcW5",
+   "size": [
+    461,
+    336
+   ],
+   "overrides": {
+    "width": 461,
+    "descendants": {
+     "ObOub": {
+      "content": "Masaüstü"
+     },
+     "PRv7d": {
+      "content": "1440×900"
+     },
+     "vO1MI": {
+      "enabled": true
+     },
+     "zTEI3": {
+      "height": 270
+     },
+     "MDe1d": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar › Cihazlar",
+   "component": "Window/BottomBar",
+   "instanceId": "W577HN",
+   "size": [
+    210,
+    49
+   ],
+   "overrides": {
+    "layoutPosition": "absolute"
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar › Cihazlar",
+   "component": "Window/DeviceStrip",
+   "instanceId": "zcJe5",
+   "size": [
+    370,
+    35
+   ],
+   "overrides": {
+    "layoutPosition": "absolute",
+    "descendants": {
+     "qmgAT": {
+      "type": "frame",
+      "id": "JvCr4",
+      "name": "Tabs",
+      "gap": 4,
+      "alignItems": "center",
+      "children": [
+       {
+        "id": "d3LeY",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab iPhone 16",
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "iPhone 16"
+         }
+        }
+       },
+       {
+        "id": "S7eC5o",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab iPad",
+        "fill": "$surface/header-leader",
+        "stroke": "$status/leader",
+        "strokeWidth": 1,
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "iPad"
+         }
+        }
+       },
+       {
+        "id": "uDpfL",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab Masaüstü",
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "Masaüstü"
+         },
+         "qwSGl": {
+          "enabled": true
+         }
+        }
+       }
+      ]
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar › Cihazlar",
+   "component": "Window/Rail",
+   "instanceId": "Qnh4W",
+   "size": [
+    44,
+    900
+   ],
+   "overrides": {
+    "height": "fill_container",
+    "descendants": {
+     "Ksj9i": {
+      "fill": "#00000000"
+     },
+     "Db9tR": {
+      "fill": "$ink/secondary"
+     },
+     "Y5aQq6": {
+      "fill": "$surface/header-leader"
+     },
+     "EC419": {
+      "fill": "$ink/primary"
+     },
+     "nfqaz": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar › MCP",
+   "component": "Sidebar/Header",
+   "instanceId": "nViwJ",
+   "size": [
+    216,
+    110
+   ],
+   "overrides": {
+    "width": "fill_container"
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar › MCP",
+   "component": "Sidebar/Row",
+   "instanceId": "MOBgU",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "house",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ana sayfa",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar › MCP",
+   "component": "Sidebar/Row",
+   "instanceId": "DTpEa",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "fill": "$surface/header",
+    "descendants": {
+     "oEGVV": {
+      "icon": "package",
+      "fill": "$ink/primary"
+     },
+     "hPpHB": {
+      "content": "Ürün",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar › MCP",
+   "component": "Sidebar/Row",
+   "instanceId": "NqfKQ",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "shopping-cart",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Sepet",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar › MCP",
+   "component": "Sidebar/Row",
+   "instanceId": "mqmL9",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "credit-card",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ödeme",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar › MCP",
+   "component": "Sidebar/Row",
+   "instanceId": "RmhP3",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "plus",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ekle",
+      "fill": "$ink/secondary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar › MCP",
+   "component": "Viewport/Card",
+   "instanceId": "zOeln",
+   "size": [
+    216,
+    476
+   ],
+   "overrides": {
+    "width": 216,
+    "descendants": {
+     "ObOub": {
+      "content": "iPhone 16"
+     },
+     "PRv7d": {
+      "content": "393×852"
+     },
+     "zTEI3": {
+      "height": 440
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar › MCP",
+   "component": "Viewport/HoverStrip",
+   "instanceId": "GUjAb",
+   "size": [
+    88,
+    28
+   ],
+   "overrides": {}
+  },
+  {
+   "frame": "Project Window · Ayarlar › MCP",
+   "component": "Viewport/Card",
+   "instanceId": "VAVLG",
+   "size": [
+    328,
+    480
+   ],
+   "overrides": {
+    "width": 328,
+    "stroke": "$status/leader",
+    "strokeWidth": 2,
+    "descendants": {
+     "oDaLl": {
+      "fill": "$surface/header-leader"
+     },
+     "ObOub": {
+      "content": "iPad"
+     },
+     "PRv7d": {
+      "content": "820×1180"
+     },
+     "soNCM": {
+      "fill": "$status/leader"
+     },
+     "zTEI3": {
+      "height": 444
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar › MCP",
+   "component": "Viewport/Card",
+   "instanceId": "nW9zL",
+   "size": [
+    461,
+    336
+   ],
+   "overrides": {
+    "width": 461,
+    "descendants": {
+     "ObOub": {
+      "content": "Masaüstü"
+     },
+     "PRv7d": {
+      "content": "1440×900"
+     },
+     "vO1MI": {
+      "enabled": true
+     },
+     "zTEI3": {
+      "height": 270
+     },
+     "MDe1d": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar › MCP",
+   "component": "Window/BottomBar",
+   "instanceId": "H0r5I4",
+   "size": [
+    210,
+    49
+   ],
+   "overrides": {
+    "layoutPosition": "absolute"
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar › MCP",
+   "component": "Window/DeviceStrip",
+   "instanceId": "w5NqZt",
+   "size": [
+    370,
+    35
+   ],
+   "overrides": {
+    "layoutPosition": "absolute",
+    "descendants": {
+     "qmgAT": {
+      "type": "frame",
+      "id": "tVXod",
+      "name": "Tabs",
+      "gap": 4,
+      "alignItems": "center",
+      "children": [
+       {
+        "id": "GrbE2",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab iPhone 16",
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "iPhone 16"
+         }
+        }
+       },
+       {
+        "id": "kiC35",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab iPad",
+        "fill": "$surface/header-leader",
+        "stroke": "$status/leader",
+        "strokeWidth": 1,
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "iPad"
+         }
+        }
+       },
+       {
+        "id": "HLwbw",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab Masaüstü",
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "Masaüstü"
+         },
+         "qwSGl": {
+          "enabled": true
+         }
+        }
+       }
+      ]
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar › MCP",
+   "component": "Window/Rail",
+   "instanceId": "Wvcrm",
+   "size": [
+    44,
+    900
+   ],
+   "overrides": {
+    "height": "fill_container",
+    "descendants": {
+     "Ksj9i": {
+      "fill": "#00000000"
+     },
+     "Db9tR": {
+      "fill": "$ink/secondary"
+     },
+     "NXtnE": {
+      "fill": "$surface/header-leader"
+     },
+     "YVqd9": {
+      "fill": "$ink/primary"
+     },
+     "nfqaz": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar › Hesap",
+   "component": "Sidebar/Header",
+   "instanceId": "nnmAl",
+   "size": [
+    216,
+    110
+   ],
+   "overrides": {
+    "width": "fill_container"
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar › Hesap",
+   "component": "Sidebar/Row",
+   "instanceId": "U7jfgM",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "house",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ana sayfa",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar › Hesap",
+   "component": "Sidebar/Row",
+   "instanceId": "wjLZc",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "fill": "$surface/header",
+    "descendants": {
+     "oEGVV": {
+      "icon": "package",
+      "fill": "$ink/primary"
+     },
+     "hPpHB": {
+      "content": "Ürün",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar › Hesap",
+   "component": "Sidebar/Row",
+   "instanceId": "RFr7A",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "shopping-cart",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Sepet",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar › Hesap",
+   "component": "Sidebar/Row",
+   "instanceId": "s1GAub",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "credit-card",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ödeme",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar › Hesap",
+   "component": "Sidebar/Row",
+   "instanceId": "uxIWK",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "plus",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ekle",
+      "fill": "$ink/secondary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar › Hesap",
+   "component": "Viewport/Card",
+   "instanceId": "GPZLN",
+   "size": [
+    216,
+    476
+   ],
+   "overrides": {
+    "width": 216,
+    "descendants": {
+     "ObOub": {
+      "content": "iPhone 16"
+     },
+     "PRv7d": {
+      "content": "393×852"
+     },
+     "zTEI3": {
+      "height": 440
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar › Hesap",
+   "component": "Viewport/HoverStrip",
+   "instanceId": "hFnJE",
+   "size": [
+    88,
+    28
+   ],
+   "overrides": {}
+  },
+  {
+   "frame": "Project Window · Ayarlar › Hesap",
+   "component": "Viewport/Card",
+   "instanceId": "xk9r2",
+   "size": [
+    328,
+    480
+   ],
+   "overrides": {
+    "width": 328,
+    "stroke": "$status/leader",
+    "strokeWidth": 2,
+    "descendants": {
+     "oDaLl": {
+      "fill": "$surface/header-leader"
+     },
+     "ObOub": {
+      "content": "iPad"
+     },
+     "PRv7d": {
+      "content": "820×1180"
+     },
+     "soNCM": {
+      "fill": "$status/leader"
+     },
+     "zTEI3": {
+      "height": 444
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar › Hesap",
+   "component": "Viewport/Card",
+   "instanceId": "UGOTr",
+   "size": [
+    461,
+    336
+   ],
+   "overrides": {
+    "width": 461,
+    "descendants": {
+     "ObOub": {
+      "content": "Masaüstü"
+     },
+     "PRv7d": {
+      "content": "1440×900"
+     },
+     "vO1MI": {
+      "enabled": true
+     },
+     "zTEI3": {
+      "height": 270
+     },
+     "MDe1d": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar › Hesap",
+   "component": "Window/BottomBar",
+   "instanceId": "YHjHw",
+   "size": [
+    210,
+    49
+   ],
+   "overrides": {
+    "layoutPosition": "absolute"
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar › Hesap",
+   "component": "Window/DeviceStrip",
+   "instanceId": "tsxfN",
+   "size": [
+    370,
+    35
+   ],
+   "overrides": {
+    "layoutPosition": "absolute",
+    "descendants": {
+     "qmgAT": {
+      "type": "frame",
+      "id": "tVKou",
+      "name": "Tabs",
+      "gap": 4,
+      "alignItems": "center",
+      "children": [
+       {
+        "id": "mO6nT",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab iPhone 16",
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "iPhone 16"
+         }
+        }
+       },
+       {
+        "id": "bheWt",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab iPad",
+        "fill": "$surface/header-leader",
+        "stroke": "$status/leader",
+        "strokeWidth": 1,
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "iPad"
+         }
+        }
+       },
+       {
+        "id": "BU2g3",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab Masaüstü",
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "Masaüstü"
+         },
+         "qwSGl": {
+          "enabled": true
+         }
+        }
+       }
+      ]
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ayarlar › Hesap",
+   "component": "Window/Rail",
+   "instanceId": "o8xS8",
+   "size": [
+    44,
+    900
+   ],
+   "overrides": {
+    "height": "fill_container",
+    "descendants": {
+     "Ksj9i": {
+      "fill": "#00000000"
+     },
+     "Db9tR": {
+      "fill": "$ink/secondary"
+     },
+     "Lq4LF": {
+      "fill": "$surface/header-leader"
+     },
+     "Dm0Ux": {
+      "fill": "$ink/primary"
+     },
+     "nfqaz": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ray gizli",
+   "component": "Sidebar/Header",
+   "instanceId": "DWyzS",
+   "size": [
+    216,
+    110
+   ],
+   "overrides": {
+    "width": "fill_container"
+   }
+  },
+  {
+   "frame": "Project Window · Ray gizli",
+   "component": "Sidebar/Row",
+   "instanceId": "YwnV5",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "house",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ana sayfa",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ray gizli",
+   "component": "Sidebar/Row",
+   "instanceId": "Kzb4X",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "fill": "$surface/header",
+    "descendants": {
+     "oEGVV": {
+      "icon": "package",
+      "fill": "$ink/primary"
+     },
+     "hPpHB": {
+      "content": "Ürün",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ray gizli",
+   "component": "Sidebar/Row",
+   "instanceId": "JsxWR",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "shopping-cart",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Sepet",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ray gizli",
+   "component": "Sidebar/Row",
+   "instanceId": "neadF",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "credit-card",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ödeme",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ray gizli",
+   "component": "Sidebar/Row",
+   "instanceId": "F4eNIc",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "plus",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ekle",
+      "fill": "$ink/secondary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ray gizli",
+   "component": "Viewport/Card",
+   "instanceId": "M0MUX",
+   "size": [
+    216,
+    476
+   ],
+   "overrides": {
+    "width": 216,
+    "descendants": {
+     "ObOub": {
+      "content": "iPhone 16"
+     },
+     "PRv7d": {
+      "content": "393×852"
+     },
+     "zTEI3": {
+      "height": 440
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ray gizli",
+   "component": "Viewport/HoverStrip",
+   "instanceId": "iYei0",
+   "size": [
+    88,
+    28
+   ],
+   "overrides": {}
+  },
+  {
+   "frame": "Project Window · Ray gizli",
+   "component": "Viewport/Card",
+   "instanceId": "zbwW1",
+   "size": [
+    328,
+    480
+   ],
+   "overrides": {
+    "width": 328,
+    "stroke": "$status/leader",
+    "strokeWidth": 2,
+    "descendants": {
+     "oDaLl": {
+      "fill": "$surface/header-leader"
+     },
+     "ObOub": {
+      "content": "iPad"
+     },
+     "PRv7d": {
+      "content": "820×1180"
+     },
+     "soNCM": {
+      "fill": "$status/leader"
+     },
+     "zTEI3": {
+      "height": 444
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ray gizli",
+   "component": "Viewport/Card",
+   "instanceId": "v4mVby",
+   "size": [
+    461,
+    336
+   ],
+   "overrides": {
+    "width": 461,
+    "descendants": {
+     "ObOub": {
+      "content": "Masaüstü"
+     },
+     "PRv7d": {
+      "content": "1440×900"
+     },
+     "vO1MI": {
+      "enabled": true
+     },
+     "zTEI3": {
+      "height": 270
+     },
+     "MDe1d": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Ray gizli",
+   "component": "Window/Toast",
+   "instanceId": "M8SwOD",
+   "size": [
+    306,
+    36
+   ],
+   "overrides": {
+    "layoutPosition": "absolute"
+   }
+  },
+  {
+   "frame": "Project Window · Ray gizli",
+   "component": "Window/BottomBar",
+   "instanceId": "idCwc",
+   "size": [
+    210,
+    49
+   ],
+   "overrides": {
+    "layoutPosition": "absolute"
+   }
+  },
+  {
+   "frame": "Project Window · Ray gizli",
+   "component": "Window/DeviceStrip",
+   "instanceId": "v28qf",
+   "size": [
+    370,
+    35
+   ],
+   "overrides": {
+    "layoutPosition": "absolute"
+   }
+  },
+  {
+   "frame": "Project Window · Ray gizli",
+   "component": "Window/RailHandle",
+   "instanceId": "i80Xa",
+   "size": [
+    24,
+    56
+   ],
+   "overrides": {
+    "layoutPosition": "absolute",
+    "descendants": {
+     "Zv79K": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Kart sürükleniyor",
+   "component": "Sidebar/Header",
+   "instanceId": "CwKck",
+   "size": [
+    216,
+    110
+   ],
+   "overrides": {
+    "width": "fill_container"
+   }
+  },
+  {
+   "frame": "Project Window · Kart sürükleniyor",
+   "component": "Sidebar/Row",
+   "instanceId": "CPyWy",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "house",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ana sayfa",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Kart sürükleniyor",
+   "component": "Sidebar/Row",
+   "instanceId": "hsZhS",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "fill": "$surface/header",
+    "descendants": {
+     "oEGVV": {
+      "icon": "package",
+      "fill": "$ink/primary"
+     },
+     "hPpHB": {
+      "content": "Ürün",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Kart sürükleniyor",
+   "component": "Sidebar/Row",
+   "instanceId": "WCE2P",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "shopping-cart",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Sepet",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Kart sürükleniyor",
+   "component": "Sidebar/Row",
+   "instanceId": "dvWmV",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "credit-card",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ödeme",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Kart sürükleniyor",
+   "component": "Sidebar/Row",
+   "instanceId": "y4QjDR",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "plus",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ekle",
+      "fill": "$ink/secondary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Kart sürükleniyor",
+   "component": "Viewport/Card",
+   "instanceId": "MkDB4",
+   "size": [
+    216,
+    476
+   ],
+   "overrides": {
+    "width": 216,
+    "descendants": {
+     "ObOub": {
+      "content": "iPhone 16"
+     },
+     "PRv7d": {
+      "content": "393×852"
+     },
+     "zTEI3": {
+      "height": 440
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Kart sürükleniyor",
+   "component": "Viewport/HoverStrip",
+   "instanceId": "PrXTx",
+   "size": [
+    88,
+    28
+   ],
+   "overrides": {
+    "opacity": 0
+   }
+  },
+  {
+   "frame": "Project Window · Kart sürükleniyor",
+   "component": "Viewport/Card",
+   "instanceId": "Q9Oro",
+   "size": [
+    328,
+    480
+   ],
+   "overrides": {
+    "width": 328,
+    "stroke": "$status/leader",
+    "strokeWidth": 2,
+    "effect": {
+     "type": "shadow",
+     "shadowType": "outer",
+     "color": "#000000AA",
+     "offset": {
+      "x": 0,
+      "y": 18
+     },
+     "blur": 40
+    },
+    "descendants": {
+     "oDaLl": {
+      "fill": "$surface/header-leader"
+     },
+     "ObOub": {
+      "content": "iPad"
+     },
+     "PRv7d": {
+      "content": "820×1180"
+     },
+     "soNCM": {
+      "fill": "$status/leader"
+     },
+     "zTEI3": {
+      "height": 444
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Kart sürükleniyor",
+   "component": "Viewport/Card",
+   "instanceId": "lUYdk",
+   "size": [
+    461,
+    336
+   ],
+   "overrides": {
+    "width": 461,
+    "descendants": {
+     "ObOub": {
+      "content": "Masaüstü"
+     },
+     "PRv7d": {
+      "content": "1440×900"
+     },
+     "vO1MI": {
+      "enabled": true
+     },
+     "zTEI3": {
+      "height": 270
+     },
+     "MDe1d": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Kart sürükleniyor",
+   "component": "Window/BottomBar",
+   "instanceId": "G6kuDj",
+   "size": [
+    210,
+    49
+   ],
+   "overrides": {
+    "layoutPosition": "absolute"
+   }
+  },
+  {
+   "frame": "Project Window · Kart sürükleniyor",
+   "component": "Window/DeviceStrip",
+   "instanceId": "qecGq",
+   "size": [
+    370,
+    35
+   ],
+   "overrides": {
+    "layoutPosition": "absolute"
+   }
+  },
+  {
+   "frame": "Project Window · Kart sürükleniyor",
+   "component": "Window/Rail",
+   "instanceId": "QjNDp",
+   "size": [
+    44,
+    900
+   ],
+   "overrides": {
+    "height": "fill_container",
+    "descendants": {
+     "nfqaz": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Gruplar (cihaz türü)",
+   "component": "Sidebar/Header",
+   "instanceId": "ZNB7s",
+   "size": [
+    216,
+    110
+   ],
+   "overrides": {
+    "width": "fill_container"
+   }
+  },
+  {
+   "frame": "Project Window · Gruplar (cihaz türü)",
+   "component": "Sidebar/Row",
+   "instanceId": "TGCNA",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "house",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ana sayfa",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Gruplar (cihaz türü)",
+   "component": "Sidebar/Row",
+   "instanceId": "oofA6",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "fill": "$surface/header",
+    "descendants": {
+     "oEGVV": {
+      "icon": "package",
+      "fill": "$ink/primary"
+     },
+     "hPpHB": {
+      "content": "Ürün",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Gruplar (cihaz türü)",
+   "component": "Sidebar/Row",
+   "instanceId": "d1KbK",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "shopping-cart",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Sepet",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Gruplar (cihaz türü)",
+   "component": "Sidebar/Row",
+   "instanceId": "lEcwh",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "credit-card",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ödeme",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Gruplar (cihaz türü)",
+   "component": "Sidebar/Row",
+   "instanceId": "VkzUT",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "plus",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ekle",
+      "fill": "$ink/secondary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Gruplar (cihaz türü)",
+   "component": "Viewport/Card",
+   "instanceId": "wPktn",
+   "size": [
+    216,
+    476
+   ],
+   "overrides": {
+    "width": 216,
+    "descendants": {
+     "ObOub": {
+      "content": "iPhone 16"
+     },
+     "PRv7d": {
+      "content": "393×852"
+     },
+     "zTEI3": {
+      "height": 440
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Gruplar (cihaz türü)",
+   "component": "Viewport/HoverStrip",
+   "instanceId": "ZAbuT",
+   "size": [
+    88,
+    28
+   ],
+   "overrides": {}
+  },
+  {
+   "frame": "Project Window · Gruplar (cihaz türü)",
+   "component": "Viewport/Card",
+   "instanceId": "Z6ulTd",
+   "size": [
+    328,
+    480
+   ],
+   "overrides": {
+    "width": 328,
+    "stroke": "$status/leader",
+    "strokeWidth": 2,
+    "descendants": {
+     "oDaLl": {
+      "fill": "$surface/header-leader"
+     },
+     "ObOub": {
+      "content": "iPad"
+     },
+     "PRv7d": {
+      "content": "820×1180"
+     },
+     "soNCM": {
+      "fill": "$status/leader"
+     },
+     "zTEI3": {
+      "height": 444
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Gruplar (cihaz türü)",
+   "component": "Viewport/Card",
+   "instanceId": "q1sUD",
+   "size": [
+    461,
+    336
+   ],
+   "overrides": {
+    "width": 461,
+    "descendants": {
+     "ObOub": {
+      "content": "Masaüstü"
+     },
+     "PRv7d": {
+      "content": "1440×900"
+     },
+     "vO1MI": {
+      "enabled": true
+     },
+     "zTEI3": {
+      "height": 270
+     },
+     "MDe1d": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Gruplar (cihaz türü)",
+   "component": "Window/BottomBar",
+   "instanceId": "aiD6x",
+   "size": [
+    210,
+    49
+   ],
+   "overrides": {
+    "layoutPosition": "absolute"
+   }
+  },
+  {
+   "frame": "Project Window · Gruplar (cihaz türü)",
+   "component": "Window/DeviceStrip",
+   "instanceId": "y7DGxg",
+   "size": [
+    482,
+    35
+   ],
+   "overrides": {
+    "layoutPosition": "absolute",
+    "descendants": {
+     "qmgAT": {
+      "type": "frame",
+      "id": "gFQmR",
+      "name": "Tabs",
+      "gap": 4,
+      "alignItems": "center",
+      "children": [
+       {
+        "id": "ifaxF",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab iPhone SE",
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "iPhone SE"
+         }
+        }
+       },
+       {
+        "id": "fbLAB",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab iPhone 16",
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "iPhone 16"
+         }
+        }
+       },
+       {
+        "type": "rectangle",
+        "id": "h1HfN",
+        "name": "Group divider",
+        "opacity": 0.45,
+        "fill": "$ink/secondary",
+        "width": 1,
+        "height": 18
+       },
+       {
+        "id": "JHV7z",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab iPad",
+        "fill": "$surface/header-leader",
+        "stroke": "$status/leader",
+        "strokeWidth": 1,
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "iPad"
+         }
+        }
+       },
+       {
+        "type": "rectangle",
+        "id": "GbFAO",
+        "name": "Group divider",
+        "opacity": 0.45,
+        "fill": "$ink/secondary",
+        "width": 1,
+        "height": 18
+       },
+       {
+        "id": "EFhO6",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab Masaüstü",
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "Masaüstü"
+         },
+         "qwSGl": {
+          "enabled": true
+         }
+        }
+       }
+      ]
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Gruplar (cihaz türü)",
+   "component": "Viewport/Card",
+   "instanceId": "qDD01",
+   "size": [
+    216,
+    376
+   ],
+   "overrides": {
+    "width": 216,
+    "descendants": {
+     "ObOub": {
+      "content": "iPhone SE"
+     },
+     "PRv7d": {
+      "content": "375×667"
+     },
+     "zTEI3": {
+      "height": 340
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Gruplar (cihaz türü)",
+   "component": "Window/Rail",
+   "instanceId": "sReOb",
+   "size": [
+    44,
+    900
+   ],
+   "overrides": {
+    "height": "fill_container",
+    "descendants": {
+     "nfqaz": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Gruplar · katlanmış",
+   "component": "Sidebar/Header",
+   "instanceId": "VpX8W",
+   "size": [
+    216,
+    110
+   ],
+   "overrides": {
+    "width": "fill_container"
+   }
+  },
+  {
+   "frame": "Project Window · Gruplar · katlanmış",
+   "component": "Sidebar/Row",
+   "instanceId": "bXUmf",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "house",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ana sayfa",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Gruplar · katlanmış",
+   "component": "Sidebar/Row",
+   "instanceId": "PujIa",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "fill": "$surface/header",
+    "descendants": {
+     "oEGVV": {
+      "icon": "package",
+      "fill": "$ink/primary"
+     },
+     "hPpHB": {
+      "content": "Ürün",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Gruplar · katlanmış",
+   "component": "Sidebar/Row",
+   "instanceId": "L0xra",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "shopping-cart",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Sepet",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Gruplar · katlanmış",
+   "component": "Sidebar/Row",
+   "instanceId": "M2ucJ",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "credit-card",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ödeme",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Gruplar · katlanmış",
+   "component": "Sidebar/Row",
+   "instanceId": "J5iBmx",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "plus",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ekle",
+      "fill": "$ink/secondary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Gruplar · katlanmış",
+   "component": "Viewport/Card",
+   "instanceId": "MXaHj",
+   "size": [
+    216,
+    476
+   ],
+   "overrides": {
+    "width": 216,
+    "descendants": {
+     "ObOub": {
+      "content": "iPhone 16"
+     },
+     "PRv7d": {
+      "content": "393×852"
+     },
+     "zTEI3": {
+      "height": 440
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Gruplar · katlanmış",
+   "component": "Viewport/HoverStrip",
+   "instanceId": "EwzQ2",
+   "size": [
+    88,
+    28
+   ],
+   "overrides": {}
+  },
+  {
+   "frame": "Project Window · Gruplar · katlanmış",
+   "component": "Viewport/Card",
+   "instanceId": "C64QXc",
+   "size": [
+    328,
+    480
+   ],
+   "overrides": {
+    "width": 328,
+    "stroke": "$status/leader",
+    "strokeWidth": 2,
+    "descendants": {
+     "oDaLl": {
+      "fill": "$surface/header-leader"
+     },
+     "ObOub": {
+      "content": "iPad"
+     },
+     "PRv7d": {
+      "content": "820×1180"
+     },
+     "soNCM": {
+      "fill": "$status/leader"
+     },
+     "zTEI3": {
+      "height": 444
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Gruplar · katlanmış",
+   "component": "Viewport/Card",
+   "instanceId": "EuEgQ",
+   "size": [
+    461,
+    336
+   ],
+   "overrides": {
+    "width": 461,
+    "descendants": {
+     "ObOub": {
+      "content": "Masaüstü"
+     },
+     "PRv7d": {
+      "content": "1440×900"
+     },
+     "vO1MI": {
+      "enabled": true
+     },
+     "zTEI3": {
+      "height": 270
+     },
+     "MDe1d": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Gruplar · katlanmış",
+   "component": "Window/BottomBar",
+   "instanceId": "OvM1W",
+   "size": [
+    210,
+    49
+   ],
+   "overrides": {
+    "layoutPosition": "absolute"
+   }
+  },
+  {
+   "frame": "Project Window · Gruplar · katlanmış",
+   "component": "Window/DeviceStrip",
+   "instanceId": "dduUI",
+   "size": [
+    380,
+    35
+   ],
+   "overrides": {
+    "layoutPosition": "absolute",
+    "descendants": {
+     "qmgAT": {
+      "type": "frame",
+      "id": "QEfD1",
+      "name": "Tabs",
+      "gap": 4,
+      "alignItems": "center",
+      "children": [
+       {
+        "type": "frame",
+        "id": "nq8S9",
+        "name": "Collapsed group chip",
+        "fill": "$surface/card",
+        "cornerRadius": "$radius/control",
+        "gap": 6,
+        "padding": [
+         6,
+         10
+        ],
+        "alignItems": "center",
+        "children": [
+         {
+          "type": "text",
+          "id": "PFttw",
+          "fill": "$ink/primary",
+          "content": "Telefon",
+          "fontFamily": "$font/ui",
+          "fontSize": 12,
+          "fontWeight": "normal"
+         },
+         {
+          "type": "text",
+          "id": "JeDkZ",
+          "fill": "$ink/secondary",
+          "content": "2",
+          "fontFamily": "$font/ui",
+          "fontSize": 12,
+          "fontWeight": "normal"
+         },
+         {
+          "type": "icon",
+          "id": "m7v8s4",
+          "width": 12,
+          "height": 12,
+          "icon": "chevron-right",
+          "library": "lucide",
+          "fill": "$ink/secondary"
+         }
+        ]
+       },
+       {
+        "type": "rectangle",
+        "id": "YAirz",
+        "name": "Group divider",
+        "opacity": 0.45,
+        "fill": "$ink/secondary",
+        "width": 1,
+        "height": 18
+       },
+       {
+        "id": "Lm3PT",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab iPad",
+        "fill": "$surface/header-leader",
+        "stroke": "$status/leader",
+        "strokeWidth": 1,
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "iPad"
+         }
+        }
+       },
+       {
+        "type": "rectangle",
+        "id": "QmZ2y",
+        "name": "Group divider",
+        "opacity": 0.45,
+        "fill": "$ink/secondary",
+        "width": 1,
+        "height": 18
+       },
+       {
+        "id": "U6TSpR",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab Masaüstü",
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "Masaüstü"
+         },
+         "qwSGl": {
+          "enabled": true
+         }
+        }
+       }
+      ]
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Gruplar · katlanmış",
+   "component": "Viewport/Card",
+   "instanceId": "ZOCsg",
+   "size": [
+    216,
+    376
+   ],
+   "overrides": {
+    "width": 216,
+    "descendants": {
+     "ObOub": {
+      "content": "iPhone SE"
+     },
+     "PRv7d": {
+      "content": "375×667"
+     },
+     "zTEI3": {
+      "height": 340
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Gruplar · katlanmış",
+   "component": "Window/Rail",
+   "instanceId": "qsC0i",
+   "size": [
+    44,
+    900
+   ],
+   "overrides": {
+    "height": "fill_container",
+    "descendants": {
+     "nfqaz": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Gruplar (motor, M4)",
+   "component": "Sidebar/Header",
+   "instanceId": "riBt3",
+   "size": [
+    216,
+    110
+   ],
+   "overrides": {
+    "width": "fill_container"
+   }
+  },
+  {
+   "frame": "Project Window · Gruplar (motor, M4)",
+   "component": "Sidebar/Row",
+   "instanceId": "rvjwI",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "house",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ana sayfa",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Gruplar (motor, M4)",
+   "component": "Sidebar/Row",
+   "instanceId": "J8MIN",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "fill": "$surface/header",
+    "descendants": {
+     "oEGVV": {
+      "icon": "package",
+      "fill": "$ink/primary"
+     },
+     "hPpHB": {
+      "content": "Ürün",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Gruplar (motor, M4)",
+   "component": "Sidebar/Row",
+   "instanceId": "kpCg7",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "shopping-cart",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Sepet",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Gruplar (motor, M4)",
+   "component": "Sidebar/Row",
+   "instanceId": "zl8lx",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "credit-card",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ödeme",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Gruplar (motor, M4)",
+   "component": "Sidebar/Row",
+   "instanceId": "irVI8",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "plus",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ekle",
+      "fill": "$ink/secondary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Gruplar (motor, M4)",
+   "component": "Viewport/Card",
+   "instanceId": "BqQtp",
+   "size": [
+    216,
+    476
+   ],
+   "overrides": {
+    "width": 216,
+    "descendants": {
+     "ObOub": {
+      "content": "iPhone 16"
+     },
+     "PRv7d": {
+      "content": "393×852"
+     },
+     "zTEI3": {
+      "height": 440
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Gruplar (motor, M4)",
+   "component": "Viewport/HoverStrip",
+   "instanceId": "RTeL4",
+   "size": [
+    88,
+    28
+   ],
+   "overrides": {}
+  },
+  {
+   "frame": "Project Window · Gruplar (motor, M4)",
+   "component": "Viewport/Card",
+   "instanceId": "zMNYV",
+   "size": [
+    328,
+    480
+   ],
+   "overrides": {
+    "width": 328,
+    "stroke": "$status/leader",
+    "strokeWidth": 2,
+    "descendants": {
+     "oDaLl": {
+      "fill": "$surface/header-leader"
+     },
+     "ObOub": {
+      "content": "iPad"
+     },
+     "PRv7d": {
+      "content": "820×1180"
+     },
+     "soNCM": {
+      "fill": "$status/leader"
+     },
+     "zTEI3": {
+      "height": 444
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Gruplar (motor, M4)",
+   "component": "Viewport/Card",
+   "instanceId": "h7Shb",
+   "size": [
+    461,
+    336
+   ],
+   "overrides": {
+    "width": 461,
+    "descendants": {
+     "ObOub": {
+      "content": "Masaüstü"
+     },
+     "PRv7d": {
+      "content": "1440×900"
+     },
+     "vO1MI": {
+      "enabled": true
+     },
+     "NrvNA": {
+      "type": "frame",
+      "id": "UZvLb",
+      "name": "Engine",
+      "width": 14,
+      "height": 14,
+      "children": [
+       {
+        "type": "path",
+        "id": "IAX2u",
+        "name": "Chromium 16",
+        "geometry": "...",
+        "fillRule": "evenodd",
+        "viewBox": [
+         0,
+         0,
+         16,
+         16
+        ],
+        "fill": "$ink/secondary",
+        "width": 14,
+        "height": 14
+       }
+      ]
+     },
+     "zTEI3": {
+      "height": 270
+     },
+     "MDe1d": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Gruplar (motor, M4)",
+   "component": "Window/BottomBar",
+   "instanceId": "KXPN5",
+   "size": [
+    210,
+    49
+   ],
+   "overrides": {
+    "layoutPosition": "absolute"
+   }
+  },
+  {
+   "frame": "Project Window · Gruplar (motor, M4)",
+   "component": "Window/DeviceStrip",
+   "instanceId": "e3YCE",
+   "size": [
+    611,
+    35
+   ],
+   "overrides": {
+    "layoutPosition": "absolute",
+    "descendants": {
+     "qmgAT": {
+      "type": "frame",
+      "id": "lJXr1",
+      "name": "Tabs",
+      "gap": 4,
+      "alignItems": "center",
+      "children": [
+       {
+        "id": "KL8x7",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab iPhone 16",
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "iPhone 16"
+         }
+        }
+       },
+       {
+        "id": "R2HqE",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab iPad",
+        "fill": "$surface/header-leader",
+        "stroke": "$status/leader",
+        "strokeWidth": 1,
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "iPad"
+         }
+        }
+       },
+       {
+        "type": "rectangle",
+        "id": "e53he",
+        "name": "Group divider",
+        "opacity": 0.45,
+        "fill": "$ink/secondary",
+        "width": 1,
+        "height": 18
+       },
+       {
+        "id": "FhfBs",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab iPhone 16 · Chromium",
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "iPhone 16 · Chromium"
+         }
+        }
+       },
+       {
+        "id": "gdyzo",
+        "type": "ref",
+        "ref": "FpUpU",
+        "name": "Tab Masaüstü · Chromium",
+        "strokeAlignment": "inner",
+        "descendants": {
+         "U4TOHr": {
+          "content": "Masaüstü · Chromium"
+         },
+         "qwSGl": {
+          "enabled": true
+         }
+        }
+       }
+      ]
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Gruplar (motor, M4)",
+   "component": "Viewport/Card",
+   "instanceId": "BbuHG",
+   "size": [
+    216,
+    476
+   ],
+   "overrides": {
+    "width": 216,
+    "descendants": {
+     "ObOub": {
+      "content": "iPhone 16"
+     },
+     "PRv7d": {
+      "content": "393×852"
+     },
+     "NrvNA": {
+      "type": "frame",
+      "id": "d4Tn0a",
+      "name": "Engine",
+      "width": 14,
+      "height": 14,
+      "children": [
+       {
+        "type": "path",
+        "id": "APZZ7",
+        "name": "Chromium 16",
+        "geometry": "...",
+        "fillRule": "evenodd",
+        "viewBox": [
+         0,
+         0,
+         16,
+         16
+        ],
+        "fill": "$ink/secondary",
+        "width": 14,
+        "height": 14
+       }
+      ]
+     },
+     "zTEI3": {
+      "height": 440
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Gruplar (motor, M4)",
+   "component": "Window/Rail",
+   "instanceId": "W7KyvD",
+   "size": [
+    44,
+    900
+   ],
+   "overrides": {
+    "height": "fill_container",
+    "descendants": {
+     "nfqaz": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · En küçük boyut (1024×640)",
+   "component": "Sidebar/Header",
+   "instanceId": "X4q77d",
+   "size": [
+    216,
+    110
+   ],
+   "overrides": {
+    "width": "fill_container"
+   }
+  },
+  {
+   "frame": "Project Window · En küçük boyut (1024×640)",
+   "component": "Sidebar/Row",
+   "instanceId": "cZK8f",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "house",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ana sayfa",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · En küçük boyut (1024×640)",
+   "component": "Sidebar/Row",
+   "instanceId": "X1hnN",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "fill": "$surface/header",
+    "descendants": {
+     "oEGVV": {
+      "icon": "package",
+      "fill": "$ink/primary"
+     },
+     "hPpHB": {
+      "content": "Ürün",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · En küçük boyut (1024×640)",
+   "component": "Sidebar/Row",
+   "instanceId": "rmhfv",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "shopping-cart",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Sepet",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · En küçük boyut (1024×640)",
+   "component": "Sidebar/Row",
+   "instanceId": "cQ3JX",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "credit-card",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ödeme",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · En küçük boyut (1024×640)",
+   "component": "Sidebar/Row",
+   "instanceId": "XOTKP",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "plus",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ekle",
+      "fill": "$ink/secondary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · En küçük boyut (1024×640)",
+   "component": "Viewport/Card",
+   "instanceId": "zmYit",
+   "size": [
+    216,
+    366
+   ],
+   "overrides": {
+    "width": 216,
+    "descendants": {
+     "ObOub": {
+      "content": "iPhone 16"
+     },
+     "PRv7d": {
+      "content": "393×852"
+     },
+     "zTEI3": {
+      "height": 330
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · En küçük boyut (1024×640)",
+   "component": "Viewport/HoverStrip",
+   "instanceId": "FLIjD",
+   "size": [
+    88,
+    28
+   ],
+   "overrides": {}
+  },
+  {
+   "frame": "Project Window · En küçük boyut (1024×640)",
+   "component": "Viewport/Card",
+   "instanceId": "hk61r",
+   "size": [
+    328,
+    370
+   ],
+   "overrides": {
+    "width": 328,
+    "stroke": "$status/leader",
+    "strokeWidth": 2,
+    "descendants": {
+     "oDaLl": {
+      "fill": "$surface/header-leader"
+     },
+     "ObOub": {
+      "content": "iPad"
+     },
+     "PRv7d": {
+      "content": "820×1180"
+     },
+     "soNCM": {
+      "fill": "$status/leader"
+     },
+     "zTEI3": {
+      "height": 334
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · En küçük boyut (1024×640)",
+   "component": "Viewport/Card",
+   "instanceId": "X4Z9N7",
+   "size": [
+    461,
+    292
+   ],
+   "overrides": {
+    "width": 461,
+    "descendants": {
+     "ObOub": {
+      "content": "Masaüstü"
+     },
+     "PRv7d": {
+      "content": "1440×900"
+     },
+     "vO1MI": {
+      "enabled": true
+     },
+     "zTEI3": {
+      "height": 226
+     },
+     "MDe1d": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · En küçük boyut (1024×640)",
+   "component": "Window/Toast",
+   "instanceId": "e71ydc",
+   "size": [
+    306,
+    36
+   ],
+   "overrides": {
+    "layoutPosition": "absolute",
+    "enabled": false
+   }
+  },
+  {
+   "frame": "Project Window · En küçük boyut (1024×640)",
+   "component": "Window/BottomBar",
+   "instanceId": "XYOav",
+   "size": [
+    204,
+    49
+   ],
+   "overrides": {
+    "layoutPosition": "absolute",
+    "descendants": {
+     "P7glc/ahVQ8": {
+      "content": "%75"
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · En küçük boyut (1024×640)",
+   "component": "Window/DeviceStrip",
+   "instanceId": "J5hfg",
+   "size": [
+    370,
+    35
+   ],
+   "overrides": {
+    "layoutPosition": "absolute"
+   }
+  },
+  {
+   "frame": "Project Window · En küçük boyut (1024×640)",
+   "component": "Window/Rail",
+   "instanceId": "UPJrK",
+   "size": [
+    44,
+    640
+   ],
+   "overrides": {
+    "height": "fill_container",
+    "descendants": {
+     "nfqaz": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Tam ekran",
+   "component": "Sidebar/Header",
+   "instanceId": "DiFRw",
+   "size": [
+    216,
+    78
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "vYZPa": {
+      "height": 16
+     },
+     "gEFYE": {
+      "enabled": false
+     },
+     "vm5wt": {
+      "enabled": false
+     },
+     "m6gFxB": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Tam ekran",
+   "component": "Sidebar/Row",
+   "instanceId": "hGAXO",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "house",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ana sayfa",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Tam ekran",
+   "component": "Sidebar/Row",
+   "instanceId": "wwRXN",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "fill": "$surface/header",
+    "descendants": {
+     "oEGVV": {
+      "icon": "package",
+      "fill": "$ink/primary"
+     },
+     "hPpHB": {
+      "content": "Ürün",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Tam ekran",
+   "component": "Sidebar/Row",
+   "instanceId": "QLCJp",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "shopping-cart",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Sepet",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Tam ekran",
+   "component": "Sidebar/Row",
+   "instanceId": "S5BrW",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "credit-card",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ödeme",
+      "fill": "$ink/primary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Tam ekran",
+   "component": "Sidebar/Row",
+   "instanceId": "uswgA",
+   "size": [
+    216,
+    30
+   ],
+   "overrides": {
+    "width": "fill_container",
+    "descendants": {
+     "oEGVV": {
+      "icon": "plus",
+      "fill": "$ink/secondary"
+     },
+     "hPpHB": {
+      "content": "Ekle",
+      "fill": "$ink/secondary"
+     },
+     "gQenr": {
+      "enabled": false
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Tam ekran",
+   "component": "Viewport/Card",
+   "instanceId": "rQD7W",
+   "size": [
+    216,
+    476
+   ],
+   "overrides": {
+    "width": 216,
+    "descendants": {
+     "ObOub": {
+      "content": "iPhone 16"
+     },
+     "PRv7d": {
+      "content": "393×852"
+     },
+     "zTEI3": {
+      "height": 440
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Tam ekran",
+   "component": "Viewport/HoverStrip",
+   "instanceId": "CfxX5",
+   "size": [
+    88,
+    28
+   ],
+   "overrides": {}
+  },
+  {
+   "frame": "Project Window · Tam ekran",
+   "component": "Viewport/Card",
+   "instanceId": "oYFo2",
+   "size": [
+    328,
+    480
+   ],
+   "overrides": {
+    "width": 328,
+    "stroke": "$status/leader",
+    "strokeWidth": 2,
+    "descendants": {
+     "oDaLl": {
+      "fill": "$surface/header-leader"
+     },
+     "ObOub": {
+      "content": "iPad"
+     },
+     "PRv7d": {
+      "content": "820×1180"
+     },
+     "soNCM": {
+      "fill": "$status/leader"
+     },
+     "zTEI3": {
+      "height": 444
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Tam ekran",
+   "component": "Viewport/Card",
+   "instanceId": "Lc8Mf",
+   "size": [
+    461,
+    336
+   ],
+   "overrides": {
+    "width": 461,
+    "descendants": {
+     "ObOub": {
+      "content": "Masaüstü"
+     },
+     "PRv7d": {
+      "content": "1440×900"
+     },
+     "vO1MI": {
+      "enabled": true
+     },
+     "zTEI3": {
+      "height": 270
+     },
+     "MDe1d": {
+      "enabled": true
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Tam ekran",
+   "component": "Window/Toast",
+   "instanceId": "SptlG",
+   "size": [
+    306,
+    36
+   ],
+   "overrides": {
+    "layoutPosition": "absolute",
+    "enabled": false
+   }
+  },
+  {
+   "frame": "Project Window · Tam ekran",
+   "component": "Window/BottomBar",
+   "instanceId": "ljr3V",
+   "size": [
+    210,
+    49
+   ],
+   "overrides": {
+    "layoutPosition": "absolute"
+   }
+  },
+  {
+   "frame": "Project Window · Tam ekran",
+   "component": "Window/DeviceStrip",
+   "instanceId": "Ahjdw",
+   "size": [
+    370,
+    35
+   ],
+   "overrides": {
+    "layoutPosition": "absolute"
+   }
+  },
+  {
+   "frame": "Project Window · Tam ekran",
+   "component": "Window/Rail",
+   "instanceId": "bJ2SA",
+   "size": [
+    44,
+    900
+   ],
+   "overrides": {
+    "height": "fill_container",
+    "descendants": {
+     "nfqaz": {
+      "enabled": true
+     }
+    }
+   }
+  }
+ ]
+}
