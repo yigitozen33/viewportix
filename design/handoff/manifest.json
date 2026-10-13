@@ -552,6 +552,14 @@
         "Window/DeviceStrip",
         "Window/Rail",
         "Window/Toast"
+      ],
+      "interactions": [
+        "PW-01…PW-05",
+        "STRIP-01…STRIP-12",
+        "CARD-01…CARD-12",
+        "SIDEBAR-01…SIDEBAR-08",
+        "BAR-01…BAR-07",
+        "RAIL-01…RAIL-05"
       ]
     },
     {
@@ -572,6 +580,14 @@
         "Window/DeviceStrip",
         "Window/Rail",
         "Window/Toast"
+      ],
+      "interactions": [
+        "PW-01…PW-05",
+        "STRIP-01…STRIP-12",
+        "CARD-01…CARD-12",
+        "SIDEBAR-01…SIDEBAR-08",
+        "BAR-01…BAR-07",
+        "RAIL-01…RAIL-05"
       ]
     },
     {
@@ -593,6 +609,14 @@
         "Window/DeviceStrip",
         "Window/Rail",
         "Window/Toast"
+      ],
+      "interactions": [
+        "PW-01…PW-05",
+        "STRIP-01…STRIP-12",
+        "CARD-01…CARD-12",
+        "SIDEBAR-01…SIDEBAR-08",
+        "BAR-01…BAR-07",
+        "RAIL-01…RAIL-05"
       ]
     },
     {
@@ -614,6 +638,14 @@
         "Window/DeviceStrip",
         "Window/Rail",
         "Window/Toast"
+      ],
+      "interactions": [
+        "PW-01…PW-05",
+        "STRIP-01…STRIP-12",
+        "CARD-01…CARD-12",
+        "SIDEBAR-01…SIDEBAR-08",
+        "BAR-01…BAR-07",
+        "RAIL-01…RAIL-05"
       ]
     },
     {
@@ -634,6 +666,14 @@
         "Window/BottomBar",
         "Window/DeviceStrip",
         "Window/Rail"
+      ],
+      "interactions": [
+        "PW-01…PW-05",
+        "STRIP-01…STRIP-12",
+        "CARD-01…CARD-12",
+        "SIDEBAR-01…SIDEBAR-08",
+        "BAR-01…BAR-07",
+        "RAIL-01…RAIL-05"
       ]
     },
     {
@@ -654,6 +694,14 @@
         "Window/DeviceStrip",
         "Window/Rail",
         "Window/Tooltip"
+      ],
+      "interactions": [
+        "PW-01…PW-05",
+        "STRIP-01…STRIP-12",
+        "CARD-01…CARD-12",
+        "SIDEBAR-01…SIDEBAR-08",
+        "BAR-01…BAR-07",
+        "RAIL-01…RAIL-05"
       ]
     },
     {
@@ -675,6 +723,14 @@
         "Window/DeviceStrip",
         "Window/Rail",
         "Window/Tooltip"
+      ],
+      "interactions": [
+        "PW-01…PW-05",
+        "STRIP-01…STRIP-12",
+        "CARD-01…CARD-12",
+        "SIDEBAR-01…SIDEBAR-08",
+        "BAR-01…BAR-07",
+        "RAIL-01…RAIL-05"
       ]
     },
     {
@@ -693,6 +749,9 @@
         "Home/URLBox",
         "Sidebar/Row",
         "Toolbar/Button"
+      ],
+      "interactions": [
+        "HOME-01…HOME-18"
       ]
     },
     {
@@ -710,6 +769,9 @@
         "Home/URLBox",
         "Sidebar/Row",
         "Toolbar/Button"
+      ],
+      "interactions": [
+        "HOME-01…HOME-18"
       ]
     },
     {
@@ -727,6 +789,9 @@
         "Home/URLBox",
         "Sidebar/Row",
         "Toolbar/Button"
+      ],
+      "interactions": [
+        "HOME-01…HOME-18"
       ]
     },
     {
@@ -745,6 +810,9 @@
         "Home/URLBox",
         "Sidebar/Row",
         "Toolbar/Button"
+      ],
+      "interactions": [
+        "HOME-01…HOME-18"
       ]
     },
     {
@@ -763,6 +831,9 @@
         "Home/URLBox",
         "Sidebar/Row",
         "Toolbar/Button"
+      ],
+      "interactions": [
+        "HOME-01…HOME-18"
       ]
     },
     {
@@ -784,6 +855,14 @@
         "Window/BottomBar",
         "Window/DeviceStrip",
         "Window/Rail"
+      ],
+      "interactions": [
+        "PW-01…PW-05",
+        "STRIP-01…STRIP-12",
+        "CARD-01…CARD-12",
+        "SIDEBAR-01…SIDEBAR-08",
+        "BAR-01…BAR-07",
+        "RAIL-01…RAIL-05"
       ]
     },
     {
@@ -804,6 +883,10 @@
         "Window/BottomBar",
         "Window/DeviceStrip",
         "Window/Rail"
+      ],
+      "interactions": [
+        "DEV-01…DEV-08",
+        "RAIL-01…RAIL-05"
       ]
     },
     {
@@ -824,6 +907,10 @@
         "Window/BottomBar",
         "Window/DeviceStrip",
         "Window/Rail"
+      ],
+      "interactions": [
+        "DEV-01…DEV-08",
+        "RAIL-01…RAIL-05"
       ]
     },
     {
@@ -844,6 +931,10 @@
         "Window/BottomBar",
         "Window/DeviceStrip",
         "Window/Rail"
+      ],
+      "interactions": [
+        "DEV-01…DEV-08",
+        "RAIL-01…RAIL-05"
       ]
     },
     {
@@ -864,6 +955,14 @@
         "Window/BottomBar",
         "Window/DeviceStrip",
         "Window/Rail"
+      ],
+      "interactions": [
+        "PW-01…PW-05",
+        "STRIP-01…STRIP-12",
+        "CARD-01…CARD-12",
+        "SIDEBAR-01…SIDEBAR-08",
+        "BAR-01…BAR-07",
+        "RAIL-01…RAIL-05"
       ]
     },
     {
@@ -884,6 +983,14 @@
         "Window/BottomBar",
         "Window/DeviceStrip",
         "Window/Rail"
+      ],
+      "interactions": [
+        "PW-01…PW-05",
+        "STRIP-01…STRIP-12",
+        "CARD-01…CARD-12",
+        "SIDEBAR-01…SIDEBAR-08",
+        "BAR-01…BAR-07",
+        "RAIL-01…RAIL-05"
       ]
     },
     {
@@ -904,6 +1011,15 @@
         "Window/BottomBar",
         "Window/DeviceStrip",
         "Window/Rail"
+      ],
+      "interactions": [
+        "PW-01…PW-05",
+        "STRIP-01…STRIP-12",
+        "CARD-01…CARD-12",
+        "SIDEBAR-01…SIDEBAR-08",
+        "BAR-01…BAR-07",
+        "RAIL-01…RAIL-05",
+        "SETTINGS-01…SETTINGS-05"
       ]
     },
     {
@@ -922,6 +1038,10 @@
         "Home/URLBox",
         "Sidebar/Row",
         "Toolbar/Button"
+      ],
+      "interactions": [
+        "HOME-01…HOME-18",
+        "SETTINGS-01…SETTINGS-05"
       ]
     },
     {
@@ -940,6 +1060,14 @@
         "Window/BottomBar",
         "Window/DeviceStrip",
         "Window/Rail"
+      ],
+      "interactions": [
+        "PW-01…PW-05",
+        "STRIP-01…STRIP-12",
+        "CARD-01…CARD-12",
+        "SIDEBAR-01…SIDEBAR-08",
+        "BAR-01…BAR-07",
+        "RAIL-01…RAIL-05"
       ]
     },
     {
@@ -960,6 +1088,15 @@
         "Window/BottomBar",
         "Window/DeviceStrip",
         "Window/Rail"
+      ],
+      "interactions": [
+        "PW-01…PW-05",
+        "STRIP-01…STRIP-12",
+        "CARD-01…CARD-12",
+        "SIDEBAR-01…SIDEBAR-08",
+        "BAR-01…BAR-07",
+        "RAIL-01…RAIL-05",
+        "SETTINGS-01…SETTINGS-05"
       ]
     },
     {
@@ -980,6 +1117,15 @@
         "Window/BottomBar",
         "Window/DeviceStrip",
         "Window/Rail"
+      ],
+      "interactions": [
+        "PW-01…PW-05",
+        "STRIP-01…STRIP-12",
+        "CARD-01…CARD-12",
+        "SIDEBAR-01…SIDEBAR-08",
+        "BAR-01…BAR-07",
+        "RAIL-01…RAIL-05",
+        "SETTINGS-01…SETTINGS-05"
       ]
     },
     {
@@ -1000,6 +1146,15 @@
         "Window/BottomBar",
         "Window/DeviceStrip",
         "Window/Rail"
+      ],
+      "interactions": [
+        "PW-01…PW-05",
+        "STRIP-01…STRIP-12",
+        "CARD-01…CARD-12",
+        "SIDEBAR-01…SIDEBAR-08",
+        "BAR-01…BAR-07",
+        "RAIL-01…RAIL-05",
+        "SETTINGS-01…SETTINGS-05"
       ]
     },
     {
@@ -1021,6 +1176,14 @@
         "Window/DeviceStrip",
         "Window/RailHandle",
         "Window/Toast"
+      ],
+      "interactions": [
+        "PW-01…PW-05",
+        "STRIP-01…STRIP-12",
+        "CARD-01…CARD-12",
+        "SIDEBAR-01…SIDEBAR-08",
+        "BAR-01…BAR-07",
+        "RAIL-01…RAIL-05"
       ]
     },
     {
@@ -1041,6 +1204,14 @@
         "Window/BottomBar",
         "Window/DeviceStrip",
         "Window/Rail"
+      ],
+      "interactions": [
+        "PW-01…PW-05",
+        "STRIP-01…STRIP-12",
+        "CARD-01…CARD-12",
+        "SIDEBAR-01…SIDEBAR-08",
+        "BAR-01…BAR-07",
+        "RAIL-01…RAIL-05"
       ]
     },
     {
@@ -1061,6 +1232,14 @@
         "Window/BottomBar",
         "Window/DeviceStrip",
         "Window/Rail"
+      ],
+      "interactions": [
+        "PW-01…PW-05",
+        "STRIP-01…STRIP-12",
+        "CARD-01…CARD-12",
+        "SIDEBAR-01…SIDEBAR-08",
+        "BAR-01…BAR-07",
+        "RAIL-01…RAIL-05"
       ]
     },
     {
@@ -1081,6 +1260,14 @@
         "Window/BottomBar",
         "Window/DeviceStrip",
         "Window/Rail"
+      ],
+      "interactions": [
+        "PW-01…PW-05",
+        "STRIP-01…STRIP-12",
+        "CARD-01…CARD-12",
+        "SIDEBAR-01…SIDEBAR-08",
+        "BAR-01…BAR-07",
+        "RAIL-01…RAIL-05"
       ]
     },
     {
@@ -1101,6 +1288,14 @@
         "Window/BottomBar",
         "Window/DeviceStrip",
         "Window/Rail"
+      ],
+      "interactions": [
+        "PW-01…PW-05",
+        "STRIP-01…STRIP-12",
+        "CARD-01…CARD-12",
+        "SIDEBAR-01…SIDEBAR-08",
+        "BAR-01…BAR-07",
+        "RAIL-01…RAIL-05"
       ]
     },
     {
@@ -1122,6 +1317,14 @@
         "Window/DeviceStrip",
         "Window/Rail",
         "Window/Toast"
+      ],
+      "interactions": [
+        "PW-01…PW-05",
+        "STRIP-01…STRIP-12",
+        "CARD-01…CARD-12",
+        "SIDEBAR-01…SIDEBAR-08",
+        "BAR-01…BAR-07",
+        "RAIL-01…RAIL-05"
       ]
     },
     {
@@ -1143,6 +1346,14 @@
         "Window/DeviceStrip",
         "Window/Rail",
         "Window/Toast"
+      ],
+      "interactions": [
+        "PW-01…PW-05",
+        "STRIP-01…STRIP-12",
+        "CARD-01…CARD-12",
+        "SIDEBAR-01…SIDEBAR-08",
+        "BAR-01…BAR-07",
+        "RAIL-01…RAIL-05"
       ]
     }
   ],

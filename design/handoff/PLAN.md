@@ -20,10 +20,10 @@
 | 1 | Token zinciri (pen → JSON → Swift) | ✅ | 2026-10-13 | 06b3e3b |
 | 2 | Manifest (bileşen · ekran · PNG · nodeId) | ✅ | 2026-10-13 | 0459780 |
 | 3 | Bileşen spec'leri (ölçülü katman ağacı) | 🟡 | | 36fa3fa, 2ed5d9d |
-| 4 | CHK tutarlılık kontrolleri | ✅ | 2026-10-13 | (bu commit) |
+| 4 | CHK tutarlılık kontrolleri | ✅ | 2026-10-13 | f717fc8 |
 | 5 | İkon eşleme (Lucide → SF Symbols) | ✅ | 2026-10-13 | 13e2899 |
 | 6 | Örnek sayfa HTML'i | ⬜ | | |
-| 7 | Etkileşim tablolarına id, ekran başına bölme | ⬜ | | |
+| 7 | Etkileşim tablolarına id, ekran başına bölme | ✅ | 2026-10-13 | (bu commit) |
 | 8 | Parite döngüsü protokolü | ⬜ | | |
 | 9 | SwiftUI iskelet üretimi (deneme, isteğe bağlı) | ⬜ | | |
 
@@ -123,3 +123,9 @@ Yalnızca eklenir. Biçim: `### YYYY-MM-DD · <aşamalar>` altında: yapılan, k
 - İlk tarama (bağlamadan önce) CHK-1'de yüzlerce bulgu verdi: ekranlarda token'a eşit yazı boyutları, boş dolgular, `#FFFFFF05` grup zemini, `#0E0D0C` drag hint, ad verilmemiş örnek sayfa katmanları. Uygulanan: 138 yazı boyutu + 13 renk bağlandı, 19 boş dolgu kaldırıldı, iki katman `Page` adını aldı; kullanıcı kararıyla `surface/group` token'ı (zincir: JSON → Swift, `gen_swift.py` artık alfa kanalını da yazıyor; önce `#FFFFFF05` opak beyaz üretirdi), drag hint `surface/tooltip`, panolar CHK-1 dışı.
 - Kanıt: `CHK|1..6|PASS` (CHECKS.md); `gen_swift.py --diff` → `DIFF: none`, typecheck temiz; `build_specs.py` → açık soru 0; `build_manifest.py` → açık soru 0.
 - Sonraki adım: aşama 7 (etkileşim tablolarına id).
+
+### 2026-10-13 · aşama 7
+- Yapılan: DESIGN.md §3'teki dört etkileşim tablosuna `ID` sütunu; §3.2 tablosu bölgelere bölündü (STRIP 12, CARD 12, SIDEBAR 8, BAR 7, PW 5), §3.3 RAIL 5 + SETTINGS 5, §3.1 HOME 18, §3.4 DEV 8. Satırlar yalnızca taşındı, metinleri aynı. §3 başına id kuralı (değişmez; silinen "superseded"; yeni satır sona). `build_manifest.py` her ekrana `interactions` (id aralıkları) ekler; tablosuz önek ya da hiçbir ekranın göstermediği önek açık soru olur.
+- Kanıt: dönüşüm sonrası eski 80 satırın 80'i yeni tablolarda birebir (script denetimi, eksik 0); `grep -c "^| [A-Z]*-[0-9][0-9] |" DESIGN.md` → 80; `build_manifest.py` → `openQuestions=0`.
+- Plandan sapma: planda "120+ satır" tahmini vardı, gerçek sayı 80. Menü çubuğu tablosu (§3.2.1) tetikleyici–etki tablosu değil, kısayol kaynağı; id almadı.
+- Sonraki adım: aşama 6 (örnek sayfa HTML'i).

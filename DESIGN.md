@@ -35,6 +35,8 @@ Kullanıcının kaydettiği birim. Bir markanın (mağazanın) tüm kurulumunu t
 
 ## 3. Ekranlar
 
+Etkileşim satırları id taşır (`HOME`, `STRIP`, `CARD`, `SIDEBAR`, `BAR`, `PW`, `RAIL`, `SETTINGS`, `DEV` + iki hane): kod oturumunun kabul listesi bu id'lerdir; id değişmez, silinen satır "superseded" yazılarak kalır, yeni satır tablonun sonuna sonraki numarayla eklenir. Hangi ekranın hangi id aralığına baktığı `design/handoff/manifest.md` › Ekranlar.
+
 ### 3.1 Giriş ekranı
 
 ```
@@ -70,26 +72,26 @@ Kullanıcının kaydettiği birim. Bir markanın (mağazanın) tüm kurulumunu t
 
 **Etkileşim tablosu:**
 
-| Tetikleyici | Etki | Hareket |
-|---|---|---|
-| URL kutusuna yapıştır / yaz | "Aç →" hep sarı (boşken tık alana odaklanır); geçersizse mercan kenar + altında açıklama | 100 ms |
-| ⏎ veya "Aç →" | Seçili şablonla proje penceresi açılır, giriş penceresi kapanır | Pencere geçişi 200 ms |
-| Çipe tık | Çip seçilir (tek seçim); sarı kenar | 100 ms |
-| Karta tık / ⏎ | Proje açılır | 200 ms |
-| Kart hover | Kart kenarı `line/strong` olur, ⋯ belirir (⋯ yalnız hover ve sağ tıkta görünür) | 100 ms |
-| Sağ tık / ⋯ | Bağlam menüsü imleçte; kart gök kenar alır | 120 ms fade + 4 px |
-| Yeniden adlandır | Ad satırı yerinde metin alanına dönüşür; ⏎ kaydeder, Esc iptal | Anlık |
-| Kaldır › | Alt menü: Listeden kaldır / Çöp Sepeti'ne taşı; taslakta "Taslağı sil…" + onay | Alt menü 120 ms; kart 150 ms daralır, ızgara 250 ms yeniden dizilir |
-| ⊞ / ☰ | Izgara ↔ liste; tercih hatırlanır | 200 ms crossfade |
-| Arama alanına yaz | Kartlar ad ve URL'de süzülür (taslaklar dahil); sonuç yoksa "“…” ile eşleşen proje yok" + Aramayı temizle | Süzme anlık; kartlar 150 ms fade |
-| Esc (aramada) | Arama temizlenir, tüm projeler döner | 150 ms |
-| Dosyası bulunamayan karta tık / Bul… | Dosya seçici; seçilen yer listeye yazılır, kart normale döner | — |
-| Açılamayan proje | Sistem uyarısı (NSAlert): bozuk → Son taslağı aç / Finder'da Göster / Vazgeç; yeni sürüm → Güncellemeleri Denetle / Vazgeç (`home-file-errors@2x.png`) | Sistem |
-| Arama | Ad ve URL'de süzer, eşleşme yoksa "Sonuç yok" | Anlık |
-| "Son" / "Taslaklar" | Liste süzülür; seçim uygulama yeniden açılınca hatırlanır | 150 ms |
-| ⌘O | "Aç…" dosya seçici | Sistem |
-| ⚙ / ⌘, | Ayarlar paneli sağdan, üst satırın altından kayar; ⚙ basılı; tekrar ⚙, ✕ ya da Esc kapatır | 200 ms |
-| Pencereye .viewportix sürükle | Dosya açılır; pencere kenarı gök çerçeve | 100 ms |
+| ID | Tetikleyici | Etki | Hareket |
+|---|---|---|---|
+| HOME-01 | URL kutusuna yapıştır / yaz | "Aç →" hep sarı (boşken tık alana odaklanır); geçersizse mercan kenar + altında açıklama | 100 ms |
+| HOME-02 | ⏎ veya "Aç →" | Seçili şablonla proje penceresi açılır, giriş penceresi kapanır | Pencere geçişi 200 ms |
+| HOME-03 | Çipe tık | Çip seçilir (tek seçim); sarı kenar | 100 ms |
+| HOME-04 | Karta tık / ⏎ | Proje açılır | 200 ms |
+| HOME-05 | Kart hover | Kart kenarı `line/strong` olur, ⋯ belirir (⋯ yalnız hover ve sağ tıkta görünür) | 100 ms |
+| HOME-06 | Sağ tık / ⋯ | Bağlam menüsü imleçte; kart gök kenar alır | 120 ms fade + 4 px |
+| HOME-07 | Yeniden adlandır | Ad satırı yerinde metin alanına dönüşür; ⏎ kaydeder, Esc iptal | Anlık |
+| HOME-08 | Kaldır › | Alt menü: Listeden kaldır / Çöp Sepeti'ne taşı; taslakta "Taslağı sil…" + onay | Alt menü 120 ms; kart 150 ms daralır, ızgara 250 ms yeniden dizilir |
+| HOME-09 | ⊞ / ☰ | Izgara ↔ liste; tercih hatırlanır | 200 ms crossfade |
+| HOME-10 | Arama alanına yaz | Kartlar ad ve URL'de süzülür (taslaklar dahil); sonuç yoksa "“…” ile eşleşen proje yok" + Aramayı temizle | Süzme anlık; kartlar 150 ms fade |
+| HOME-11 | Esc (aramada) | Arama temizlenir, tüm projeler döner | 150 ms |
+| HOME-12 | Dosyası bulunamayan karta tık / Bul… | Dosya seçici; seçilen yer listeye yazılır, kart normale döner | — |
+| HOME-13 | Açılamayan proje | Sistem uyarısı (NSAlert): bozuk → Son taslağı aç / Finder'da Göster / Vazgeç; yeni sürüm → Güncellemeleri Denetle / Vazgeç (`home-file-errors@2x.png`) | Sistem |
+| HOME-14 | Arama | Ad ve URL'de süzer, eşleşme yoksa "Sonuç yok" | Anlık |
+| HOME-15 | "Son" / "Taslaklar" | Liste süzülür; seçim uygulama yeniden açılınca hatırlanır | 150 ms |
+| HOME-16 | ⌘O | "Aç…" dosya seçici | Sistem |
+| HOME-17 | ⚙ / ⌘, | Ayarlar paneli sağdan, üst satırın altından kayar; ⚙ basılı; tekrar ⚙, ✕ ya da Esc kapatır | 200 ms |
+| HOME-18 | Pencereye .viewportix sürükle | Dosya açılır; pencere kenarı gök çerçeve | 100 ms |
 
 ### 3.2 Proje penceresi
 
@@ -128,52 +130,74 @@ Kullanıcının kaydettiği birim. Bir markanın (mağazanın) tüm kurulumunu t
 
 **Etkileşim tablosu (kod için sözleşme):**
 
-| Tetikleyici | Etki | Hareket |
-|---|---|---|
-| Sekmeye tık | Canvas o karta kayar, kart `selected` olur | Canvas pan 250 ms ease-out; şerit gerekirse sekmeyi görünüre kaydırır |
-| Sekmedeki ✕ | Viewport kapanır; sağdakiler sola kayar | Sekme 150 ms daralıp kaybolur; canvas yeniden dizilir 250 ms |
-| "+N" çipine tık | Gizli cihaz menüsü açılır | 120 ms fade + 4 px yukarıdan |
-| Menü satırına tık | Şerit o sekmeye kayar, sekme `selected`, canvas karta kayar, menü kapanır | Şerit kaydırma 250 ms; canvas pan 250 ms |
-| Menü satırı odakla düğmesi | Canvas karta kayar ve kart `selected`; menü **açık kalır** | Canvas pan 250 ms |
-| Menü satırı ✕ | Viewport kapanır, satır menüden düşer, N azalır | Satır 150 ms daralır |
-| İmleç kartın üstünde | Kart `leader`; sekmesi gök çerçeve; hover şeridi belirir; kart seçiliyse krem halka yerinde kalır | 100 ms |
-| Karta tık (boş alana değil) / sekmeye tık | Kart `selected`: dışta krem halka; önceki seçim kalkar; Esc ya da canvas boşluğuna tık seçimi kaldırır | 100 ms |
-| Motor ikonu hover | Tooltip: motor adı + sürüm, altında işletim sistemi | 400 ms gecikme, 100 ms fade |
-| Alt çubuk ikon hover | Tooltip (ad + kısayol) | 400 ms gecikme, 100 ms fade |
-| Senkron düğmesi | Senkron aç/kapa; sarı ↔ gri, zincir ↔ kırık zincir | 150 ms |
-| Zoom yüzdesine tık | Zoom menüsü çubuğun üstüne açılır | 120 ms fade + 4 px |
-| Zoom ▲ / ▼ | Kademeli zoom (25, 50, 100, 200, 400); basılı tutunca tekrar | 150 ms ease-out |
-| Zoom yüzdesini yatay sürükle | Sürekli zoom, 1 px = %1; ⇧ ile kademe atlar; imleç ↔ | Anlık |
-| URL alanına odak | Altında SON menüsü (son 5 URL); yazdıkça süzülür; ⏎ seçileni açar | 120 ms fade + 4 px |
-| Sidebar satırı hover | Zemin + kalem/⋯ belirir | 100 ms |
-| Çift tık / kalem | Yerinde yeniden adlandırma; ⏎ kaydet, Esc iptal | Anlık |
-| Satırı sürükle | Satır kalkar, hedefte gök çizgi; bırakınca sıralanır ve proje kaydedilir | 150 ms kalkış, 200 ms yerleşme |
-| ⌘D | Açık URL sayfa listesine eklenir; "Bu sayfayı ekle" satırı kaybolur | 150 ms |
-| Alt çubuk kamerası | Seçici: Görünen alan / Tam sayfa (tüm viewport'lar); seçince çeker, kapsül ilerleme gösterir | 120 ms fade + 4 px |
-| Kart kamerası | Aynı seçici yalnız o viewport için, başlığın altında | 120 ms fade + 4 px |
-| ⌥⌘S / ⌃⌥⌘S | Seçiciyi atlar: tüm viewport'ların görünen alanı / tam sayfası | — |
-| Sidebar düğmesi / ⌃⌘S | Sidebar kapanır; ışıklar + nav + URL üst sol kapsüle taşınır | Sidebar 200 ms genişlik; kapsül 150 ms fade |
-| "+ Cihaz" / ⌥⌘N | Cihaz seçici popover açılır, arama odaklı | 120 ms fade + 4 px |
-| Seçicide satıra tık | Cihaz canvas sonuna eklenir, sekme belirir, tik gelir; popover **açık kalır**; canvas ⌘1 ile sığdırılır | Kart 200 ms belirir; canvas 250 ms |
-| Seçicide ekli satıra tık | Canvas o karta kayar (çıkarmaz) | 250 ms |
-| Aramaya "W×H" yaz + ⏎ | Özel boyut eklenir | — |
-| Esc / dışarı tık | Popover kapanır | 100 ms |
-| Kart başlığına sağ tık | Kart menüsü imleçte | 120 ms fade |
-| Boyutu düzenle… | Popover başlığın altından; Kaydet → kart yeni boyuta animasyonla geçer, canvas yeniden dizilir | Popover 120 ms; kart 200 ms |
-| Senkrondan çıkar / Senkrona kat | Kart ‖ işareti alır / bırakır; o viewport olay almaz | 150 ms |
-| Kart başlığını sürükle | Kart gölgeyle kalkar, hover şeridi gizlenir; yakın kenar/üst/alt hizalarında gök çizgi, eşit aralıkta gök rozet (px); bırakınca konum projeye kaydedilir | Kalkış 120 ms; yapışma 6 px eşik; bırakma 150 ms |
-| Sürüklerken ⌥ | Hizalama ve yapışma kapanır | Anlık |
-| Viewport › Kartları Diz | Kartlar otomatik dizilime (tek sıra; gruplar açıksa grup içinde) döner | 250 ms |
-| Görünüm › Grupla › Cihaz türü / Motor | Canvas'ta grup alanları + başlık; şeritte gruplar arası ayırıcı; Yok → tek sıra | 250 ms yeniden dizilim |
-| Grup başlığı oku | Grup katlanır: alan başlık çipine iner, kartlar gizlenir, sağdakiler sola kayar; şeritte grubun sekmeleri tek çipe ("Telefon 2 ›") toplanır; tekrar tık açar (`window-project-groups-collapsed@2x.png`) | 200 ms |
-| Şeritteki katlı grup çipine tık | Grup açılır, canvas gruba kayar | 200 ms + pan 250 ms |
-| Hata kartında Yeniden dene / Şimdi dene | Yalnız o viewport yeniden yüklenir; ⌘R hepsi | Hata alanı yükleme çizgisine döner |
-| `localhost` kapalı | 2 sn'de bir otomatik dener; sunucu açılınca sayfa kendiliğinden yüklenir | — |
-| Sertifika › Bu oturumda güven | O ana makine uygulama kapanana kadar güvenilir sayılır; tüm viewport'lar yeniden yüklenir | — |
-| Hata kapsülü › Hepsini dene | Hatalı tüm viewport'lar yeniden yüklenir | Kapsül 150 ms kaybolur |
-| Sidebar sağ kenarı hover | İmleç ↔, kenar 2 px gök | 100 ms |
-| Sidebar kenarını sürükle | Genişlik 200–360 arası değişir, yanında genişlik etiketi; bırakınca kaydedilir; 200 altı kapatmaz | Anlık |
-| Tab / ⇧Tab | Odak sırası: sidebar başlığı → sayfa listesi → şerit → kartlar → alt çubuk → ray; odaktaki öğede 2 px gök halka (yalnız klavyede) | Halka 100 ms fade |
+**Cihaz şeridi ve cihaz seçici (STRIP)**
+
+| ID | Tetikleyici | Etki | Hareket |
+|---|---|---|---|
+| STRIP-01 | Sekmeye tık | Canvas o karta kayar, kart `selected` olur | Canvas pan 250 ms ease-out; şerit gerekirse sekmeyi görünüre kaydırır |
+| STRIP-02 | Sekmedeki ✕ | Viewport kapanır; sağdakiler sola kayar | Sekme 150 ms daralıp kaybolur; canvas yeniden dizilir 250 ms |
+| STRIP-03 | "+N" çipine tık | Gizli cihaz menüsü açılır | 120 ms fade + 4 px yukarıdan |
+| STRIP-04 | Menü satırına tık | Şerit o sekmeye kayar, sekme `selected`, canvas karta kayar, menü kapanır | Şerit kaydırma 250 ms; canvas pan 250 ms |
+| STRIP-05 | Menü satırı odakla düğmesi | Canvas karta kayar ve kart `selected`; menü **açık kalır** | Canvas pan 250 ms |
+| STRIP-06 | Menü satırı ✕ | Viewport kapanır, satır menüden düşer, N azalır | Satır 150 ms daralır |
+| STRIP-07 | "+ Cihaz" / ⌥⌘N | Cihaz seçici popover açılır, arama odaklı | 120 ms fade + 4 px |
+| STRIP-08 | Seçicide satıra tık | Cihaz canvas sonuna eklenir, sekme belirir, tik gelir; popover **açık kalır**; canvas ⌘1 ile sığdırılır | Kart 200 ms belirir; canvas 250 ms |
+| STRIP-09 | Seçicide ekli satıra tık | Canvas o karta kayar (çıkarmaz) | 250 ms |
+| STRIP-10 | Aramaya "W×H" yaz + ⏎ | Özel boyut eklenir | — |
+| STRIP-11 | Esc / dışarı tık | Popover kapanır | 100 ms |
+| STRIP-12 | Şeritteki katlı grup çipine tık | Grup açılır, canvas gruba kayar | 200 ms + pan 250 ms |
+
+**Viewport kartı (CARD)**
+
+| ID | Tetikleyici | Etki | Hareket |
+|---|---|---|---|
+| CARD-01 | İmleç kartın üstünde | Kart `leader`; sekmesi gök çerçeve; hover şeridi belirir; kart seçiliyse krem halka yerinde kalır | 100 ms |
+| CARD-02 | Karta tık (boş alana değil) / sekmeye tık | Kart `selected`: dışta krem halka; önceki seçim kalkar; Esc ya da canvas boşluğuna tık seçimi kaldırır | 100 ms |
+| CARD-03 | Motor ikonu hover | Tooltip: motor adı + sürüm, altında işletim sistemi | 400 ms gecikme, 100 ms fade |
+| CARD-04 | Kart kamerası | Aynı seçici yalnız o viewport için, başlığın altında | 120 ms fade + 4 px |
+| CARD-05 | Kart başlığına sağ tık | Kart menüsü imleçte | 120 ms fade |
+| CARD-06 | Boyutu düzenle… | Popover başlığın altından; Kaydet → kart yeni boyuta animasyonla geçer, canvas yeniden dizilir | Popover 120 ms; kart 200 ms |
+| CARD-07 | Senkrondan çıkar / Senkrona kat | Kart ‖ işareti alır / bırakır; o viewport olay almaz | 150 ms |
+| CARD-08 | Kart başlığını sürükle | Kart gölgeyle kalkar, hover şeridi gizlenir; yakın kenar/üst/alt hizalarında gök çizgi, eşit aralıkta gök rozet (px); bırakınca konum projeye kaydedilir | Kalkış 120 ms; yapışma 6 px eşik; bırakma 150 ms |
+| CARD-09 | Sürüklerken ⌥ | Hizalama ve yapışma kapanır | Anlık |
+| CARD-10 | Hata kartında Yeniden dene / Şimdi dene | Yalnız o viewport yeniden yüklenir; ⌘R hepsi | Hata alanı yükleme çizgisine döner |
+| CARD-11 | `localhost` kapalı | 2 sn'de bir otomatik dener; sunucu açılınca sayfa kendiliğinden yüklenir | — |
+| CARD-12 | Sertifika › Bu oturumda güven | O ana makine uygulama kapanana kadar güvenilir sayılır; tüm viewport'lar yeniden yüklenir | — |
+
+**Sidebar (SIDEBAR)**
+
+| ID | Tetikleyici | Etki | Hareket |
+|---|---|---|---|
+| SIDEBAR-01 | URL alanına odak | Altında SON menüsü (son 5 URL); yazdıkça süzülür; ⏎ seçileni açar | 120 ms fade + 4 px |
+| SIDEBAR-02 | Sidebar satırı hover | Zemin + kalem/⋯ belirir | 100 ms |
+| SIDEBAR-03 | Çift tık / kalem | Yerinde yeniden adlandırma; ⏎ kaydet, Esc iptal | Anlık |
+| SIDEBAR-04 | Satırı sürükle | Satır kalkar, hedefte gök çizgi; bırakınca sıralanır ve proje kaydedilir | 150 ms kalkış, 200 ms yerleşme |
+| SIDEBAR-05 | ⌘D | Açık URL sayfa listesine eklenir; "Bu sayfayı ekle" satırı kaybolur | 150 ms |
+| SIDEBAR-06 | Sidebar düğmesi / ⌃⌘S | Sidebar kapanır; ışıklar + nav + URL üst sol kapsüle taşınır | Sidebar 200 ms genişlik; kapsül 150 ms fade |
+| SIDEBAR-07 | Sidebar sağ kenarı hover | İmleç ↔, kenar 2 px gök | 100 ms |
+| SIDEBAR-08 | Sidebar kenarını sürükle | Genişlik 200–360 arası değişir, yanında genişlik etiketi; bırakınca kaydedilir; 200 altı kapatmaz | Anlık |
+
+**Alt çubuk (BAR)**
+
+| ID | Tetikleyici | Etki | Hareket |
+|---|---|---|---|
+| BAR-01 | Alt çubuk ikon hover | Tooltip (ad + kısayol) | 400 ms gecikme, 100 ms fade |
+| BAR-02 | Senkron düğmesi | Senkron aç/kapa; sarı ↔ gri, zincir ↔ kırık zincir | 150 ms |
+| BAR-03 | Zoom yüzdesine tık | Zoom menüsü çubuğun üstüne açılır | 120 ms fade + 4 px |
+| BAR-04 | Zoom ▲ / ▼ | Kademeli zoom (25, 50, 100, 200, 400); basılı tutunca tekrar | 150 ms ease-out |
+| BAR-05 | Zoom yüzdesini yatay sürükle | Sürekli zoom, 1 px = %1; ⇧ ile kademe atlar; imleç ↔ | Anlık |
+| BAR-06 | Alt çubuk kamerası | Seçici: Görünen alan / Tam sayfa (tüm viewport'lar); seçince çeker, kapsül ilerleme gösterir | 120 ms fade + 4 px |
+| BAR-07 | ⌥⌘S / ⌃⌥⌘S | Seçiciyi atlar: tüm viewport'ların görünen alanı / tam sayfası | — |
+
+**Pencere ve canvas (PW)**
+
+| ID | Tetikleyici | Etki | Hareket |
+|---|---|---|---|
+| PW-01 | Viewport › Kartları Diz | Kartlar otomatik dizilime (tek sıra; gruplar açıksa grup içinde) döner | 250 ms |
+| PW-02 | Görünüm › Grupla › Cihaz türü / Motor | Canvas'ta grup alanları + başlık; şeritte gruplar arası ayırıcı; Yok → tek sıra | 250 ms yeniden dizilim |
+| PW-03 | Grup başlığı oku | Grup katlanır: alan başlık çipine iner, kartlar gizlenir, sağdakiler sola kayar; şeritte grubun sekmeleri tek çipe ("Telefon 2 ›") toplanır; tekrar tık açar (`window-project-groups-collapsed@2x.png`) | 200 ms |
+| PW-04 | Hata kapsülü › Hepsini dene | Hatalı tüm viewport'lar yeniden yüklenir | Kapsül 150 ms kaybolur |
+| PW-05 | Tab / ⇧Tab | Odak sırası: sidebar başlığı → sayfa listesi → şerit → kartlar → alt çubuk → ray; odaktaki öğede 2 px gök halka (yalnız klavyede) | Halka 100 ms fade |
 
 Kapat, döndür, senkrondan çıkar ve ekran görüntüsü eylemleri menü çubuğunda da bulunur (hover'a gizlenenler klavye ve menüden ulaşılabilir kalır).
 
@@ -206,18 +230,25 @@ Proje penceresinin sağ kenarında 44 px **ray** (varsayılan açık; alttaki d�
 
 **Etkileşim tablosu:**
 
-| Tetikleyici | Etki | Hareket |
-|---|---|---|
-| Ray ikonu / ⌘, | Panel açılır; aynı ikona tekrar tık kapatır | Kayan panel 200 ms sağdan; iten panel 200 ms genişlik |
-| Farklar/Senkron ⧉ | Aynı panel ayrı pencerede; panel kapanır | 200 ms |
-| Ray daralt düğmesi | Ray gizlenir, canvas genişler, sağ kenarda tutamaç belirir; tercih uygulamaya kaydedilir | 200 ms; tutamaç 150 ms fade |
-| Tutamaca tık / ⌥⌘0 | Ray geri gelir, tutamaç kaybolur | 200 ms |
-| Tutamaç hover | Tooltip "Rayı göster ⌥⌘0" solunda | 400 ms gecikme, 100 ms fade |
-| Toggle / segment / select | Anında uygulanır, kaydet yok | 150 ms |
-| Tema (açık temayla, ileride) | Tüm pencereler anında | 200 ms crossfade |
-| Cihazlar › Seçicide toggle | Cihaz seçicide gizlenir/görünür | Anlık |
-| Cihazlar › ⋯ › Sil | Özel cihaz silinir; açık kartlar kalır | Satır 150 ms daralır |
-| MCP › Durdur / Başlat | Sunucu durur/başlar | 150 ms |
+**Sağ ray (RAIL)**
+
+| ID | Tetikleyici | Etki | Hareket |
+|---|---|---|---|
+| RAIL-01 | Ray ikonu / ⌘, | Panel açılır; aynı ikona tekrar tık kapatır | Kayan panel 200 ms sağdan; iten panel 200 ms genişlik |
+| RAIL-02 | Farklar/Senkron ⧉ | Aynı panel ayrı pencerede; panel kapanır | 200 ms |
+| RAIL-03 | Ray daralt düğmesi | Ray gizlenir, canvas genişler, sağ kenarda tutamaç belirir; tercih uygulamaya kaydedilir | 200 ms; tutamaç 150 ms fade |
+| RAIL-04 | Tutamaca tık / ⌥⌘0 | Ray geri gelir, tutamaç kaybolur | 200 ms |
+| RAIL-05 | Tutamaç hover | Tooltip "Rayı göster ⌥⌘0" solunda | 400 ms gecikme, 100 ms fade |
+
+**Ayarlar paneli (SETTINGS)**
+
+| ID | Tetikleyici | Etki | Hareket |
+|---|---|---|---|
+| SETTINGS-01 | Toggle / segment / select | Anında uygulanır, kaydet yok | 150 ms |
+| SETTINGS-02 | Tema (açık temayla, ileride) | Tüm pencereler anında | 200 ms crossfade |
+| SETTINGS-03 | Cihazlar › Seçicide toggle | Cihaz seçicide gizlenir/görünür | Anlık |
+| SETTINGS-04 | Cihazlar › ⋯ › Sil | Özel cihaz silinir; açık kartlar kalır | Satır 150 ms daralır |
+| SETTINGS-05 | MCP › Durdur / Başlat | Sunucu durur/başlar | 150 ms |
 
 ### 3.4 Geliştirici paneli (M5+): Farklar ve Senkron
 
@@ -229,16 +260,16 @@ Sağ raydan açılır, canvas'ı iter (320 px). Tasarım ilkesi: **sakin ama tek
 
 **Etkileşim tablosu:**
 
-| Tetikleyici | Etki | Hareket |
-|---|---|---|
-| Satıra tık | Açılır (tek seviye); diğeri kapanır; canvas'ta eleman vurgulanır | 150 ms |
-| J / K | Sonraki / önceki fark | 150 ms; canvas gerekirse kaydırır |
-| Kabul (A) | Baseline güncellenir, satır listeden düşer, "incelendi" artar | 150 ms |
-| Yoksay (I) | Seçici yoksayılanlara girer; ⋯ › Yoksayılanlar'dan geri alınır | 150 ms |
-| Takip et (T) | Satır kalır, soluk işaret; sonraki karşılaştırmada yeniden ölçülür | Anlık |
-| Yeniden dene | Olay yalnızca kaçıran viewport'ta tekrar çalışır; sayı güncellenir | Anlık |
-| Yeni fark bulundu (panel kapalı) | Raydaki Farklar ikonunda mercan nokta | 150 ms |
-| "2 yeni olay ↓" | Dibe kaydırır, takip yeniden başlar | 200 ms |
+| ID | Tetikleyici | Etki | Hareket |
+|---|---|---|---|
+| DEV-01 | Satıra tık | Açılır (tek seviye); diğeri kapanır; canvas'ta eleman vurgulanır | 150 ms |
+| DEV-02 | J / K | Sonraki / önceki fark | 150 ms; canvas gerekirse kaydırır |
+| DEV-03 | Kabul (A) | Baseline güncellenir, satır listeden düşer, "incelendi" artar | 150 ms |
+| DEV-04 | Yoksay (I) | Seçici yoksayılanlara girer; ⋯ › Yoksayılanlar'dan geri alınır | 150 ms |
+| DEV-05 | Takip et (T) | Satır kalır, soluk işaret; sonraki karşılaştırmada yeniden ölçülür | Anlık |
+| DEV-06 | Yeniden dene | Olay yalnızca kaçıran viewport'ta tekrar çalışır; sayı güncellenir | Anlık |
+| DEV-07 | Yeni fark bulundu (panel kapalı) | Raydaki Farklar ikonunda mercan nokta | 150 ms |
+| DEV-08 | "2 yeni olay ↓" | Dibe kaydırır, takip yeniden başlar | 200 ms |
 
 ## 4. Verilen tasarım kararları
 
