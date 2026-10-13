@@ -230,7 +230,7 @@
       "penName": "Home/ProjectCard",
       "nodeId": "sACvk",
       "swiftName": "ProjectCard",
-      "states": "normal, hover, draft",
+      "states": "normal, hover (`line/strong` + ⋯), draft, sağ tık hedefi (gök kenar + ⋯), dosya bulunamadı",
       "size": [
         236,
         195
@@ -238,6 +238,7 @@
       "contains": [],
       "usedIn": [
         "Home File Errors",
+        "Home States",
         "Home Window",
         "Home Window · Ayarlar paneli",
         "Home Window · Bağlam menüsü",
@@ -257,6 +258,7 @@
       ],
       "contains": [],
       "usedIn": [
+        "Home States",
         "Home Window",
         "Home Window · Ayarlar paneli",
         "Home Window · Bağlam menüsü",
@@ -271,13 +273,14 @@
       "penName": "Home/URLBox",
       "nodeId": "m9eWrA",
       "swiftName": "URLBox",
-      "states": "empty, filled, invalid",
+      "states": "empty, filled, invalid (Aç hep sarı)",
       "size": [
         560,
         47
       ],
       "contains": [],
       "usedIn": [
+        "Home States",
         "Home Window",
         "Home Window · Ayarlar paneli",
         "Home Window · Bağlam menüsü",
@@ -507,6 +510,26 @@
       ],
       "usedVia": [],
       "spec": "specs/RailHandle.json"
+    },
+    {
+      "penName": "Window/Tooltip",
+      "nodeId": "boSko",
+      "swiftName": "ChromeTooltip",
+      "states": "ok aşağıda (varsayılan) / ok yok (yan tooltip); kısayol isteğe bağlı; hedefe 8 px, 400 ms gecikme",
+      "size": [
+        78,
+        33
+      ],
+      "contains": [],
+      "usedIn": [
+        "Chrome Spec",
+        "Engine Tooltip",
+        "Misc States 2",
+        "Project Window · Motor tooltip",
+        "Project Window · İkon çubuklar + tooltip"
+      ],
+      "usedVia": [],
+      "spec": "specs/ChromeTooltip.json"
     }
   ],
   "screens": [
@@ -629,7 +652,8 @@
         "Window/BottomBar",
         "Window/CollapsedHeader",
         "Window/DeviceStrip",
-        "Window/Rail"
+        "Window/Rail",
+        "Window/Tooltip"
       ]
     },
     {
@@ -649,7 +673,8 @@
         "Viewport/HoverStrip",
         "Window/BottomBar",
         "Window/DeviceStrip",
-        "Window/Rail"
+        "Window/Rail",
+        "Window/Tooltip"
       ]
     },
     {
@@ -1162,7 +1187,8 @@
       ],
       "export": "exports/card-engine-tooltip@2x.png",
       "components": [
-        "Viewport/Card"
+        "Viewport/Card",
+        "Window/Tooltip"
       ]
     },
     {
@@ -1224,7 +1250,7 @@
       "section": "00 · Tasarım sistemi",
       "size": [
         2400,
-        1660
+        1696
       ],
       "export": "exports/design-system-tokens@2x.png",
       "components": []
@@ -1300,7 +1326,8 @@
         "Window/CollapsedHeader",
         "Window/DeviceStrip",
         "Window/Rail",
-        "Window/RailHandle"
+        "Window/RailHandle",
+        "Window/Tooltip"
       ]
     },
     {
@@ -1365,7 +1392,24 @@
         "Toolbar/DeviceTab",
         "Viewport/Card",
         "Window/Rail",
-        "Window/Toast"
+        "Window/Toast",
+        "Window/Tooltip"
+      ]
+    },
+    {
+      "name": "Home States",
+      "nodeId": "Q2jiv",
+      "kind": "spec",
+      "section": "05 · Bileşen durumları",
+      "size": [
+        1204,
+        733
+      ],
+      "export": "exports/home-states@2x.png",
+      "components": [
+        "Home/ProjectCard",
+        "Home/TemplateChip",
+        "Home/URLBox"
       ]
     }
   ],

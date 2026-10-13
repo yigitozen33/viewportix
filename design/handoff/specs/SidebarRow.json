@@ -55,14 +55,12 @@
   "font/ui": "system font (SF Pro; Inter is a design proxy)",
   "ink/primary": "DesignTokens.Color.inkPrimary",
   "ink/secondary": "DesignTokens.Color.inkSecondary",
-  "line": "DesignTokens.Color.line",
   "radius/control": "DesignTokens.Radius.control",
   "space/2": "DesignTokens.Space.s2",
   "status/leader": "DesignTokens.Color.statusLeader",
   "surface/card": "DesignTokens.Color.surfaceCard",
   "surface/header": "DesignTokens.Color.surfaceHeader",
-  "surface/header-leader": "DesignTokens.Color.surfaceHeaderLeader",
-  "surface/tooltip": "DesignTokens.Color.surfaceTooltip"
+  "surface/header-leader": "DesignTokens.Color.surfaceHeaderLeader"
  },
  "tree": {
   "name": "Sidebar/Row",
@@ -750,7 +748,7 @@
        "text": {
         "content": "SAYFALAR",
         "fontFamily": "$font/ui",
-        "fontSize": 10,
+        "fontSize": "$font/micro",
         "fontWeight": "600",
         "letterSpacing": 0.8
        }
@@ -797,114 +795,6 @@
        "set": {
         "content": "Kampanya · Sonbahar 20…"
        }
-      }
-     ]
-    }
-   ],
-   "arrangement": {
-    "in": "",
-    "axis": "vertical",
-    "gap": 8
-   },
-   "companions": [
-    {
-     "name": "Tooltip",
-     "type": "frame",
-     "nodeId": "uUtdW",
-     "size": {
-      "w": "fit",
-      "h": "fit"
-     },
-     "layout": {
-      "axis": "vertical",
-      "stack": "VStack",
-      "alignItems": "center"
-     },
-     "children": [
-      {
-       "name": "Tooltip Body",
-       "type": "frame",
-       "nodeId": "SWmoT",
-       "size": {
-        "w": "fit",
-        "h": "fit"
-       },
-       "layout": {
-        "axis": "horizontal",
-        "stack": "HStack",
-        "gap": 8,
-        "alignItems": "center",
-        "padding": [
-         6,
-         10,
-         6,
-         10
-        ]
-       },
-       "cornerRadius": 8,
-       "fill": "$surface/tooltip",
-       "stroke": "$line",
-       "strokeWidth": 1,
-       "strokeAlignment": "inner",
-       "children": [
-        {
-         "name": "TipText",
-         "type": "text",
-         "nodeId": "jS7Ka",
-         "size": {
-          "w": "fit",
-          "h": "fit"
-         },
-         "fill": "$ink/primary",
-         "text": {
-          "content": "Kampanya · Sonbahar 2026 koleksiyonu",
-          "fontFamily": "$font/ui",
-          "fontSize": 12,
-          "fontWeight": "500"
-         }
-        },
-        {
-         "name": "TipKey",
-         "type": "text",
-         "nodeId": "YNdCr",
-         "hidden": true,
-         "position": {
-          "at": [
-           52,
-           7
-          ]
-         },
-         "size": {
-          "w": "fit",
-          "h": "fit"
-         },
-         "fill": "$ink/secondary",
-         "text": {
-          "content": "⌘1",
-          "fontFamily": "$font/ui",
-          "fontSize": 11,
-          "fontWeight": "normal"
-         }
-        }
-       ]
-      },
-      {
-       "name": "Caret",
-       "type": "polygon",
-       "nodeId": "HvRq0",
-       "hidden": true,
-       "position": {
-        "at": [
-         45,
-         33
-        ]
-       },
-       "size": {
-        "w": 12,
-        "h": 6
-       },
-       "fill": "$surface/tooltip",
-       "rotation": 180
       }
      ]
     }
@@ -1104,24 +994,6 @@
    "prop": "effect.color",
    "value": "#00000080",
    "sameAsToken": null
-  },
-  {
-   "node": "Sidebar/Row [Sidebar · Sayfa sağ tık menüsü] › Section SAYFALAR › Title",
-   "prop": "fontSize",
-   "value": 10,
-   "sameAsToken": "font/micro"
-  },
-  {
-   "node": "Sidebar/Row [Sayfa satırı + tooltip] › Tooltip › Tooltip Body › TipText",
-   "prop": "fontSize",
-   "value": 12,
-   "sameAsToken": "font/label"
-  },
-  {
-   "node": "Sidebar/Row [Sayfa satırı + tooltip] › Tooltip › Tooltip Body › TipKey",
-   "prop": "fontSize",
-   "value": 11,
-   "sameAsToken": "font/caption"
   }
  ],
  "rawNumbers": [
@@ -1260,36 +1132,6 @@
   {
    "node": "Sidebar/Row [klavye odağı (focus ring)] › Ring",
    "prop": "cornerRadius",
-   "value": 10,
-   "sameAsToken": null
-  },
-  {
-   "node": "Sidebar/Row [Sayfa satırı + tooltip] › Tooltip › Tooltip Body",
-   "prop": "cornerRadius",
-   "value": 8,
-   "sameAsToken": "radius/control"
-  },
-  {
-   "node": "Sidebar/Row [Sayfa satırı + tooltip] › Tooltip › Tooltip Body",
-   "prop": "strokeWidth",
-   "value": 1,
-   "sameAsToken": "stroke/hairline"
-  },
-  {
-   "node": "Sidebar/Row [Sayfa satırı + tooltip] › Tooltip › Tooltip Body",
-   "prop": "gap",
-   "value": 8,
-   "sameAsToken": "space/2"
-  },
-  {
-   "node": "Sidebar/Row [Sayfa satırı + tooltip] › Tooltip › Tooltip Body",
-   "prop": "padding",
-   "value": 6,
-   "sameAsToken": null
-  },
-  {
-   "node": "Sidebar/Row [Sayfa satırı + tooltip] › Tooltip › Tooltip Body",
-   "prop": "padding",
    "value": 10,
    "sameAsToken": null
   }

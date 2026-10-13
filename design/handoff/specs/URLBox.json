@@ -8,9 +8,10 @@
   560,
   47
  ],
- "statesSummary": "empty, filled, invalid",
+ "statesSummary": "empty, filled, invalid (Aç hep sarı)",
  "notes": [],
  "usedIn": [
+  "Home States",
   "Home Window",
   "Home Window · Ayarlar paneli",
   "Home Window · Bağlam menüsü",
@@ -25,6 +26,7 @@
   "font/label": "DesignTokens.FontSize.label",
   "font/title": "DesignTokens.FontSize.title",
   "font/ui": "system font (SF Pro; Inter is a design proxy)",
+  "ink/primary": "DesignTokens.Color.inkPrimary",
   "ink/secondary": "DesignTokens.Color.inkSecondary",
   "line": "DesignTokens.Color.line",
   "radius/card": "DesignTokens.Radius.card",
@@ -33,6 +35,7 @@
   "space/2": "DesignTokens.Space.s2",
   "space/3": "DesignTokens.Space.s3",
   "space/4": "DesignTokens.Space.s4",
+  "status/warning": "DesignTokens.Color.statusWarning",
   "stroke/hairline": "DesignTokens.Stroke.hairline",
   "surface/card": "DesignTokens.Color.surfaceCard"
  },
@@ -174,7 +177,94 @@
    }
   ]
  },
- "states": [],
+ "states": [
+  {
+   "state": "Boş · Aç hep sarı (boşken tık alana odaklanır)",
+   "frame": "Home States",
+   "samples": [
+    {
+     "instanceId": "sMDvS",
+     "sizePx": [
+      560,
+      47
+     ],
+     "instance": "URLBox empty U2"
+    }
+   ]
+  },
+  {
+   "state": "Dolu · yapıştırınca https tamamlanır",
+   "frame": "Home States",
+   "samples": [
+    {
+     "instanceId": "CaZa9",
+     "sizePx": [
+      560,
+      47
+     ],
+     "instance": "URLBox filled",
+     "overrides": [
+      {
+       "node": "Home/URLBox › Placeholder",
+       "nodeId": "AelTk",
+       "set": {
+        "content": "https://marka.com/urun/keten-gomlek",
+        "fill": "$ink/primary"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "state": "Geçersiz · mercan kenar + açıklama",
+   "frame": "Home States",
+   "samples": [
+    {
+     "instanceId": "pRQin",
+     "sizePx": [
+      560,
+      47
+     ],
+     "instance": "URLBox invalid",
+     "set": {
+      "stroke": "$status/warning"
+     },
+     "overrides": [
+      {
+       "node": "Home/URLBox › Placeholder",
+       "nodeId": "AelTk",
+       "set": {
+        "content": "marka com/urun",
+        "fill": "$ink/primary"
+       }
+      },
+      {
+       "node": "Home/URLBox › OpenButton",
+       "nodeId": "W1NfIp",
+       "set": {
+        "fill": "$accent"
+       }
+      },
+      {
+       "node": "Home/URLBox › OpenButton › OpenLabel",
+       "nodeId": "hAcws",
+       "set": {
+        "fill": "$accent/ink"
+       }
+      },
+      {
+       "node": "Home/URLBox › OpenButton › OpenIcon",
+       "nodeId": "JK38B",
+       "set": {
+        "fill": "$accent/ink"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ ],
  "onScreens": [
   {
    "count": 6,

@@ -72,11 +72,11 @@ Kullanıcının kaydettiği birim. Bir markanın (mağazanın) tüm kurulumunu t
 
 | Tetikleyici | Etki | Hareket |
 |---|---|---|
-| URL kutusuna yapıştır / yaz | "Aç →" etkinleşir; geçersizse mercan kenar + açıklama | 100 ms |
+| URL kutusuna yapıştır / yaz | "Aç →" hep sarı (boşken tık alana odaklanır); geçersizse mercan kenar + altında açıklama | 100 ms |
 | ⏎ veya "Aç →" | Seçili şablonla proje penceresi açılır, giriş penceresi kapanır | Pencere geçişi 200 ms |
 | Çipe tık | Çip seçilir (tek seçim); sarı kenar | 100 ms |
 | Karta tık / ⏎ | Proje açılır | 200 ms |
-| Kart hover | Kart kenarı `line`'dan bir ton parlar, ⋯ belirir | 100 ms |
+| Kart hover | Kart kenarı `line/strong` olur, ⋯ belirir (⋯ yalnız hover ve sağ tıkta görünür) | 100 ms |
 | Sağ tık / ⋯ | Bağlam menüsü imleçte; kart gök kenar alır | 120 ms fade + 4 px |
 | Yeniden adlandır | Ad satırı yerinde metin alanına dönüşür; ⏎ kaydeder, Esc iptal | Anlık |
 | Kaldır › | Alt menü: Listeden kaldır / Çöp Sepeti'ne taşı; taslakta "Taslağı sil…" + onay | Alt menü 120 ms; kart 150 ms daralır, ızgara 250 ms yeniden dizilir |
@@ -292,6 +292,12 @@ Sağ raydan açılır, canvas'ı iter (320 px). Tasarım ilkesi: **sakin ama tek
 | Katlanmış grup: alan başlık çipine iner, şeritte "Telefon 2 ›" çipi; motora göre gruplama: grup başlığında motor glifi, sekme adı "iPhone 16 · Chromium" (M4) | 2026-10-13 |
 | Proje dosyası sorunları: dosyası bulunamayan kart soluk + mercan "Dosya bulunamadı" + Bul…; açılamayan proje sistem uyarısı (bozuk → Son taslağı aç / Finder'da Göster / Vazgeç; yeni sürüm → Güncellemeleri Denetle / Vazgeç) | 2026-10-13 |
 | VoiceOver etiket tablosu (§6) ve küçük ayrıntılar a–i (§5 madde 20: en küçük pencere 1024×640, tam ekranda 16 px üst boşluk, ray tooltip'leri, kısaltma kuralları, tek kapsül + Geri al, bağlantı bırakma, "senkron kurulamıyor" ‖, grup menüsü); j çoklu seçim MVP dışı. Kart başlığındaki ‖ işareti korunur (kırık zincir önerisi reddedildi) | 2026-10-13 |
+| Token'la aynı değerdeki ham değerler token'a bağlanır (SnapshotPill, ProjectCard MiniHeader, tooltip/menü/popover yazı boyutları), boş dolgular (`#00000000`) kaldırılır; görünüm değişmez. Bilinçli ham kalanlar: kart içi örnek sayfa renkleri, trafik ışıkları, gölge ve solma renkleri (aktarım paketi aşama 3 bulgusu) | 2026-10-13 |
+| Tooltip bileşen olur: `Window/Tooltip` → `ChromeTooltip` (gövde + ok; ad + kısayol); elle çizilmiş 8 tooltip instance'a çevrilir | 2026-10-13 |
+| Tooltip ile hedef arası her yerde 8 px (ok ucundan); alt çubuk tooltip'indeki 6 px düzeltildi (Chrome Spec notu esas) | 2026-10-13 |
+| Giriş bileşen durumları çizildi (`Home States`, `home-states@2x.png`): URL kutusu boş / dolu / geçersiz (mercan kenar + altında "Bu bir web adresi değil · örnek: marka.com"); "Aç →" **hep sarı** (U2; boşken tık alana odaklanır; §3.1'deki "etkinleşir" superseded). Elenen: U1 boşken gri | 2026-10-13 |
+| Proje kartı hover kenarı yeni token `line/strong` (koyu `#4F4945`, açık `#C7C0B4`; H2). Elenen: H1 `ink/secondary` (seçim gibi görünüyor) | 2026-10-13 |
+| Proje kartında ⋯ yalnız hover ve sağ tıkta görünür (ana kopyada gizli; bağlam menüsü ekranlarında açık). Önceki çizimlerde her kartta görünüyordu (superseded) | 2026-10-13 |
 
 ## 5. Bekleyen tasarım kararları
 
@@ -332,7 +338,7 @@ Sağ raydan açılır, canvas'ı iter (320 px). Tasarım ilkesi: **sakin ama tek
 
 ## 6. Tasarım sistemi (`design/viewportix.pen`)
 
-**Renk** (koyu; her token'ın `mode: light` değeri de tanımlı, açık tema ileride): `canvas`, `surface/bar`, `surface/card`, `surface/header`, `surface/header-leader`, `surface/pill`, `surface/tooltip`, `line`, `ink/primary`, `ink/secondary`, `accent`, `accent/ink`, `status/leader`, `status/warning`, `status/warning-bg`.
+**Renk** (koyu; her token'ın `mode: light` değeri de tanımlı, açık tema ileride): `canvas`, `surface/bar`, `surface/card`, `surface/header`, `surface/header-leader`, `surface/pill`, `surface/tooltip`, `line`, `line/strong` (hover kenarı), `ink/primary`, `ink/secondary`, `accent`, `accent/ink`, `status/leader`, `status/warning`, `status/warning-bg`.
 **Köşe:** `radius/window` 16, `radius/bar` 14, `radius/card` 12, `radius/control` 8, `radius/badge` 6. **Aralık:** `space/1..8` = 4, 8, 12, 16, 24, 32. **Motor glifleri:** `Engine Glyphs` frame'inde üç `path` (viewBox 0 0 16 16, evenodd, fill `ink/secondary`; seçili/lider halde `status/leader`). **Yazı:** `font/ui` = Inter (vekil; uygulamada SF Pro), `font/mono` = JetBrains Mono (vekil; uygulamada SF Mono), `font/title` 15, `font/body` 13, `font/label` 12, `font/caption` 11, `font/micro` 10. **Çizgi:** `stroke/hairline` 1, `stroke/focus` 2. **Boyut (yalnızca referans; pen.dev width/height'ta değişken çözmüyor, değerler sayı yazılır):** `size/sidebar` 240, `size/bar-height` 48, `size/card-header` 36, `size/icon` 16, `size/icon-sm` 14, `size/rail` 44, `size/panel-overlay` 340, `size/panel-docked` 320. (2026-10-10 düzeltme: sidebar 220 ve iten panel 300 yazıyordu; çizimler 240 / 320, token'lar çizime eşitlendi; 240 kullanıcı kararıyla kesin, 2026-10-11.)
 
 **Dosya düzeni (`design/viewportix.pen`):** üstte `00 · TASARIM SİSTEMİ` (`Design System · Tokens` panosu: renk, yazı, aralık/köşe/çizgi, bileşen → SwiftUI tablosu) ve `00b · BİLEŞENLER` (ana kopyalar); altında `01 · Giriş ekranı`, `02 · Proje penceresi`, `03 · Menüler ve durumlar`, `04 · Geliştirici paneli`, `05 · Bileşen durumları`, `06 · İkon ve glifler`. Keşifler `Archive ·` önekiyle solda, açık tema `Future ·` önekiyle arşivin altında.
@@ -348,9 +354,9 @@ Sağ raydan açılır, canvas'ı iter (320 px). Tasarım ilkesi: **sakin ama tek
 | `Toolbar/Button` | `ChromeButton` | ikon + etiket, ikon-only + tooltip |
 | `Toolbar/DeviceTab` | `DeviceTab` | normal, leader, syncMissed, loading, snapshot |
 | `Toolbar/ZoomControl` | `ZoomControl` | yüzde + ▲▼ |
-| `Home/ProjectCard` | `ProjectCard` | normal, hover, draft |
+| `Home/ProjectCard` | `ProjectCard` | normal, hover (`line/strong` + ⋯), draft, sağ tık hedefi (gök kenar + ⋯), dosya bulunamadı |
 | `Home/TemplateChip` | `TemplateChip` | normal, selected |
-| `Home/URLBox` | `URLBox` | empty, filled, invalid |
+| `Home/URLBox` | `URLBox` | empty, filled, invalid (Aç hep sarı) |
 | `Device/Picker` | `DevicePicker` | popover |
 | `Window/BottomBar` | `BottomBar` | syncOn, syncOff; düğme hover / basılı / menü açık; tooltip (400 ms) |
 | `Window/DeviceStrip` | `DeviceStrip` | sekmeler (slot), boş (yalnız "+ Cihaz"), taşma (‹ › + "+N" çipi) |
@@ -358,6 +364,7 @@ Sağ raydan açılır, canvas'ı iter (320 px). Tasarım ilkesi: **sakin ama tek
 | `Window/CollapsedHeader` | `CollapsedSidebarHeader` | sidebar kapalıyken canvas sol üstünde (16, 16) |
 | `Window/Rail` | `InspectorRail` | öğe: default, hover, active, badge; ray gizliyken `RailHandle` |
 | `Window/RailHandle` | `RailHandle` | ray gizliyken sağ kenarda; badge (Farklar bulgusu), hover tooltip |
+| `Window/Tooltip` | `ChromeTooltip` | ok aşağıda (varsayılan) / ok yok (yan tooltip); kısayol isteğe bağlı; hedefe 8 px, 400 ms gecikme |
 
 **Pencere chrome'u** (`Chrome Spec` frame'i, 05 bölümü; `chrome-spec@2x.png`): her parçanın ölçüsü, token'ları ve durumları orada. Yerleşim: `DeviceStrip` canvas'ın üstünde ortada, üstten 16 px; `BottomBar` altta ortada, alttan 31 px; `CollapsedSidebarHeader` canvas sol üstünde 16, 16; `InspectorRail` pencerenin sağ kenarında, canvas'tan sonra. Ortalama canvas'a göredir (sidebar, ray ve iten panel çıkarıldıktan sonra kalan alan); bu parçalara bağlı menüler (zoom, ekran görüntüsü, "+N", cihaz seçici, tooltip) tetikleyicisine hizalı açılır ve onunla birlikte kayar.
 

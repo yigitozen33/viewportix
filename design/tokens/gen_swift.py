@@ -112,7 +112,7 @@ def generate(tokens):
     return "\n".join(L) + "\n"
 
 
-PEN_RENAME = {"accent/ink": "color/accent-ink"}  # pen nests under a leaf; W3C groups cannot be leaves
+PEN_RENAME = {"accent/ink": "color/accent-ink", "line/strong": "color/line-strong"}  # pen nests under a leaf; W3C groups cannot be leaves
 
 
 def pen_to_token(name, typ):

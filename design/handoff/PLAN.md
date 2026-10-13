@@ -19,7 +19,7 @@
 | 0 | Klasör ve sözleşme | ✅ | 2026-10-13 | (bu commit) |
 | 1 | Token zinciri (pen → JSON → Swift) | ✅ | 2026-10-13 | (bu commit) |
 | 2 | Manifest (bileşen · ekran · PNG · nodeId) | ✅ | 2026-10-13 | (bu commit) |
-| 3 | Bileşen spec'leri (ölçülü katman ağacı) | 🟡 | | (bu commit) |
+| 3 | Bileşen spec'leri (ölçülü katman ağacı) | 🟡 | | 36fa3fa |
 | 4 | CHK tutarlılık kontrolleri | ⬜ | | |
 | 5 | İkon eşleme (Lucide → SF Symbols) | ⬜ | | |
 | 6 | Örnek sayfa HTML'i | ⬜ | | |
@@ -77,7 +77,6 @@ Durum: ⬜ başlanmadı · 🟡 sürüyor · ✅ bitti · ⛔ vazgeçildi (neden
 ## Açık sorular
 
 - Aşama 3: kabulün son maddesi (kod oturumu `BottomBar`'ı PNG'siz kurar) kod oturumunda; istek `KOD-OTURUMU-ISLERI.md` §14. Yanıt gelince 3 → ✅.
-- Aşama 3: token dışı değerler ve eksik durum çizimleri için kullanıcı kararı bekleniyor (aşağıdaki rapor, "Kullanıcıya").
 
 ## Oturum raporları
 
@@ -105,5 +104,7 @@ Yalnızca eklenir. Biçim: `### YYYY-MM-DD · <aşamalar>` altında: yapılan, k
 - Durum adları: etiket metninden; bir etiket birden çok örneği kapsıyorsa ya da etiket uzun bir notsa `build_specs.py` › `LABEL_BY_INSTANCE` / `LABEL_BY_PREFIX`. Sidebar satırında "selected (açık sayfa)" = `surface/header` + nokta; kanıt: aynı görünüm 23 Project Window frame'inde açık sayfa satırında. Yalnız veri (metin, ikon, boyut) ya da ana kopya değerini tekrarlayan örnekler atılır; `onScreens` ekranlardaki görünümleri çizili durumlara eşler.
 - `BottomBar` denemesi (tasarım tarafı): spec + `ChromeButton` + `ZoomControl` spec'leri ve `notes` ile kapsül, sıralama, senkron açık/kapalı, hover/basılı/menü açık (`surface/header-leader`), tooltip yerleşimi (`arrangement`: dikey, gap 6) ve konum (alttan 31) PNG'siz okunuyor. Eksik: ikon karşılıkları (Lucide adları; aşama 5).
 - Bulgular: (1) tooltip durum frame'lerinde 8 yerde bileşen değil elle çizilmiş frame (ekranlar sayılmadı), yazı boyutları token yerine sayı (12/11); (2) token'a eşit ham değerler: `SnapshotPill` (`#161412` = canvas, `#F4EFE9` = ink/primary), `ProjectCard` MiniHeader (`#2D2926` = surface/header), yazı boyutları 13/12/11/10; (3) bilinçli ham görünenler: kart içi örnek sayfa renkleri, trafik ışıkları, gölge renkleri (`#00000066/80/AA`), kaydırma solması (`#2D292600`); (4) `Window/Rail` › Rail Diff ve 3 ekran instance'ında `#00000000` dolgu (boş dolgu); (5) BottomBar notu "tooltip düğmenin 8 px üstünde" diyor, frame'de ok ile çubuk arası 6; (6) çizimi olmayan §6 durumları: `URLBox` boş/geçersiz, `ProjectCard` hover/taslak (ekranlarda 4 adsız görünüm), `TemplateChip` seçili yalnız ekranda.
-- Sonraki adım: kullanıcı kararları (bulgu 1–6) → gerekirse pen düzeltmesi + yeniden döküm; sonra aşama 5 (ikon eşleme).
+- Kullanıcı kararları (DESIGN.md §4, 2026-10-13) ve uygulama: (a) token'a eşit ham değerler bağlandı: 210 yazı boyutu (`$font/*`), 10 renk; 4 boş dolgu kaldırıldı (`fill: []`); (b) `Window/Tooltip` → `ChromeTooltip` bileşeni, 10 tooltip instance oldu (planlanan 8 + `Project Window · İkon çubuklar + tooltip` + `· Motor tooltip`); (c) tooltip–hedef 8 px: Chrome Spec `Tooltip wrap` gap 6 → 8, iki ekran tooltip'i 2 / 7 px kaydırıldı; (d) `Home States` frame'i: URLBox boş/dolu/geçersiz (Aç hep sarı, U2), ProjectCard normal/hover/taslak/sağ tık hedefi, TemplateChip normal/seçili; yeni token `line/strong` (#4F4945 / açık #C7C0B4; H2); ⋯ ana kopyada gizli, bağlam menüsü ekranlarındaki 2 kartta açık.
+- Kanıt: `build_manifest.py` → `components=18 screens=31 specFrames=18 openQuestions=0`; `build_specs.py` → `wrote 18 specs; raw colour/type values 37; open questions 0` (önce 119); `gen_swift.py --diff` → `DIFF: none`, `--check` güncel, `swiftc -typecheck` temiz; 13 PNG yeniden dışa aktarıldı + `home-states@2x.png`.
+- Sonraki adım: kod oturumunun `BottomBar` denemesi (§14) → 3 ✅; tasarım tarafında aşama 5 (ikon eşleme).
 

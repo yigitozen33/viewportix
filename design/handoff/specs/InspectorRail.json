@@ -42,15 +42,13 @@
  ],
  "usedVia": [],
  "tokens": {
-  "font/ui": "system font (SF Pro; Inter is a design proxy)",
   "ink/primary": "DesignTokens.Color.inkPrimary",
   "ink/secondary": "DesignTokens.Color.inkSecondary",
   "line": "DesignTokens.Color.line",
   "radius/control": "DesignTokens.Radius.control",
   "status/warning": "DesignTokens.Color.statusWarning",
   "surface/bar": "DesignTokens.Color.surfaceBar",
-  "surface/header-leader": "DesignTokens.Color.surfaceHeaderLeader",
-  "surface/tooltip": "DesignTokens.Color.surfaceTooltip"
+  "surface/header-leader": "DesignTokens.Color.surfaceHeaderLeader"
  },
  "tree": {
   "name": "Window/Rail",
@@ -276,7 +274,6 @@
      "justifyContent": "center"
     },
     "cornerRadius": "$radius/control",
-    "fill": "#00000000",
     "children": [
      {
       "name": "RIcon",
@@ -542,220 +539,6 @@
       }
      ]
     }
-   ],
-   "arrangement": {
-    "in": "",
-    "axis": "none"
-   },
-   "companions": [
-    {
-     "name": "Tooltip",
-     "type": "frame",
-     "nodeId": "gaFPA",
-     "position": {
-      "at": [
-       132,
-       52
-      ]
-     },
-     "size": {
-      "w": "fit",
-      "h": "fit"
-     },
-     "layout": {
-      "axis": "vertical",
-      "stack": "VStack",
-      "alignItems": "center"
-     },
-     "children": [
-      {
-       "name": "Tooltip Body",
-       "type": "frame",
-       "nodeId": "qQWqD",
-       "size": {
-        "w": "fit",
-        "h": "fit"
-       },
-       "layout": {
-        "axis": "horizontal",
-        "stack": "HStack",
-        "gap": 8,
-        "alignItems": "center",
-        "padding": [
-         6,
-         10,
-         6,
-         10
-        ]
-       },
-       "cornerRadius": 8,
-       "fill": "$surface/tooltip",
-       "stroke": "$line",
-       "strokeWidth": 1,
-       "strokeAlignment": "inner",
-       "children": [
-        {
-         "name": "TipText",
-         "type": "text",
-         "nodeId": "Fm1Um",
-         "size": {
-          "w": "fit",
-          "h": "fit"
-         },
-         "fill": "$ink/primary",
-         "text": {
-          "content": "Cihazlar",
-          "fontFamily": "$font/ui",
-          "fontSize": 12,
-          "fontWeight": "500"
-         }
-        },
-        {
-         "name": "TipKey",
-         "type": "text",
-         "nodeId": "bLyuz",
-         "hidden": true,
-         "position": {
-          "at": [
-           52,
-           7
-          ]
-         },
-         "size": {
-          "w": "fit",
-          "h": "fit"
-         },
-         "fill": "$ink/secondary",
-         "text": {
-          "content": "⌘1",
-          "fontFamily": "$font/ui",
-          "fontSize": 11,
-          "fontWeight": "normal"
-         }
-        }
-       ]
-      },
-      {
-       "name": "Caret",
-       "type": "polygon",
-       "nodeId": "Sh4aD",
-       "hidden": true,
-       "position": {
-        "at": [
-         45,
-         33
-        ]
-       },
-       "size": {
-        "w": 12,
-        "h": 6
-       },
-       "fill": "$surface/tooltip",
-       "rotation": 180
-      }
-     ]
-    },
-    {
-     "name": "Tooltip",
-     "type": "frame",
-     "nodeId": "fwRPJ",
-     "position": {
-      "at": [
-       60,
-       226
-      ]
-     },
-     "size": {
-      "w": "fit",
-      "h": "fit"
-     },
-     "layout": {
-      "axis": "vertical",
-      "stack": "VStack",
-      "alignItems": "center"
-     },
-     "opacity": 0.45,
-     "children": [
-      {
-       "name": "Tooltip Body",
-       "type": "frame",
-       "nodeId": "tlMG7",
-       "size": {
-        "w": "fit",
-        "h": "fit"
-       },
-       "layout": {
-        "axis": "horizontal",
-        "stack": "HStack",
-        "gap": 8,
-        "alignItems": "center",
-        "padding": [
-         6,
-         10,
-         6,
-         10
-        ]
-       },
-       "cornerRadius": 8,
-       "fill": "$surface/tooltip",
-       "stroke": "$line",
-       "strokeWidth": 1,
-       "strokeAlignment": "inner",
-       "children": [
-        {
-         "name": "TipText",
-         "type": "text",
-         "nodeId": "pOK1I",
-         "size": {
-          "w": "fit",
-          "h": "fit"
-         },
-         "fill": "$ink/primary",
-         "text": {
-          "content": "Farklar · 3 bulgu",
-          "fontFamily": "$font/ui",
-          "fontSize": 12,
-          "fontWeight": "500"
-         }
-        },
-        {
-         "name": "TipKey",
-         "type": "text",
-         "nodeId": "Ai5QQ",
-         "size": {
-          "w": "fit",
-          "h": "fit"
-         },
-         "fill": "$ink/secondary",
-         "text": {
-          "content": "⌥⌘1",
-          "fontFamily": "$font/ui",
-          "fontSize": 11,
-          "fontWeight": "normal"
-         }
-        }
-       ]
-      },
-      {
-       "name": "Caret",
-       "type": "polygon",
-       "nodeId": "nMGcv",
-       "hidden": true,
-       "position": {
-        "at": [
-         45,
-         33
-        ]
-       },
-       "size": {
-        "w": 12,
-        "h": 6
-       },
-       "fill": "$surface/tooltip",
-       "rotation": 180
-      }
-     ]
-    }
    ]
   }
  ],
@@ -969,7 +752,7 @@
      "node": "Window/Rail › Rail Ayarlar",
      "nodeId": "Ksj9i",
      "set": {
-      "fill": "#00000000"
+      "fill": []
      }
     },
     {
@@ -1021,7 +804,7 @@
      "node": "Window/Rail › Rail Ayarlar",
      "nodeId": "Ksj9i",
      "set": {
-      "fill": "#00000000"
+      "fill": []
      }
     },
     {
@@ -1073,7 +856,7 @@
      "node": "Window/Rail › Rail Ayarlar",
      "nodeId": "Ksj9i",
      "set": {
-      "fill": "#00000000"
+      "fill": []
      }
     },
     {
@@ -1107,56 +890,7 @@
    ]
   }
  ],
- "rawValues": [
-  {
-   "node": "Window/Rail › Rail Diff",
-   "prop": "fill",
-   "value": "#00000000",
-   "sameAsToken": null
-  },
-  {
-   "node": "Window/Rail [tooltip (ray öğesi)] › Tooltip › Tooltip Body › TipText",
-   "prop": "fontSize",
-   "value": 12,
-   "sameAsToken": "font/label"
-  },
-  {
-   "node": "Window/Rail [tooltip (ray öğesi)] › Tooltip › Tooltip Body › TipKey",
-   "prop": "fontSize",
-   "value": 11,
-   "sameAsToken": "font/caption"
-  },
-  {
-   "node": "Window/Rail [tooltip (ray öğesi)] › Tooltip › Tooltip Body › TipText",
-   "prop": "fontSize",
-   "value": 12,
-   "sameAsToken": "font/label"
-  },
-  {
-   "node": "Window/Rail [tooltip (ray öğesi)] › Tooltip › Tooltip Body › TipKey",
-   "prop": "fontSize",
-   "value": 11,
-   "sameAsToken": "font/caption"
-  },
-  {
-   "node": "Window/Rail (ekranda) › Window/Rail › Rail Ayarlar",
-   "prop": "fill",
-   "value": "#00000000",
-   "sameAsToken": null
-  },
-  {
-   "node": "Window/Rail (ekranda) › Window/Rail › Rail Ayarlar",
-   "prop": "fill",
-   "value": "#00000000",
-   "sameAsToken": null
-  },
-  {
-   "node": "Window/Rail (ekranda) › Window/Rail › Rail Ayarlar",
-   "prop": "fill",
-   "value": "#00000000",
-   "sameAsToken": null
-  }
- ],
+ "rawValues": [],
  "rawNumbers": [
   {
    "node": "Window/Rail",
@@ -1180,66 +914,6 @@
    "node": "Window/Rail",
    "prop": "padding",
    "value": 6,
-   "sameAsToken": null
-  },
-  {
-   "node": "Window/Rail [tooltip (ray öğesi)] › Tooltip › Tooltip Body",
-   "prop": "cornerRadius",
-   "value": 8,
-   "sameAsToken": "radius/control"
-  },
-  {
-   "node": "Window/Rail [tooltip (ray öğesi)] › Tooltip › Tooltip Body",
-   "prop": "strokeWidth",
-   "value": 1,
-   "sameAsToken": "stroke/hairline"
-  },
-  {
-   "node": "Window/Rail [tooltip (ray öğesi)] › Tooltip › Tooltip Body",
-   "prop": "gap",
-   "value": 8,
-   "sameAsToken": "space/2"
-  },
-  {
-   "node": "Window/Rail [tooltip (ray öğesi)] › Tooltip › Tooltip Body",
-   "prop": "padding",
-   "value": 6,
-   "sameAsToken": null
-  },
-  {
-   "node": "Window/Rail [tooltip (ray öğesi)] › Tooltip › Tooltip Body",
-   "prop": "padding",
-   "value": 10,
-   "sameAsToken": null
-  },
-  {
-   "node": "Window/Rail [tooltip (ray öğesi)] › Tooltip › Tooltip Body",
-   "prop": "cornerRadius",
-   "value": 8,
-   "sameAsToken": "radius/control"
-  },
-  {
-   "node": "Window/Rail [tooltip (ray öğesi)] › Tooltip › Tooltip Body",
-   "prop": "strokeWidth",
-   "value": 1,
-   "sameAsToken": "stroke/hairline"
-  },
-  {
-   "node": "Window/Rail [tooltip (ray öğesi)] › Tooltip › Tooltip Body",
-   "prop": "gap",
-   "value": 8,
-   "sameAsToken": "space/2"
-  },
-  {
-   "node": "Window/Rail [tooltip (ray öğesi)] › Tooltip › Tooltip Body",
-   "prop": "padding",
-   "value": 6,
-   "sameAsToken": null
-  },
-  {
-   "node": "Window/Rail [tooltip (ray öğesi)] › Tooltip › Tooltip Body",
-   "prop": "padding",
-   "value": 10,
    "sameAsToken": null
   }
  ]

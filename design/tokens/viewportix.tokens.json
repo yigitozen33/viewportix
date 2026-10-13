@@ -59,6 +59,14 @@
         "viewportix.light": "#D9D3C9"
       }
     },
+    "line-strong": {
+      "$type": "color",
+      "$value": "#4F4945",
+      "$extensions": {
+        "viewportix.light": "#C7C0B4"
+      },
+      "$description": "Hover edge, one tone above line (Home/ProjectCard hover)"
+    },
     "ink": {
       "primary": {
         "$type": "color",

@@ -1,1 +1,869 @@
-{"generatedAt":"2026-10-13","components":[{"id":"Ngw0t","name":"Viewport/Card","w":230,"h":296,"contains":[]},{"id":"TgJMN","name":"Viewport/HoverStrip","w":88,"h":28,"contains":[]},{"id":"t3Hr4","name":"Window/Toast","w":306,"h":36,"contains":[]},{"id":"UCIzS","name":"Sidebar/Row","w":196,"h":30,"contains":[]},{"id":"w629d9","name":"Toolbar/Button","w":73,"h":27,"contains":[]},{"id":"FpUpU","name":"Toolbar/DeviceTab","w":95,"h":27,"contains":[]},{"id":"sSUik","name":"Toolbar/ZoomControl","w":72,"h":33,"contains":[]},{"id":"sACvk","name":"Home/ProjectCard","w":236,"h":195,"contains":[]},{"id":"k9seN","name":"Home/TemplateChip","w":115,"h":31,"contains":[]},{"id":"m9eWrA","name":"Home/URLBox","w":560,"h":47,"contains":[]},{"id":"G9E6ET","name":"Device/Picker","w":660,"h":345,"contains":[]},{"id":"tzWBu","name":"Sidebar/Header","w":216,"h":110,"contains":[]},{"id":"I3EMY","name":"Window/BottomBar","w":210,"h":49,"contains":["Toolbar/Button","Toolbar/ZoomControl"]},{"id":"Z3xtg","name":"Window/DeviceStrip","w":370,"h":35,"contains":["Toolbar/Button","Toolbar/DeviceTab"]},{"id":"O8YpHG","name":"Window/Rail","w":44,"h":900,"contains":[]},{"id":"P0uqV","name":"Window/CollapsedHeader","w":396,"h":38,"contains":[]},{"id":"vDAMf","name":"Window/RailHandle","w":24,"h":56,"contains":[]}],"frames":[{"id":"U1DEv","name":"Viewport States","x":0,"y":6040,"w":1822,"h":407,"uses":["Viewport/Card"]},{"id":"pDYzq","name":"Tab States & Overflow Menu","x":4603,"y":6650,"w":1000,"h":410,"uses":["Toolbar/Button","Toolbar/DeviceTab"]},{"id":"vFVfv","name":"Project Window","x":0,"y":1900,"w":1440,"h":900,"uses":["Sidebar/Header","Sidebar/Row","Viewport/Card","Viewport/HoverStrip","Window/BottomBar","Window/DeviceStrip","Window/Rail","Window/Toast"]},{"id":"mle8a","name":"Project Window · Sidebar kapalı","x":1560,"y":1900,"w":1440,"h":900,"uses":["Viewport/Card","Viewport/HoverStrip","Window/BottomBar","Window/CollapsedHeader","Window/DeviceStrip","Window/Rail","Window/Toast"]},{"id":"SRvkj","name":"Project Window · 8 cihaz","x":3120,"y":1900,"w":1440,"h":900,"uses":["Sidebar/Header","Sidebar/Row","Viewport/Card","Viewport/HoverStrip","Window/BottomBar","Window/DeviceStrip","Window/Rail","Window/Toast"]},{"id":"S9oTqZ","name":"Project Window · 8 cihaz · menü açık","x":0,"y":3280,"w":1440,"h":900,"uses":["Sidebar/Header","Sidebar/Row","Viewport/Card","Viewport/HoverStrip","Window/BottomBar","Window/DeviceStrip","Window/Rail","Window/Toast"]},{"id":"Gcdye","name":"Project Window · Zoom menüsü açık","x":1560,"y":3280,"w":1440,"h":900,"uses":["Sidebar/Header","Sidebar/Row","Viewport/Card","Viewport/HoverStrip","Window/BottomBar","Window/DeviceStrip","Window/Rail"]},{"id":"ZgWIQ","name":"Project Window · İkon çubuklar + tooltip","x":6240,"y":3280,"w":1440,"h":900,"uses":["Viewport/Card","Viewport/HoverStrip","Window/BottomBar","Window/CollapsedHeader","Window/DeviceStrip","Window/Rail"]},{"id":"L9rkJ","name":"Engine Tooltip","x":7986,"y":6040,"w":286,"h":252,"uses":["Viewport/Card"]},{"id":"k1UnJv","name":"Project Window · Motor tooltip","x":7800,"y":3280,"w":1440,"h":900,"uses":["Sidebar/Header","Sidebar/Row","Viewport/Card","Viewport/HoverStrip","Window/BottomBar","Window/DeviceStrip","Window/Rail"]},{"id":"j633o","name":"Home Window","x":0,"y":720,"w":1040,"h":700,"uses":["Home/ProjectCard","Home/TemplateChip","Home/URLBox","Sidebar/Row","Toolbar/Button"]},{"id":"SkRUV","name":"Home Window · Liste","x":1160,"y":720,"w":1040,"h":700,"uses":["Home/TemplateChip","Home/URLBox","Sidebar/Row","Toolbar/Button"]},{"id":"E8Inyr","name":"Home Window · Boş durum","x":2320,"y":720,"w":1040,"h":700,"uses":["Home/TemplateChip","Home/URLBox","Sidebar/Row","Toolbar/Button"]},{"id":"E7EP1n","name":"Home Window · Bağlam menüsü","x":3480,"y":720,"w":1040,"h":700,"uses":["Home/ProjectCard","Home/TemplateChip","Home/URLBox","Sidebar/Row","Toolbar/Button"]},{"id":"QzPin","name":"Home Window · Kaldır alt menüsü","x":4640,"y":720,"w":1040,"h":700,"uses":["Home/ProjectCard","Home/TemplateChip","Home/URLBox","Sidebar/Row","Toolbar/Button"]},{"id":"IMusa","name":"Project Window · Cihaz seçici (birleşik)","x":3120,"y":3280,"w":1440,"h":900,"uses":["Device/Picker","Sidebar/Header","Sidebar/Row","Viewport/Card","Viewport/HoverStrip","Window/BottomBar","Window/DeviceStrip","Window/Rail"]},{"id":"Dr4hZ","name":"Dev Panel · Farklar (sakin)","x":0,"y":4660,"w":1440,"h":900,"uses":["Sidebar/Header","Sidebar/Row","Viewport/Card","Viewport/HoverStrip","Window/BottomBar","Window/DeviceStrip","Window/Rail"]},{"id":"VsnVs","name":"Dev Panel · Senkron (sakin)","x":1560,"y":4660,"w":1440,"h":900,"uses":["Sidebar/Header","Sidebar/Row","Viewport/Card","Viewport/HoverStrip","Window/BottomBar","Window/DeviceStrip","Window/Rail"]},{"id":"lfJ3a","name":"Dev Panel · Fark yok (sakin)","x":3120,"y":4660,"w":1440,"h":900,"uses":["Sidebar/Header","Sidebar/Row","Viewport/Card","Viewport/HoverStrip","Window/BottomBar","Window/DeviceStrip","Window/Rail"]},{"id":"M1DiUr","name":"Engine Glyphs","x":884,"y":7190,"w":365,"h":251,"uses":[]},{"id":"qm0vz","name":"Project Window · URL son 5","x":4680,"y":1900,"w":1440,"h":900,"uses":["Sidebar/Header","Sidebar/Row","Viewport/Card","Viewport/HoverStrip","Window/BottomBar","Window/DeviceStrip","Window/Rail"]},{"id":"p48xxG","name":"Sidebar States","x":5598,"y":6040,"w":1252,"h":501,"uses":["Sidebar/Row"]},{"id":"X5k7c","name":"Project Window · Ekran görüntüsü menüsü","x":4680,"y":3280,"w":1440,"h":900,"uses":["Sidebar/Header","Sidebar/Row","Viewport/Card","Viewport/HoverStrip","Window/BottomBar","Window/DeviceStrip","Window/Rail"]},{"id":"XsCo1","name":"App Icon · B variants","x":0,"y":7190,"w":764,"h":708,"uses":[]},{"id":"ioLB2","name":"Selected Options","x":1942,"y":6040,"w":1060,"h":670,"uses":["Viewport/Card"]},{"id":"T6iQ4","name":"Project Window · Ayarlar paneli","x":6240,"y":1900,"w":1440,"h":900,"uses":["Sidebar/Header","Sidebar/Row","Viewport/Card","Viewport/HoverStrip","Window/BottomBar","Window/DeviceStrip","Window/Rail"]},{"id":"JD8Q1","name":"Design System · Tokens","x":0,"y":-2480,"w":2400,"h":1660,"uses":[]},{"id":"kp8Ek","name":"Home Window · Ayarlar paneli","x":5800,"y":720,"w":1040,"h":700,"uses":["Home/ProjectCard","Home/TemplateChip","Home/URLBox","Sidebar/Row","Toolbar/Button"]},{"id":"amtWl","name":"Project Window · Canvas boş","x":7800,"y":1900,"w":1440,"h":900,"uses":["Sidebar/Header","Sidebar/Row","Window/BottomBar","Window/DeviceStrip","Window/Rail"]},{"id":"Cld0z","name":"Card Actions","x":3122,"y":6040,"w":1576,"h":517,"uses":["Viewport/Card","Viewport/HoverStrip"]},{"id":"NzMCp","name":"Toast States","x":7490,"y":6040,"w":376,"h":374,"uses":["Window/Toast"]},{"id":"xY8o9","name":"Sidebar · Sayfa sağ tık menüsü","x":6970,"y":6040,"w":400,"h":420,"uses":["Sidebar/Row"]},{"id":"mV0xH","name":"Shortcut Map · Menü çubuğu","x":2560,"y":-2480,"w":1560,"h":675,"uses":[]},{"id":"JGcRx","name":"Chrome Spec","x":8400,"y":6040,"w":1720,"h":1307,"uses":["Sidebar/Header","Window/BottomBar","Window/CollapsedHeader","Window/DeviceStrip","Window/Rail","Window/RailHandle"]},{"id":"dMDOK","name":"Project Window · Ayarlar › Cihazlar","x":9360,"y":1900,"w":1440,"h":900,"uses":["Sidebar/Header","Sidebar/Row","Viewport/Card","Viewport/HoverStrip","Window/BottomBar","Window/DeviceStrip","Window/Rail"]},{"id":"R0VEg","name":"Project Window · Ayarlar › MCP","x":10920,"y":1900,"w":1440,"h":900,"uses":["Sidebar/Header","Sidebar/Row","Viewport/Card","Viewport/HoverStrip","Window/BottomBar","Window/DeviceStrip","Window/Rail"]},{"id":"P8hJd5","name":"Project Window · Ayarlar › Hesap","x":12480,"y":1900,"w":1440,"h":900,"uses":["Sidebar/Header","Sidebar/Row","Viewport/Card","Viewport/HoverStrip","Window/BottomBar","Window/DeviceStrip","Window/Rail"]},{"id":"O7JgxK","name":"Project Window · Ray gizli","x":14040,"y":1900,"w":1440,"h":900,"uses":["Sidebar/Header","Sidebar/Row","Viewport/Card","Viewport/HoverStrip","Window/BottomBar","Window/DeviceStrip","Window/RailHandle","Window/Toast"]},{"id":"s3Atj","name":"Card Load Errors","x":10400,"y":6040,"w":1060,"h":650,"uses":["Toolbar/DeviceTab","Viewport/Card","Window/Toast"]},{"id":"q6obk","name":"Project Window · Kart sürükleniyor","x":9360,"y":3280,"w":1440,"h":900,"uses":["Sidebar/Header","Sidebar/Row","Viewport/Card","Viewport/HoverStrip","Window/BottomBar","Window/DeviceStrip","Window/Rail"]},{"id":"N1dkY","name":"Project Window · Gruplar (cihaz türü)","x":10920,"y":3280,"w":1440,"h":900,"uses":["Sidebar/Header","Sidebar/Row","Viewport/Card","Viewport/HoverStrip","Window/BottomBar","Window/DeviceStrip","Window/Rail"]},{"id":"g5nQ0p","name":"Misc States","x":12200,"y":6040,"w":1240,"h":809,"uses":["Sidebar/Row","Toolbar/Button","Toolbar/DeviceTab"]},{"id":"B1aeP","name":"Project Window · Gruplar · katlanmış","x":12480,"y":3280,"w":1440,"h":900,"uses":["Sidebar/Header","Sidebar/Row","Viewport/Card","Viewport/HoverStrip","Window/BottomBar","Window/DeviceStrip","Window/Rail"]},{"id":"SlUcW","name":"Project Window · Gruplar (motor, M4)","x":14040,"y":3280,"w":1440,"h":900,"uses":["Sidebar/Header","Sidebar/Row","Viewport/Card","Viewport/HoverStrip","Window/BottomBar","Window/DeviceStrip","Window/Rail"]},{"id":"BQurR","name":"Home File Errors","x":13600,"y":6040,"w":1100,"h":785,"uses":["Home/ProjectCard"]},{"id":"hJrjk","name":"Project Window · En küçük boyut (1024×640)","x":15600,"y":1900,"w":1024,"h":640,"uses":["Sidebar/Header","Sidebar/Row","Viewport/Card","Viewport/HoverStrip","Window/BottomBar","Window/DeviceStrip","Window/Rail","Window/Toast"]},{"id":"IVxFw","name":"Project Window · Tam ekran","x":17160,"y":1900,"w":1440,"h":900,"uses":["Sidebar/Header","Sidebar/Row","Viewport/Card","Viewport/HoverStrip","Window/BottomBar","Window/DeviceStrip","Window/Rail","Window/Toast"]},{"id":"hTxn0","name":"Misc States 2","x":14900,"y":6040,"w":1400,"h":2072,"uses":["Sidebar/Header","Sidebar/Row","Toolbar/DeviceTab","Viewport/Card","Window/Rail","Window/Toast"]}]}
+{
+ "generatedAt": "2026-10-13",
+ "components": [
+  {
+   "id": "Ngw0t",
+   "name": "Viewport/Card",
+   "w": 230,
+   "h": 296,
+   "contains": []
+  },
+  {
+   "id": "TgJMN",
+   "name": "Viewport/HoverStrip",
+   "w": 88,
+   "h": 28,
+   "contains": []
+  },
+  {
+   "id": "t3Hr4",
+   "name": "Window/Toast",
+   "w": 306,
+   "h": 36,
+   "contains": []
+  },
+  {
+   "id": "UCIzS",
+   "name": "Sidebar/Row",
+   "w": 196,
+   "h": 30,
+   "contains": []
+  },
+  {
+   "id": "w629d9",
+   "name": "Toolbar/Button",
+   "w": 73,
+   "h": 27,
+   "contains": []
+  },
+  {
+   "id": "FpUpU",
+   "name": "Toolbar/DeviceTab",
+   "w": 95,
+   "h": 27,
+   "contains": []
+  },
+  {
+   "id": "sSUik",
+   "name": "Toolbar/ZoomControl",
+   "w": 72,
+   "h": 33,
+   "contains": []
+  },
+  {
+   "id": "sACvk",
+   "name": "Home/ProjectCard",
+   "w": 236,
+   "h": 195,
+   "contains": []
+  },
+  {
+   "id": "k9seN",
+   "name": "Home/TemplateChip",
+   "w": 115,
+   "h": 31,
+   "contains": []
+  },
+  {
+   "id": "m9eWrA",
+   "name": "Home/URLBox",
+   "w": 560,
+   "h": 47,
+   "contains": []
+  },
+  {
+   "id": "G9E6ET",
+   "name": "Device/Picker",
+   "w": 660,
+   "h": 345,
+   "contains": []
+  },
+  {
+   "id": "tzWBu",
+   "name": "Sidebar/Header",
+   "w": 216,
+   "h": 110,
+   "contains": []
+  },
+  {
+   "id": "I3EMY",
+   "name": "Window/BottomBar",
+   "w": 210,
+   "h": 49,
+   "contains": [
+    "Toolbar/Button",
+    "Toolbar/ZoomControl"
+   ]
+  },
+  {
+   "id": "Z3xtg",
+   "name": "Window/DeviceStrip",
+   "w": 370,
+   "h": 35,
+   "contains": [
+    "Toolbar/Button",
+    "Toolbar/DeviceTab"
+   ]
+  },
+  {
+   "id": "O8YpHG",
+   "name": "Window/Rail",
+   "w": 44,
+   "h": 900,
+   "contains": []
+  },
+  {
+   "id": "P0uqV",
+   "name": "Window/CollapsedHeader",
+   "w": 396,
+   "h": 38,
+   "contains": []
+  },
+  {
+   "id": "vDAMf",
+   "name": "Window/RailHandle",
+   "w": 24,
+   "h": 56,
+   "contains": []
+  },
+  {
+   "id": "boSko",
+   "name": "Window/Tooltip",
+   "w": 78,
+   "h": 33,
+   "contains": []
+  }
+ ],
+ "frames": [
+  {
+   "id": "U1DEv",
+   "name": "Viewport States",
+   "x": 0,
+   "y": 6040,
+   "w": 1822,
+   "h": 407,
+   "uses": [
+    "Viewport/Card"
+   ]
+  },
+  {
+   "id": "pDYzq",
+   "name": "Tab States & Overflow Menu",
+   "x": 4603,
+   "y": 6650,
+   "w": 1000,
+   "h": 410,
+   "uses": [
+    "Toolbar/Button",
+    "Toolbar/DeviceTab"
+   ]
+  },
+  {
+   "id": "vFVfv",
+   "name": "Project Window",
+   "x": 0,
+   "y": 1900,
+   "w": 1440,
+   "h": 900,
+   "uses": [
+    "Sidebar/Header",
+    "Sidebar/Row",
+    "Viewport/Card",
+    "Viewport/HoverStrip",
+    "Window/BottomBar",
+    "Window/DeviceStrip",
+    "Window/Rail",
+    "Window/Toast"
+   ]
+  },
+  {
+   "id": "mle8a",
+   "name": "Project Window · Sidebar kapalı",
+   "x": 1560,
+   "y": 1900,
+   "w": 1440,
+   "h": 900,
+   "uses": [
+    "Viewport/Card",
+    "Viewport/HoverStrip",
+    "Window/BottomBar",
+    "Window/CollapsedHeader",
+    "Window/DeviceStrip",
+    "Window/Rail",
+    "Window/Toast"
+   ]
+  },
+  {
+   "id": "SRvkj",
+   "name": "Project Window · 8 cihaz",
+   "x": 3120,
+   "y": 1900,
+   "w": 1440,
+   "h": 900,
+   "uses": [
+    "Sidebar/Header",
+    "Sidebar/Row",
+    "Viewport/Card",
+    "Viewport/HoverStrip",
+    "Window/BottomBar",
+    "Window/DeviceStrip",
+    "Window/Rail",
+    "Window/Toast"
+   ]
+  },
+  {
+   "id": "S9oTqZ",
+   "name": "Project Window · 8 cihaz · menü açık",
+   "x": 0,
+   "y": 3280,
+   "w": 1440,
+   "h": 900,
+   "uses": [
+    "Sidebar/Header",
+    "Sidebar/Row",
+    "Viewport/Card",
+    "Viewport/HoverStrip",
+    "Window/BottomBar",
+    "Window/DeviceStrip",
+    "Window/Rail",
+    "Window/Toast"
+   ]
+  },
+  {
+   "id": "Gcdye",
+   "name": "Project Window · Zoom menüsü açık",
+   "x": 1560,
+   "y": 3280,
+   "w": 1440,
+   "h": 900,
+   "uses": [
+    "Sidebar/Header",
+    "Sidebar/Row",
+    "Viewport/Card",
+    "Viewport/HoverStrip",
+    "Window/BottomBar",
+    "Window/DeviceStrip",
+    "Window/Rail"
+   ]
+  },
+  {
+   "id": "ZgWIQ",
+   "name": "Project Window · İkon çubuklar + tooltip",
+   "x": 6240,
+   "y": 3280,
+   "w": 1440,
+   "h": 900,
+   "uses": [
+    "Viewport/Card",
+    "Viewport/HoverStrip",
+    "Window/BottomBar",
+    "Window/CollapsedHeader",
+    "Window/DeviceStrip",
+    "Window/Rail",
+    "Window/Tooltip"
+   ]
+  },
+  {
+   "id": "L9rkJ",
+   "name": "Engine Tooltip",
+   "x": 7986,
+   "y": 6040,
+   "w": 286,
+   "h": 252,
+   "uses": [
+    "Viewport/Card",
+    "Window/Tooltip"
+   ]
+  },
+  {
+   "id": "k1UnJv",
+   "name": "Project Window · Motor tooltip",
+   "x": 7800,
+   "y": 3280,
+   "w": 1440,
+   "h": 900,
+   "uses": [
+    "Sidebar/Header",
+    "Sidebar/Row",
+    "Viewport/Card",
+    "Viewport/HoverStrip",
+    "Window/BottomBar",
+    "Window/DeviceStrip",
+    "Window/Rail",
+    "Window/Tooltip"
+   ]
+  },
+  {
+   "id": "j633o",
+   "name": "Home Window",
+   "x": 0,
+   "y": 720,
+   "w": 1040,
+   "h": 700,
+   "uses": [
+    "Home/ProjectCard",
+    "Home/TemplateChip",
+    "Home/URLBox",
+    "Sidebar/Row",
+    "Toolbar/Button"
+   ]
+  },
+  {
+   "id": "SkRUV",
+   "name": "Home Window · Liste",
+   "x": 1160,
+   "y": 720,
+   "w": 1040,
+   "h": 700,
+   "uses": [
+    "Home/TemplateChip",
+    "Home/URLBox",
+    "Sidebar/Row",
+    "Toolbar/Button"
+   ]
+  },
+  {
+   "id": "E8Inyr",
+   "name": "Home Window · Boş durum",
+   "x": 2320,
+   "y": 720,
+   "w": 1040,
+   "h": 700,
+   "uses": [
+    "Home/TemplateChip",
+    "Home/URLBox",
+    "Sidebar/Row",
+    "Toolbar/Button"
+   ]
+  },
+  {
+   "id": "E7EP1n",
+   "name": "Home Window · Bağlam menüsü",
+   "x": 3480,
+   "y": 720,
+   "w": 1040,
+   "h": 700,
+   "uses": [
+    "Home/ProjectCard",
+    "Home/TemplateChip",
+    "Home/URLBox",
+    "Sidebar/Row",
+    "Toolbar/Button"
+   ]
+  },
+  {
+   "id": "QzPin",
+   "name": "Home Window · Kaldır alt menüsü",
+   "x": 4640,
+   "y": 720,
+   "w": 1040,
+   "h": 700,
+   "uses": [
+    "Home/ProjectCard",
+    "Home/TemplateChip",
+    "Home/URLBox",
+    "Sidebar/Row",
+    "Toolbar/Button"
+   ]
+  },
+  {
+   "id": "IMusa",
+   "name": "Project Window · Cihaz seçici (birleşik)",
+   "x": 3120,
+   "y": 3280,
+   "w": 1440,
+   "h": 900,
+   "uses": [
+    "Device/Picker",
+    "Sidebar/Header",
+    "Sidebar/Row",
+    "Viewport/Card",
+    "Viewport/HoverStrip",
+    "Window/BottomBar",
+    "Window/DeviceStrip",
+    "Window/Rail"
+   ]
+  },
+  {
+   "id": "Dr4hZ",
+   "name": "Dev Panel · Farklar (sakin)",
+   "x": 0,
+   "y": 4660,
+   "w": 1440,
+   "h": 900,
+   "uses": [
+    "Sidebar/Header",
+    "Sidebar/Row",
+    "Viewport/Card",
+    "Viewport/HoverStrip",
+    "Window/BottomBar",
+    "Window/DeviceStrip",
+    "Window/Rail"
+   ]
+  },
+  {
+   "id": "VsnVs",
+   "name": "Dev Panel · Senkron (sakin)",
+   "x": 1560,
+   "y": 4660,
+   "w": 1440,
+   "h": 900,
+   "uses": [
+    "Sidebar/Header",
+    "Sidebar/Row",
+    "Viewport/Card",
+    "Viewport/HoverStrip",
+    "Window/BottomBar",
+    "Window/DeviceStrip",
+    "Window/Rail"
+   ]
+  },
+  {
+   "id": "lfJ3a",
+   "name": "Dev Panel · Fark yok (sakin)",
+   "x": 3120,
+   "y": 4660,
+   "w": 1440,
+   "h": 900,
+   "uses": [
+    "Sidebar/Header",
+    "Sidebar/Row",
+    "Viewport/Card",
+    "Viewport/HoverStrip",
+    "Window/BottomBar",
+    "Window/DeviceStrip",
+    "Window/Rail"
+   ]
+  },
+  {
+   "id": "M1DiUr",
+   "name": "Engine Glyphs",
+   "x": 884,
+   "y": 7190,
+   "w": 365,
+   "h": 251,
+   "uses": []
+  },
+  {
+   "id": "qm0vz",
+   "name": "Project Window · URL son 5",
+   "x": 4680,
+   "y": 1900,
+   "w": 1440,
+   "h": 900,
+   "uses": [
+    "Sidebar/Header",
+    "Sidebar/Row",
+    "Viewport/Card",
+    "Viewport/HoverStrip",
+    "Window/BottomBar",
+    "Window/DeviceStrip",
+    "Window/Rail"
+   ]
+  },
+  {
+   "id": "p48xxG",
+   "name": "Sidebar States",
+   "x": 5598,
+   "y": 6040,
+   "w": 1252,
+   "h": 501,
+   "uses": [
+    "Sidebar/Row"
+   ]
+  },
+  {
+   "id": "X5k7c",
+   "name": "Project Window · Ekran görüntüsü menüsü",
+   "x": 4680,
+   "y": 3280,
+   "w": 1440,
+   "h": 900,
+   "uses": [
+    "Sidebar/Header",
+    "Sidebar/Row",
+    "Viewport/Card",
+    "Viewport/HoverStrip",
+    "Window/BottomBar",
+    "Window/DeviceStrip",
+    "Window/Rail"
+   ]
+  },
+  {
+   "id": "XsCo1",
+   "name": "App Icon · B variants",
+   "x": 0,
+   "y": 7190,
+   "w": 764,
+   "h": 708,
+   "uses": []
+  },
+  {
+   "id": "ioLB2",
+   "name": "Selected Options",
+   "x": 1942,
+   "y": 6040,
+   "w": 1060,
+   "h": 670,
+   "uses": [
+    "Viewport/Card"
+   ]
+  },
+  {
+   "id": "T6iQ4",
+   "name": "Project Window · Ayarlar paneli",
+   "x": 6240,
+   "y": 1900,
+   "w": 1440,
+   "h": 900,
+   "uses": [
+    "Sidebar/Header",
+    "Sidebar/Row",
+    "Viewport/Card",
+    "Viewport/HoverStrip",
+    "Window/BottomBar",
+    "Window/DeviceStrip",
+    "Window/Rail"
+   ]
+  },
+  {
+   "id": "JD8Q1",
+   "name": "Design System · Tokens",
+   "x": 0,
+   "y": -2480,
+   "w": 2400,
+   "h": 1696,
+   "uses": []
+  },
+  {
+   "id": "kp8Ek",
+   "name": "Home Window · Ayarlar paneli",
+   "x": 5800,
+   "y": 720,
+   "w": 1040,
+   "h": 700,
+   "uses": [
+    "Home/ProjectCard",
+    "Home/TemplateChip",
+    "Home/URLBox",
+    "Sidebar/Row",
+    "Toolbar/Button"
+   ]
+  },
+  {
+   "id": "amtWl",
+   "name": "Project Window · Canvas boş",
+   "x": 7800,
+   "y": 1900,
+   "w": 1440,
+   "h": 900,
+   "uses": [
+    "Sidebar/Header",
+    "Sidebar/Row",
+    "Window/BottomBar",
+    "Window/DeviceStrip",
+    "Window/Rail"
+   ]
+  },
+  {
+   "id": "Cld0z",
+   "name": "Card Actions",
+   "x": 3122,
+   "y": 6040,
+   "w": 1576,
+   "h": 517,
+   "uses": [
+    "Viewport/Card",
+    "Viewport/HoverStrip"
+   ]
+  },
+  {
+   "id": "NzMCp",
+   "name": "Toast States",
+   "x": 7490,
+   "y": 6040,
+   "w": 376,
+   "h": 374,
+   "uses": [
+    "Window/Toast"
+   ]
+  },
+  {
+   "id": "xY8o9",
+   "name": "Sidebar · Sayfa sağ tık menüsü",
+   "x": 6970,
+   "y": 6040,
+   "w": 400,
+   "h": 420,
+   "uses": [
+    "Sidebar/Row"
+   ]
+  },
+  {
+   "id": "mV0xH",
+   "name": "Shortcut Map · Menü çubuğu",
+   "x": 2560,
+   "y": -2480,
+   "w": 1560,
+   "h": 675,
+   "uses": []
+  },
+  {
+   "id": "JGcRx",
+   "name": "Chrome Spec",
+   "x": 8400,
+   "y": 6040,
+   "w": 1720,
+   "h": 1307,
+   "uses": [
+    "Sidebar/Header",
+    "Window/BottomBar",
+    "Window/CollapsedHeader",
+    "Window/DeviceStrip",
+    "Window/Rail",
+    "Window/RailHandle",
+    "Window/Tooltip"
+   ]
+  },
+  {
+   "id": "dMDOK",
+   "name": "Project Window · Ayarlar › Cihazlar",
+   "x": 9360,
+   "y": 1900,
+   "w": 1440,
+   "h": 900,
+   "uses": [
+    "Sidebar/Header",
+    "Sidebar/Row",
+    "Viewport/Card",
+    "Viewport/HoverStrip",
+    "Window/BottomBar",
+    "Window/DeviceStrip",
+    "Window/Rail"
+   ]
+  },
+  {
+   "id": "R0VEg",
+   "name": "Project Window · Ayarlar › MCP",
+   "x": 10920,
+   "y": 1900,
+   "w": 1440,
+   "h": 900,
+   "uses": [
+    "Sidebar/Header",
+    "Sidebar/Row",
+    "Viewport/Card",
+    "Viewport/HoverStrip",
+    "Window/BottomBar",
+    "Window/DeviceStrip",
+    "Window/Rail"
+   ]
+  },
+  {
+   "id": "P8hJd5",
+   "name": "Project Window · Ayarlar › Hesap",
+   "x": 12480,
+   "y": 1900,
+   "w": 1440,
+   "h": 900,
+   "uses": [
+    "Sidebar/Header",
+    "Sidebar/Row",
+    "Viewport/Card",
+    "Viewport/HoverStrip",
+    "Window/BottomBar",
+    "Window/DeviceStrip",
+    "Window/Rail"
+   ]
+  },
+  {
+   "id": "O7JgxK",
+   "name": "Project Window · Ray gizli",
+   "x": 14040,
+   "y": 1900,
+   "w": 1440,
+   "h": 900,
+   "uses": [
+    "Sidebar/Header",
+    "Sidebar/Row",
+    "Viewport/Card",
+    "Viewport/HoverStrip",
+    "Window/BottomBar",
+    "Window/DeviceStrip",
+    "Window/RailHandle",
+    "Window/Toast"
+   ]
+  },
+  {
+   "id": "s3Atj",
+   "name": "Card Load Errors",
+   "x": 10400,
+   "y": 6040,
+   "w": 1060,
+   "h": 650,
+   "uses": [
+    "Toolbar/DeviceTab",
+    "Viewport/Card",
+    "Window/Toast"
+   ]
+  },
+  {
+   "id": "q6obk",
+   "name": "Project Window · Kart sürükleniyor",
+   "x": 9360,
+   "y": 3280,
+   "w": 1440,
+   "h": 900,
+   "uses": [
+    "Sidebar/Header",
+    "Sidebar/Row",
+    "Viewport/Card",
+    "Viewport/HoverStrip",
+    "Window/BottomBar",
+    "Window/DeviceStrip",
+    "Window/Rail"
+   ]
+  },
+  {
+   "id": "N1dkY",
+   "name": "Project Window · Gruplar (cihaz türü)",
+   "x": 10920,
+   "y": 3280,
+   "w": 1440,
+   "h": 900,
+   "uses": [
+    "Sidebar/Header",
+    "Sidebar/Row",
+    "Viewport/Card",
+    "Viewport/HoverStrip",
+    "Window/BottomBar",
+    "Window/DeviceStrip",
+    "Window/Rail"
+   ]
+  },
+  {
+   "id": "g5nQ0p",
+   "name": "Misc States",
+   "x": 12200,
+   "y": 6040,
+   "w": 1240,
+   "h": 809,
+   "uses": [
+    "Sidebar/Row",
+    "Toolbar/Button",
+    "Toolbar/DeviceTab"
+   ]
+  },
+  {
+   "id": "B1aeP",
+   "name": "Project Window · Gruplar · katlanmış",
+   "x": 12480,
+   "y": 3280,
+   "w": 1440,
+   "h": 900,
+   "uses": [
+    "Sidebar/Header",
+    "Sidebar/Row",
+    "Viewport/Card",
+    "Viewport/HoverStrip",
+    "Window/BottomBar",
+    "Window/DeviceStrip",
+    "Window/Rail"
+   ]
+  },
+  {
+   "id": "SlUcW",
+   "name": "Project Window · Gruplar (motor, M4)",
+   "x": 14040,
+   "y": 3280,
+   "w": 1440,
+   "h": 900,
+   "uses": [
+    "Sidebar/Header",
+    "Sidebar/Row",
+    "Viewport/Card",
+    "Viewport/HoverStrip",
+    "Window/BottomBar",
+    "Window/DeviceStrip",
+    "Window/Rail"
+   ]
+  },
+  {
+   "id": "BQurR",
+   "name": "Home File Errors",
+   "x": 13600,
+   "y": 6040,
+   "w": 1100,
+   "h": 785,
+   "uses": [
+    "Home/ProjectCard"
+   ]
+  },
+  {
+   "id": "hJrjk",
+   "name": "Project Window · En küçük boyut (1024×640)",
+   "x": 15600,
+   "y": 1900,
+   "w": 1024,
+   "h": 640,
+   "uses": [
+    "Sidebar/Header",
+    "Sidebar/Row",
+    "Viewport/Card",
+    "Viewport/HoverStrip",
+    "Window/BottomBar",
+    "Window/DeviceStrip",
+    "Window/Rail",
+    "Window/Toast"
+   ]
+  },
+  {
+   "id": "IVxFw",
+   "name": "Project Window · Tam ekran",
+   "x": 17160,
+   "y": 1900,
+   "w": 1440,
+   "h": 900,
+   "uses": [
+    "Sidebar/Header",
+    "Sidebar/Row",
+    "Viewport/Card",
+    "Viewport/HoverStrip",
+    "Window/BottomBar",
+    "Window/DeviceStrip",
+    "Window/Rail",
+    "Window/Toast"
+   ]
+  },
+  {
+   "id": "hTxn0",
+   "name": "Misc States 2",
+   "x": 14900,
+   "y": 6040,
+   "w": 1400,
+   "h": 2072,
+   "uses": [
+    "Sidebar/Header",
+    "Sidebar/Row",
+    "Toolbar/DeviceTab",
+    "Viewport/Card",
+    "Window/Rail",
+    "Window/Toast",
+    "Window/Tooltip"
+   ]
+  },
+  {
+   "id": "Q2jiv",
+   "name": "Home States",
+   "x": 16500,
+   "y": 6040,
+   "w": 1204,
+   "h": 733,
+   "uses": [
+    "Home/ProjectCard",
+    "Home/TemplateChip",
+    "Home/URLBox"
+   ]
+  }
+ ]
+}

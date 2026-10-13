@@ -13,9 +13,9 @@ Kaynak: `design/viewportix.pen`, döküm 2026-10-13. Sözleşme: `README.md`.
 | `Toolbar/Button` | `ChromeButton` | `w629d9` | 73×27 | ikon + etiket, ikon-only + tooltip | 8 |
 | `Toolbar/DeviceTab` | `DeviceTab` | `FpUpU` | 95×27 | normal, leader, syncMissed, loading, snapshot | 4 |
 | `Toolbar/ZoomControl` | `ZoomControl` | `sSUik` | 72×33 | yüzde + ▲▼ | 0 |
-| `Home/ProjectCard` | `ProjectCard` | `sACvk` | 236×195 | normal, hover, draft | 5 |
-| `Home/TemplateChip` | `TemplateChip` | `k9seN` | 115×31 | normal, selected | 6 |
-| `Home/URLBox` | `URLBox` | `m9eWrA` | 560×47 | empty, filled, invalid | 6 |
+| `Home/ProjectCard` | `ProjectCard` | `sACvk` | 236×195 | normal, hover (`line/strong` + ⋯), draft, sağ tık hedefi (gök kenar + ⋯), dosya bulunamadı | 6 |
+| `Home/TemplateChip` | `TemplateChip` | `k9seN` | 115×31 | normal, selected | 7 |
+| `Home/URLBox` | `URLBox` | `m9eWrA` | 560×47 | empty, filled, invalid (Aç hep sarı) | 7 |
 | `Device/Picker` | `DevicePicker` | `G9E6ET` | 660×345 | popover | 1 |
 | `Sidebar/Header` | `SidebarHeader` | `tzWBu` | 216×110 | URL dolu, odak (+ Son 5 menüsü), boş | 25 |
 | `Window/BottomBar` | `BottomBar` | `I3EMY` | 210×49 | syncOn, syncOff; düğme hover / basılı / menü açık; tooltip (400 ms) | 26 |
@@ -23,6 +23,7 @@ Kaynak: `design/viewportix.pen`, döküm 2026-10-13. Sözleşme: `README.md`.
 | `Window/Rail` | `InspectorRail` | `O8YpHG` | 44×900 | öğe: default, hover, active, badge; ray gizliyken `RailHandle` | 26 |
 | `Window/CollapsedHeader` | `CollapsedSidebarHeader` | `P0uqV` | 396×38 | sidebar kapalıyken canvas sol üstünde (16, 16) | 3 |
 | `Window/RailHandle` | `RailHandle` | `vDAMf` | 24×56 | ray gizliyken sağ kenarda; badge (Farklar bulgusu), hover tooltip | 2 |
+| `Window/Tooltip` | `ChromeTooltip` | `boSko` | 78×33 | ok aşağıda (varsayılan) / ok yok (yan tooltip); kısayol isteğe bağlı; hedefe 8 px, 400 ms gecikme | 5 |
 
 ## Ekranlar
 
@@ -33,8 +34,8 @@ Kaynak: `design/viewportix.pen`, döküm 2026-10-13. Sözleşme: `README.md`.
 | Project Window · 8 cihaz | 02 · Proje penceresi | `SRvkj` | 1440×900 | `window-project-many-devices@2x.png` | Sidebar/Header, Sidebar/Row, Viewport/Card, Viewport/HoverStrip, Window/BottomBar, Window/DeviceStrip, Window/Rail, Window/Toast |
 | Project Window · 8 cihaz · menü açık | 03 · Menüler ve durumlar | `S9oTqZ` | 1440×900 | `window-project-overflow-menu-open@2x.png` | Sidebar/Header, Sidebar/Row, Viewport/Card, Viewport/HoverStrip, Window/BottomBar, Window/DeviceStrip, Window/Rail, Window/Toast |
 | Project Window · Zoom menüsü açık | 03 · Menüler ve durumlar | `Gcdye` | 1440×900 | `window-project-zoom-menu-open@2x.png` | Sidebar/Header, Sidebar/Row, Viewport/Card, Viewport/HoverStrip, Window/BottomBar, Window/DeviceStrip, Window/Rail |
-| Project Window · İkon çubuklar + tooltip | 03 · Menüler ve durumlar | `ZgWIQ` | 1440×900 | `window-project-icon-bars-tooltip@2x.png` | Viewport/Card, Viewport/HoverStrip, Window/BottomBar, Window/CollapsedHeader, Window/DeviceStrip, Window/Rail |
-| Project Window · Motor tooltip | 03 · Menüler ve durumlar | `k1UnJv` | 1440×900 | `window-project-engine-tooltip@2x.png` | Sidebar/Header, Sidebar/Row, Viewport/Card, Viewport/HoverStrip, Window/BottomBar, Window/DeviceStrip, Window/Rail |
+| Project Window · İkon çubuklar + tooltip | 03 · Menüler ve durumlar | `ZgWIQ` | 1440×900 | `window-project-icon-bars-tooltip@2x.png` | Viewport/Card, Viewport/HoverStrip, Window/BottomBar, Window/CollapsedHeader, Window/DeviceStrip, Window/Rail, Window/Tooltip |
+| Project Window · Motor tooltip | 03 · Menüler ve durumlar | `k1UnJv` | 1440×900 | `window-project-engine-tooltip@2x.png` | Sidebar/Header, Sidebar/Row, Viewport/Card, Viewport/HoverStrip, Window/BottomBar, Window/DeviceStrip, Window/Rail, Window/Tooltip |
 | Home Window | 01 · Giriş ekranı | `j633o` | 1040×700 | `window-home-dark@2x.png` | Home/ProjectCard, Home/TemplateChip, Home/URLBox, Sidebar/Row, Toolbar/Button |
 | Home Window · Liste | 01 · Giriş ekranı | `SkRUV` | 1040×700 | `window-home-list@2x.png` | Home/TemplateChip, Home/URLBox, Sidebar/Row, Toolbar/Button |
 | Home Window · Boş durum | 01 · Giriş ekranı | `E8Inyr` | 1040×700 | `window-home-empty@2x.png` | Home/TemplateChip, Home/URLBox, Sidebar/Row, Toolbar/Button |
@@ -66,7 +67,7 @@ Kaynak: `design/viewportix.pen`, döküm 2026-10-13. Sözleşme: `README.md`.
 |---|---|---|---|---|
 | Viewport States | 05 · Bileşen durumları | `U1DEv` | `card-states@2x.png` | Viewport/Card |
 | Tab States & Overflow Menu | 05 · Bileşen durumları | `pDYzq` | `tab-states-overflow-menu@2x.png` | Toolbar/Button, Toolbar/DeviceTab |
-| Engine Tooltip | 05 · Bileşen durumları | `L9rkJ` | `card-engine-tooltip@2x.png` | Viewport/Card |
+| Engine Tooltip | 05 · Bileşen durumları | `L9rkJ` | `card-engine-tooltip@2x.png` | Viewport/Card, Window/Tooltip |
 | Engine Glyphs | 06 · İkon ve glifler | `M1DiUr` | `engine-glyphs@2x.png` |  |
 | Sidebar States | 05 · Bileşen durumları | `p48xxG` | `sidebar-states@2x.png` | Sidebar/Row |
 | App Icon · B variants | 06 · İkon ve glifler | `XsCo1` | `app-icon-B-variants@2x.png` |  |
@@ -76,11 +77,12 @@ Kaynak: `design/viewportix.pen`, döküm 2026-10-13. Sözleşme: `README.md`.
 | Toast States | 05 · Bileşen durumları | `NzMCp` | `toast-states@2x.png` | Window/Toast |
 | Sidebar · Sayfa sağ tık menüsü | 05 · Bileşen durumları | `xY8o9` | `sidebar-page-context-menu@2x.png` | Sidebar/Row |
 | Shortcut Map · Menü çubuğu | 00 · Tasarım sistemi | `mV0xH` | `shortcut-map@2x.png` |  |
-| Chrome Spec | 05 · Bileşen durumları | `JGcRx` | `chrome-spec@2x.png` | Sidebar/Header, Window/BottomBar, Window/CollapsedHeader, Window/DeviceStrip, Window/Rail, Window/RailHandle |
+| Chrome Spec | 05 · Bileşen durumları | `JGcRx` | `chrome-spec@2x.png` | Sidebar/Header, Window/BottomBar, Window/CollapsedHeader, Window/DeviceStrip, Window/Rail, Window/RailHandle, Window/Tooltip |
 | Card Load Errors | 05 · Bileşen durumları | `s3Atj` | `card-load-errors@2x.png` | Toolbar/DeviceTab, Viewport/Card, Window/Toast |
 | Misc States | 05 · Bileşen durumları | `g5nQ0p` | `misc-states@2x.png` | Sidebar/Row, Toolbar/Button, Toolbar/DeviceTab |
 | Home File Errors | 05 · Bileşen durumları | `BQurR` | `home-file-errors@2x.png` | Home/ProjectCard |
-| Misc States 2 | 05 · Bileşen durumları | `hTxn0` | `misc-states-2@2x.png` | Sidebar/Header, Sidebar/Row, Toolbar/DeviceTab, Viewport/Card, Window/Rail, Window/Toast |
+| Misc States 2 | 05 · Bileşen durumları | `hTxn0` | `misc-states-2@2x.png` | Sidebar/Header, Sidebar/Row, Toolbar/DeviceTab, Viewport/Card, Window/Rail, Window/Toast, Window/Tooltip |
+| Home States | 05 · Bileşen durumları | `Q2jiv` | `home-states@2x.png` | Home/ProjectCard, Home/TemplateChip, Home/URLBox |
 
 ## Açık sorular
 

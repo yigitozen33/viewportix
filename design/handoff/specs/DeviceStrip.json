@@ -42,6 +42,8 @@
  ],
  "usedVia": [],
  "tokens": {
+  "font/caption": "DesignTokens.FontSize.caption",
+  "font/label": "DesignTokens.FontSize.label",
   "font/micro": "DesignTokens.FontSize.micro",
   "font/ui": "system font (SF Pro; Inter is a design proxy)",
   "ink/primary": "DesignTokens.Color.inkPrimary",
@@ -729,7 +731,7 @@
             "text": {
              "content": "+3",
              "fontFamily": "$font/ui",
-             "fontSize": 12,
+             "fontSize": "$font/label",
              "fontWeight": "600"
             }
            },
@@ -836,7 +838,7 @@
          "text": {
           "content": "+3",
           "fontFamily": "$font/ui",
-          "fontSize": 12,
+          "fontSize": "$font/label",
           "fontWeight": "600"
          }
         },
@@ -923,7 +925,7 @@
          "text": {
           "content": "+3",
           "fontFamily": "$font/ui",
-          "fontSize": 12,
+          "fontSize": "$font/label",
           "fontWeight": "600"
          }
         },
@@ -1027,7 +1029,7 @@
          "text": {
           "content": "+3",
           "fontFamily": "$font/ui",
-          "fontSize": 12,
+          "fontSize": "$font/label",
           "fontWeight": "600"
          }
         },
@@ -1131,7 +1133,7 @@
          "text": {
           "content": "+3",
           "fontFamily": "$font/ui",
-          "fontSize": 12,
+          "fontSize": "$font/label",
           "fontWeight": "600"
          }
         },
@@ -1241,7 +1243,7 @@
        "text": {
         "content": "GİZLİ CİHAZLAR · tıkla: sekmeye kaydır",
         "fontFamily": "$font/ui",
-        "fontSize": 10,
+        "fontSize": "$font/micro",
         "fontWeight": "600",
         "letterSpacing": 0.8
        }
@@ -1311,7 +1313,7 @@
          "text": {
           "content": "Laptop",
           "fontFamily": "$font/ui",
-          "fontSize": 12,
+          "fontSize": "$font/label",
           "fontWeight": "500"
          }
         },
@@ -1327,7 +1329,7 @@
          "text": {
           "content": "1280×800 · WebKit 26 · Element bulunamadı",
           "fontFamily": "$font/ui",
-          "fontSize": 11,
+          "fontSize": "$font/caption",
           "fontWeight": "normal"
          }
         }
@@ -1439,7 +1441,7 @@
          "text": {
           "content": "Geniş ekran",
           "fontFamily": "$font/ui",
-          "fontSize": 12,
+          "fontSize": "$font/label",
           "fontWeight": "500"
          }
         },
@@ -1455,7 +1457,7 @@
          "text": {
           "content": "1920×1080 · WebKit 26",
           "fontFamily": "$font/ui",
-          "fontSize": 11,
+          "fontSize": "$font/caption",
           "fontWeight": "normal"
          }
         }
@@ -1553,7 +1555,7 @@
          "text": {
           "content": "Masaüstü",
           "fontFamily": "$font/ui",
-          "fontSize": 12,
+          "fontSize": "$font/label",
           "fontWeight": "500"
          }
         },
@@ -1569,7 +1571,7 @@
          "text": {
           "content": "1440×900 · WebKit 26 · Yükleniyor",
           "fontFamily": "$font/ui",
-          "fontSize": 11,
+          "fontSize": "$font/caption",
           "fontWeight": "normal"
          }
         }
@@ -1659,7 +1661,7 @@
      "text": {
       "content": "+3",
       "fontFamily": "$font/ui",
-      "fontSize": 12,
+      "fontSize": "$font/label",
       "fontWeight": "600"
      }
     },
@@ -1844,84 +1846,6 @@
    "prop": "fill.colors.color",
    "value": "#2D2926",
    "sameAsToken": "surface/header"
-  },
-  {
-   "node": "Window/DeviceStrip [Taşma (8 cihaz)] › Tabs › Overflow Chip › MoreText",
-   "prop": "fontSize",
-   "value": 12,
-   "sameAsToken": "font/label"
-  },
-  {
-   "node": "Window/DeviceStrip › Chips › State Normal › Chip › N",
-   "prop": "fontSize",
-   "value": 12,
-   "sameAsToken": "font/label"
-  },
-  {
-   "node": "Window/DeviceStrip › Chips › State Yükleniyor › Chip › N",
-   "prop": "fontSize",
-   "value": 12,
-   "sameAsToken": "font/label"
-  },
-  {
-   "node": "Window/DeviceStrip › Chips › State Lider gizli › Chip › N",
-   "prop": "fontSize",
-   "value": 12,
-   "sameAsToken": "font/label"
-  },
-  {
-   "node": "Window/DeviceStrip › Chips › State Hata gizli › Chip › N",
-   "prop": "fontSize",
-   "value": 12,
-   "sameAsToken": "font/label"
-  },
-  {
-   "node": "Window/DeviceStrip › Overflow Menu › Menu Header › HeaderText",
-   "prop": "fontSize",
-   "value": 10,
-   "sameAsToken": "font/micro"
-  },
-  {
-   "node": "Window/DeviceStrip › Overflow Menu › Menu Row Laptop › Text › Name",
-   "prop": "fontSize",
-   "value": 12,
-   "sameAsToken": "font/label"
-  },
-  {
-   "node": "Window/DeviceStrip › Overflow Menu › Menu Row Laptop › Text › Meta",
-   "prop": "fontSize",
-   "value": 11,
-   "sameAsToken": "font/caption"
-  },
-  {
-   "node": "Window/DeviceStrip › Overflow Menu › Menu Row Geniş ekran › Text › Name",
-   "prop": "fontSize",
-   "value": 12,
-   "sameAsToken": "font/label"
-  },
-  {
-   "node": "Window/DeviceStrip › Overflow Menu › Menu Row Geniş ekran › Text › Meta",
-   "prop": "fontSize",
-   "value": 11,
-   "sameAsToken": "font/caption"
-  },
-  {
-   "node": "Window/DeviceStrip › Overflow Menu › Menu Row Masaüstü › Text › Name",
-   "prop": "fontSize",
-   "value": 12,
-   "sameAsToken": "font/label"
-  },
-  {
-   "node": "Window/DeviceStrip › Overflow Menu › Menu Row Masaüstü › Text › Meta",
-   "prop": "fontSize",
-   "value": 11,
-   "sameAsToken": "font/caption"
-  },
-  {
-   "node": "Window/DeviceStrip › Overflow Chip › MoreText",
-   "prop": "fontSize",
-   "value": 12,
-   "sameAsToken": "font/label"
   }
  ],
  "rawNumbers": [

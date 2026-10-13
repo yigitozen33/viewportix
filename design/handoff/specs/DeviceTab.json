@@ -24,14 +24,12 @@
   "font/ui": "system font (SF Pro; Inter is a design proxy)",
   "ink/primary": "DesignTokens.Color.inkPrimary",
   "ink/secondary": "DesignTokens.Color.inkSecondary",
-  "line": "DesignTokens.Color.line",
   "radius/control": "DesignTokens.Radius.control",
   "space/2": "DesignTokens.Space.s2",
   "status/leader": "DesignTokens.Color.statusLeader",
   "status/warning": "DesignTokens.Color.statusWarning",
   "surface/card": "DesignTokens.Color.surfaceCard",
-  "surface/header-leader": "DesignTokens.Color.surfaceHeaderLeader",
-  "surface/tooltip": "DesignTokens.Color.surfaceTooltip"
+  "surface/header-leader": "DesignTokens.Color.surfaceHeaderLeader"
  },
  "tree": {
   "name": "Toolbar/DeviceTab",
@@ -348,132 +346,11 @@
       }
      ]
     }
-   ],
-   "arrangement": {
-    "in": "",
-    "axis": "vertical",
-    "gap": 8
-   },
-   "companions": [
-    {
-     "name": "Tooltip",
-     "type": "frame",
-     "nodeId": "ERTsP",
-     "size": {
-      "w": "fit",
-      "h": "fit"
-     },
-     "layout": {
-      "axis": "vertical",
-      "stack": "VStack",
-      "alignItems": "center"
-     },
-     "children": [
-      {
-       "name": "Tooltip Body",
-       "type": "frame",
-       "nodeId": "vk4kC",
-       "size": {
-        "w": "fit",
-        "h": "fit"
-       },
-       "layout": {
-        "axis": "horizontal",
-        "stack": "HStack",
-        "gap": 8,
-        "alignItems": "center",
-        "padding": [
-         6,
-         10,
-         6,
-         10
-        ]
-       },
-       "cornerRadius": 8,
-       "fill": "$surface/tooltip",
-       "stroke": "$line",
-       "strokeWidth": 1,
-       "strokeAlignment": "inner",
-       "children": [
-        {
-         "name": "TipText",
-         "type": "text",
-         "nodeId": "ozFNN",
-         "size": {
-          "w": "fit",
-          "h": "fit"
-         },
-         "fill": "$ink/primary",
-         "text": {
-          "content": "iPhone 16 Pro Max · Chromium",
-          "fontFamily": "$font/ui",
-          "fontSize": 12,
-          "fontWeight": "500"
-         }
-        },
-        {
-         "name": "TipKey",
-         "type": "text",
-         "nodeId": "jqd9N",
-         "hidden": true,
-         "position": {
-          "at": [
-           52,
-           7
-          ]
-         },
-         "size": {
-          "w": "fit",
-          "h": "fit"
-         },
-         "fill": "$ink/secondary",
-         "text": {
-          "content": "⌘1",
-          "fontFamily": "$font/ui",
-          "fontSize": 11,
-          "fontWeight": "normal"
-         }
-        }
-       ]
-      },
-      {
-       "name": "Caret",
-       "type": "polygon",
-       "nodeId": "EuTss",
-       "hidden": true,
-       "position": {
-        "at": [
-         45,
-         33
-        ]
-       },
-       "size": {
-        "w": 12,
-        "h": 6
-       },
-       "fill": "$surface/tooltip",
-       "rotation": 180
-      }
-     ]
-    }
    ]
   }
  ],
  "onScreens": [],
- "rawValues": [
-  {
-   "node": "Toolbar/DeviceTab [Sekme (en çok 140 px)] › Tooltip › Tooltip Body › TipText",
-   "prop": "fontSize",
-   "value": 12,
-   "sameAsToken": "font/label"
-  },
-  {
-   "node": "Toolbar/DeviceTab [Sekme (en çok 140 px)] › Tooltip › Tooltip Body › TipKey",
-   "prop": "fontSize",
-   "value": 11,
-   "sameAsToken": "font/caption"
-  }
- ],
+ "rawValues": [],
  "rawNumbers": [
   {
    "node": "Toolbar/DeviceTab",
@@ -508,36 +385,6 @@
   {
    "node": "Toolbar/DeviceTab [klavye odağı (focus ring)] › Ring",
    "prop": "cornerRadius",
-   "value": 10,
-   "sameAsToken": null
-  },
-  {
-   "node": "Toolbar/DeviceTab [Sekme (en çok 140 px)] › Tooltip › Tooltip Body",
-   "prop": "cornerRadius",
-   "value": 8,
-   "sameAsToken": "radius/control"
-  },
-  {
-   "node": "Toolbar/DeviceTab [Sekme (en çok 140 px)] › Tooltip › Tooltip Body",
-   "prop": "strokeWidth",
-   "value": 1,
-   "sameAsToken": "stroke/hairline"
-  },
-  {
-   "node": "Toolbar/DeviceTab [Sekme (en çok 140 px)] › Tooltip › Tooltip Body",
-   "prop": "gap",
-   "value": 8,
-   "sameAsToken": "space/2"
-  },
-  {
-   "node": "Toolbar/DeviceTab [Sekme (en çok 140 px)] › Tooltip › Tooltip Body",
-   "prop": "padding",
-   "value": 6,
-   "sameAsToken": null
-  },
-  {
-   "node": "Toolbar/DeviceTab [Sekme (en çok 140 px)] › Tooltip › Tooltip Body",
-   "prop": "padding",
    "value": 10,
    "sameAsToken": null
   }

@@ -32,8 +32,7 @@
   "line": "DesignTokens.Color.line",
   "status/warning": "DesignTokens.Color.statusWarning",
   "stroke/hairline": "DesignTokens.Stroke.hairline",
-  "surface/header": "DesignTokens.Color.surfaceHeader",
-  "surface/tooltip": "DesignTokens.Color.surfaceTooltip"
+  "surface/header": "DesignTokens.Color.surfaceHeader"
  },
  "tree": {
   "name": "Window/Toast",
@@ -428,120 +427,6 @@
       }
      ]
     }
-   ],
-   "arrangement": {
-    "in": "",
-    "axis": "vertical",
-    "gap": 8,
-    "padding": [
-     8,
-     0,
-     0,
-     0
-    ]
-   },
-   "companions": [
-    {
-     "name": "Tooltip",
-     "type": "frame",
-     "nodeId": "GqA26",
-     "size": {
-      "w": "fit",
-      "h": "fit"
-     },
-     "layout": {
-      "axis": "vertical",
-      "stack": "VStack",
-      "alignItems": "center"
-     },
-     "children": [
-      {
-       "name": "Tooltip Body",
-       "type": "frame",
-       "nodeId": "JZNdv",
-       "size": {
-        "w": "fit",
-        "h": "fit"
-       },
-       "layout": {
-        "axis": "horizontal",
-        "stack": "HStack",
-        "gap": 8,
-        "alignItems": "center",
-        "padding": [
-         6,
-         10,
-         6,
-         10
-        ]
-       },
-       "cornerRadius": 8,
-       "fill": "$surface/tooltip",
-       "stroke": "$line",
-       "strokeWidth": 1,
-       "strokeAlignment": "inner",
-       "children": [
-        {
-         "name": "TipText",
-         "type": "text",
-         "nodeId": "AZtdt",
-         "size": {
-          "w": "fit",
-          "h": "fit"
-         },
-         "fill": "$ink/primary",
-         "text": {
-          "content": "Bu sayfada senkron çalışmıyor",
-          "fontFamily": "$font/ui",
-          "fontSize": 12,
-          "fontWeight": "500"
-         }
-        },
-        {
-         "name": "TipKey",
-         "type": "text",
-         "nodeId": "zPUyn",
-         "hidden": true,
-         "position": {
-          "at": [
-           52,
-           7
-          ]
-         },
-         "size": {
-          "w": "fit",
-          "h": "fit"
-         },
-         "fill": "$ink/secondary",
-         "text": {
-          "content": "⌘1",
-          "fontFamily": "$font/ui",
-          "fontSize": 11,
-          "fontWeight": "normal"
-         }
-        }
-       ]
-      },
-      {
-       "name": "Caret",
-       "type": "polygon",
-       "nodeId": "guM4s",
-       "hidden": true,
-       "position": {
-        "at": [
-         45,
-         33
-        ]
-       },
-       "size": {
-        "w": 12,
-        "h": 6
-       },
-       "fill": "$surface/tooltip",
-       "rotation": 180
-      }
-     ]
-    }
    ]
   }
  ],
@@ -583,20 +468,7 @@
    }
   }
  ],
- "rawValues": [
-  {
-   "node": "Window/Toast [senkron kurulamıyor · kapsül] › Tooltip › Tooltip Body › TipText",
-   "prop": "fontSize",
-   "value": 12,
-   "sameAsToken": "font/label"
-  },
-  {
-   "node": "Window/Toast [senkron kurulamıyor · kapsül] › Tooltip › Tooltip Body › TipKey",
-   "prop": "fontSize",
-   "value": 11,
-   "sameAsToken": "font/caption"
-  }
- ],
+ "rawValues": [],
  "rawNumbers": [
   {
    "node": "Window/Toast",
@@ -621,36 +493,6 @@
    "prop": "padding",
    "value": 16,
    "sameAsToken": "space/4"
-  },
-  {
-   "node": "Window/Toast [senkron kurulamıyor · kapsül] › Tooltip › Tooltip Body",
-   "prop": "cornerRadius",
-   "value": 8,
-   "sameAsToken": "radius/control"
-  },
-  {
-   "node": "Window/Toast [senkron kurulamıyor · kapsül] › Tooltip › Tooltip Body",
-   "prop": "strokeWidth",
-   "value": 1,
-   "sameAsToken": "stroke/hairline"
-  },
-  {
-   "node": "Window/Toast [senkron kurulamıyor · kapsül] › Tooltip › Tooltip Body",
-   "prop": "gap",
-   "value": 8,
-   "sameAsToken": "space/2"
-  },
-  {
-   "node": "Window/Toast [senkron kurulamıyor · kapsül] › Tooltip › Tooltip Body",
-   "prop": "padding",
-   "value": 6,
-   "sameAsToken": null
-  },
-  {
-   "node": "Window/Toast [senkron kurulamıyor · kapsül] › Tooltip › Tooltip Body",
-   "prop": "padding",
-   "value": 10,
-   "sameAsToken": null
   }
  ]
 }

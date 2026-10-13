@@ -460,6 +460,23 @@
           "value": "JetBrains Mono"
         }
       ]
+    },
+    "line/strong": {
+      "type": "color",
+      "values": [
+        {
+          "value": "#4F4945",
+          "theme": {
+            "mode": "dark"
+          }
+        },
+        {
+          "value": "#C7C0B4",
+          "theme": {
+            "mode": "light"
+          }
+        }
+      ]
     }
   },
   "_generatedBy": "export-variables.js (pen.dev execute) — snapshot, do not edit",

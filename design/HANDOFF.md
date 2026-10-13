@@ -18,7 +18,7 @@ Dışa aktarım adları: `window-project-*` (proje penceresi halleri), `window-h
 ## Şu an neredeyiz
 
 - Ekranlar: giriş (liste, ızgara, boş, bağlam menüsü, kaldır alt menüsü, ayarlar paneli), proje penceresi (ana, sidebar kapalı, 8 cihaz, +N menüsü, zoom menüsü, ikon çubuklar + tooltip, motor tooltip, cihaz seçici, ekran görüntüsü seçici, URL son 5, canvas boş, ray gizli), ayarlar paneli (Genel, Cihazlar, MCP, Hesap), geliştirici paneli (Farklar, Senkron, Fark yok).
-- Bileşenler (00b): `Viewport/Card`, `Viewport/HoverStrip`, `Window/Toast`, `Sidebar/Row`, `Toolbar/Button`, `Toolbar/DeviceTab`, `Toolbar/ZoomControl`, `Home/ProjectCard`, `Home/TemplateChip`, `Home/URLBox`, `Device/Picker`, chrome: `Sidebar/Header`, `Window/CollapsedHeader`, `Window/DeviceStrip`, `Window/BottomBar`, `Window/Rail`, `Window/RailHandle`. Tüm pencere frame'leri instance kullanır.
+- Bileşenler (00b): `Viewport/Card`, `Viewport/HoverStrip`, `Window/Toast`, `Sidebar/Row`, `Toolbar/Button`, `Toolbar/DeviceTab`, `Toolbar/ZoomControl`, `Home/ProjectCard`, `Home/TemplateChip`, `Home/URLBox`, `Device/Picker`, chrome: `Sidebar/Header`, `Window/CollapsedHeader`, `Window/DeviceStrip`, `Window/BottomBar`, `Window/Rail`, `Window/RailHandle`, `Window/Tooltip` (2026-10-13). Tüm pencere frame'leri instance kullanır.
 - Token'lar: renk (koyu; açık değerler ileride), köşe, aralık, yazı, çizgi, boyut (sidebar 240, ray 44, panel 340 / 320).
 - Son kararlar (2026-10-11): Cihazlar sekmesi iki satırlı liste, ray gizliyken tutamaç, sidebar 240, boş URL ipucu, medya duraklatma varsayılan açık (10-10).
 
@@ -31,7 +31,7 @@ Yok (2026-10-13). MVP ve M3 kapsamı çizildi, onaylandı ve koda aktarıldı (`
 
 ## Sürmekte olan iş: aktarım paketi
 
-Plan ve ilerleme: `design/handoff/PLAN.md` ([[PLAN]]). Birden çok oturuma yayılır; yeni oturum önce o dosyayı okur ve ilk tamamlanmamış aşamadan devam eder.
+Plan ve ilerleme: `design/handoff/PLAN.md` ([[PLAN]]). Aşama 0–2 bitti; 3 (bileşen spec'leri) kod oturumunun `BottomBar` denemesini bekliyor (`KOD-OTURUMU-ISLERI.md` §14); sırada 5 (ikon eşleme). Birden çok oturuma yayılır; yeni oturum önce o dosyayı okur ve ilk tamamlanmamış aşamadan devam eder.
 
 ## Oturum başında oku
 

@@ -174,7 +174,7 @@
         "name": "SnapshotPill",
         "enabled": false,
         "opacity": 0.9,
-        "fill": "#161412",
+        "fill": "$canvas",
         "cornerRadius": "$radius/badge",
         "padding": [
          2,
@@ -185,7 +185,7 @@
           "type": "text",
           "id": "vdblk",
           "name": "SnapshotText",
-          "fill": "#F4EFE9",
+          "fill": "$ink/primary",
           "content": "Snapshot",
           "fontFamily": "$font/ui",
           "fontSize": "$font/micro",
@@ -830,7 +830,7 @@
           "type": "rectangle",
           "id": "hyTmp",
           "name": "MiniHeader",
-          "fill": "#2D2926",
+          "fill": "$surface/header",
           "width": "fill_container",
           "height": 6
          },
@@ -866,7 +866,7 @@
           "type": "rectangle",
           "id": "rzeKf",
           "name": "MiniHeader",
-          "fill": "#2D2926",
+          "fill": "$surface/header",
           "width": "fill_container",
           "height": 6
          },
@@ -902,7 +902,7 @@
           "type": "rectangle",
           "id": "zqWGx",
           "name": "MiniHeader",
-          "fill": "#2D2926",
+          "fill": "$surface/header",
           "width": "fill_container",
           "height": 6
          },
@@ -941,7 +941,7 @@
           "type": "rectangle",
           "id": "MBa1Q",
           "name": "MiniHeader",
-          "fill": "#2D2926",
+          "fill": "$surface/header",
           "width": "fill_container",
           "height": 6
          },
@@ -1047,7 +1047,10 @@
        {
         "type": "icon",
         "id": "Gif2H",
+        "x": 208,
+        "y": 19.5,
         "name": "More",
+        "enabled": false,
         "width": 16,
         "height": 16,
         "icon": "ellipsis",
@@ -1120,7 +1123,7 @@
      55
     ],
     "RVMkI": [
-     188,
+     212,
      31
     ],
     "jTmNs": [
@@ -3911,7 +3914,7 @@
         "fill": "$ink/primary",
         "content": "https://marka.com/urun",
         "fontFamily": "$font/ui",
-        "fontSize": 13,
+        "fontSize": "$font/body",
         "fontWeight": "normal"
        }
       ]
@@ -4373,7 +4376,6 @@
       "name": "Rail Diff",
       "width": 32,
       "height": 32,
-      "fill": "#00000000",
       "cornerRadius": "$radius/control",
       "justifyContent": "center",
       "alignItems": "center",
@@ -4667,7 +4669,7 @@
         "fill": "$ink/primary",
         "content": "https://marka.com/urun",
         "fontFamily": "$font/ui",
-        "fontSize": 13,
+        "fontSize": "$font/body",
         "fontWeight": "normal"
        }
       ]
@@ -4791,6 +4793,92 @@
     "Zv79K": [
      7,
      7
+    ]
+   }
+  },
+  {
+   "id": "boSko",
+   "name": "Window/Tooltip",
+   "tree": {
+    "type": "frame",
+    "id": "boSko",
+    "x": 5850,
+    "y": -640,
+    "name": "Window/Tooltip",
+    "reusable": true,
+    "layout": "vertical",
+    "alignItems": "center",
+    "children": [
+     {
+      "type": "frame",
+      "id": "PlBZr",
+      "name": "Tooltip Body",
+      "fill": "$surface/tooltip",
+      "cornerRadius": "$radius/control",
+      "stroke": "$line",
+      "strokeWidth": "$stroke/hairline",
+      "strokeAlignment": "inner",
+      "gap": "$space/2",
+      "padding": [
+       6,
+       10
+      ],
+      "alignItems": "center",
+      "children": [
+       {
+        "type": "text",
+        "id": "OPL33",
+        "name": "TipText",
+        "fill": "$ink/primary",
+        "content": "Sığdır",
+        "fontFamily": "$font/ui",
+        "fontSize": "$font/label",
+        "fontWeight": "500"
+       },
+       {
+        "type": "text",
+        "id": "gATZf",
+        "name": "TipKey",
+        "fill": "$ink/secondary",
+        "content": "⌘1",
+        "fontFamily": "$font/ui",
+        "fontSize": "$font/caption",
+        "fontWeight": "normal"
+       }
+      ]
+     },
+     {
+      "type": "polygon",
+      "polygonCount": 3,
+      "id": "Qesyp",
+      "name": "Caret",
+      "rotation": 180,
+      "fill": "$surface/tooltip",
+      "width": 12,
+      "height": 6
+     }
+    ]
+   },
+   "size": {
+    "boSko": [
+     78,
+     33
+    ],
+    "PlBZr": [
+     78,
+     27
+    ],
+    "OPL33": [
+     34,
+     15
+    ],
+    "gATZf": [
+     16,
+     13
+    ],
+    "Qesyp": [
+     12,
+     6
     ]
    }
   }
@@ -5226,6 +5314,33 @@
      },
      "zTEI3": {
       "height": 140
+     }
+    }
+   },
+   "parent": {
+    "id": "HZxxZ",
+    "name": "Wrap",
+    "layout": "vertical"
+   }
+  },
+  {
+   "frame": "Engine Tooltip",
+   "component": "Window/Tooltip",
+   "instanceId": "uvQj1",
+   "label": null,
+   "size": [
+    143,
+    33
+   ],
+   "overrides": {
+    "name": "Tooltip",
+    "layoutPosition": "absolute",
+    "descendants": {
+     "OPL33": {
+      "content": "WebKit 26"
+     },
+     "gATZf": {
+      "content": "macOS 26"
      }
     }
    },
@@ -6529,6 +6644,37 @@
   },
   {
    "frame": "Chrome Spec",
+   "component": "Window/Tooltip",
+   "instanceId": "UW4zN",
+   "label": "Hover + tooltip",
+   "size": [
+    78,
+    33
+   ],
+   "overrides": {
+    "name": "Tooltip",
+    "descendants": {
+     "OPL33": {
+      "content": "Sığdır"
+     },
+     "gATZf": {
+      "content": "⌘1"
+     }
+    }
+   },
+   "parent": {
+    "id": "u9FE8a",
+    "name": "Tooltip offset",
+    "padding": [
+     0,
+     0,
+     0,
+     25
+    ]
+   }
+  },
+  {
+   "frame": "Chrome Spec",
    "component": "Window/BottomBar",
    "instanceId": "DZwH3",
    "label": "Hover + tooltip",
@@ -6547,7 +6693,7 @@
     "id": "itwK3",
     "name": "Tooltip wrap",
     "layout": "vertical",
-    "gap": 6
+    "gap": 8
    }
   },
   {
@@ -6923,7 +7069,7 @@
           "fill": "$ink/primary",
           "content": "+3",
           "fontFamily": "$font/ui",
-          "fontSize": 12,
+          "fontSize": "$font/label",
           "fontWeight": "600"
          },
          {
@@ -7170,6 +7316,43 @@
    }
   },
   {
+   "frame": "Chrome Spec",
+   "component": "Window/Tooltip",
+   "instanceId": "L5xT2y",
+   "label": "Gizli · tutamaç",
+   "size": [
+    123,
+    27
+   ],
+   "overrides": {
+    "name": "Tooltip",
+    "layoutPosition": "absolute",
+    "descendants": {
+     "OPL33": {
+      "content": "Rayı göster"
+     },
+     "gATZf": {
+      "content": "⌥⌘0"
+     },
+     "Qesyp": {
+      "enabled": false
+     }
+    }
+   },
+   "parent": {
+    "id": "ej2n6",
+    "name": "Handle crop",
+    "clip": true,
+    "width": 200,
+    "height": 120,
+    "fill": "$canvas",
+    "cornerRadius": 8,
+    "stroke": "$line",
+    "strokeWidth": 1,
+    "layout": "none"
+   }
+  },
+  {
    "frame": "Card Load Errors",
    "component": "Viewport/Card",
    "instanceId": "f0vd7P",
@@ -7222,7 +7405,7 @@
         "content": "Sayfa açılamadı",
         "textAlign": "center",
         "fontFamily": "$font/ui",
-        "fontSize": 13,
+        "fontSize": "$font/body",
         "fontWeight": "600"
        },
        {
@@ -7235,7 +7418,7 @@
         "lineHeight": 1.4,
         "textAlign": "center",
         "fontFamily": "$font/ui",
-        "fontSize": 11,
+        "fontSize": "$font/caption",
         "fontWeight": "normal"
        },
        {
@@ -7246,7 +7429,7 @@
         "content": "NSURLError -1009",
         "textAlign": "center",
         "fontFamily": "$font/mono",
-        "fontSize": 10,
+        "fontSize": "$font/micro",
         "fontWeight": "normal"
        },
        {
@@ -7278,7 +7461,7 @@
             "fill": "$accent/ink",
             "content": "Yeniden dene",
             "fontFamily": "$font/ui",
-            "fontSize": 11,
+            "fontSize": "$font/caption",
             "fontWeight": "600"
            }
           ]
@@ -7350,7 +7533,7 @@
         "content": "Bağlantı güvenli değil",
         "textAlign": "center",
         "fontFamily": "$font/ui",
-        "fontSize": 13,
+        "fontSize": "$font/body",
         "fontWeight": "600"
        },
        {
@@ -7363,7 +7546,7 @@
         "lineHeight": 1.4,
         "textAlign": "center",
         "fontFamily": "$font/ui",
-        "fontSize": 11,
+        "fontSize": "$font/caption",
         "fontWeight": "normal"
        },
        {
@@ -7374,7 +7557,7 @@
         "content": "SSL · süresi dolmuş",
         "textAlign": "center",
         "fontFamily": "$font/mono",
-        "fontSize": 10,
+        "fontSize": "$font/micro",
         "fontWeight": "normal"
        },
        {
@@ -7408,7 +7591,7 @@
             "fill": "$ink/primary",
             "content": "Geri dön",
             "fontFamily": "$font/ui",
-            "fontSize": 11,
+            "fontSize": "$font/caption",
             "fontWeight": "normal"
            }
           ]
@@ -7432,7 +7615,7 @@
             "fill": "$ink/primary",
             "content": "Bu oturumda güven",
             "fontFamily": "$font/ui",
-            "fontSize": 11,
+            "fontSize": "$font/caption",
             "fontWeight": "normal"
            }
           ]
@@ -7504,7 +7687,7 @@
         "content": "localhost:3000 yanıt vermiyor",
         "textAlign": "center",
         "fontFamily": "$font/ui",
-        "fontSize": 13,
+        "fontSize": "$font/body",
         "fontWeight": "600"
        },
        {
@@ -7517,7 +7700,7 @@
         "lineHeight": 1.4,
         "textAlign": "center",
         "fontFamily": "$font/ui",
-        "fontSize": 11,
+        "fontSize": "$font/caption",
         "fontWeight": "normal"
        },
        {
@@ -7528,7 +7711,7 @@
         "content": "ECONNREFUSED",
         "textAlign": "center",
         "fontFamily": "$font/mono",
-        "fontSize": 10,
+        "fontSize": "$font/micro",
         "fontWeight": "normal"
        },
        {
@@ -7560,7 +7743,7 @@
             "fill": "$accent/ink",
             "content": "Şimdi dene",
             "fontFamily": "$font/ui",
-            "fontSize": 11,
+            "fontSize": "$font/caption",
             "fontWeight": "600"
            }
           ]
@@ -7595,7 +7778,7 @@
           "fill": "$ink/secondary",
           "content": "2 sn'de bir deneniyor…",
           "fontFamily": "$font/ui",
-          "fontSize": 10,
+          "fontSize": "$font/micro",
           "fontWeight": "normal"
          }
         ]
@@ -7665,7 +7848,7 @@
         "content": "Adres bulunamadı",
         "textAlign": "center",
         "fontFamily": "$font/ui",
-        "fontSize": 13,
+        "fontSize": "$font/body",
         "fontWeight": "600"
        },
        {
@@ -7678,7 +7861,7 @@
         "lineHeight": 1.4,
         "textAlign": "center",
         "fontFamily": "$font/ui",
-        "fontSize": 11,
+        "fontSize": "$font/caption",
         "fontWeight": "normal"
        },
        {
@@ -7689,7 +7872,7 @@
         "content": "DNS · NXDOMAIN",
         "textAlign": "center",
         "fontFamily": "$font/mono",
-        "fontSize": 10,
+        "fontSize": "$font/micro",
         "fontWeight": "normal"
        },
        {
@@ -7723,7 +7906,7 @@
             "fill": "$ink/primary",
             "content": "Adresi düzenle",
             "fontFamily": "$font/ui",
-            "fontSize": 11,
+            "fontSize": "$font/caption",
             "fontWeight": "normal"
            }
           ]
@@ -7944,6 +8127,78 @@
   },
   {
    "frame": "Misc States 2",
+   "component": "Window/Tooltip",
+   "instanceId": "gDsrx",
+   "label": "Öğenin solunda, 8 px boşlukla; ad + kısayol (varsa). 400 ms gecikme. Ayarlar ⌘, · Cihazlar · MCP · Hesap · Farklar ⌥⌘1 · Senkron Kaydı ⌥⌘2 · Rayı Gizle ⌥⌘0",
+   "size": [
+    68,
+    27
+   ],
+   "overrides": {
+    "name": "Tooltip",
+    "descendants": {
+     "OPL33": {
+      "content": "Cihazlar"
+     },
+     "gATZf": {
+      "enabled": false
+     },
+     "Qesyp": {
+      "enabled": false
+     }
+    }
+   },
+   "parent": {
+    "id": "n3378",
+    "name": "",
+    "clip": true,
+    "width": 260,
+    "height": 320,
+    "fill": "$canvas",
+    "cornerRadius": 8,
+    "stroke": "$line",
+    "strokeWidth": 1,
+    "layout": "none"
+   }
+  },
+  {
+   "frame": "Misc States 2",
+   "component": "Window/Tooltip",
+   "instanceId": "xOWgd",
+   "label": "Öğenin solunda, 8 px boşlukla; ad + kısayol (varsa). 400 ms gecikme. Ayarlar ⌘, · Cihazlar · MCP · Hesap · Farklar ⌥⌘1 · Senkron Kaydı ⌥⌘2 · Rayı Gizle ⌥⌘0",
+   "size": [
+    148,
+    27
+   ],
+   "overrides": {
+    "name": "Tooltip",
+    "descendants": {
+     "OPL33": {
+      "content": "Farklar · 3 bulgu"
+     },
+     "gATZf": {
+      "content": "⌥⌘1"
+     },
+     "Qesyp": {
+      "enabled": false
+     }
+    }
+   },
+   "parent": {
+    "id": "n3378",
+    "name": "",
+    "clip": true,
+    "width": 260,
+    "height": 320,
+    "fill": "$canvas",
+    "cornerRadius": 8,
+    "stroke": "$line",
+    "strokeWidth": 1,
+    "layout": "none"
+   }
+  },
+  {
+   "frame": "Misc States 2",
    "component": "Sidebar/Header",
    "instanceId": "kD6Ae",
    "label": "URL alanı (216)",
@@ -7996,6 +8251,36 @@
   },
   {
    "frame": "Misc States 2",
+   "component": "Window/Tooltip",
+   "instanceId": "wdfmk",
+   "label": "Sayfa satırı + tooltip",
+   "size": [
+    251,
+    27
+   ],
+   "overrides": {
+    "name": "Tooltip",
+    "descendants": {
+     "OPL33": {
+      "content": "Kampanya · Sonbahar 2026 koleksiyonu"
+     },
+     "gATZf": {
+      "enabled": false
+     },
+     "Qesyp": {
+      "enabled": false
+     }
+    }
+   },
+   "parent": {
+    "id": "lFdlg",
+    "name": "",
+    "layout": "vertical",
+    "gap": 8
+   }
+  },
+  {
+   "frame": "Misc States 2",
    "component": "Toolbar/DeviceTab",
    "instanceId": "B3BKcI",
    "label": "Sekme (en çok 140 px)",
@@ -8007,6 +8292,36 @@
     "descendants": {
      "U4TOHr": {
       "content": "iPhone 16 Pro Ma…"
+     }
+    }
+   },
+   "parent": {
+    "id": "O8k38c",
+    "name": "",
+    "layout": "vertical",
+    "gap": 8
+   }
+  },
+  {
+   "frame": "Misc States 2",
+   "component": "Window/Tooltip",
+   "instanceId": "Ut8c1",
+   "label": "Sekme (en çok 140 px)",
+   "size": [
+    195,
+    27
+   ],
+   "overrides": {
+    "name": "Tooltip",
+    "descendants": {
+     "OPL33": {
+      "content": "iPhone 16 Pro Max · Chromium"
+     },
+     "gATZf": {
+      "enabled": false
+     },
+     "Qesyp": {
+      "enabled": false
      }
     }
    },
@@ -8111,6 +8426,42 @@
   },
   {
    "frame": "Misc States 2",
+   "component": "Window/Tooltip",
+   "instanceId": "GwtJO",
+   "label": "Sayfa ajanı kabul etmiyorsa (CSP, sandbox, about:blank, PDF): başlıkta gri ‖ + tooltip “Bu sayfada senkron çalışmıyor”; hover şeridinde zincir pasif; kapsül yalnız ilk seferde. Kullanıcının kapattığı senkronla aynı işaret, farklı tooltip.",
+   "size": [
+    196,
+    27
+   ],
+   "overrides": {
+    "name": "Tooltip",
+    "descendants": {
+     "OPL33": {
+      "content": "Bu sayfada senkron çalışmıyor"
+     },
+     "gATZf": {
+      "enabled": false
+     },
+     "Qesyp": {
+      "enabled": false
+     }
+    }
+   },
+   "parent": {
+    "id": "Nje9F",
+    "name": "",
+    "layout": "vertical",
+    "gap": 8,
+    "padding": [
+     8,
+     0,
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "frame": "Misc States 2",
    "component": "Window/Toast",
    "instanceId": "l51Ro",
    "label": "↑ ‖ üstünde",
@@ -8206,6 +8557,234 @@
     "strokeWidth": 1.5,
     "padding": 3
    }
+  },
+  {
+   "frame": "Home States",
+   "component": "Home/URLBox",
+   "instanceId": "sMDvS",
+   "label": "Boş · Aç hep sarı (boşken tık alana odaklanır)",
+   "size": [
+    560,
+    47
+   ],
+   "overrides": {
+    "name": "URLBox empty U2"
+   },
+   "parent": {
+    "id": "SP3sR",
+    "name": "Boş · U2: Aç hep sarı (şu anki çizim)",
+    "layout": "vertical",
+    "gap": 8
+   }
+  },
+  {
+   "frame": "Home States",
+   "component": "Home/URLBox",
+   "instanceId": "CaZa9",
+   "label": "Dolu · yapıştırınca https tamamlanır",
+   "size": [
+    560,
+    47
+   ],
+   "overrides": {
+    "name": "URLBox filled",
+    "descendants": {
+     "AelTk": {
+      "content": "https://marka.com/urun/keten-gomlek",
+      "fill": "$ink/primary"
+     }
+    }
+   },
+   "parent": {
+    "id": "s8wdbC",
+    "name": "Dolu · yapıştırınca https tamamlanır",
+    "layout": "vertical",
+    "gap": 8
+   }
+  },
+  {
+   "frame": "Home States",
+   "component": "Home/URLBox",
+   "instanceId": "pRQin",
+   "label": "Geçersiz · mercan kenar + açıklama",
+   "size": [
+    560,
+    47
+   ],
+   "overrides": {
+    "name": "URLBox invalid",
+    "stroke": "$status/warning",
+    "descendants": {
+     "AelTk": {
+      "content": "marka com/urun",
+      "fill": "$ink/primary"
+     },
+     "W1NfIp": {
+      "fill": "$accent"
+     },
+     "hAcws": {
+      "fill": "$accent/ink"
+     },
+     "JK38B": {
+      "fill": "$accent/ink"
+     }
+    }
+   },
+   "parent": {
+    "id": "mKSOx",
+    "name": "Geçersiz · mercan kenar + açıklama, Aç pasif",
+    "layout": "vertical",
+    "gap": 8
+   }
+  },
+  {
+   "frame": "Home States",
+   "component": "Home/ProjectCard",
+   "instanceId": "VlakS",
+   "label": "Normal · ⋯ gizli",
+   "size": [
+    236,
+    195
+   ],
+   "overrides": {
+    "name": "Card normal",
+    "descendants": {
+     "Gif2H": {
+      "enabled": false
+     }
+    }
+   },
+   "parent": {
+    "id": "AyqPa",
+    "name": "Normal · ⋯ gizli",
+    "layout": "vertical",
+    "gap": 8
+   }
+  },
+  {
+   "frame": "Home States",
+   "component": "Home/ProjectCard",
+   "instanceId": "p2hO7",
+   "label": "Hover · kenar line/strong, ⋯ belirir",
+   "size": [
+    236,
+    195
+   ],
+   "overrides": {
+    "name": "Card hover H2",
+    "stroke": "$line/strong",
+    "descendants": {
+     "Gif2H": {
+      "enabled": true
+     }
+    }
+   },
+   "parent": {
+    "id": "kBXsB",
+    "name": "Hover · H2: yeni token line/strong #4F4945 (önerilen)",
+    "layout": "vertical",
+    "gap": 8
+   }
+  },
+  {
+   "frame": "Home States",
+   "component": "Home/ProjectCard",
+   "instanceId": "QFPII",
+   "label": "Taslak · rozet, ⋯ gizli",
+   "size": [
+    236,
+    195
+   ],
+   "overrides": {
+    "name": "Card draft",
+    "descendants": {
+     "yG6Du": {
+      "content": "Untitled"
+     },
+     "jSlmZ": {
+      "content": "5 dk. önce · 2 cihaz"
+     },
+     "iItaA": {
+      "enabled": true
+     },
+     "Gif2H": {
+      "enabled": false
+     }
+    }
+   },
+   "parent": {
+    "id": "PTHbe",
+    "name": "Taslak · rozet, ⋯ gizli",
+    "layout": "vertical",
+    "gap": 8
+   }
+  },
+  {
+   "frame": "Home States",
+   "component": "Home/ProjectCard",
+   "instanceId": "nrnFS",
+   "label": "Sağ tık hedefi · gök kenar, ⋯ görünür",
+   "size": [
+    236,
+    195
+   ],
+   "overrides": {
+    "name": "Card context target",
+    "stroke": "$status/leader",
+    "descendants": {
+     "Gif2H": {
+      "enabled": true
+     }
+    }
+   },
+   "parent": {
+    "id": "I4DVe1",
+    "name": "Sağ tık hedefi · gök kenar",
+    "layout": "vertical",
+    "gap": 8
+   }
+  },
+  {
+   "frame": "Home States",
+   "component": "Home/TemplateChip",
+   "instanceId": "gchzF",
+   "label": "Normal",
+   "size": [
+    115,
+    31
+   ],
+   "overrides": {
+    "name": "Chip normal"
+   },
+   "parent": {
+    "id": "yYdVk",
+    "name": "Normal",
+    "layout": "vertical",
+    "gap": 8
+   }
+  },
+  {
+   "frame": "Home States",
+   "component": "Home/TemplateChip",
+   "instanceId": "oFz9U",
+   "label": "Seçili · sarı kenar + parlak zemin",
+   "size": [
+    115,
+    31
+   ],
+   "overrides": {
+    "name": "Chip selected",
+    "fill": "$surface/header-leader",
+    "stroke": "$accent",
+    "strokeWidth": "$stroke/hairline",
+    "strokeAlignment": "inner"
+   },
+   "parent": {
+    "id": "TlwhW",
+    "name": "Seçili · sarı kenar + parlak zemin",
+    "layout": "vertical",
+    "gap": 8
+   }
   }
  ],
  "companions": {
@@ -8240,7 +8819,7 @@
       "fill": "$ink/primary",
       "content": "+3",
       "fontFamily": "$font/ui",
-      "fontSize": 12,
+      "fontSize": "$font/label",
       "fontWeight": "600"
      },
      {
@@ -8266,68 +8845,7 @@
     ]
    }
   ],
-  "HZxxZ": [
-   {
-    "type": "frame",
-    "id": "MIC4K",
-    "layoutPosition": "absolute",
-    "x": 115.5,
-    "y": -37,
-    "name": "Tooltip",
-    "layout": "vertical",
-    "alignItems": "center",
-    "children": [
-     {
-      "type": "frame",
-      "id": "p7akdf",
-      "name": "Tooltip Body",
-      "fill": "$surface/tooltip",
-      "cornerRadius": 8,
-      "stroke": "$line",
-      "strokeWidth": 1,
-      "strokeAlignment": "inner",
-      "gap": 8,
-      "padding": [
-       6,
-       10
-      ],
-      "alignItems": "center",
-      "children": [
-       {
-        "type": "text",
-        "id": "f8rvm4",
-        "name": "TipText",
-        "fill": "$ink/primary",
-        "content": "WebKit 26",
-        "fontFamily": "$font/ui",
-        "fontSize": 12,
-        "fontWeight": "500"
-       },
-       {
-        "type": "text",
-        "id": "AUC5z",
-        "name": "TipSub",
-        "fill": "$ink/secondary",
-        "content": "macOS 26",
-        "fontFamily": "$font/ui",
-        "fontSize": 11,
-        "fontWeight": "normal"
-       }
-      ]
-     },
-     {
-      "type": "polygon",
-      "polygonCount": 3,
-      "id": "TtQmW",
-      "name": "Caret",
-      "rotation": 180,
-      "fill": "$surface/tooltip",
-      "width": 12,
-      "height": 6
-     }
-    ]
-   }
-  ],
+  "HZxxZ": [],
   "Lpwe6": [
    {
     "type": "frame",
@@ -8591,7 +9109,7 @@
         "width": "fill_container",
         "content": "Döndür",
         "fontFamily": "$font/ui",
-        "fontSize": 12,
+        "fontSize": "$font/label",
         "fontWeight": "normal"
        },
        {
@@ -8601,7 +9119,7 @@
         "fill": "$ink/secondary",
         "content": "⌥⌘R",
         "fontFamily": "$font/ui",
-        "fontSize": 11,
+        "fontSize": "$font/caption",
         "fontWeight": "normal"
        }
       ]
@@ -8629,7 +9147,7 @@
         "width": "fill_container",
         "content": "Boyutu düzenle…",
         "fontFamily": "$font/ui",
-        "fontSize": 12,
+        "fontSize": "$font/label",
         "fontWeight": "normal"
        }
       ]
@@ -8656,7 +9174,7 @@
         "width": "fill_container",
         "content": "Senkrondan çıkar",
         "fontFamily": "$font/ui",
-        "fontSize": 12,
+        "fontSize": "$font/label",
         "fontWeight": "normal"
        }
       ]
@@ -8691,7 +9209,7 @@
         "width": "fill_container",
         "content": "Motor",
         "fontFamily": "$font/ui",
-        "fontSize": 12,
+        "fontSize": "$font/label",
         "fontWeight": "normal"
        },
        {
@@ -8701,7 +9219,7 @@
         "fill": "$ink/secondary",
         "content": "WebKit 26 ›",
         "fontFamily": "$font/ui",
-        "fontSize": 11,
+        "fontSize": "$font/caption",
         "fontWeight": "normal"
        }
       ]
@@ -8736,7 +9254,7 @@
         "width": "fill_container",
         "content": "Kaldır",
         "fontFamily": "$font/ui",
-        "fontSize": 12,
+        "fontSize": "$font/label",
         "fontWeight": "normal"
        },
        {
@@ -8746,7 +9264,7 @@
         "fill": "$ink/secondary",
         "content": "⌫",
         "fontFamily": "$font/ui",
-        "fontSize": 11,
+        "fontSize": "$font/caption",
         "fontWeight": "normal"
        }
       ]
@@ -8797,7 +9315,7 @@
         "fill": "$ink/secondary",
         "content": "Ad",
         "fontFamily": "$font/ui",
-        "fontSize": 10,
+        "fontSize": "$font/micro",
         "fontWeight": "normal"
        },
        {
@@ -8822,7 +9340,7 @@
           "fill": "$ink/primary",
           "content": "iPhone 16",
           "fontFamily": "$font/ui",
-          "fontSize": 12,
+          "fontSize": "$font/label",
           "fontWeight": "normal"
          }
         ]
@@ -8852,7 +9370,7 @@
           "fill": "$ink/secondary",
           "content": "Genişlik",
           "fontFamily": "$font/ui",
-          "fontSize": 10,
+          "fontSize": "$font/micro",
           "fontWeight": "normal"
          },
          {
@@ -8877,7 +9395,7 @@
             "fill": "$ink/primary",
             "content": "393",
             "fontFamily": "$font/mono",
-            "fontSize": 12,
+            "fontSize": "$font/label",
             "fontWeight": "normal"
            }
           ]
@@ -8919,7 +9437,7 @@
           "fill": "$ink/secondary",
           "content": "Yükseklik",
           "fontFamily": "$font/ui",
-          "fontSize": 10,
+          "fontSize": "$font/micro",
           "fontWeight": "normal"
          },
          {
@@ -8944,7 +9462,7 @@
             "fill": "$ink/primary",
             "content": "852",
             "fontFamily": "$font/mono",
-            "fontSize": 12,
+            "fontSize": "$font/label",
             "fontWeight": "normal"
            }
           ]
@@ -8960,7 +9478,7 @@
       "fill": "$ink/secondary",
       "content": "200–3840 × 200–4320 px",
       "fontFamily": "$font/mono",
-      "fontSize": 10,
+      "fontSize": "$font/micro",
       "fontWeight": "normal"
      },
      {
@@ -8979,7 +9497,7 @@
         "fill": "$ink/secondary",
         "content": "İptal",
         "fontFamily": "$font/ui",
-        "fontSize": 12,
+        "fontSize": "$font/label",
         "fontWeight": "normal"
        },
        {
@@ -9000,7 +9518,7 @@
           "fill": "$accent/ink",
           "content": "Kaydet",
           "fontFamily": "$font/ui",
-          "fontSize": 12,
+          "fontSize": "$font/label",
           "fontWeight": "600"
          }
         ]
@@ -9056,7 +9574,7 @@
         "fill": "$ink/secondary",
         "content": "EKRAN GÖRÜNTÜSÜ · iPhone 16",
         "fontFamily": "$font/ui",
-        "fontSize": 10,
+        "fontSize": "$font/micro",
         "fontWeight": "600",
         "letterSpacing": 0.8
        }
@@ -9101,7 +9619,7 @@
           "fill": "$ink/primary",
           "content": "Görünen alan",
           "fontFamily": "$font/ui",
-          "fontSize": 12,
+          "fontSize": "$font/label",
           "fontWeight": "500"
          },
          {
@@ -9111,7 +9629,7 @@
           "fill": "$ink/secondary",
           "content": "Ekrandaki kısım",
           "fontFamily": "$font/ui",
-          "fontSize": 10,
+          "fontSize": "$font/micro",
           "fontWeight": "normal"
          }
         ]
@@ -9156,7 +9674,7 @@
           "fill": "$ink/primary",
           "content": "Tam sayfa",
           "fontFamily": "$font/ui",
-          "fontSize": 12,
+          "fontSize": "$font/label",
           "fontWeight": "500"
          },
          {
@@ -9166,7 +9684,7 @@
           "fill": "$ink/secondary",
           "content": "Sayfanın tamamı",
           "fontFamily": "$font/ui",
-          "fontSize": 10,
+          "fontSize": "$font/micro",
           "fontWeight": "normal"
          }
         ]
@@ -9199,7 +9717,7 @@
       "fill": "$ink/secondary",
       "content": "SAYFALAR",
       "fontFamily": "$font/ui",
-      "fontSize": 10,
+      "fontSize": "$font/micro",
       "fontWeight": "600",
       "letterSpacing": 0.8
      }
@@ -9208,6 +9726,7 @@
   ],
   "F1nJN": [],
   "eXiaU": [],
+  "u9FE8a": [],
   "itwK3": [
    {
     "type": "frame",
@@ -9221,61 +9740,18 @@
     ],
     "children": [
      {
-      "type": "frame",
-      "id": "tVCF2",
+      "id": "UW4zN",
+      "type": "ref",
+      "ref": "boSko",
       "name": "Tooltip",
-      "layout": "vertical",
-      "alignItems": "center",
-      "children": [
-       {
-        "type": "frame",
-        "id": "tkSIi",
-        "name": "Tooltip Body",
-        "fill": "$surface/tooltip",
-        "cornerRadius": 8,
-        "stroke": "$line",
-        "strokeWidth": 1,
-        "strokeAlignment": "inner",
-        "gap": 8,
-        "padding": [
-         6,
-         10
-        ],
-        "alignItems": "center",
-        "children": [
-         {
-          "type": "text",
-          "id": "EQtuE",
-          "name": "TipText",
-          "fill": "$ink/primary",
-          "content": "Sığdır",
-          "fontFamily": "$font/ui",
-          "fontSize": 12,
-          "fontWeight": "500"
-         },
-         {
-          "type": "text",
-          "id": "fMEYX",
-          "name": "TipKey",
-          "fill": "$ink/secondary",
-          "content": "⌘1",
-          "fontFamily": "$font/ui",
-          "fontSize": 11,
-          "fontWeight": "normal"
-         }
-        ]
+      "descendants": {
+       "OPL33": {
+        "content": "Sığdır"
        },
-       {
-        "type": "polygon",
-        "polygonCount": 3,
-        "id": "ucr0w",
-        "name": "Caret",
-        "rotation": 180,
-        "fill": "$surface/tooltip",
-        "width": 12,
-        "height": 6
+       "gATZf": {
+        "content": "⌘1"
        }
-      ]
+      }
      }
     ]
    }
@@ -9293,71 +9769,7 @@
   "Mh9il": [],
   "r7a5Qg": [],
   "x1mrpG": [],
-  "ej2n6": [
-   {
-    "type": "frame",
-    "id": "SnFxA",
-    "layoutPosition": "absolute",
-    "x": 44,
-    "y": 26,
-    "name": "Tooltip",
-    "layout": "vertical",
-    "alignItems": "center",
-    "children": [
-     {
-      "type": "frame",
-      "id": "cx5P5",
-      "name": "Tooltip Body",
-      "fill": "$surface/tooltip",
-      "cornerRadius": 8,
-      "stroke": "$line",
-      "strokeWidth": 1,
-      "strokeAlignment": "inner",
-      "gap": 8,
-      "padding": [
-       6,
-       10
-      ],
-      "alignItems": "center",
-      "children": [
-       {
-        "type": "text",
-        "id": "XIgur",
-        "name": "TipText",
-        "fill": "$ink/primary",
-        "content": "Rayı göster",
-        "fontFamily": "$font/ui",
-        "fontSize": 12,
-        "fontWeight": "500"
-       },
-       {
-        "type": "text",
-        "id": "w3CJ2",
-        "name": "TipKey",
-        "fill": "$ink/secondary",
-        "content": "⌥⌘0",
-        "fontFamily": "$font/ui",
-        "fontSize": 11,
-        "fontWeight": "normal"
-       }
-      ]
-     },
-     {
-      "type": "polygon",
-      "polygonCount": 3,
-      "id": "x5qemr",
-      "x": 67.5,
-      "y": 33,
-      "name": "Caret",
-      "enabled": false,
-      "rotation": 180,
-      "fill": "$surface/tooltip",
-      "width": 12,
-      "height": 6
-     }
-    ]
-   }
-  ],
+  "ej2n6": [],
   "VLLzv": [],
   "yky2n": [],
   "S0v4H1": [],
@@ -9369,267 +9781,10 @@
   "D1n5yN": [],
   "yvf2c": [],
   "h9thI": [],
-  "n3378": [
-   {
-    "type": "frame",
-    "id": "gaFPA",
-    "x": 132,
-    "y": 52,
-    "name": "Tooltip",
-    "layout": "vertical",
-    "alignItems": "center",
-    "children": [
-     {
-      "type": "frame",
-      "id": "qQWqD",
-      "name": "Tooltip Body",
-      "fill": "$surface/tooltip",
-      "cornerRadius": 8,
-      "stroke": "$line",
-      "strokeWidth": 1,
-      "strokeAlignment": "inner",
-      "gap": 8,
-      "padding": [
-       6,
-       10
-      ],
-      "alignItems": "center",
-      "children": [
-       {
-        "type": "text",
-        "id": "Fm1Um",
-        "name": "TipText",
-        "fill": "$ink/primary",
-        "content": "Cihazlar",
-        "fontFamily": "$font/ui",
-        "fontSize": 12,
-        "fontWeight": "500"
-       },
-       {
-        "type": "text",
-        "id": "bLyuz",
-        "x": 52,
-        "y": 7,
-        "name": "TipKey",
-        "enabled": false,
-        "fill": "$ink/secondary",
-        "content": "⌘1",
-        "fontFamily": "$font/ui",
-        "fontSize": 11,
-        "fontWeight": "normal"
-       }
-      ]
-     },
-     {
-      "type": "polygon",
-      "polygonCount": 3,
-      "id": "Sh4aD",
-      "x": 45,
-      "y": 33,
-      "name": "Caret",
-      "enabled": false,
-      "rotation": 180,
-      "fill": "$surface/tooltip",
-      "width": 12,
-      "height": 6
-     }
-    ]
-   },
-   {
-    "type": "frame",
-    "id": "fwRPJ",
-    "x": 60,
-    "y": 226,
-    "name": "Tooltip",
-    "opacity": 0.45,
-    "layout": "vertical",
-    "alignItems": "center",
-    "children": [
-     {
-      "type": "frame",
-      "id": "tlMG7",
-      "name": "Tooltip Body",
-      "fill": "$surface/tooltip",
-      "cornerRadius": 8,
-      "stroke": "$line",
-      "strokeWidth": 1,
-      "strokeAlignment": "inner",
-      "gap": 8,
-      "padding": [
-       6,
-       10
-      ],
-      "alignItems": "center",
-      "children": [
-       {
-        "type": "text",
-        "id": "pOK1I",
-        "name": "TipText",
-        "fill": "$ink/primary",
-        "content": "Farklar · 3 bulgu",
-        "fontFamily": "$font/ui",
-        "fontSize": 12,
-        "fontWeight": "500"
-       },
-       {
-        "type": "text",
-        "id": "Ai5QQ",
-        "name": "TipKey",
-        "fill": "$ink/secondary",
-        "content": "⌥⌘1",
-        "fontFamily": "$font/ui",
-        "fontSize": 11,
-        "fontWeight": "normal"
-       }
-      ]
-     },
-     {
-      "type": "polygon",
-      "polygonCount": 3,
-      "id": "nMGcv",
-      "x": 45,
-      "y": 33,
-      "name": "Caret",
-      "enabled": false,
-      "rotation": 180,
-      "fill": "$surface/tooltip",
-      "width": 12,
-      "height": 6
-     }
-    ]
-   }
-  ],
+  "n3378": [],
   "Y6cFBf": [],
-  "lFdlg": [
-   {
-    "type": "frame",
-    "id": "uUtdW",
-    "name": "Tooltip",
-    "layout": "vertical",
-    "alignItems": "center",
-    "children": [
-     {
-      "type": "frame",
-      "id": "SWmoT",
-      "name": "Tooltip Body",
-      "fill": "$surface/tooltip",
-      "cornerRadius": 8,
-      "stroke": "$line",
-      "strokeWidth": 1,
-      "strokeAlignment": "inner",
-      "gap": 8,
-      "padding": [
-       6,
-       10
-      ],
-      "alignItems": "center",
-      "children": [
-       {
-        "type": "text",
-        "id": "jS7Ka",
-        "name": "TipText",
-        "fill": "$ink/primary",
-        "content": "Kampanya · Sonbahar 2026 koleksiyonu",
-        "fontFamily": "$font/ui",
-        "fontSize": 12,
-        "fontWeight": "500"
-       },
-       {
-        "type": "text",
-        "id": "YNdCr",
-        "x": 52,
-        "y": 7,
-        "name": "TipKey",
-        "enabled": false,
-        "fill": "$ink/secondary",
-        "content": "⌘1",
-        "fontFamily": "$font/ui",
-        "fontSize": 11,
-        "fontWeight": "normal"
-       }
-      ]
-     },
-     {
-      "type": "polygon",
-      "polygonCount": 3,
-      "id": "HvRq0",
-      "x": 45,
-      "y": 33,
-      "name": "Caret",
-      "enabled": false,
-      "rotation": 180,
-      "fill": "$surface/tooltip",
-      "width": 12,
-      "height": 6
-     }
-    ]
-   }
-  ],
-  "O8k38c": [
-   {
-    "type": "frame",
-    "id": "ERTsP",
-    "name": "Tooltip",
-    "layout": "vertical",
-    "alignItems": "center",
-    "children": [
-     {
-      "type": "frame",
-      "id": "vk4kC",
-      "name": "Tooltip Body",
-      "fill": "$surface/tooltip",
-      "cornerRadius": 8,
-      "stroke": "$line",
-      "strokeWidth": 1,
-      "strokeAlignment": "inner",
-      "gap": 8,
-      "padding": [
-       6,
-       10
-      ],
-      "alignItems": "center",
-      "children": [
-       {
-        "type": "text",
-        "id": "ozFNN",
-        "name": "TipText",
-        "fill": "$ink/primary",
-        "content": "iPhone 16 Pro Max · Chromium",
-        "fontFamily": "$font/ui",
-        "fontSize": 12,
-        "fontWeight": "500"
-       },
-       {
-        "type": "text",
-        "id": "jqd9N",
-        "x": 52,
-        "y": 7,
-        "name": "TipKey",
-        "enabled": false,
-        "fill": "$ink/secondary",
-        "content": "⌘1",
-        "fontFamily": "$font/ui",
-        "fontSize": 11,
-        "fontWeight": "normal"
-       }
-      ]
-     },
-     {
-      "type": "polygon",
-      "polygonCount": 3,
-      "id": "EuTss",
-      "x": 45,
-      "y": 33,
-      "name": "Caret",
-      "enabled": false,
-      "rotation": 180,
-      "fill": "$surface/tooltip",
-      "width": 12,
-      "height": 6
-     }
-    ]
-   }
-  ],
+  "lFdlg": [],
+  "O8k38c": [],
   "PbxYG": [
    {
     "type": "icon",
@@ -9642,73 +9797,18 @@
    }
   ],
   "NA3WR": [],
-  "Nje9F": [
-   {
-    "type": "frame",
-    "id": "GqA26",
-    "name": "Tooltip",
-    "layout": "vertical",
-    "alignItems": "center",
-    "children": [
-     {
-      "type": "frame",
-      "id": "JZNdv",
-      "name": "Tooltip Body",
-      "fill": "$surface/tooltip",
-      "cornerRadius": 8,
-      "stroke": "$line",
-      "strokeWidth": 1,
-      "strokeAlignment": "inner",
-      "gap": 8,
-      "padding": [
-       6,
-       10
-      ],
-      "alignItems": "center",
-      "children": [
-       {
-        "type": "text",
-        "id": "AZtdt",
-        "name": "TipText",
-        "fill": "$ink/primary",
-        "content": "Bu sayfada senkron çalışmıyor",
-        "fontFamily": "$font/ui",
-        "fontSize": 12,
-        "fontWeight": "500"
-       },
-       {
-        "type": "text",
-        "id": "zPUyn",
-        "x": 52,
-        "y": 7,
-        "name": "TipKey",
-        "enabled": false,
-        "fill": "$ink/secondary",
-        "content": "⌘1",
-        "fontFamily": "$font/ui",
-        "fontSize": 11,
-        "fontWeight": "normal"
-       }
-      ]
-     },
-     {
-      "type": "polygon",
-      "polygonCount": 3,
-      "id": "guM4s",
-      "x": 45,
-      "y": 33,
-      "name": "Caret",
-      "enabled": false,
-      "rotation": 180,
-      "fill": "$surface/tooltip",
-      "width": 12,
-      "height": 6
-     }
-    ]
-   }
-  ],
+  "Nje9F": [],
   "sUTTg": [],
-  "JGixj": []
+  "JGixj": [],
+  "SP3sR": [],
+  "s8wdbC": [],
+  "mKSOx": [],
+  "AyqPa": [],
+  "kBXsB": [],
+  "PTHbe": [],
+  "I4DVe1": [],
+  "yYdVk": [],
+  "TlwhW": []
  },
  "extra": [
   {
@@ -9749,7 +9849,7 @@
           "fill": "$ink/primary",
           "content": "+3",
           "fontFamily": "$font/ui",
-          "fontSize": 12,
+          "fontSize": "$font/label",
           "fontWeight": "600"
          },
          {
@@ -9803,7 +9903,7 @@
           "fill": "$ink/primary",
           "content": "+3",
           "fontFamily": "$font/ui",
-          "fontSize": 12,
+          "fontSize": "$font/label",
           "fontWeight": "600"
          },
          {
@@ -9870,7 +9970,7 @@
           "fill": "$ink/primary",
           "content": "+3",
           "fontFamily": "$font/ui",
-          "fontSize": 12,
+          "fontSize": "$font/label",
           "fontWeight": "600"
          },
          {
@@ -9937,7 +10037,7 @@
           "fill": "$ink/primary",
           "content": "+3",
           "fontFamily": "$font/ui",
-          "fontSize": 12,
+          "fontSize": "$font/label",
           "fontWeight": "600"
          },
          {
@@ -10013,7 +10113,7 @@
         "fill": "$ink/secondary",
         "content": "GİZLİ CİHAZLAR · tıkla: sekmeye kaydır",
         "fontFamily": "$font/ui",
-        "fontSize": 10,
+        "fontSize": "$font/micro",
         "fontWeight": "600",
         "letterSpacing": 0.8
        }
@@ -10058,7 +10158,7 @@
           "fill": "$ink/primary",
           "content": "Laptop",
           "fontFamily": "$font/ui",
-          "fontSize": 12,
+          "fontSize": "$font/label",
           "fontWeight": "500"
          },
          {
@@ -10068,7 +10168,7 @@
           "fill": "$status/warning",
           "content": "1280×800 · WebKit 26 · Element bulunamadı",
           "fontFamily": "$font/ui",
-          "fontSize": 11,
+          "fontSize": "$font/caption",
           "fontWeight": "normal"
          }
         ]
@@ -10143,7 +10243,7 @@
           "fill": "$ink/primary",
           "content": "Geniş ekran",
           "fontFamily": "$font/ui",
-          "fontSize": 12,
+          "fontSize": "$font/label",
           "fontWeight": "500"
          },
          {
@@ -10153,7 +10253,7 @@
           "fill": "$ink/secondary",
           "content": "1920×1080 · WebKit 26",
           "fontFamily": "$font/ui",
-          "fontSize": 11,
+          "fontSize": "$font/caption",
           "fontWeight": "normal"
          }
         ]
@@ -10218,7 +10318,7 @@
           "fill": "$ink/primary",
           "content": "Masaüstü",
           "fontFamily": "$font/ui",
-          "fontSize": 12,
+          "fontSize": "$font/label",
           "fontWeight": "500"
          },
          {
@@ -10228,7 +10328,7 @@
           "fill": "$ink/secondary",
           "content": "1440×900 · WebKit 26 · Yükleniyor",
           "fontFamily": "$font/ui",
-          "fontSize": 11,
+          "fontSize": "$font/caption",
           "fontWeight": "normal"
          }
         ]

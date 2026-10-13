@@ -2033,6 +2033,26 @@
   },
   {
    "frame": "Project Window · İkon çubuklar + tooltip",
+   "component": "Window/Tooltip",
+   "instanceId": "Q81wOX",
+   "size": [
+    78,
+    33
+   ],
+   "overrides": {
+    "layoutPosition": "absolute",
+    "descendants": {
+     "OPL33": {
+      "content": "Sığdır"
+     },
+     "gATZf": {
+      "content": "⌘1"
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · İkon çubuklar + tooltip",
    "component": "Window/Rail",
    "instanceId": "KmycC",
    "size": [
@@ -2352,6 +2372,26 @@
         }
        }
       ]
+     }
+    }
+   }
+  },
+  {
+   "frame": "Project Window · Motor tooltip",
+   "component": "Window/Tooltip",
+   "instanceId": "C03I7U",
+   "size": [
+    143,
+    33
+   ],
+   "overrides": {
+    "layoutPosition": "absolute",
+    "descendants": {
+     "OPL33": {
+      "content": "WebKit 26"
+     },
+     "gATZf": {
+      "content": "macOS 26"
      }
     }
    }
@@ -3386,6 +3426,9 @@
      },
      "iItaA": {
       "enabled": false
+     },
+     "Gif2H": {
+      "enabled": true
      }
     }
    }
@@ -3739,6 +3782,9 @@
      },
      "iItaA": {
       "enabled": false
+     },
+     "Gif2H": {
+      "enabled": true
      }
     }
    }
@@ -6976,7 +7022,7 @@
     "height": "fill_container",
     "descendants": {
      "Ksj9i": {
-      "fill": "#00000000"
+      "fill": []
      },
      "Db9tR": {
       "fill": "$ink/secondary"
@@ -7313,7 +7359,7 @@
     "height": "fill_container",
     "descendants": {
      "Ksj9i": {
-      "fill": "#00000000"
+      "fill": []
      },
      "Db9tR": {
       "fill": "$ink/secondary"
@@ -7650,7 +7696,7 @@
     "height": "fill_container",
     "descendants": {
      "Ksj9i": {
-      "fill": "#00000000"
+      "fill": []
      },
      "Db9tR": {
       "fill": "$ink/secondary"

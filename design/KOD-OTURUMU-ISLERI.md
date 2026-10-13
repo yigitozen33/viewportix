@@ -144,4 +144,6 @@ Her etkileşim için DESIGN.md'deki etkileşim tablosu sözleşmedir. Arayüze d
 `design/handoff/` tasarımı makinece okunur veriyor: `manifest.json` (bileşen · ekran · PNG · nodeId), `specs/<SwiftName>.json` (ana kopyanın katman ağacı: layout, boyut `fill`/`fit`/sabit, token'lar → `DesignTokens` üyeleri, durum override'ları, yanına çizilen parçalar, ekranlardaki görünümler), `specs/README.md` (durum kapsamı, token dışı değerler). Sözleşme `design/handoff/README.md`.
 
 - [ ] **Deneme:** `BottomBar`'ı yalnız `specs/BottomBar.json` (+ `ChromeButton.json`, `ZoomControl.json`) ve `DesignTokens.swift` ile, PNG'ye bakmadan kur; sonra `window-project-dark@2x.png` ile karşılaştır. Eksik ya da yanlış anlaşılan alanları `docs/tasarim-istekleri.md`'ye "spec: BottomBar" başlığıyla yaz (ikon adları Lucide; SF Symbols eşlemesi `design/handoff/icons.md` ile gelecek).
-
+- [ ] **Yeni bileşen `ChromeTooltip`** (`Window/Tooltip`, `specs/ChromeTooltip.json`): gövde + aşağı ok, ad + isteğe bağlı kısayol; yan tooltip'lerde ok yok; hedefle ok ucu arası her yerde 8 px, 400 ms gecikme. Tüm tooltip'ler bunu kullanır.
+- [ ] **Yeni token `DesignTokens.Color.lineStrong`** (`line/strong`, #4F4945): proje kartı hover kenarı. `DesignTokens.swift`'i yeniden kopyala.
+- [ ] **Giriş ekranı durumları** (`home-states@2x.png`, DESIGN.md §4 2026-10-13): "Aç →" hep sarı (boşken tık alana odaklanır); geçersiz URL'de mercan kenar + altında "Bu bir web adresi değil · örnek: marka.com"; proje kartında ⋯ yalnız hover ve sağ tıkta, hover kenarı `lineStrong`.

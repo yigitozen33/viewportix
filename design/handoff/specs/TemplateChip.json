@@ -11,6 +11,7 @@
  "statesSummary": "normal, selected",
  "notes": [],
  "usedIn": [
+  "Home States",
   "Home Window",
   "Home Window · Ayarlar paneli",
   "Home Window · Bağlam menüsü",
@@ -103,7 +104,42 @@
    }
   ]
  },
- "states": [],
+ "states": [
+  {
+   "state": "Normal",
+   "frame": "Home States",
+   "samples": [
+    {
+     "instanceId": "gchzF",
+     "sizePx": [
+      115,
+      31
+     ],
+     "instance": "Chip normal"
+    }
+   ]
+  },
+  {
+   "state": "Seçili · sarı kenar + parlak zemin",
+   "frame": "Home States",
+   "samples": [
+    {
+     "instanceId": "oFz9U",
+     "sizePx": [
+      115,
+      31
+     ],
+     "instance": "Chip selected",
+     "set": {
+      "fill": "$surface/header-leader",
+      "stroke": "$accent",
+      "strokeWidth": "$stroke/hairline",
+      "strokeAlignment": "inner"
+     }
+    }
+   ]
+  }
+ ],
  "onScreens": [
   {
    "count": 12,
@@ -148,7 +184,7 @@
     "Home Window · Kaldır alt menüsü",
     "Home Window · Liste"
    ],
-   "sameAsState": null,
+   "sameAsState": "Seçili · sarı kenar + parlak zemin",
    "sampleInstanceId": "kbNUa",
    "sizePx": [
     115,

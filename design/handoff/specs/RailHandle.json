@@ -16,14 +16,11 @@
  ],
  "usedVia": [],
  "tokens": {
-  "font/ui": "system font (SF Pro; Inter is a design proxy)",
-  "ink/primary": "DesignTokens.Color.inkPrimary",
   "ink/secondary": "DesignTokens.Color.inkSecondary",
   "line": "DesignTokens.Color.line",
   "status/warning": "DesignTokens.Color.statusWarning",
   "stroke/hairline": "DesignTokens.Stroke.hairline",
-  "surface/bar": "DesignTokens.Color.surfaceBar",
-  "surface/tooltip": "DesignTokens.Color.surfaceTooltip"
+  "surface/bar": "DesignTokens.Color.surfaceBar"
  },
  "tree": {
   "name": "Window/RailHandle",
@@ -111,112 +108,6 @@
       }
      ]
     }
-   ],
-   "arrangement": {
-    "in": "Handle crop",
-    "axis": "none"
-   },
-   "companions": [
-    {
-     "name": "Tooltip",
-     "type": "frame",
-     "nodeId": "SnFxA",
-     "position": {
-      "absolute": [
-       44,
-       26
-      ]
-     },
-     "size": {
-      "w": "fit",
-      "h": "fit"
-     },
-     "layout": {
-      "axis": "vertical",
-      "stack": "VStack",
-      "alignItems": "center"
-     },
-     "children": [
-      {
-       "name": "Tooltip Body",
-       "type": "frame",
-       "nodeId": "cx5P5",
-       "size": {
-        "w": "fit",
-        "h": "fit"
-       },
-       "layout": {
-        "axis": "horizontal",
-        "stack": "HStack",
-        "gap": 8,
-        "alignItems": "center",
-        "padding": [
-         6,
-         10,
-         6,
-         10
-        ]
-       },
-       "cornerRadius": 8,
-       "fill": "$surface/tooltip",
-       "stroke": "$line",
-       "strokeWidth": 1,
-       "strokeAlignment": "inner",
-       "children": [
-        {
-         "name": "TipText",
-         "type": "text",
-         "nodeId": "XIgur",
-         "size": {
-          "w": "fit",
-          "h": "fit"
-         },
-         "fill": "$ink/primary",
-         "text": {
-          "content": "Rayı göster",
-          "fontFamily": "$font/ui",
-          "fontSize": 12,
-          "fontWeight": "500"
-         }
-        },
-        {
-         "name": "TipKey",
-         "type": "text",
-         "nodeId": "w3CJ2",
-         "size": {
-          "w": "fit",
-          "h": "fit"
-         },
-         "fill": "$ink/secondary",
-         "text": {
-          "content": "⌥⌘0",
-          "fontFamily": "$font/ui",
-          "fontSize": 11,
-          "fontWeight": "normal"
-         }
-        }
-       ]
-      },
-      {
-       "name": "Caret",
-       "type": "polygon",
-       "nodeId": "x5qemr",
-       "hidden": true,
-       "position": {
-        "at": [
-         67.5,
-         33
-        ]
-       },
-       "size": {
-        "w": 12,
-        "h": 6
-       },
-       "fill": "$surface/tooltip",
-       "rotation": 180
-      }
-     ]
-    }
    ]
   }
  ],
@@ -246,20 +137,7 @@
    ]
   }
  ],
- "rawValues": [
-  {
-   "node": "Window/RailHandle [Gizli · tutamaç] › Tooltip › Tooltip Body › TipText",
-   "prop": "fontSize",
-   "value": 12,
-   "sameAsToken": "font/label"
-  },
-  {
-   "node": "Window/RailHandle [Gizli · tutamaç] › Tooltip › Tooltip Body › TipKey",
-   "prop": "fontSize",
-   "value": 11,
-   "sameAsToken": "font/caption"
-  }
- ],
+ "rawValues": [],
  "rawNumbers": [
   {
    "node": "Window/RailHandle",
@@ -290,36 +168,6 @@
    "prop": "gap",
    "value": 8,
    "sameAsToken": "space/2"
-  },
-  {
-   "node": "Window/RailHandle [Gizli · tutamaç] › Tooltip › Tooltip Body",
-   "prop": "cornerRadius",
-   "value": 8,
-   "sameAsToken": "radius/control"
-  },
-  {
-   "node": "Window/RailHandle [Gizli · tutamaç] › Tooltip › Tooltip Body",
-   "prop": "strokeWidth",
-   "value": 1,
-   "sameAsToken": "stroke/hairline"
-  },
-  {
-   "node": "Window/RailHandle [Gizli · tutamaç] › Tooltip › Tooltip Body",
-   "prop": "gap",
-   "value": 8,
-   "sameAsToken": "space/2"
-  },
-  {
-   "node": "Window/RailHandle [Gizli · tutamaç] › Tooltip › Tooltip Body",
-   "prop": "padding",
-   "value": 6,
-   "sameAsToken": null
-  },
-  {
-   "node": "Window/RailHandle [Gizli · tutamaç] › Tooltip › Tooltip Body",
-   "prop": "padding",
-   "value": 10,
-   "sameAsToken": null
   }
  ]
 }

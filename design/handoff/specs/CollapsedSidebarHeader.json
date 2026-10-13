@@ -17,6 +17,7 @@
  ],
  "usedVia": [],
  "tokens": {
+  "font/body": "DesignTokens.FontSize.body",
   "font/ui": "system font (SF Pro; Inter is a design proxy)",
   "ink/primary": "DesignTokens.Color.inkPrimary",
   "ink/secondary": "DesignTokens.Color.inkSecondary",
@@ -272,7 +273,7 @@
       "text": {
        "content": "https://marka.com/urun",
        "fontFamily": "$font/ui",
-       "fontSize": 13,
+       "fontSize": "$font/body",
        "fontWeight": "normal"
       }
      }
@@ -331,12 +332,6 @@
    "prop": "fill",
    "value": "#28C840",
    "sameAsToken": null
-  },
-  {
-   "node": "Window/CollapsedHeader › URL Field › UrlText",
-   "prop": "fontSize",
-   "value": 13,
-   "sameAsToken": "font/body"
   }
  ],
  "rawNumbers": [

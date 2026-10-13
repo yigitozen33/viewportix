@@ -8,10 +8,11 @@
   236,
   195
  ],
- "statesSummary": "normal, hover, draft",
+ "statesSummary": "normal, hover (`line/strong` + ⋯), draft, sağ tık hedefi (gök kenar + ⋯), dosya bulunamadı",
  "notes": [],
  "usedIn": [
   "Home File Errors",
+  "Home States",
   "Home Window",
   "Home Window · Ayarlar paneli",
   "Home Window · Bağlam menüsü",
@@ -27,6 +28,7 @@
   "ink/primary": "DesignTokens.Color.inkPrimary",
   "ink/secondary": "DesignTokens.Color.inkSecondary",
   "line": "DesignTokens.Color.line",
+  "line/strong": "DesignTokens.Color.lineStrong",
   "radius/badge": "DesignTokens.Radius.badge",
   "radius/card": "DesignTokens.Radius.card",
   "space/2": "DesignTokens.Space.s2",
@@ -35,6 +37,7 @@
   "status/warning": "DesignTokens.Color.statusWarning",
   "stroke/hairline": "DesignTokens.Stroke.hairline",
   "surface/card": "DesignTokens.Color.surfaceCard",
+  "surface/header": "DesignTokens.Color.surfaceHeader",
   "surface/pill": "DesignTokens.Color.surfacePill"
  },
  "tree": {
@@ -121,7 +124,7 @@
           6
          ]
         },
-        "fill": "#2D2926"
+        "fill": "$surface/header"
        },
        {
         "name": "MiniImg",
@@ -181,7 +184,7 @@
           6
          ]
         },
-        "fill": "#2D2926"
+        "fill": "$surface/header"
        },
        {
         "name": "MiniImg",
@@ -241,7 +244,7 @@
           6
          ]
         },
-        "fill": "#2D2926"
+        "fill": "$surface/header"
        },
        {
         "name": "MiniImg",
@@ -308,7 +311,7 @@
           6
          ]
         },
-        "fill": "#2D2926"
+        "fill": "$surface/header"
        },
        {
         "name": "MiniImg",
@@ -368,7 +371,7 @@
        "w": "fill",
        "h": "fit",
        "px": [
-        188,
+        212,
         31
        ]
       },
@@ -512,6 +515,13 @@
       "name": "More",
       "type": "icon",
       "nodeId": "Gif2H",
+      "hidden": true,
+      "position": {
+       "at": [
+        208,
+        19.5
+       ]
+      },
       "size": {
        "w": 16,
        "h": 16,
@@ -576,6 +586,125 @@
        "set": {
         "content": "Dosya bulunamadı",
         "fill": "$status/warning"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "state": "Normal · ⋯ gizli",
+   "frame": "Home States",
+   "samples": [
+    {
+     "instanceId": "VlakS",
+     "sizePx": [
+      236,
+      195
+     ],
+     "instance": "Card normal",
+     "overrides": [
+      {
+       "node": "Home/ProjectCard › Body › More",
+       "nodeId": "Gif2H",
+       "set": {
+        "enabled": false
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "state": "Hover · kenar line/strong, ⋯ belirir",
+   "frame": "Home States",
+   "samples": [
+    {
+     "instanceId": "p2hO7",
+     "sizePx": [
+      236,
+      195
+     ],
+     "instance": "Card hover H2",
+     "set": {
+      "stroke": "$line/strong"
+     },
+     "overrides": [
+      {
+       "node": "Home/ProjectCard › Body › More",
+       "nodeId": "Gif2H",
+       "set": {
+        "enabled": true
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "state": "Taslak · rozet, ⋯ gizli",
+   "frame": "Home States",
+   "samples": [
+    {
+     "instanceId": "QFPII",
+     "sizePx": [
+      236,
+      195
+     ],
+     "instance": "Card draft",
+     "overrides": [
+      {
+       "node": "Home/ProjectCard › Body › Text › NameRow › Name",
+       "nodeId": "yG6Du",
+       "set": {
+        "content": "Untitled"
+       }
+      },
+      {
+       "node": "Home/ProjectCard › Body › Text › Meta",
+       "nodeId": "jSlmZ",
+       "set": {
+        "content": "5 dk. önce · 2 cihaz"
+       }
+      },
+      {
+       "node": "Home/ProjectCard › Body › DraftPill",
+       "nodeId": "iItaA",
+       "set": {
+        "enabled": true
+       }
+      },
+      {
+       "node": "Home/ProjectCard › Body › More",
+       "nodeId": "Gif2H",
+       "set": {
+        "enabled": false
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "state": "Sağ tık hedefi · gök kenar, ⋯ görünür",
+   "frame": "Home States",
+   "samples": [
+    {
+     "instanceId": "nrnFS",
+     "sizePx": [
+      236,
+      195
+     ],
+     "instance": "Card context target",
+     "set": {
+      "stroke": "$status/leader"
+     },
+     "overrides": [
+      {
+       "node": "Home/ProjectCard › Body › More",
+       "nodeId": "Gif2H",
+       "set": {
+        "enabled": true
        }
       }
      ]
@@ -1014,6 +1143,13 @@
      "set": {
       "enabled": false
      }
+    },
+    {
+     "node": "Home/ProjectCard › Body › More",
+     "nodeId": "Gif2H",
+     "set": {
+      "enabled": true
+     }
     }
    ]
   }
@@ -1026,10 +1162,16 @@
    "sameAsToken": null
   },
   {
-   "node": "Home/ProjectCard › Thumb › MiniCard › MiniHeader",
+   "node": "Home/ProjectCard › Thumb › MiniCard › MiniImg",
    "prop": "fill",
-   "value": "#2D2926",
-   "sameAsToken": "surface/header"
+   "value": "#E6E1DA",
+   "sameAsToken": null
+  },
+  {
+   "node": "Home/ProjectCard › Thumb › MiniCard",
+   "prop": "fill",
+   "value": "#FAF8F5",
+   "sameAsToken": null
   },
   {
    "node": "Home/ProjectCard › Thumb › MiniCard › MiniImg",
@@ -1044,12 +1186,6 @@
    "sameAsToken": null
   },
   {
-   "node": "Home/ProjectCard › Thumb › MiniCard › MiniHeader",
-   "prop": "fill",
-   "value": "#2D2926",
-   "sameAsToken": "surface/header"
-  },
-  {
    "node": "Home/ProjectCard › Thumb › MiniCard › MiniImg",
    "prop": "fill",
    "value": "#E6E1DA",
@@ -1060,30 +1196,6 @@
    "prop": "fill",
    "value": "#FAF8F5",
    "sameAsToken": null
-  },
-  {
-   "node": "Home/ProjectCard › Thumb › MiniCard › MiniHeader",
-   "prop": "fill",
-   "value": "#2D2926",
-   "sameAsToken": "surface/header"
-  },
-  {
-   "node": "Home/ProjectCard › Thumb › MiniCard › MiniImg",
-   "prop": "fill",
-   "value": "#E6E1DA",
-   "sameAsToken": null
-  },
-  {
-   "node": "Home/ProjectCard › Thumb › MiniCard",
-   "prop": "fill",
-   "value": "#FAF8F5",
-   "sameAsToken": null
-  },
-  {
-   "node": "Home/ProjectCard › Thumb › MiniCard › MiniHeader",
-   "prop": "fill",
-   "value": "#2D2926",
-   "sameAsToken": "surface/header"
   },
   {
    "node": "Home/ProjectCard › Thumb › MiniCard › MiniImg",

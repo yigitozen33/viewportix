@@ -21,6 +21,8 @@ public enum DesignTokens {
         public static let surfaceTooltip = SwiftUI.Color(red: 0.0431, green: 0.0392, blue: 0.0353)
         /// line · dark #3A3532 · light #D9D3C9
         public static let line = SwiftUI.Color(red: 0.2275, green: 0.2078, blue: 0.1961)
+        /// line-strong · dark #4F4945 · light #C7C0B4
+        public static let lineStrong = SwiftUI.Color(red: 0.3098, green: 0.2863, blue: 0.2706)
         /// ink/primary · dark #F4EFE9 · light #1D1B19
         public static let inkPrimary = SwiftUI.Color(red: 0.9569, green: 0.9373, blue: 0.9137)
         /// ink/secondary · dark #9C9188 · light #6E6760

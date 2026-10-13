@@ -44,8 +44,6 @@
  "tokens": {
   "accent": "DesignTokens.Color.accent",
   "accent/ink": "DesignTokens.Color.accentInk",
-  "font/ui": "system font (SF Pro; Inter is a design proxy)",
-  "ink/primary": "DesignTokens.Color.inkPrimary",
   "ink/secondary": "DesignTokens.Color.inkSecondary",
   "line": "DesignTokens.Color.line",
   "radius/bar": "DesignTokens.Radius.bar",
@@ -53,8 +51,7 @@
   "stroke/hairline": "DesignTokens.Stroke.hairline",
   "surface/card": "DesignTokens.Color.surfaceCard",
   "surface/header": "DesignTokens.Color.surfaceHeader",
-  "surface/header-leader": "DesignTokens.Color.surfaceHeaderLeader",
-  "surface/tooltip": "DesignTokens.Color.surfaceTooltip"
+  "surface/header-leader": "DesignTokens.Color.surfaceHeaderLeader"
  },
  "tree": {
   "name": "Window/BottomBar",
@@ -268,7 +265,7 @@
    "arrangement": {
     "in": "Tooltip wrap",
     "axis": "vertical",
-    "gap": 6
+    "gap": 8
    },
    "companions": [
     {
@@ -292,88 +289,24 @@
      "children": [
       {
        "name": "Tooltip",
-       "type": "frame",
-       "nodeId": "tVCF2",
-       "size": {
-        "w": "fit",
-        "h": "fit"
-       },
-       "layout": {
-        "axis": "vertical",
-        "stack": "VStack",
-        "alignItems": "center"
-       },
-       "children": [
+       "type": "ref",
+       "nodeId": "UW4zN",
+       "component": "Window/Tooltip",
+       "swiftName": "ChromeTooltip",
+       "overrides": [
         {
-         "name": "Tooltip Body",
-         "type": "frame",
-         "nodeId": "tkSIi",
-         "size": {
-          "w": "fit",
-          "h": "fit"
-         },
-         "layout": {
-          "axis": "horizontal",
-          "stack": "HStack",
-          "gap": 8,
-          "alignItems": "center",
-          "padding": [
-           6,
-           10,
-           6,
-           10
-          ]
-         },
-         "cornerRadius": 8,
-         "fill": "$surface/tooltip",
-         "stroke": "$line",
-         "strokeWidth": 1,
-         "strokeAlignment": "inner",
-         "children": [
-          {
-           "name": "TipText",
-           "type": "text",
-           "nodeId": "EQtuE",
-           "size": {
-            "w": "fit",
-            "h": "fit"
-           },
-           "fill": "$ink/primary",
-           "text": {
-            "content": "Sığdır",
-            "fontFamily": "$font/ui",
-            "fontSize": 12,
-            "fontWeight": "500"
-           }
-          },
-          {
-           "name": "TipKey",
-           "type": "text",
-           "nodeId": "fMEYX",
-           "size": {
-            "w": "fit",
-            "h": "fit"
-           },
-           "fill": "$ink/secondary",
-           "text": {
-            "content": "⌘1",
-            "fontFamily": "$font/ui",
-            "fontSize": 11,
-            "fontWeight": "normal"
-           }
-          }
-         ]
+         "node": "Window/Tooltip › Tooltip Body › TipText",
+         "nodeId": "OPL33",
+         "set": {
+          "content": "Sığdır"
+         }
         },
         {
-         "name": "Caret",
-         "type": "polygon",
-         "nodeId": "ucr0w",
-         "size": {
-          "w": 12,
-          "h": 6
-         },
-         "fill": "$surface/tooltip",
-         "rotation": 180
+         "node": "Window/Tooltip › Tooltip Body › TipKey",
+         "nodeId": "gATZf",
+         "set": {
+          "content": "⌘1"
+         }
         }
        ]
       }
@@ -499,20 +432,7 @@
    ]
   }
  ],
- "rawValues": [
-  {
-   "node": "Window/BottomBar [Hover + tooltip] › Tooltip offset › Tooltip › Tooltip Body › TipText",
-   "prop": "fontSize",
-   "value": 12,
-   "sameAsToken": "font/label"
-  },
-  {
-   "node": "Window/BottomBar [Hover + tooltip] › Tooltip offset › Tooltip › Tooltip Body › TipKey",
-   "prop": "fontSize",
-   "value": 11,
-   "sameAsToken": "font/caption"
-  }
- ],
+ "rawValues": [],
  "rawNumbers": [
   {
    "node": "Window/BottomBar",
@@ -578,36 +498,6 @@
    "node": "Window/BottomBar [Hover + tooltip] › Tooltip offset",
    "prop": "padding",
    "value": 25,
-   "sameAsToken": null
-  },
-  {
-   "node": "Window/BottomBar [Hover + tooltip] › Tooltip offset › Tooltip › Tooltip Body",
-   "prop": "cornerRadius",
-   "value": 8,
-   "sameAsToken": "radius/control"
-  },
-  {
-   "node": "Window/BottomBar [Hover + tooltip] › Tooltip offset › Tooltip › Tooltip Body",
-   "prop": "strokeWidth",
-   "value": 1,
-   "sameAsToken": "stroke/hairline"
-  },
-  {
-   "node": "Window/BottomBar [Hover + tooltip] › Tooltip offset › Tooltip › Tooltip Body",
-   "prop": "gap",
-   "value": 8,
-   "sameAsToken": "space/2"
-  },
-  {
-   "node": "Window/BottomBar [Hover + tooltip] › Tooltip offset › Tooltip › Tooltip Body",
-   "prop": "padding",
-   "value": 6,
-   "sameAsToken": null
-  },
-  {
-   "node": "Window/BottomBar [Hover + tooltip] › Tooltip offset › Tooltip › Tooltip Body",
-   "prop": "padding",
-   "value": 10,
    "sameAsToken": null
   }
  ]
