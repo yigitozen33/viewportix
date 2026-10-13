@@ -16,8 +16,8 @@
 
 | # | Aşama | Durum | Bitiş | Commit |
 |---|---|---|---|---|
-| 0 | Klasör ve sözleşme | ⬜ | | |
-| 1 | Token zinciri (pen → JSON → Swift) | ⬜ | | |
+| 0 | Klasör ve sözleşme | ✅ | 2026-10-13 | (bu commit) |
+| 1 | Token zinciri (pen → JSON → Swift) | ✅ | 2026-10-13 | (bu commit) |
 | 2 | Manifest (bileşen · ekran · PNG · nodeId) | ⬜ | | |
 | 3 | Bileşen spec'leri (ölçülü katman ağacı) | ⬜ | | |
 | 4 | CHK tutarlılık kontrolleri | ⬜ | | |
@@ -83,5 +83,11 @@ Durum: ⬜ başlanmadı · 🟡 sürüyor · ✅ bitti · ⛔ vazgeçildi (neden
 Yalnızca eklenir. Biçim: `### YYYY-MM-DD · <aşamalar>` altında: yapılan, kanıt (commit, dosya), takılan, sonraki adım.
 
 ### 2026-10-13 · plan
-- Plan yazıldı; analiz `design/notlar/2026-10-13-ikas-pendev-analizi.md`. Henüz aşama başlamadı.
-- Sonraki adım: aşama 0 ve 1.
+- Plan yazıldı; analiz `design/notlar/2026-10-13-ikas-pendev-analizi.md`.
+
+### 2026-10-13 · aşama 0 ve 1
+- 0: `design/handoff/README.md` (sözleşme + dosya tablosu).
+- 1: `design/tokens/export-variables.js` (execute snippet, dosya koruması var), `pen-variables.json` (döküm), `gen_swift.py` (üretim + `--check` + `--diff`), `motion/*` token'ları JSON'a taşındı; Swift tamamen üretiliyor, typecheck temiz, `--diff` → `DIFF: none`.
+- Bulgu: ilk `--diff` `accent/ink` renginin JSON'da eksik olduğunu yakaladı (Swift'te elle vardı) → `color/accent-ink` eklendi (`PEN_RENAME` ile eşlenir). Zincir daha ilk çalışmada bir sapma buldu.
+- Takılan: pen.dev'de yanlışlıkla `ismail.pen` aktifti; `GetVariables` başka dosyanın değişkenlerini verdi. Önlem: snippet Viewportix değişkenlerini görmezse `ERROR` basıyor; yeni oturum kuralı 3 (`get_app_state`) bunun için.
+- Sonraki adım: aşama 2 (manifest).

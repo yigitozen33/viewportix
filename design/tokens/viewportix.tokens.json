@@ -89,6 +89,14 @@
         }
       }
     },
+    "accent-ink": {
+      "$type": "color",
+      "$value": "#141210",
+      "$extensions": {
+        "viewportix.light": "#141210"
+      },
+      "$description": "Text/icon on accent"
+    },
     "status": {
       "leader": {
         "$type": "color",
@@ -279,6 +287,33 @@
         "viewBox": "0 0 16 16",
         "fillRule": "evenodd"
       }
+    }
+  },
+  "motion": {
+    "$description": "Durations from DESIGN.md §3 interaction tables; code-only (not pen.dev variables).",
+    "hover": {
+      "$type": "duration",
+      "$value": "100ms"
+    },
+    "fast": {
+      "$type": "duration",
+      "$value": "120ms"
+    },
+    "standard": {
+      "$type": "duration",
+      "$value": "150ms"
+    },
+    "panel": {
+      "$type": "duration",
+      "$value": "200ms"
+    },
+    "canvas-pan": {
+      "$type": "duration",
+      "$value": "250ms"
+    },
+    "tooltip-delay": {
+      "$type": "duration",
+      "$value": "400ms"
     }
   }
 }

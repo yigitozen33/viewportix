@@ -1,5 +1,5 @@
-// Generated from design/tokens/viewportix.tokens.json — do not edit by hand.
-// Source of truth: design/viewportix.pen variables (DESIGN.md §6). Draft for the code session.
+// Generated from design/tokens/viewportix.tokens.json by gen_swift.py — do not edit by hand.
+// Source of truth: design/viewportix.pen variables (DESIGN.md §6). Copy into the package; regenerate on change.
 import SwiftUI
 
 public enum DesignTokens {
@@ -27,7 +27,7 @@ public enum DesignTokens {
         public static let inkSecondary = SwiftUI.Color(red: 0.6118, green: 0.5686, blue: 0.5333)
         /// accent · dark #FFF36B · light #E6C800
         public static let accent = SwiftUI.Color(red: 1.0000, green: 0.9529, blue: 0.4196)
-        /// accent/ink · dark #141210 · light #141210
+        /// accent-ink · dark #141210 · light #141210
         public static let accentInk = SwiftUI.Color(red: 0.0784, green: 0.0706, blue: 0.0627)
         /// status/leader · dark #8EC9E6 · light #2F8FBF
         public static let statusLeader = SwiftUI.Color(red: 0.5569, green: 0.7882, blue: 0.9020)
