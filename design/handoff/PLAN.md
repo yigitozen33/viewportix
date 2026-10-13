@@ -18,7 +18,7 @@
 |---|---|---|---|---|
 | 0 | Klasör ve sözleşme | ✅ | 2026-10-13 | (bu commit) |
 | 1 | Token zinciri (pen → JSON → Swift) | ✅ | 2026-10-13 | (bu commit) |
-| 2 | Manifest (bileşen · ekran · PNG · nodeId) | ⬜ | | |
+| 2 | Manifest (bileşen · ekran · PNG · nodeId) | ✅ | 2026-10-13 | (bu commit) |
 | 3 | Bileşen spec'leri (ölçülü katman ağacı) | ⬜ | | |
 | 4 | CHK tutarlılık kontrolleri | ⬜ | | |
 | 5 | İkon eşleme (Lucide → SF Symbols) | ⬜ | | |
@@ -91,3 +91,8 @@ Yalnızca eklenir. Biçim: `### YYYY-MM-DD · <aşamalar>` altında: yapılan, k
 - Bulgu: ilk `--diff` `accent/ink` renginin JSON'da eksik olduğunu yakaladı (Swift'te elle vardı) → `color/accent-ink` eklendi (`PEN_RENAME` ile eşlenir). Zincir daha ilk çalışmada bir sapma buldu.
 - Takılan: pen.dev'de yanlışlıkla `ismail.pen` aktifti; `GetVariables` başka dosyanın değişkenlerini verdi. Önlem: snippet Viewportix değişkenlerini görmezse `ERROR` basıyor; yeni oturum kuralı 3 (`get_app_state`) bunun için.
 - Sonraki adım: aşama 2 (manifest).
+
+### 2026-10-13 · aşama 2
+- `dump-manifest.js` (execute snippet, arşiv/future frame'leri atlar, dosya koruması), `canvas-dump.json`, `exports-map.json` (48 frame → PNG), `build_manifest.py` → `manifest.json` + `manifest.md`. Sonuç: 17 bileşen, 31 ekran frame'i, 17 durum/spec frame'i, açık soru 0.
+- Script DESIGN.md §6 tablosunu okuyup swiftName/states'i bağlıyor; tabloda olmayan bileşen, pen'de olmayan tablo satırı, PNG'si olmayan frame "açık soru" olarak çıkıyor. İlk çalışmada tek yanlış pozitif (`ZoomControl` yalnız `BottomBar` içinde kullanılıyor) → `usedVia` alanı eklendi.
+- Sonraki adım: aşama 3 (bileşen spec'leri); öncelik sırasına göre sonra 5 (ikon eşleme).

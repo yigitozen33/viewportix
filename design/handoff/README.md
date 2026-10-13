@@ -9,7 +9,8 @@ Sözleşme, üç cümle:
 | Dosya | Ne | Nasıl yenilenir |
 |---|---|---|
 | `PLAN.md` | Aşamalar, ilerleme, oturum raporları | Her oturumda elle |
-| `manifest.json` | Bileşen · ekran · PNG · nodeId dökümü | `dump-manifest.js` pen.dev `execute` içinde çalıştırılır, çıktı dosyaya yazılır |
+| `manifest.json` / `manifest.md` | Bileşen · ekran · PNG · nodeId dökümü + açık sorular | `dump-manifest.js` pen.dev `execute` içinde → çıktı `canvas-dump.json`'a → `python3 build_manifest.py` (açık soru varsa exit 1) |
+| `exports-map.json` | Frame adı → PNG adı | Yeni frame dışa aktarılınca elle |
 | `specs/*.json` | Bileşen başına ölçülü katman ağacı | `dump-specs.js` ile, aynı yöntem |
 | `checks.js` → `CHECKS.md` | Tutarlılık kontrolleri | Her tasarım değişikliğinden sonra |
 | `icons.md` | Lucide → SF Symbols | Yeni ikon eklenince elle |
