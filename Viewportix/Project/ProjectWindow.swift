@@ -10,6 +10,8 @@ struct ProjectWindow: View {
     @State private var workspace: Workspace
     @State private var selectedPageID: Page.ID?
     @State private var sizeEditor: ViewportSizeEditor?
+    /// CARD-06: the "Boyutu düzenle" popover under a card header.
+    @State private var editingSize: ViewportSizeEditor?
     @State private var isBarMenuOpen = false
     @State private var isTooltipShown = false
     @State private var canvasWidth: CGFloat = 1000
@@ -80,7 +82,10 @@ struct ProjectWindow: View {
 
 private extension ProjectWindow {
     var canvas: some View {
-        CanvasView(workspace: workspace, onCommand: handle)
+        CanvasView(workspace: workspace)
+            .overlay {
+                CardChromeLayer(workspace: workspace, command: handle, saveSize: save, editingSize: $editingSize)
+            }
             .overlay(alignment: .bottom) {
                 // 28 pt gap measured in window-project-dark@2x.png; no spec value yet.
                 VStack(spacing: 28) {
@@ -186,11 +191,11 @@ private extension ProjectWindow {
         case .rotate:
             document.project.viewports[index].rotate()
         case .editSize:
-            sizeEditor = ViewportSizeEditor(editing: document.project.viewports[index])
+            editingSize = ViewportSizeEditor(editing: document.project.viewports[index])
         case .toggleSync:
             document.project.viewports[index].isSyncEnabled.toggle()
-        case .capture:
-            break  // handled by the canvas
+        case .capture(let area):
+            Task { await workspace.capture([id], area: area) }
         }
     }
 
@@ -198,8 +203,10 @@ private extension ProjectWindow {
         let size = ViewportSize(width: editor.width, height: editor.height)
         let name = editor.name.trimmingCharacters(in: .whitespaces)
         if let id = editor.viewportID, let index = document.project.viewports.firstIndex(where: { $0.id == id }) {
-            document.project.viewports[index].size = size
-            if !name.isEmpty { document.project.viewports[index].name = name }
+            withAnimation(.easeInOut(duration: DesignTokens.Motion.panel)) {
+                document.project.viewports[index].size = size
+                if !name.isEmpty { document.project.viewports[index].name = name }
+            }
         } else {
             document.project.viewports.append(ViewportConfig(name: name.isEmpty ? "Özel" : name, size: size))
         }

@@ -15,9 +15,6 @@ final class CanvasController: NSViewController {
     private static let margin: CGFloat = 64
     private static let gap: CGFloat = 48
 
-    /// Card commands that change the document (remove, rotate, edit size). Captures stay in the workspace.
-    var onCommand: ((ViewportID, ViewportCommand) -> Void)?
-
     private let workspace: Workspace
     private let scrollView = NSScrollView()
     private let documentView = CanvasDocumentView()
@@ -54,6 +51,9 @@ final class CanvasController: NSViewController {
         view = scrollView
 
         NotificationCenter.default.addObserver(self, selector: #selector(magnificationEnded), name: NSScrollView.didEndLiveMagnifyNotification, object: scrollView)
+        scrollView.contentView.postsBoundsChangedNotifications = true
+        NotificationCenter.default.addObserver(self, selector: #selector(visibleRectChanged), name: NSView.boundsDidChangeNotification, object: scrollView.contentView)
+        documentView.onEmptyClick = { [weak self] in self?.workspace.selectedViewportID = nil }
     }
 
     override func viewDidAppear() {
@@ -80,6 +80,7 @@ final class CanvasController: NSViewController {
 
     override func viewDidLayout() {
         super.viewDidLayout()
+        publishFrames()
         if needsInitialFit, !order.isEmpty, scrollView.bounds.width > 0 {
             needsInitialFit = false
             fit()
@@ -88,7 +89,7 @@ final class CanvasController: NSViewController {
 
     // MARK: Cards
 
-    func update(viewports: [ViewportConfig], leader: ViewportID?, missed: Set<ViewportID>) {
+    func update(viewports: [ViewportConfig]) {
         let ids = viewports.map(\.id)
         for (id, card) in cards where !ids.contains(id) {
             card.removeFromSuperview()
@@ -97,7 +98,7 @@ final class CanvasController: NSViewController {
         for config in viewports {
             guard let session = workspace.session(for: config.id) else { continue }
             let card = cards[config.id] ?? makeCard(id: config.id, content: session.view)
-            card.configure(config: config, engineVersion: session.engineVersion, isLeader: leader == config.id, syncMissed: missed.contains(config.id))
+            card.configure(size: config.size)
         }
         let sizes = viewports.map(\.size)
         if ids != order || sizes != layoutSizes {
@@ -109,19 +110,24 @@ final class CanvasController: NSViewController {
 
     private func makeCard(id: ViewportID, content: NSView) -> ViewportCardView {
         let card = ViewportCardView(viewportID: id, content: content)
-        card.onHover = { [weak self] id in self?.workspace.setLeader(id) }
-        card.onCommand = { [weak self] id, command in
-            guard let self else { return }
-            if case .capture(let area) = command {
-                let workspace = self.workspace
-                Task { await workspace.capture([id], area: area) }
-            } else {
-                self.onCommand?(id, command)
-            }
-        }
+        card.onHover = { [weak self] id, inside in self?.workspace.cardHovered(id, inside) }
         documentView.addSubview(card)
         cards[id] = card
         return card
+    }
+
+    /// Card page areas in this view's coordinates (top-left origin, screen points) for the chrome
+    /// drawn above the canvas; called on layout, scroll and zoom.
+    func publishFrames() {
+        let magnification = scrollView.magnification
+        var frames: [ViewportID: CGRect] = [:]
+        for (id, card) in cards {
+            card.setScreenCornerRadius(DesignTokens.Radius.card, magnification: magnification)
+            let rect = scrollView.convert(card.frame, from: documentView)
+            let top = scrollView.isFlipped ? rect.minY : scrollView.bounds.height - rect.maxY
+            frames[id] = CGRect(x: rect.minX, y: top, width: rect.width, height: rect.height)
+        }
+        if frames != workspace.cardFrames { workspace.cardFrames = frames }
     }
 
     /// One row, top-aligned. Free placement and grouping come in M3.
@@ -136,6 +142,7 @@ final class CanvasController: NSViewController {
         }
         let width = order.isEmpty ? 0 : x - Self.gap + Self.margin
         documentView.setFrameSize(NSSize(width: width, height: maxHeight + 2 * Self.margin))
+        publishFrames()
     }
 
     /// Pans so the card is centred horizontally and its top shows below the strip (250 ms ease-out).
@@ -190,8 +197,8 @@ final class CanvasController: NSViewController {
         workspace.zoom = target
     }
 
-    /// Strip (16 + 35) and bar (31 + 49) plus breathing room; DESIGN.md §6 "Pencere chrome'u".
-    static let chromeInsets = NSEdgeInsets(top: 72, left: 0, bottom: 96, right: 0)
+    /// Strip (16 + 35), hover strip and the 36 pt card header above the page area; bottom bar below.
+    static let chromeInsets = NSEdgeInsets(top: 144, left: 0, bottom: 112, right: 0)
 
     /// Fits all cards between the strip and the bottom bar, centred horizontally, top-aligned.
     func fit() {
@@ -232,10 +239,15 @@ final class CanvasController: NSViewController {
 
     private func reportZoom() {
         workspace.zoom = scrollView.magnification
+        publishFrames()
     }
 
     @objc private func magnificationEnded() {
         reportZoom()
+    }
+
+    @objc private func visibleRectChanged() {
+        publishFrames()
     }
 
     // MARK: Event routing
@@ -266,6 +278,19 @@ final class CanvasController: NSViewController {
             NSCursor.pop()
             return nil
 
+        case .leftMouseDown where !spaceHeld:
+            // CARD-02: clicking a page selects its card; the click still reaches the page.
+            // Hit-test so clicks on the chrome floating above a card (bottom bar, strip) don't count.
+            if let hit = view.window?.contentView?.hitTest(event.locationInWindow),
+               let card = cards.values.first(where: { hit.isDescendant(of: $0) }) {
+                workspace.selectedViewportID = card.viewportID
+            }
+            return event
+
+        case .keyDown where event.keyCode == Self.escapeKeyCode && !firstResponderIsWebContent && workspace.selectedViewportID != nil:
+            workspace.selectedViewportID = nil
+            return nil
+
         case .leftMouseDown where spaceHeld:
             panStart = (event.locationInWindow, scrollView.contentView.bounds.origin)
             NSCursor.closedHand.push()
@@ -294,6 +319,7 @@ final class CanvasController: NSViewController {
     }
 
     private static let spaceKeyCode: UInt16 = 49
+    private static let escapeKeyCode: UInt16 = 53
 
     private var isPointerOverCanvas: Bool {
         guard let window = view.window else { return false }
@@ -308,18 +334,21 @@ final class CanvasController: NSViewController {
 }
 
 final class CanvasDocumentView: NSView {
+    var onEmptyClick: (() -> Void)?
+
     override var isFlipped: Bool { true }
     override var acceptsFirstResponder: Bool { true }
 
-    /// Clicking empty canvas takes keyboard focus away from web pages, so Space pans again.
+    /// Clicking empty canvas takes keyboard focus away from web pages, so Space pans again, and
+    /// clears the card selection (CARD-02).
     override func mouseDown(with event: NSEvent) {
         window?.makeFirstResponder(self)
+        onEmptyClick?()
     }
 }
 
 struct CanvasView: NSViewControllerRepresentable {
     let workspace: Workspace
-    let onCommand: (ViewportID, ViewportCommand) -> Void
 
     func makeNSViewController(context: Context) -> CanvasController {
         let controller = CanvasController(workspace: workspace)
@@ -328,7 +357,6 @@ struct CanvasView: NSViewControllerRepresentable {
     }
 
     func updateNSViewController(_ controller: CanvasController, context: Context) {
-        controller.onCommand = onCommand
-        controller.update(viewports: workspace.viewports, leader: workspace.leaderID, missed: workspace.missedIDs)
+        controller.update(viewports: workspace.viewports)
     }
 }

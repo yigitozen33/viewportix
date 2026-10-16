@@ -241,3 +241,26 @@ Kod oturumunun arayüze dokunan her değişikliği, değişikliğin commit'inde 
   6. "+N" sayısına kısmen görünen sekme de dahil (tamamen görünmeyen değil, tamamen görünen dışındakiler sayılıyor).
 - Tasarım kararı gerekir mi: evet — 1 ve 6
 - Bağlantılı: DESIGN.md §3.2 (STRIP-01…12, Bildirim kapsülü halleri), §5.20 d–f; `KOD-OTURUMU-ISLERI.md` §12 adım 4
+
+## 2026-10-16 — Viewport kartı yeniden kuruldu: CARD-01…07 bitti; kart başlığı zoom'dan bağımsız
+- Ne: Kartın sabit boyutlu parçaları artık canvas'ın üstünde ayrı bir katmanda, kartların ekrandaki konumunu izleyerek çiziliyor; yalnız sayfa (WKWebView) zoom'la ölçekleniyor (çizimlerdeki gibi: %40'ta da başlık 36 pt, yazı 12 pt). Katmanda:
+  - **Başlık (36):** ad (12 semibold), boyut (11, `ink/secondary`; dar kartta önce boyut gizlenir, sonra ad ortadan kısalır), senkron kapalıysa gri `pause` (tooltip "Bu viewport için senkron kapalı"), senkron kaçtıysa mercan üçgen; sağda motor glifi (`engine.webkit` sembolü, 14 kutu; lider/seçili iken gök; tooltip "WebKit 26.6 · macOS 26.6") ve kamera (lider iken gök). Lider başlık `surface/header-leader`.
+  - **Kenar:** 1 pt `line`; lider 2 pt gök (CARD-01). **Seçili:** dışta 3 pt boşlukla 1,5 pt krem halka, lider çizgisinden bağımsız (CARD-02). Sayfaya ya da başlığa tık seçer; boş canvas'a tık ya da Esc seçimi kaldırır; sekmeye tık seçer ve kaydırır.
+  - **Yükleniyor:** başlığın altında 3 pt `line` iz üzerinde kayan krem çizgi, kamera yerine dönen gösterge.
+  - **Senkron kaçtı:** kartın altında 30 pt `status/warning-bg` not, "Element bu viewport'ta bulunamadı".
+  - **Hover şeridi** (CARD-01): kartın üstünde, sağ kenara hizalı, başlığın 8 pt üstünde; Senkrondan çıkar (`link.slash`) / Senkrona kat (`link`, `ink/primary`) · Döndür (`rectangle.portrait.rotate`) · Kapat; her biri tooltip'li. İmleç karttan şeride geçebilsin diye şerit 250 ms daha kalıyor.
+  - **Kamera** (CARD-04): başlığın altından "EKRAN GÖRÜNTÜSÜ · <cihaz>" seçicisi: Görünen alan / Tam sayfa.
+  - **Başlık sağ tık** (CARD-05): Döndür ⌥⌘R · Boyutu düzenle… · Senkrondan çıkar / Senkrona kat · — · Motor › (pasif, "WebKit 26.6" işaretli) · — · Kaldır ⌫ (mercan). Önceki sistem menüsündeki "Ekran Görüntüsü" maddeleri kalktı (§4 kararı).
+  - **Boyutu düzenle** (CARD-06): sheet yerine başlığın 8 pt altında popover: Ad, Genişlik ⇄ Yükseklik, "200–3840 × 200–4320 px" (sınır dışında alan mercan kenar, ipucu mercan, Kaydet pasif), İptal / Kaydet (sarı); Kaydet'te kart yeni boyuta 200 ms'de geçer.
+  - **Senkron aç/kapa** (CARD-07): hover şeridi ve menüden.
+  - Canvas'ın üst payı başlık için 144 pt'ye çıktı (şerit + hover şeridi + başlık); sayfa alanının alt köşeleri her zoom'da 12 pt yuvarlak.
+- Nerede: `Viewportix/Canvas/CardChrome.swift` (yeni: `CardChromeLayer`, `ViewportCardChrome`, `ViewportHoverStrip`, `SizeEditorPopover`), `ViewportCardView.swift` (yalnız sayfa), `CanvasController.swift` (`publishFrames`, seçim), `Viewportix/Project/Workspace.swift` (`cardFrames`, `hoveredViewportID`), `ProjectWindow.swift`
+- Durum: özel çizim (SwiftUI katmanı + AppKit sayfa); menüler sistem `NSMenu`
+- Eksik / sapma:
+  1. **"Özel Boyut…" ile yeni kart** hâlâ sistem sheet'i (`ViewportSizeSheet`); cihaz seçicinin "Özel boyut" satırı gelince kalkacak.
+  2. **Snapshot hali** (Firefox, M6) ve **sayfa yüklenemedi halleri** (ağ, sertifika, localhost, adres; §13) henüz yok.
+  3. **Yükleme çizgisi belirsiz** (kayan parça): motor ilerleme yüzdesi vermiyor; tasarımdaki 120 px'lik çubuk ilerlemeyi mi gösteriyor, yoksa animasyon mu?
+  4. **Kart sürükleme** (CARD-08, CARD-09) §13'te.
+  5. Hover şeridinin karta göre yatay konumu spec'te yok; PNG'den: sağ kenara 4 pt içeride.
+- Tasarım kararı gerekir mi: evet — 3 ve 5
+- Bağlantılı: DESIGN.md §3.2 (Viewport kartı, CARD-01…07), §4 (kart kararları); `KOD-OTURUMU-ISLERI.md` §8, §12 adım 5

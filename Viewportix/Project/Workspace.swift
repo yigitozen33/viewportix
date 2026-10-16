@@ -24,6 +24,26 @@ final class Workspace {
     private(set) var loadingIDs: Set<ViewportID> = []
     /// The selected card (CARD-02): target of tab clicks and per-viewport shortcuts.
     var selectedViewportID: ViewportID?
+    /// Card under the pointer (page, header or hover strip): shows its hover strip.
+    private(set) var hoveredViewportID: ViewportID?
+    /// Page areas of the cards on screen (canvas coordinates, top-left origin), from the canvas.
+    var cardFrames: [ViewportID: CGRect] = [:]
+    @ObservationIgnored private var hoverEnd: Task<Void, Never>?
+
+    /// CARD-01: the card under the pointer leads; leaving lets the hover strip linger briefly so the
+    /// pointer can reach it.
+    func cardHovered(_ id: ViewportID, _ inside: Bool) {
+        hoverEnd?.cancel()
+        if inside {
+            hoveredViewportID = id
+            setLeader(id)
+        } else if hoveredViewportID == id {
+            hoverEnd = Task {
+                try? await Task.sleep(for: .milliseconds(250))
+                if !Task.isCancelled, hoveredViewportID == id { hoveredViewportID = nil }
+            }
+        }
+    }
     var addressText = ""
     var zoom: Double = 1
     var isSyncEnabled = true {
