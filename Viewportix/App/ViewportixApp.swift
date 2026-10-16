@@ -13,7 +13,10 @@ struct ViewportixApp: App {
         Window("Viewportix", id: HomeView.windowID) {
             HomeView()
         }
-        .windowResizability(.contentSize)
+        // Our own chrome (DESIGN.md §4, A): no title bar, system traffic lights stay.
+        .windowStyle(.hiddenTitleBar)
+        .windowResizability(.contentMinSize)
+        .defaultSize(width: 1040, height: 700)
         .defaultLaunchBehavior(.presented)
 
         DocumentGroup(newDocument: ProjectDocument()) { file in

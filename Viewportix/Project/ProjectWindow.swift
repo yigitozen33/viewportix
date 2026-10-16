@@ -10,6 +10,7 @@ struct ProjectWindow: View {
     @State private var selectedPageID: Page.ID?
     @State private var sizeEditor: ViewportSizeEditor?
     @State private var isBarMenuOpen = false
+    @State private var isTooltipShown = false
 
     init(document: Binding<ProjectDocument>) {
         _document = document
@@ -30,12 +31,13 @@ struct ProjectWindow: View {
             .overlay(alignment: .bottom) {
                 // 28 pt gap measured in window-project-dark@2x.png; no spec value yet.
                 VStack(spacing: 28) {
-                    // The notice sits above the bottom bar and hides while a bar menu is open.
-                    if let notice = workspace.notice, !isBarMenuOpen {
+                    // The notice sits above the bottom bar and hides while a bar menu or tooltip is open.
+                    if let notice = workspace.notice, !isBarMenuOpen, !isTooltipShown {
                         NoticeBar(notice: notice, dismiss: workspace.dismissNotice)
                             .transition(.move(edge: .bottom).combined(with: .opacity))
                     }
                     BottomBar(workspace: workspace, isMenuOpen: $isBarMenuOpen)
+                        .onPreferenceChange(ChromeTooltipVisibleKey.self) { isTooltipShown = $0 }
                 }
                 .padding(.bottom, BottomBar.bottomInset)
             }

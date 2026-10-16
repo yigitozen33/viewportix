@@ -1,11 +1,14 @@
 #if DEBUG
 import AppKit
 import DesignSystem
+import DeviceCatalog
+import ProjectModel
 import SwiftUI
 
-/// `--snapshots <folder>`: renders chrome previews to @2x PNGs and quits. Stands in for Xcode's
-/// preview canvas, which can't build the signed app target here ("No Accounts"); used for parity
-/// rounds (`docs/parity/`, design/handoff/PLAN.md stage 8).
+/// `--snapshots <folder>`: renders chrome previews to @2x PNGs and quits (Scripts/snapshots.sh).
+/// Stands in for Xcode's preview canvas, which can't build the signed app target here ("No Accounts");
+/// used for parity rounds (`docs/parity/`, design/handoff/PLAN.md stage 8). Views are drawn in an
+/// off-screen window, so AppKit-backed parts (text fields, menu anchors) render as in the app.
 @MainActor
 enum PreviewSnapshots {
     static var folder: URL? {
@@ -14,14 +17,37 @@ enum PreviewSnapshots {
         return URL(filePath: CommandLine.arguments[index + 1], directoryHint: .isDirectory)
     }
 
-    /// Name → view. Each is rendered on the canvas colour with 24 pt of margin unless it fills itself.
-    static var entries: [(String, AnyView)] {
+    private struct Entry {
+        let name: String
+        let size: CGSize?
+        let defaults: [String: String]
+        let view: AnyView
+
+        init(_ name: String, size: CGSize? = nil, defaults: [String: String] = [:], _ view: some View) {
+            self.name = name
+            self.size = size
+            self.defaults = defaults
+            self.view = AnyView(view)
+        }
+    }
+
+    private static let homeSize = CGSize(width: 1040, height: 700)
+
+    private static var entries: [Entry] {
         [
-            ("BottomBar-syncOn", AnyView(bottomBar(syncOn: true).padding(24).background(DesignTokens.Color.canvas))),
-            ("BottomBar-syncOff", AnyView(bottomBar(syncOn: false).padding(24).background(DesignTokens.Color.canvas))),
-            ("BottomBar-zoom25", AnyView(bottomBar(syncOn: true, zoom: 0.25).padding(24).background(DesignTokens.Color.canvas))),
-            ("BottomBar-zoom400", AnyView(bottomBar(syncOn: true, zoom: 4).padding(24).background(DesignTokens.Color.canvas))),
+            Entry("BottomBar-syncOn", padded(bottomBar(syncOn: true))),
+            Entry("BottomBar-syncOff", padded(bottomBar(syncOn: false))),
+            Entry("BottomBar-zoom25", padded(bottomBar(syncOn: true, zoom: 0.25))),
+            Entry("BottomBar-tooltip", padded(ChromeTooltip(title: "Sığdır", shortcut: "⌘1"))),
+            Entry("window-home-dark", size: homeSize, defaults: ["homeLayout": "grid"], HomeView(store: RecentProjects(fixed: samples))),
+            Entry("window-home-list", size: homeSize, defaults: ["homeLayout": "list"], HomeView(store: RecentProjects(fixed: samples + [missing]))),
+            Entry("window-home-empty", size: homeSize, defaults: ["homeLayout": "grid"], HomeView(store: RecentProjects(fixed: []))),
+            Entry("home-states", homeStates),
         ]
+    }
+
+    private static func padded(_ view: some View) -> some View {
+        view.padding(24).background(DesignTokens.Color.canvas)
     }
 
     static func bottomBar(syncOn: Bool, zoom: Double = 1) -> some View {
@@ -31,22 +57,93 @@ enum PreviewSnapshots {
         return BottomBar(workspace: workspace, isMenuOpen: .constant(false))
     }
 
+    // MARK: Home samples (names and metas as in the design frames)
+
+    private static func sample(_ name: String, hoursAgo: Double, presets: [String], pages: Int = 1) -> ProjectSummary {
+        let url = URL(string: "https://marka.com")!
+        let project = Project(
+            pages: (0..<pages).map { Page(name: "Sayfa \($0 + 1)", url: url) },
+            viewports: presets.compactMap(DeviceCatalog.preset(id:)).map { ViewportConfig(preset: $0) }
+        )
+        return ProjectSummary(url: URL(filePath: "/tmp/\(name).viewportix"), name: name,
+                              modified: .now.addingTimeInterval(-hoursAgo * 3600), project: project, isMissing: false)
+    }
+
+    private static var samples: [ProjectSummary] {
+        [
+            sample("Marka A", hoursAgo: 2, presets: ["iphone-16", "ipad-air-11", "desktop"], pages: 4),
+            sample("Marka B", hoursAgo: 26, presets: ["iphone-se", "iphone-16", "ipad-mini", "desktop", "laptop"], pages: 6),
+        ]
+    }
+
+    private static var missing: ProjectSummary {
+        ProjectSummary(url: URL(filePath: "/tmp/Marka C.viewportix"), name: "Marka C", modified: nil, project: nil, isMissing: true)
+    }
+
+    /// Same layout as design/exports/home-states@2x.png.
+    private static var homeStates: some View {
+        let card = samples[0]
+        let draft = sample("Untitled", hoursAgo: 0.09, presets: ["iphone-16", "ipad-air-11", "desktop"])
+        return VStack(alignment: .leading, spacing: 24) {
+            HStack(alignment: .top, spacing: 24) {
+                URLBox(text: .constant(""), isInvalid: false) {}
+                URLBox(text: .constant("https://marka.com/urun/keten-gomlek"), isInvalid: false) {}
+            }
+            URLBox(text: .constant("marka com/urun"), isInvalid: true) {}
+            HStack(alignment: .top, spacing: 24) {
+                ProjectCard(summary: card, action: {}, menu: NSMenu.init).frame(width: 196)
+                ProjectCard(summary: card, action: {}, menu: NSMenu.init, forcesHover: true).frame(width: 196)
+                ProjectCard(summary: draft, isDraft: true, action: {}, menu: NSMenu.init).frame(width: 196)
+                ProjectCard(summary: card, action: {}, menu: NSMenu.init, forcesMenuOpen: true).frame(width: 196)
+                ProjectCard(summary: missing, action: {}, menu: NSMenu.init).frame(width: 196)
+            }
+            HStack(spacing: 24) {
+                TemplateChip(template: .mobileFocused, isSelected: false) {}
+                TemplateChip(template: .mobileFocused, isSelected: true) {}
+                TemplateChip(template: .engineComparison, isSelected: false) {}
+            }
+        }
+        .padding(24)
+        .background(DesignTokens.Color.canvas)
+        .preferredColorScheme(.dark)
+    }
+
+    // MARK: Rendering
+
     static func runIfRequested() {
         guard let folder else { return }
         try? FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
-        for (name, view) in entries {
-            let renderer = ImageRenderer(content: view.environment(\.colorScheme, .dark))
-            renderer.scale = 2
-            guard let image = renderer.cgImage else {
-                print("SNAPSHOT \(name) failed")
+        let defaults = UserDefaults(suiteName: "com.viewportix.snapshots")!
+        for entry in entries {
+            for (key, value) in entry.defaults { defaults.set(value, forKey: key) }
+            let view = entry.view.defaultAppStorage(defaults).environment(\.colorScheme, .dark)
+            guard let rep = render(view, size: entry.size) else {
+                print("SNAPSHOT \(entry.name) failed")
                 continue
             }
-            let rep = NSBitmapImageRep(cgImage: image)
-            let url = folder.appending(path: "\(name)@2x.png")
+            let url = folder.appending(path: "\(entry.name)@2x.png")
             try? rep.representation(using: .png, properties: [:])?.write(to: url)
-            print("SNAPSHOT \(name) \(image.width)x\(image.height) → \(url.path)")
+            print("SNAPSHOT \(entry.name) \(rep.pixelsWide)x\(rep.pixelsHigh) → \(url.path)")
         }
         exit(0)
+    }
+
+    private static func render(_ view: some View, size: CGSize?) -> NSBitmapImageRep? {
+        let host = NSHostingView(rootView: view)
+        let frame = CGRect(origin: .zero, size: size ?? host.fittingSize)
+        host.frame = frame
+        let window = NSWindow(contentRect: frame, styleMask: [.borderless], backing: .buffered, defer: false)
+        window.appearance = NSAppearance(named: .darkAqua)
+        window.contentView = host
+        window.setFrameOrigin(NSPoint(x: -10_000, y: -10_000))
+        window.orderFrontRegardless()
+        // Let SwiftUI lay out, run onAppear and draw.
+        RunLoop.main.run(until: Date().addingTimeInterval(0.5))
+        guard let rep = host.bitmapImageRepForCachingDisplay(in: host.bounds) else { return nil }
+        host.cacheDisplay(in: host.bounds, to: rep)
+        window.orderOut(nil)
+        // The window draws in the display's colour space; design exports are sRGB.
+        return rep.converting(to: .sRGB, renderingIntent: .default) ?? rep
     }
 }
 #endif

@@ -51,9 +51,11 @@ struct ChromeButtonStyle: ButtonStyle {
         let insets: EdgeInsets
         let isActive: Bool
         @State private var isHovered = false
+        @Environment(\.isEnabled) private var isEnabled
 
         var body: some View {
             configuration.label
+                .opacity(isEnabled ? 1 : 0.4)
                 .padding(insets)
                 .background(fill, in: .rect(cornerRadius: DesignTokens.Radius.control))
                 .contentShape(.rect(cornerRadius: DesignTokens.Radius.control))
@@ -62,7 +64,7 @@ struct ChromeButtonStyle: ButtonStyle {
                 .chromeFocusRing(cornerRadius: DesignTokens.Radius.control)
         }
 
-        private var isHighlighted: Bool { isHovered || isActive || configuration.isPressed }
+        private var isHighlighted: Bool { isEnabled && (isHovered || isActive || configuration.isPressed) }
 
         private var fill: Color {
             isHighlighted ? DesignTokens.Color.surfaceHeaderLeader : DesignTokens.Color.surfaceCard

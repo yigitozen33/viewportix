@@ -160,3 +160,27 @@ Kod oturumunun arayüze dokunan her değişikliği, değişikliğin commit'inde 
 - Durum: —
 - Tasarım kararı gerekir mi: evet — aşama 9'un sonucu (⛔ / ölçü kehaneti olarak sürsün) ve 210 ↔ 212
 - Bağlantılı: `design/handoff/PLAN.md` aşama 9; `KOD-OTURUMU-ISLERI.md` §14 "İskelet denemesi"
+
+## 2026-10-16 — ChromeTooltip: BAR-01 bitti
+- Ne: `Window/Tooltip` → `ChromeTooltip` (specs/ChromeTooltip.json): `surface/tooltip` gövde, `line` kenar, ad (12 medium) + isteğe bağlı kısayol (11, `ink/secondary`), üstteki tooltip'te 12×6 aşağı ok; yan tooltip'lerde ok yok. Hedefle ok ucu arası 8 pt, 400 ms gecikme, 100 ms fade; basınca kaybolur. Tooltip açıkken bildirim kapsülü gizli. Alt çubuktaki dört düğme ("Senkron ⇧⌘L", "Sığdır ⌘1", "Yakınlaştırma", "Ekran görüntüsü ⌥⌘S") ve giriş ekranındaki tüm denetimler bunu kullanıyor (sistem `.help` kalktı).
+- Nerede: `Viewportix/Chrome/ChromeTooltip.swift` (`.chromeTooltip(_:shortcut:edge:)`); `BottomBar.swift`, `Home/HomeView.swift`
+- Durum: özel çizim (SwiftUI)
+- Tasarım kararı gerekir mi: evet, iki küçük nokta — (1) giriş ekranının sağ üst düğmelerinde (Aç… ⌘O, Yeni ⌘N, Ayarlar ⌘,) ve ızgara/liste anahtarında tooltip altta açılıyor (pencerenin üst kenarına yakın); alttaki tooltip için ok çizilmedi, spec yalnız aşağı ok tanımlıyor. (2) Henüz yeniden kurulmayan iki yerde sistem tooltip'i kaldı: viewport kartı (AppKit, §12 adım 5) ve sidebar sayfa satırı (`PageSidebar`, §12 adım 3); o bileşenler kurulunca geçer.
+- Bağlantılı: DESIGN.md §3.2 BAR-01, §4 (Tooltip bileşen olur; 8 px); `KOD-OTURUMU-ISLERI.md` §14
+
+## 2026-10-16 — Giriş ekranı: HOME-01…06, HOME-08…12, HOME-15, HOME-16, HOME-18 bitti; HOME-13 kısmen; HOME-07 ve HOME-17 yok
+- Ne: Giriş penceresi baştan özel çizim (1040×700, başlık çubuğu gizli, koyu): sidebar 200 (Son / Taslaklar, seçim hatırlanır), sağ üstte Aç… / Yeni / ⚙, `URLBox` (boş · dolu · geçersiz: mercan kenar + "Bu bir web adresi değil · örnek: marka.com"; "Aç →" hep sarı, boşken alana odaklanır; yapıştırınca https tamamlanır), üç `TemplateChip`, "SON PROJELER" + arama + ızgara/liste anahtarı (hatırlanır), `ProjectCard` ızgarası (normal, hover kenarı `lineStrong` + ⋯, taslak rozeti, sağ tık hedefi gök kenar + ⋯, dosya bulunamadı: soluk küçük resim + mercan meta, tık → Bul…), liste görünümü (Ad · Cihazlar · Sayfalar · Düzenlendi · ⋯; eksik dosyada "Dosya bulunamadı" + Bul…), boş durum (üç hayalet kart, "Henüz proje yok"), aramada sonuç yok ("“…” ile eşleşen proje yok" + Aramayı temizle, Esc), bağlam menüsü (Aç · Yeniden adlandır · Çoğalt ⌘D · Finder'da göster ⇧⌘R · Dosya yolunu kopyala · Kaldır › Listeden kaldır "Dosya diskte kalır" / Çöp Sepeti'ne taşı "Finder'dan geri alınabilir"; eksik dosyada Bul… ve Çoğalt/Finder pasif), pencereye `.viewportix` sürükleyince gök kenar ve açma, açılamayan proje için NSAlert metinleri.
+- Nerede: `Viewportix/Home/` (`HomeView`, `URLBox`, `TemplateChip`, `ProjectCard`, `RecentProjects`), `Viewportix/Chrome/ContextMenuArea.swift`, `Viewportix/App/ViewportixApp.swift`; paket: `ProjectModel/ProjectTemplate.swift`, `ProjectSummary.swift` (+ `ProjectTemplateTests`)
+- Durum: özel çizim (SwiftUI); bağlam menüsü ve uyarılar sistem (`NSMenu`, `NSAlert`) — tasarımla aynı
+- Eksik / tasarımdan sapan:
+  1. **Şablon içerikleri tasarımda yok;** kodda varsayılan: Mobil odaklı = iPhone SE, iPhone 16, iPhone 17 Pro Max, iPad Air 11"; Tam matris = 8 cihaz (3 telefon, 2 tablet, 3 masaüstü); Motor karşılaştırma = iPhone 16 + Masaüstü × üç motor. "Yeni" de seçili şablonu kullanıyor. Onay ya da liste gerekir.
+  2. **Motor karşılaştırma çipi pasif** (yarı saydam, tooltip "Chromium ve Firefox ile gelecek"): Chromium (M4) ve Firefox (M6) yokken üç kez WebKit açardı. Tasarımda etkin.
+  3. **HOME-07 yerinde yeniden adlandırma yok;** menü maddesi pasif.
+  4. **HOME-17 ⚙ pasif:** Ayarlar paneli §12 adım 7 ile gelecek.
+  5. **HOME-13:** taslak olmadığı için "Son taslağı aç" yok, düğmeler "Tamam" + "Finder'da Göster" (tasarımın notuna uygun); yeni sürüm uyarısında "Güncellemeleri Denetle" yok (güncelleyici yok), yalnız "Tamam"; metinde uygulama sürümü yerine "dosya sürümü N".
+  6. **Taslaklar** listesi boş (taslak saklama yok); boş halinde "Henüz taslak yok" yazıyor — çizimi yok.
+  7. **Küçük resim:** `thumbnail.png` henüz üretilmiyor; kart, projenin viewport'larını spec'teki mini kart çizimiyle (gerçek en/boy oranında) gösteriyor. Dosyası bulunamayan kartta proje okunamadığı için küçük resim boş (tasarımda soluk mini kartlar). Favicon yerine spec'teki `surface/pill` kare.
+  8. **Kart genişliği:** spec 236 sabit, ekran frame'inde 248; uyarlanabilir ızgara (en az 236, aralık 16) kullanıldı, 1040'ta üç sütun × 248.
+- Spec boşlukları (giriş): `ProjectCard` hover ve sağ tık hedefi durumlarında kenar rengi override'ı spec'te yok (yalnız ⋯ görünürlüğü var; renkler DESIGN.md §6 ve PNG'den); `TemplateChip` seçili durumunda override yok (sarı kenar + `surface/header` zemin PNG'den); geçersiz URL açıklamasının yazı boyutu yok (12 kullanıldı); sidebar satırı, arama alanı, ızgara/liste anahtarı ve liste satırı bileşen değil (ölçüler PNG'den: liste sütunları 516 / 648 / 760 pt); çiplerin hover hali yok.
+- Tasarım kararı gerekir mi: evet — 1, 2, 6 ve spec boşlukları
+- Bağlantılı: DESIGN.md §3.1 (HOME-01…18), §4 (2026-10-13 giriş durumları, `line/strong`); `KOD-OTURUMU-ISLERI.md` §13 "Giriş ekranı", §14

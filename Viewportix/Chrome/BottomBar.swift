@@ -5,6 +5,7 @@ import SwiftUI
 
 /// `Window/BottomBar` (specs/BottomBar.json): floating capsule centred under the canvas, 31 pt from
 /// its bottom. Sync · Fit · zoom · screenshot; interactions BAR-01…07 (DESIGN.md §3.2).
+/// Tooltips (BAR-01) are `ChromeTooltip`s, 8 pt above the control after 400 ms.
 struct BottomBar: View {
     @Bindable var workspace: Workspace
     /// True while one of the bar's menus is open; the notice capsule hides meanwhile.
@@ -22,12 +23,12 @@ struct BottomBar: View {
     var body: some View {
         HStack(spacing: DesignTokens.Space.s2) {
             SyncToggle(isOn: $workspace.isSyncEnabled)
-                .help("Senkron ⇧⌘L")
+                .chromeTooltip("Senkron", shortcut: "⇧⌘L")
 
             ChromeButton.iconOnly(.system("arrow.up.left.and.arrow.down.right"), title: "Sığdır") {
                 workspace.canvas?.fit()
             }
-            .help("Sığdır ⌘1")
+            .chromeTooltip("Sığdır", shortcut: "⌘1")
 
             ZoomControl(
                 zoom: workspace.zoom,
@@ -37,13 +38,13 @@ struct BottomBar: View {
                 onOpenMenu: { show(.zoom) }
             )
             .onGeometryChange(for: CGFloat.self) { $0.frame(in: .named(Self.space)).minX } action: { zoomMinX = $0 }
-            .help("Yakınlaştırma")
+            .chromeTooltip("Yakınlaştırma")
 
             ChromeButton.iconOnly(.system("camera"), title: "Ekran görüntüsü al", isActive: openMenu == .screenshot) {
                 show(.screenshot)
             }
             .onGeometryChange(for: CGFloat.self) { $0.frame(in: .named(Self.space)).minX } action: { cameraMinX = $0 }
-            .help("Ekran görüntüsü ⌥⌘S")
+            .chromeTooltip("Ekran görüntüsü", shortcut: "⌥⌘S")
         }
         .padding(.vertical, DesignTokens.Space.s2)
         .padding(.horizontal, 10)
