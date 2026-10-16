@@ -6,11 +6,13 @@ import SwiftUI
 struct ProjectWindow: View {
     @Binding var document: ProjectDocument
     @Environment(\.dismissWindow) private var dismissWindow
+    @Environment(\.undoManager) private var undoManager
     @State private var workspace: Workspace
     @State private var selectedPageID: Page.ID?
     @State private var sizeEditor: ViewportSizeEditor?
     @State private var isBarMenuOpen = false
     @State private var isTooltipShown = false
+    @State private var canvasWidth: CGFloat = 1000
 
     init(document: Binding<ProjectDocument>, sidebarVisible: Bool = true, railVisible: Bool? = nil) {
         _document = document
@@ -84,28 +86,30 @@ private extension ProjectWindow {
                 VStack(spacing: 28) {
                     // The notice sits above the bottom bar and hides while a bar menu or tooltip is open.
                     if let notice = workspace.notice, !isBarMenuOpen, !isTooltipShown {
-                        NoticeBar(notice: notice, dismiss: workspace.dismissNotice)
-                            .transition(.move(edge: .bottom).combined(with: .opacity))
+                        ToastCapsule(notice: notice, dismiss: workspace.dismissNotice)
+                            .transition(.opacity)
+                            .id(notice.id)
                     }
                     BottomBar(workspace: workspace, isMenuOpen: $isBarMenuOpen)
                         .onPreferenceChange(ChromeTooltipVisibleKey.self) { isTooltipShown = $0 }
                 }
                 .padding(.bottom, BottomBar.bottomInset)
             }
-            .animation(.snappy, value: workspace.notice)
+            .animation(.easeInOut(duration: DesignTokens.Motion.standard), value: workspace.notice)
             .overlay {
                 if document.project.viewports.isEmpty {
                     ContentUnavailableView("Viewport yok", systemImage: "rectangle.dashed", description: Text("+ Cihaz ile ekle."))
                 }
             }
             .overlay(alignment: .top) {
-                AddDeviceButton { preset in
+                DeviceStrip(workspace: workspace, maxWidth: stripMaxWidth, remove: removeViewport, addDevice: AddDeviceButton { preset in
                     document.project.viewports.append(ViewportConfig(preset: preset))
                 } onAddCustomSize: {
                     sizeEditor = ViewportSizeEditor()
-                }
+                })
                 .padding(.top, DesignTokens.Space.s4)
             }
+            .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { canvasWidth = $0 }
             .overlay(alignment: .topLeading) {
                 if !workspace.isSidebarVisible {
                     CollapsedSidebarHeader(workspace: workspace)
@@ -120,6 +124,34 @@ private extension ProjectWindow {
                         .transition(.opacity)
                 }
             }
+    }
+
+    /// The strip stays centred on the canvas and clear of the collapsed header capsule (16 + 396 + 16).
+    var stripMaxWidth: CGFloat {
+        let side: CGFloat = workspace.isSidebarVisible ? 32 : 428
+        return max(canvasWidth - 2 * side, 200)
+    }
+
+    /// STRIP-02 / STRIP-06: the viewport closes; the others slide over. "iPad kapatıldı · Geri al"
+    /// for 5 s, ⌘Z too (DESIGN.md §5.20 f).
+    func removeViewport(_ id: ViewportID) {
+        guard let index = document.project.viewports.firstIndex(where: { $0.id == id }) else { return }
+        let removed = document.project.viewports[index]
+        withAnimation(.easeOut(duration: DesignTokens.Motion.standard)) {
+            _ = document.project.viewports.remove(at: index)
+        }
+        let restore = { [binding = $document] in
+            guard !binding.wrappedValue.project.viewports.contains(where: { $0.id == removed.id }) else { return }
+            let position = min(index, binding.wrappedValue.project.viewports.count)
+            withAnimation(.easeOut(duration: DesignTokens.Motion.standard)) {
+                binding.wrappedValue.project.viewports.insert(removed, at: position)
+            }
+        }
+        undoManager?.registerUndo(withTarget: workspace) { _ in MainActor.assumeIsolated { restore() } }
+        undoManager?.setActionName("\(removed.name) Kapat")
+        workspace.show(Workspace.Notice(kind: .undo, text: "\(removed.name) kapatıldı", action: .init(title: "Geri al") {
+            restore()
+        }))
     }
 
     /// SIDEBAR-05 / ⌘D: the open address joins the page list, named after the page title.
@@ -150,7 +182,7 @@ private extension ProjectWindow {
         guard let index = document.project.viewports.firstIndex(where: { $0.id == id }) else { return }
         switch command {
         case .remove:
-            document.project.viewports.remove(at: index)
+            removeViewport(id)
         case .rotate:
             document.project.viewports[index].rotate()
         case .editSize:

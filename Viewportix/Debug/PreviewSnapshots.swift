@@ -34,6 +34,12 @@ enum PreviewSnapshots {
     private static let homeSize = CGSize(width: 1040, height: 700)
     private static let projectSize = CGSize(width: 1440, height: 900)
 
+    private static var manyDevices: Project {
+        var project = sampleProject
+        project.viewports = ProjectTemplate.fullMatrix.viewports
+        return project
+    }
+
     /// The design's sample: Ana sayfa · Ürün (open) · Sepet · Ödeme on the fixture product page.
     private static var sampleProject: Project {
         let fixture = URL(filePath: #filePath)
@@ -56,6 +62,7 @@ enum PreviewSnapshots {
             Entry("BottomBar-syncOff", padded(bottomBar(syncOn: false))),
             Entry("BottomBar-zoom25", padded(bottomBar(syncOn: true, zoom: 0.25))),
             Entry("BottomBar-tooltip", padded(ChromeTooltip(title: "Sığdır", shortcut: "⌘1"))),
+            Entry("toast-states", padded(toastStates)),
             Entry("window-home-dark", size: homeSize, defaults: ["homeLayout": "grid"], HomeView(store: RecentProjects(fixed: samples))),
             Entry("window-home-list", size: homeSize, defaults: ["homeLayout": "list"], HomeView(store: RecentProjects(fixed: samples + [missing]))),
             Entry("window-home-empty", size: homeSize, defaults: ["homeLayout": "grid"], HomeView(store: RecentProjects(fixed: []))),
@@ -63,6 +70,7 @@ enum PreviewSnapshots {
             Entry("window-project-dark", size: projectSize, ProjectWindow(document: .constant(ProjectDocument(project: sampleProject)))),
             Entry("window-project-sidebar-collapsed", size: projectSize, ProjectWindow(document: .constant(ProjectDocument(project: sampleProject)), sidebarVisible: false)),
             Entry("window-project-rail-hidden", size: projectSize, ProjectWindow(document: .constant(ProjectDocument(project: sampleProject)), railVisible: false)),
+            Entry("window-project-many-devices", size: projectSize, ProjectWindow(document: .constant(ProjectDocument(project: manyDevices)), sidebarVisible: false)),
         ]
     }
 
@@ -75,6 +83,21 @@ enum PreviewSnapshots {
         workspace.isSyncEnabled = syncOn
         workspace.zoom = zoom
         return BottomBar(workspace: workspace, isMenuOpen: .constant(false))
+    }
+
+    /// Same states as design/exports/toast-states@2x.png.
+    private static var toastStates: some View {
+        let notices: [Workspace.Notice] = [
+            .init(kind: .progress, text: "Ekran görüntüsü alınıyor… 2 / 3"),
+            .init(kind: .success, text: "Kaydedildi ve kopyalandı", action: .init(title: "Finder'da Göster") {}),
+            .init(kind: .partialFailure, text: "Masaüstü yakalanamadı", action: .init(title: "Yeniden dene") {}),
+            .init(kind: .failure, text: "Kaydedilemedi: disk dolu", action: .init(title: "Ayrıntılar") {}),
+            .init(kind: .undo, text: "iPad kapatıldı", action: .init(title: "Geri al") {}),
+            .init(kind: .info, text: "Bu sayfada senkron çalışmıyor", action: .init(title: "Neden?") {}),
+        ]
+        return VStack(alignment: .leading, spacing: 16) {
+            ForEach(notices) { ToastCapsule(notice: $0, dismiss: {}) }
+        }
     }
 
     // MARK: Home samples (names and metas as in the design frames)

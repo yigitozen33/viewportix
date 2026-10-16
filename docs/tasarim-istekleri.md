@@ -224,3 +224,20 @@ Kod oturumunun arayüze dokunan her değişikliği, değişikliğin commit'inde 
   8. SON menüsünün zemin, köşe, gölge ve satır ölçüleri spec'te yok (`Sidebar/Header` notu yalnız "altında Son 5 menüsü" diyor); PNG'den alındı: `surface/header`, köşe 12, satır 12 + 10 pt yazı.
 - Tasarım kararı gerekir mi: evet — 1, 6, 7, 8
 - Bağlantılı: DESIGN.md §3.2 (SIDEBAR-01…08), §3.3 (RAIL-01…05), §5.20, §6 (Pencere chrome'u); `KOD-OTURUMU-ISLERI.md` §9, §11, §12 adım 2–3
+
+## 2026-10-16 — Cihaz şeridi ve bildirim kapsülü: STRIP-01…06 bitti, STRIP-07 geçici; kapsül halleri ve tek kapsül kuralı
+- Ne:
+  - **`DeviceStrip`:** canvas'ın üstünde ortada (üstten 16), sidebar kapalıyken kapsülle çakışmayacak genişlikte. `DeviceTab`: ad (en çok ~140, sondan "…"), durum ikonu (senkron kaçtı mercan üçgen, yükleniyor dönen gösterge), ✕; lider sekme `surface/header-leader` + 1 pt gök kenar; hover `surface/header-leader`. Tooltip: ad + boyut. Sekmeye tık → kart seçilir ve canvas karta kayar (250 ms). ✕ → viewport kapanır, sekmeler kayar. Taşmada sekmeler kaydırılır, kenarlarda solma, ‹ › düğmeleri, gizlenen sekme sayısıyla "+N" çipi (en ciddi gizli durum: hata mercan kenar + üçgen > lider gök kenar + göz > yükleniyor); çipe tık → "GİZLİ CİHAZLAR · tıkla: sekmeye kaydır" menüsü (satır: cihaz türü ikonu, ad, "1280×800 · WebKit · durum", durum ikonu, odakla, ✕; senkron kaçan satır `status/warning-bg`). Satıra tık şeridi o sekmeye kaydırır ve menüyü kapatır; odakla menüyü açık bırakır; Esc ya da dışarı tık kapatır.
+  - **"+ Cihaz"** şeridin sağında; cihaz seçici popover'ı gelene kadar sistem menüsü (STRIP-07 geçici, STRIP-08…11 `DevicePicker` ile).
+  - **`ToastCapsule`:** ilerleme ("Ekran görüntüsü alınıyor… 2 / 3"), başarı (sarı tik + "Finder'da Göster", 5 sn), kısmi hata (mercan kenar + üçgen + "Yeniden dene": yakalananlar kaydedilir, yalnız başarısız olanlar yeniden denenir), hata ("Kaydedilemedi" + "Ayrıntılar", kapatılana kadar kalır), geri al ("iPad kapatıldı · Geri al", 5 sn; ⌘Z de geri alır), bilgi. Aynı anda tek kapsül; açık hata başarıyla ezilmez, başarı hata kapanınca gösterilir. 150 ms crossfade.
+- Nerede: `Viewportix/Project/DeviceStrip.swift`, `ToastCapsule.swift` (önceki `NoticeBar`), `ProjectWindow.swift`, `Workspace.swift` (bildirim modeli, `loadingIDs`, `selectedViewportID`), `Viewportix/Canvas/CanvasController.swift` (`reveal`)
+- Durum: özel çizim (SwiftUI); "+ Cihaz" menüsü sistem `NSMenu`
+- Eksik / sapma:
+  1. **Hata kapsülünde kapatma yok** spec'te ("kullanıcı kapatana kadar kalır" diyor, nasıl kapatılacağı yok); sağda sessiz bir ✕ (12 pt, `ink/secondary`) eklendi.
+  2. **Seçili kartın görünümü** (krem halka) kart yeniden kurulunca (§12 adım 5) gelecek; şimdilik sekmeye tık yalnız canvas'ı kaydırıyor.
+  3. **Snapshot sekmesi** (resim ikonu) Firefox (M6) ile; kodda durum yok.
+  4. **Gruplu şerit** (ayırıcı, katlı grup çipi; PW-02, PW-03, STRIP-12) §13 gruplama ile.
+  5. **Sekme sağ tık menüsü** tasarımda yok; eklenmedi.
+  6. "+N" sayısına kısmen görünen sekme de dahil (tamamen görünmeyen değil, tamamen görünen dışındakiler sayılıyor).
+- Tasarım kararı gerekir mi: evet — 1 ve 6
+- Bağlantılı: DESIGN.md §3.2 (STRIP-01…12, Bildirim kapsülü halleri), §5.20 d–f; `KOD-OTURUMU-ISLERI.md` §12 adım 4

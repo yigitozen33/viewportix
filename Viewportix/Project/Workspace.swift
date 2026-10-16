@@ -20,6 +20,10 @@ final class Workspace {
     private(set) var currentURL: URL?
     private(set) var currentTitle = ""
     private(set) var isLoading = false
+    /// Viewports whose page is loading (tab and card spinners).
+    private(set) var loadingIDs: Set<ViewportID> = []
+    /// The selected card (CARD-02): target of tab clicks and per-viewport shortcuts.
+    var selectedViewportID: ViewportID?
     var addressText = ""
     var zoom: Double = 1
     var isSyncEnabled = true {
@@ -64,7 +68,6 @@ final class Workspace {
     @ObservationIgnored weak var canvas: CanvasController?
     @ObservationIgnored private let coordinator = SyncCoordinator()
     @ObservationIgnored private var sessions: [ViewportID: any EngineSession] = [:]
-    @ObservationIgnored private var loadingIDs: Set<ViewportID> = []
 
     init() {
         let width = UserDefaults.standard.object(forKey: Self.sidebarWidthKey) as? Double ?? 240
@@ -80,6 +83,12 @@ final class Workspace {
 
     func session(for id: ViewportID) -> (any EngineSession)? {
         sessions[id]
+    }
+
+    /// STRIP-01, STRIP-04, STRIP-05: select the viewport and pan the canvas to its card.
+    func reveal(_ id: ViewportID) {
+        selectedViewportID = id
+        canvas?.reveal(id)
     }
 
     var syncStats: SyncStats { coordinator.stats }
@@ -109,6 +118,7 @@ final class Workspace {
         coordinator.excludedIDs = Set(configs.filter { !$0.isSyncEnabled }.map(\.id))
         viewports = configs
         if let leaderID, !wanted.contains(leaderID) { setLeader(nil) }
+        if let selectedViewportID, !wanted.contains(selectedViewportID) { self.selectedViewportID = nil }
     }
 
     func navigate(to url: URL) {
@@ -161,45 +171,75 @@ final class Workspace {
 
     // MARK: Screenshots
 
+    /// The notice capsule's content (`ToastCapsule`, DESIGN.md §3.2 "Bildirim kapsülü halleri").
     struct Notice: Identifiable, Equatable {
+        enum Kind {
+            case progress, success, partialFailure, failure, info, undo
+        }
+
+        struct Action {
+            let title: String
+            let perform: @MainActor () -> Void
+        }
+
         let id = UUID()
+        let kind: Kind
         let text: String
+        var action: Action?
+        /// The saved screenshot, for "Finder'da Göster".
         var fileURL: URL?
-        var isProgress = false
+
+        var isProgress: Bool { kind == .progress }
+        /// Errors stay until dismissed and are not replaced by a success (DESIGN.md §5.20 e).
+        var isError: Bool { kind == .partialFailure || kind == .failure }
+
+        static func == (lhs: Notice, rhs: Notice) -> Bool { lhs.id == rhs.id && lhs.text == rhs.text }
     }
 
     static let screenshotFolder = URL.picturesDirectory.appending(path: "Viewportix")
 
     /// Captures the given viewports (canvas order), saves one PNG and copies it to the clipboard.
-    /// Several viewports are laid out side by side under their names.
+    /// Several viewports are laid out side by side under their names. Viewports that fail are left
+    /// out and reported with a retry (partial failure); if all fail, nothing is saved.
     func capture(_ ids: [ViewportID], area: SnapshotArea) async {
         let targets = viewports.filter { ids.contains($0.id) }
         guard !targets.isEmpty else { return }
-        show(Notice(text: "Ekran görüntüsü alınıyor…", isProgress: true), for: nil)
 
         var items: [ScreenshotComposer.Item] = []
-        for config in targets {
+        var captured: [ViewportConfig] = []
+        var failed: [ViewportConfig] = []
+        for (index, config) in targets.enumerated() {
+            let progress = targets.count > 1 ? " \(index + 1) / \(targets.count)" : ""
+            show(Notice(kind: .progress, text: "Ekran görüntüsü alınıyor…\(progress)"))
             guard let session = sessions[config.id] else { continue }
             do {
                 let image = try await session.snapshot(area)
                 items.append(.init(title: "\(config.name) · \(config.size.width)×\(config.size.height)", image: image))
+                captured.append(config)
             } catch {
-                show(Notice(text: "\(config.name) yakalanamadı: \(error.localizedDescription)"), for: .seconds(5))
-                return
+                failed.append(config)
             }
+        }
+        let retry = Notice.Action(title: "Yeniden dene") { [weak self] in
+            Task { await self?.capture(failed.map(\.id), area: area) }
+        }
+        guard !items.isEmpty else {
+            let text = failed.count == 1 ? "\(failed[0].name) yakalanamadı" : "\(failed.count) viewport yakalanamadı"
+            show(Notice(kind: .failure, text: text, action: retry))
+            return
         }
 
         // Screenshots are at the display's pixel density; titles and spacing follow it.
-        let scale = CGFloat(items[0].image.width) / CGFloat(targets[0].size.width)
+        let scale = CGFloat(items[0].image.width) / CGFloat(captured[0].size.width)
         let subject = currentTitle.isEmpty ? (currentURL?.host() ?? "") : currentTitle
-        let name = ScreenshotNaming.fileName(subject: subject, detail: targets.count == 1 ? targets[0].name : nil, date: .now)
+        let name = ScreenshotNaming.fileName(subject: subject, detail: captured.count == 1 ? captured[0].name : nil, date: .now)
         let png = await Task.detached {
             let image = items.count == 1 ? items[0].image : ScreenshotComposer.compose(items, scale: scale)
             return image.flatMap(ScreenshotComposer.pngData)
         }.value
 
         guard let png else {
-            show(Notice(text: "Ekran görüntüsü oluşturulamadı"), for: .seconds(5))
+            show(Notice(kind: .failure, text: "Ekran görüntüsü oluşturulamadı"))
             return
         }
         do {
@@ -208,9 +248,22 @@ final class Workspace {
             try png.write(to: url)
             NSPasteboard.general.clearContents()
             NSPasteboard.general.setData(png, forType: .png)
-            show(Notice(text: "Kaydedildi ve kopyalandı", fileURL: url), for: .seconds(5))
+            if failed.isEmpty {
+                show(Notice(kind: .success, text: "Kaydedildi ve kopyalandı", action: .init(title: "Finder'da Göster") {
+                    NSWorkspace.shared.activateFileViewerSelecting([url])
+                }, fileURL: url))
+            } else {
+                let names = failed.map(\.name).joined(separator: ", ")
+                show(Notice(kind: .partialFailure, text: "\(names) yakalanamadı", action: retry, fileURL: url))
+            }
         } catch {
-            show(Notice(text: "Kaydedilemedi: \(error.localizedDescription)"), for: .seconds(5))
+            let message = error.localizedDescription
+            show(Notice(kind: .failure, text: "Kaydedilemedi", action: .init(title: "Ayrıntılar") {
+                let alert = NSAlert()
+                alert.messageText = "Ekran görüntüsü kaydedilemedi"
+                alert.informativeText = message
+                alert.runModal()
+            }))
         }
     }
 
@@ -220,16 +273,29 @@ final class Workspace {
 
     func dismissNotice() {
         notice = nil
+        if let waiting = waitingNotice {
+            waitingNotice = nil
+            show(waiting)
+        }
     }
 
-    private func show(_ notice: Notice, for duration: Duration?) {
+    /// One capsule at a time (DESIGN.md §5.20 e): a new one replaces the old, except that an open
+    /// error is not covered by a success, which waits until the error is closed. Success, undo and
+    /// info leave after 5 s; progress until replaced; errors until dismissed.
+    func show(_ notice: Notice) {
+        if let current = self.notice, current.isError, !notice.isError, !notice.isProgress {
+            waitingNotice = notice
+            return
+        }
         self.notice = notice
-        guard let duration else { return }
+        guard !notice.isError, !notice.isProgress else { return }
         Task {
-            try? await Task.sleep(for: duration)
+            try? await Task.sleep(for: .seconds(5))
             if self.notice?.id == notice.id { self.notice = nil }
         }
     }
+
+    @ObservationIgnored private var waitingNotice: Notice?
 
     private func flagMissed(_ id: ViewportID) {
         missedIDs.insert(id)

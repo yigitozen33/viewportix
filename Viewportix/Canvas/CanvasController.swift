@@ -138,6 +138,26 @@ final class CanvasController: NSViewController {
         documentView.setFrameSize(NSSize(width: width, height: maxHeight + 2 * Self.margin))
     }
 
+    /// Pans so the card is centred horizontally and its top shows below the strip (250 ms ease-out).
+    func reveal(_ id: ViewportID) {
+        guard let card = cards[id] else { return }
+        let clip = scrollView.contentView
+        let visible = clip.bounds
+        let insetTop = scrollView.contentInsets.top / scrollView.magnification
+        var origin = NSPoint(x: card.frame.midX - visible.width / 2, y: visible.origin.y)
+        let topVisible = visible.minY + insetTop
+        if card.frame.minY < topVisible || card.frame.minY > visible.maxY - 100 / scrollView.magnification {
+            origin.y = card.frame.minY - insetTop - 16 / scrollView.magnification
+        }
+        let target = clip.constrainBoundsRect(NSRect(origin: origin, size: visible.size)).origin
+        NSAnimationContext.runAnimationGroup { context in
+            context.duration = 0.25
+            context.timingFunction = CAMediaTimingFunction(name: .easeOut)
+            clip.animator().setBoundsOrigin(target)
+        }
+        scrollView.reflectScrolledClipView(clip)
+    }
+
     // MARK: Zoom
 
     func zoomIn() { setZoom(scrollView.magnification * 1.25, anchor: viewCenterInWindow) }
