@@ -27,6 +27,7 @@ final class FakeSession: EngineSession {
     func snapshot(_ area: SnapshotArea) async throws -> CGImage { throw CancellationError() }
     private(set) var mediaSuspended = false
     func setMediaPlaybackSuspended(_ suspended: Bool) { mediaSuspended = suspended }
+    func trustCertificates(forHost host: String) {}
 
     func apply(_ event: SyncEvent) async -> ApplyResult {
         if holdApplies {

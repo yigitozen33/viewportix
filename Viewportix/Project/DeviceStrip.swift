@@ -174,7 +174,8 @@ struct DeviceStrip: View {
     }
 
     private func status(of id: ViewportID) -> DeviceTabStatus {
-        if workspace.missedIDs.contains(id) { return .missed }
+        // A load failure shows the same coral triangle as a missed sync (card-load-errors@2x.png).
+        if workspace.missedIDs.contains(id) || workspace.loadFailures[id] != nil { return .missed }
         if workspace.leaderID == id { return .leader }
         if workspace.loadingIDs.contains(id) { return .loading }
         return .normal

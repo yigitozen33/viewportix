@@ -26,6 +26,7 @@ struct CardChromeLayer: View {
                         hover: { workspace.cardHovered(config.id, $0) },
                         select: { workspace.selectedViewportID = config.id },
                         command: { command(config.id, $0) },
+                        failureAction: { handle($0, for: config.id) },
                         editor: editorBinding(for: config.id),
                         saveSize: saveSize
                     )
@@ -37,8 +38,18 @@ struct CardChromeLayer: View {
         .clipped()
     }
 
+    private func handle(_ action: ViewportCardChrome.FailureAction, for id: ViewportID) {
+        switch action {
+        case .retry: workspace.retryLoad(id)
+        case .trust: if let failure = workspace.loadFailures[id] { workspace.trustCertificate(for: failure) }
+        case .goBack: workspace.goBack(in: id)
+        case .editAddress: workspace.focusAddress()
+        }
+    }
+
     private func state(of config: ViewportConfig) -> ViewportCardChrome.CardState {
         .init(
+            failure: workspace.loadFailures[config.id],
             isLeader: workspace.leaderID == config.id,
             isSelected: workspace.selectedViewportID == config.id,
             isMissed: workspace.missedIDs.contains(config.id),
@@ -61,6 +72,7 @@ struct CardChromeLayer: View {
 /// the hover strip above the header's right end.
 struct ViewportCardChrome: View {
     struct CardState: Equatable {
+        var failure: LoadFailure?
         var isLeader = false
         var isSelected = false
         var isMissed = false
@@ -78,7 +90,10 @@ struct ViewportCardChrome: View {
     let hover: (Bool) -> Void
     let select: () -> Void
     let command: (ViewportCommand) -> Void
+    let failureAction: (FailureAction) -> Void
     @Binding var editor: ViewportSizeEditor?
+
+    enum FailureAction { case retry, trust, goBack, editAddress }
     let saveSize: (ViewportSizeEditor) -> Void
 
     @State private var isMenuOpen = false
@@ -92,6 +107,12 @@ struct ViewportCardChrome: View {
             Color.clear
                 .frame(width: pageSize.width, height: pageSize.height)
                 .allowsHitTesting(false)
+                .overlay {
+                    if let failure = state.failure {
+                        LoadFailureView(failure: failure, action: failureAction)
+                            .transition(.opacity)
+                    }
+                }
                 .overlay(alignment: .top) {
                     if state.isLoading { ProgressLine().allowsHitTesting(false) }
                 }
@@ -184,10 +205,10 @@ struct ViewportCardChrome: View {
                     .foregroundStyle(DesignTokens.Color.inkSecondary)
                     .chromeTooltip("Bu viewport için senkron kapalı")
             }
-            if state.isMissed {
+            if state.isMissed || state.failure != nil {
                 ChromeSymbol("exclamationmark.triangle", box: DesignTokens.Size.iconSm)
                     .foregroundStyle(DesignTokens.Color.statusWarning)
-                    .chromeTooltip("Element bu viewport'ta bulunamadı")
+                    .chromeTooltip(state.failure == nil ? "Element bu viewport'ta bulunamadı" : "Sayfa yüklenemedi")
             }
         }
     }
@@ -433,5 +454,126 @@ extension EngineKind {
         case .chromium: "engine.chromium"
         case .firefox: "engine.firefox"
         }
+    }
+}
+
+/// "Sayfa yüklenemedi" in place of the page (`card-load-errors@2x.png`; CARD-10…12): icon, title,
+/// message, mono code, action. The page's own 404/500 is not this; it shows as it is.
+struct LoadFailureView: View {
+    let failure: LoadFailure
+    let action: (ViewportCardChrome.FailureAction) -> Void
+
+    var body: some View {
+        VStack(spacing: DesignTokens.Space.s2) {
+            icon
+                .padding(.bottom, DesignTokens.Space.s1)
+            Text(title)
+                .font(.system(size: DesignTokens.FontSize.title, weight: .semibold))
+                .foregroundStyle(DesignTokens.Color.inkPrimary)
+                .multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
+            Text(message)
+                .font(.system(size: DesignTokens.FontSize.body))
+                .foregroundStyle(DesignTokens.Color.inkSecondary)
+                .multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
+            Text(failure.code)
+                .font(DesignTokens.Font.mono(DesignTokens.FontSize.caption))
+                .foregroundStyle(DesignTokens.Color.inkSecondary)
+            buttons
+                .padding(.top, DesignTokens.Space.s2)
+            if failure.kind == .serverDown {
+                HStack(spacing: 6) {
+                    ProgressView().controlSize(.mini)
+                    Text("2 sn'de bir deneniyor…")
+                        .font(.system(size: DesignTokens.FontSize.caption))
+                        .foregroundStyle(DesignTokens.Color.inkSecondary)
+                }
+                .padding(.top, DesignTokens.Space.s1)
+            }
+            Spacer(minLength: 0)
+        }
+        .padding(EdgeInsets(top: 28, leading: 18, bottom: 16, trailing: 18))
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(DesignTokens.Color.surfaceCard)
+        .clipShape(UnevenRoundedRectangle(bottomLeadingRadius: DesignTokens.Radius.card, bottomTrailingRadius: DesignTokens.Radius.card))
+    }
+
+    @ViewBuilder
+    private var icon: some View {
+        switch failure.kind {
+        case .certificate:
+            ChromeSymbol("exclamationmark.shield", box: 24).foregroundStyle(DesignTokens.Color.statusWarning)
+        case .serverDown:
+            ChromeSymbol("server.rack", box: 24).foregroundStyle(DesignTokens.Color.inkSecondary)
+        case .notFound:
+            ChromeSymbol(asset: "link.slash", box: 24).foregroundStyle(DesignTokens.Color.inkSecondary)
+        case .network, .other:
+            ChromeSymbol("wifi.slash", box: 24).foregroundStyle(DesignTokens.Color.inkSecondary)
+        }
+    }
+
+    private var title: String {
+        switch failure.kind {
+        case .certificate: "Bağlantı güvenli değil"
+        case .serverDown: "\(failure.hostLabel) yanıt vermiyor"
+        case .notFound: "Adres bulunamadı"
+        case .network, .other: "Sayfa açılamadı"
+        }
+    }
+
+    private var message: String {
+        switch failure.kind {
+        case .certificate: "\(failure.hostLabel) sertifikası doğrulanamadı."
+        case .serverDown: "Geliştirme sunucun çalışıyor mu?"
+        case .notFound: "“\(failure.url.host() ?? failure.hostLabel)” adında bir site yok."
+        case .network, .other: "İnternet bağlantısı yok ya da sunucu yanıt vermiyor."
+        }
+    }
+
+    @ViewBuilder
+    private var buttons: some View {
+        switch failure.kind {
+        case .certificate:
+            HStack(spacing: DesignTokens.Space.s2) {
+                secondaryButton("Geri dön") { action(.goBack) }
+                secondaryButton("Bu oturumda güven") { action(.trust) }
+            }
+        case .serverDown:
+            yellowButton("Şimdi dene") { action(.retry) }
+        case .notFound:
+            secondaryButton("Adresi düzenle") { action(.editAddress) }
+        case .network, .other:
+            yellowButton("Yeniden dene") { action(.retry) }
+        }
+    }
+
+    private func secondaryButton(_ title: String, perform: @escaping () -> Void) -> some View {
+        Button(action: perform) {
+            Text(title)
+                .font(.system(size: DesignTokens.FontSize.label))
+                .foregroundStyle(DesignTokens.Color.inkPrimary)
+                .lineLimit(1)
+                .fixedSize()
+                .padding(EdgeInsets(top: 6, leading: 12, bottom: 6, trailing: 12))
+                .background(DesignTokens.Color.surfaceHeader, in: .rect(cornerRadius: DesignTokens.Radius.control))
+                .overlay {
+                    RoundedRectangle(cornerRadius: DesignTokens.Radius.control).strokeBorder(DesignTokens.Color.line, lineWidth: DesignTokens.Stroke.hairline)
+                }
+        }
+        .buttonStyle(.plain)
+        .chromeFocusRing(cornerRadius: DesignTokens.Radius.control)
+    }
+
+    private func yellowButton(_ title: String, perform: @escaping () -> Void) -> some View {
+        Button(action: perform) {
+            Text(title)
+                .font(.system(size: DesignTokens.FontSize.label, weight: .semibold))
+                .foregroundStyle(DesignTokens.Color.accentInk)
+                .padding(EdgeInsets(top: 6, leading: 12, bottom: 6, trailing: 12))
+                .background(DesignTokens.Color.accent, in: .rect(cornerRadius: DesignTokens.Radius.control))
+        }
+        .buttonStyle(.plain)
+        .chromeFocusRing(cornerRadius: DesignTokens.Radius.control)
     }
 }

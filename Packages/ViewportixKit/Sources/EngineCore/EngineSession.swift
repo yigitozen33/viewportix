@@ -20,6 +20,8 @@ public enum EngineEvent: Hashable, Sendable {
     case urlChanged(URL)
     case titleChanged(String)
     case loadingChanged(Bool)
+    /// The main frame failed to load (`LoadFailure`), or nil once a page loads again.
+    case loadFailure(LoadFailure?)
 }
 
 /// What a screenshot covers.
@@ -65,4 +67,6 @@ public protocol EngineSession: AnyObject {
     /// Holds audio and video paused even if the page calls play(); saves CPU in viewports nobody is
     /// looking at. Does not touch layout, CSS animations or scripts.
     func setMediaPlaybackSuspended(_ suspended: Bool)
+    /// "Bu oturumda güven": accept this host's certificate in every viewport until the app quits.
+    func trustCertificates(forHost host: String)
 }

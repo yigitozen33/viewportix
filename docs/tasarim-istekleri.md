@@ -295,3 +295,20 @@ Kod oturumunun arayüze dokunan her değişikliği, değişikliğin commit'inde 
   5. Panel köşesi PNG'de 12'den büyük görünüyor (16?); `radius/card` 12 kullanıldı.
 - Tasarım kararı gerekir mi: evet — 1, 2, 3 ve 5
 - Bağlantılı: DESIGN.md §3.3 (RAIL-01, SETTINGS-01…05), §3.1 (HOME-17), §4 (medya duraklatma); `KOD-OTURUMU-ISLERI.md` §10, §11, §12 adım 7
+
+## 2026-10-16 — Sayfa yüklenemedi: CARD-10, CARD-11, CARD-12, PW-04 bitti
+- Ne: Motor artık ana çerçevenin yüklenemediğini bildiriyor; kart sayfanın yerinde hata gösteriyor, başlıkta ve sekmede mercan üçgen (senkron kaçtı ile aynı). Dört hal `card-load-errors@2x.png`'deki metinlerle:
+  - **Ağ:** `wifi.slash`, "Sayfa açılamadı", "İnternet bağlantısı yok ya da sunucu yanıt vermiyor.", mono "NSURLError -1009", sarı "Yeniden dene" (yalnız o viewport; ⌘R hepsi).
+  - **Sertifika:** mercan `exclamationmark.shield`, "Bağlantı güvenli değil", "<host> sertifikası doğrulanamadı.", "SSL · süresi dolmuş" (güvenilmeyen / bilinmeyen kök / henüz geçerli değil), "Geri dön" · "Bu oturumda güven" (yalnız o ana makine, uygulama kapanana kadar; o ana makinede hata veren viewport'lar yeniden yüklenir).
+  - **localhost kapalı:** `server.rack`, "localhost:3000 yanıt vermiyor", "Geliştirme sunucun çalışıyor mu?", "ECONNREFUSED", sarı "Şimdi dene" + "2 sn'de bir deneniyor…" (2 sn'de bir kendiliğinden yeniden dener; sunucu açılınca hata kalkar). localhost, 127.0.0.1, *.local ve IP adresleri geliştirme sunucusu sayılıyor.
+  - **Adres bulunamadı:** `link.slash`, "Adres bulunamadı", "“marka.comm” adında bir site yok.", "DNS · NXDOMAIN", "Adresi düzenle" (adres alanına odaklanır, ⌘L).
+  - Hepsi hatadaysa (2+ viewport) mercan kenarlı kapsül "Sayfa n viewport'ta açılamadı · Hepsini dene".
+  - Sitenin kendi 404/500 sayfası hata sayılmıyor, olduğu gibi görünüyor; iptal edilen ve yarıda kesilen yüklemeler de gösterilmiyor.
+- Nerede: `Viewportix/Canvas/CardChrome.swift` (`LoadFailureView`), `Viewportix/Project/Workspace.swift`, `DeviceStrip.swift`; paket `EngineCore/LoadFailure.swift`, `WebKitEngine/WebKitSession.swift` (hata bildirimi, sertifika güveni) + testler (sınıflandırma; gerçek WKWebView ile kapalı localhost ve bilinmeyen alan adı)
+- Durum: özel çizim (SwiftUI)
+- Eksik / sapma:
+  1. **"Geri dön"** viewport'un kendi geçmişinde geri gider; ilk yüklemede geri gidecek sayfa yoksa bir şey olmaz. Bu durumda düğme gizlensin mi?
+  2. İkincil düğmeler (Geri dön, Bu oturumda güven, Adresi düzenle) için bileşen yok; PNG'den: `surface/header` zemin + `line` kenar, 12 pt.
+  3. Ağ hatası dışındaki tanınmayan hatalar (ör. WebKit'in kendi kodları) ağ hatası görünümüyle, kendi koduyla gösteriliyor.
+- Tasarım kararı gerekir mi: evet — 1 ve 2
+- Bağlantılı: DESIGN.md §3.2 (CARD-10…12, PW-04), §4 (Sayfa yüklenemedi halleri); `KOD-OTURUMU-ISLERI.md` §13

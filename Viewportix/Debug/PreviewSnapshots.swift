@@ -2,6 +2,7 @@
 import AppKit
 import DesignSystem
 import DeviceCatalog
+import EngineCore
 import ProjectModel
 import SwiftUI
 
@@ -33,6 +34,23 @@ enum PreviewSnapshots {
 
     private static let homeSize = CGSize(width: 1040, height: 700)
     private static let projectSize = CGSize(width: 1440, height: 900)
+
+    /// Same four states as design/exports/card-load-errors@2x.png.
+    private static var loadErrors: some View {
+        let failures = [
+            LoadFailure(domain: NSURLErrorDomain, code: NSURLErrorNotConnectedToInternet, url: URL(string: "https://marka.com")!),
+            LoadFailure(domain: NSURLErrorDomain, code: NSURLErrorServerCertificateHasBadDate, url: URL(string: "https://marka.test")!),
+            LoadFailure(domain: NSURLErrorDomain, code: NSURLErrorCannotConnectToHost, url: URL(string: "http://localhost:3000")!),
+            LoadFailure(domain: NSURLErrorDomain, code: NSURLErrorCannotFindHost, url: URL(string: "https://marka.comm")!),
+        ].compactMap(\.self)
+        return HStack(alignment: .top, spacing: 24) {
+            ForEach(failures, id: \.self) { failure in
+                LoadFailureView(failure: failure) { _ in }
+                    .frame(width: 218, height: 246)
+                    .overlay { RoundedRectangle(cornerRadius: 12).strokeBorder(DesignTokens.Color.line) }
+            }
+        }
+    }
 
     private static var manyDevices: Project {
         var project = sampleProject
@@ -74,6 +92,7 @@ enum PreviewSnapshots {
             Entry("window-project-settings-panel", size: projectSize, ProjectWindow(document: .constant(ProjectDocument(project: sampleProject)), railVisible: true, settingsTab: .general)),
             Entry("window-project-settings-devices", size: projectSize, ProjectWindow(document: .constant(ProjectDocument(project: sampleProject)), railVisible: true, settingsTab: .devices)),
             Entry("window-project-settings-account", size: projectSize, ProjectWindow(document: .constant(ProjectDocument(project: sampleProject)), railVisible: true, settingsTab: .account)),
+            Entry("card-load-errors", padded(loadErrors)),
             Entry("window-project-many-devices", size: projectSize, ProjectWindow(document: .constant(ProjectDocument(project: manyDevices)), sidebarVisible: false)),
         ]
     }

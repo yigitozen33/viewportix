@@ -45,6 +45,31 @@ struct WebKitSessionTests {
         try await session.webView.evaluateJavaScript("window.scrollY") as? Double ?? -1
     }
 
+    /// Waits for the session to report a load failure (or nil after `seconds`).
+    private func failure(loading url: URL) async throws -> LoadFailure? {
+        let session = WebKitSession(id: ViewportID(), size: Self.phone, mobileUserAgent: false, dataStore: .nonPersistent())
+        var reported: LoadFailure?
+        session.eventHandler = { event in
+            if case .loadFailure(let failure?) = event { reported = failure }
+        }
+        session.load(url)
+        for _ in 0..<100 where reported == nil {
+            try await Task.sleep(for: .milliseconds(100))
+        }
+        return reported
+    }
+
+    @Test func reportsAClosedLocalServer() async throws {
+        let failure = try #require(try await failure(loading: URL(string: "http://localhost:59999/urun")!))
+        #expect(failure.kind == .serverDown)
+        #expect(failure.hostLabel == "localhost:59999")
+    }
+
+    @Test func reportsAnUnknownHost() async throws {
+        let failure = try #require(try await failure(loading: URL(string: "https://viewportix-test.invalid/")!))
+        #expect(failure.kind == .notFound)
+    }
+
     @Test func scrollAnchorKeepsTheSameSectionOnScreenAcrossWidths() async throws {
         let phone = try await loadedSession("long-page.html", size: Self.phone, mobile: true)
         let desktop = try await loadedSession("long-page.html", size: Self.desktop)

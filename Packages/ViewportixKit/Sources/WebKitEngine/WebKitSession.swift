@@ -235,7 +235,43 @@ public final class WebKitSession: NSObject, EngineSession {
     }
 }
 
-extension WebKitSession: WKNavigationDelegate {}
+extension WebKitSession: WKNavigationDelegate {
+    /// Hosts the user trusted for this run of the app (CARD-12); shared by every viewport.
+    static var trustedHosts: Set<String> = []
+
+    public func trustCertificates(forHost host: String) {
+        Self.trustedHosts.insert(host.lowercased())
+    }
+
+    public func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+        eventHandler?(.loadFailure(nil))
+    }
+
+    public func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: any Error) {
+        report(error)
+    }
+
+    public func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: any Error) {
+        report(error)
+    }
+
+    private func report(_ error: any Error) {
+        let error = error as NSError
+        let url = (error.userInfo[NSURLErrorFailingURLErrorKey] as? URL) ?? webView.url ?? URL(string: "about:blank")!
+        guard let failure = LoadFailure(domain: error.domain, code: error.code, url: url) else { return }
+        eventHandler?(.loadFailure(failure))
+    }
+
+    public func webView(_ webView: WKWebView, respondTo challenge: URLAuthenticationChallenge) async -> (URLSession.AuthChallengeDisposition, URLCredential?) {
+        let space = challenge.protectionSpace
+        if space.authenticationMethod == NSURLAuthenticationMethodServerTrust,
+           Self.trustedHosts.contains(space.host.lowercased()),
+           let trust = space.serverTrust {
+            return (.useCredential, URLCredential(trust: trust))
+        }
+        return (.performDefaultHandling, nil)
+    }
+}
 
 private final class MessageProxy: NSObject, WKScriptMessageHandler {
     weak var session: WebKitSession?

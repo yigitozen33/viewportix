@@ -24,7 +24,7 @@ let package = Package(
         .target(name: "DesignSystem"),
         .testTarget(name: "DeviceCatalogTests", dependencies: ["DeviceCatalog"]),
         .testTarget(name: "ProjectModelTests", dependencies: ["ProjectModel"]),
-        .testTarget(name: "SyncCoreTests", dependencies: ["SyncCore"]),
+        .testTarget(name: "SyncCoreTests", dependencies: ["SyncCore", "EngineCore"]),
         .testTarget(name: "WebKitEngineTests", dependencies: ["WebKitEngine", "SyncCore"]),
         .testTarget(name: "CaptureTests", dependencies: ["Capture"]),
     ]

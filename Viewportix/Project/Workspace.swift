@@ -22,6 +22,10 @@ final class Workspace {
     private(set) var isLoading = false
     /// Viewports whose page is loading (tab and card spinners).
     private(set) var loadingIDs: Set<ViewportID> = []
+    /// Viewports whose page failed to load; the card shows the error in place of the page.
+    private(set) var loadFailures: [ViewportID: LoadFailure] = [:]
+    @ObservationIgnored private var retryTasks: [ViewportID: Task<Void, Never>] = [:]
+    @ObservationIgnored private var allFailedNoticeID: UUID?
     /// Device picker popover under "+ Cihaz" (STRIP-07, ⌥⌘N).
     var isDevicePickerOpen = false
     /// The settings panel over the canvas and its tab; nil when closed (RAIL-01, ⌘,).
@@ -130,6 +134,8 @@ final class Workspace {
             coordinator.remove(id)
             sessions[id] = nil
             loadingIDs.remove(id)
+            loadFailures[id] = nil
+            retryTasks.removeValue(forKey: id)?.cancel()
         }
         for config in configs {
             if let session = sessions[config.id] {
@@ -190,9 +196,66 @@ final class Workspace {
         case .loadingChanged(let loading):
             if loading { loadingIDs.insert(id) } else { loadingIDs.remove(id) }
             isLoading = !loadingIDs.isEmpty
+        case .loadFailure(let failure):
+            setLoadFailure(failure, for: id)
         case .interaction:
             break
         }
+    }
+
+    // MARK: Load failures
+
+    private func setLoadFailure(_ failure: LoadFailure?, for id: ViewportID) {
+        loadFailures[id] = failure
+        retryTasks[id]?.cancel()
+        retryTasks[id] = nil
+        // CARD-11: a local development server that is down is tried again every 2 s.
+        if let failure, failure.kind == .serverDown {
+            retryTasks[id] = Task { [weak self] in
+                try? await Task.sleep(for: .seconds(2))
+                guard !Task.isCancelled, let self, self.loadFailures[id] == failure else { return }
+                self.sessions[id]?.load(failure.url)
+            }
+        }
+        updateAllFailedNotice()
+    }
+
+    /// PW-04: when the page failed everywhere, one capsule offers to retry them all.
+    private func updateAllFailedNotice() {
+        let allFailed = viewports.count > 1 && viewports.allSatisfy { loadFailures[$0.id] != nil }
+        if allFailed, allFailedNoticeID == nil {
+            let notice = Notice(kind: .partialFailure, text: "Sayfa \(viewports.count) viewport'ta açılamadı",
+                                action: .init(title: "Hepsini dene") { [weak self] in self?.retryAllFailed() })
+            allFailedNoticeID = notice.id
+            show(notice)
+        } else if !allFailed, let id = allFailedNoticeID {
+            allFailedNoticeID = nil
+            if notice?.id == id { dismissNotice() }
+        }
+    }
+
+    /// CARD-10: only this viewport loads again (⌘R reloads all).
+    func retryLoad(_ id: ViewportID) {
+        guard let failure = loadFailures[id] else { sessions[id]?.reload(); return }
+        sessions[id]?.load(failure.url)
+    }
+
+    func retryAllFailed() {
+        allFailedNoticeID = nil
+        for id in loadFailures.keys { retryLoad(id) }
+    }
+
+    /// CARD-12: trust the host until the app quits; every viewport loads again.
+    func trustCertificate(for failure: LoadFailure) {
+        guard let host = failure.url.host() else { return }
+        sessions.values.first?.trustCertificates(forHost: host)
+        for (id, other) in loadFailures where other.kind == .certificate && other.url.host() == host {
+            sessions[id]?.load(other.url)
+        }
+    }
+
+    func goBack(in id: ViewportID) {
+        sessions[id]?.goBack()
     }
 
     // MARK: Screenshots
