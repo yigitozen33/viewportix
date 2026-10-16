@@ -6,59 +6,49 @@ import SwiftUI
 struct ProjectWindow: View {
     @Binding var document: ProjectDocument
     @Environment(\.dismissWindow) private var dismissWindow
-    @State private var workspace = Workspace()
+    @State private var workspace: Workspace
     @State private var selectedPageID: Page.ID?
     @State private var sizeEditor: ViewportSizeEditor?
     @State private var isBarMenuOpen = false
     @State private var isTooltipShown = false
 
-    init(document: Binding<ProjectDocument>) {
+    init(document: Binding<ProjectDocument>, sidebarVisible: Bool = true, railVisible: Bool? = nil) {
         _document = document
         _selectedPageID = State(initialValue: document.wrappedValue.project.selectedPageID)
+        let workspace = Workspace()
+        workspace.isSidebarVisible = sidebarVisible
+        if let railVisible { workspace.isRailVisible = railVisible }
+        _workspace = State(initialValue: workspace)
     }
 
+    /// Sidebar · canvas · rail; no title bar (DESIGN.md §4 A, PLAN.md §3.8). Floating chrome sits on
+    /// the canvas: device strip on top, collapsed header top left, bottom bar, rail handle.
     var body: some View {
-        NavigationSplitView {
-            PageSidebar(
-                pages: $document.project.pages,
-                selection: $selectedPageID,
-                currentURL: workspace.currentURL,
-                currentTitle: workspace.currentTitle
-            )
-            .navigationSplitViewColumnWidth(min: 180, ideal: 220, max: 320)
-        } detail: {
-            CanvasView(workspace: workspace, onCommand: handle)
-            .overlay(alignment: .bottom) {
-                // 28 pt gap measured in window-project-dark@2x.png; no spec value yet.
-                VStack(spacing: 28) {
-                    // The notice sits above the bottom bar and hides while a bar menu or tooltip is open.
-                    if let notice = workspace.notice, !isBarMenuOpen, !isTooltipShown {
-                        NoticeBar(notice: notice, dismiss: workspace.dismissNotice)
-                            .transition(.move(edge: .bottom).combined(with: .opacity))
-                    }
-                    BottomBar(workspace: workspace, isMenuOpen: $isBarMenuOpen)
-                        .onPreferenceChange(ChromeTooltipVisibleKey.self) { isTooltipShown = $0 }
-                }
-                .padding(.bottom, BottomBar.bottomInset)
+        HStack(spacing: 0) {
+            if workspace.isSidebarVisible {
+                ProjectSidebar(
+                    workspace: workspace,
+                    pages: $document.project.pages,
+                    selection: $selectedPageID,
+                    addCurrentPage: addCurrentPage
+                )
+                .transition(.move(edge: .leading))
             }
-            .animation(.snappy, value: workspace.notice)
-            .overlay {
-                if document.project.viewports.isEmpty {
-                    ContentUnavailableView("Viewport yok", systemImage: "rectangle.dashed", description: Text("Toolbar'daki + Cihaz ile ekle."))
-                }
+            canvas
+            if workspace.isRailVisible {
+                InspectorRail(workspace: workspace)
+                    .transition(.move(edge: .trailing))
             }
         }
-        .toolbar {
-            ProjectToolbar(workspace: workspace) { preset in
-                document.project.viewports.append(ViewportConfig(preset: preset))
-            } onAddCustomSize: {
-                sizeEditor = ViewportSizeEditor()
-            }
-        }
+        .frame(minWidth: 1024, minHeight: 640)  // DESIGN.md §5.20 a
+        .background(DesignTokens.Color.canvas)
+        .ignoresSafeArea()
+        .preferredColorScheme(.dark)
         .sheet(item: $sizeEditor) { editor in
             ViewportSizeSheet(editor: editor, onSave: save)
         }
         .focusedSceneValue(\.workspace, workspace)
+        .focusedSceneValue(\.projectActions, ProjectActions(addCurrentPage: addCurrentPage, selectPage: selectPage))
         .onAppear {
             // Opening a project from Finder or Open Recent should not leave the home window behind.
             dismissWindow(id: HomeView.windowID)
@@ -87,6 +77,75 @@ struct ProjectWindow: View {
 }
 
 private extension ProjectWindow {
+    var canvas: some View {
+        CanvasView(workspace: workspace, onCommand: handle)
+            .overlay(alignment: .bottom) {
+                // 28 pt gap measured in window-project-dark@2x.png; no spec value yet.
+                VStack(spacing: 28) {
+                    // The notice sits above the bottom bar and hides while a bar menu or tooltip is open.
+                    if let notice = workspace.notice, !isBarMenuOpen, !isTooltipShown {
+                        NoticeBar(notice: notice, dismiss: workspace.dismissNotice)
+                            .transition(.move(edge: .bottom).combined(with: .opacity))
+                    }
+                    BottomBar(workspace: workspace, isMenuOpen: $isBarMenuOpen)
+                        .onPreferenceChange(ChromeTooltipVisibleKey.self) { isTooltipShown = $0 }
+                }
+                .padding(.bottom, BottomBar.bottomInset)
+            }
+            .animation(.snappy, value: workspace.notice)
+            .overlay {
+                if document.project.viewports.isEmpty {
+                    ContentUnavailableView("Viewport yok", systemImage: "rectangle.dashed", description: Text("+ Cihaz ile ekle."))
+                }
+            }
+            .overlay(alignment: .top) {
+                AddDeviceButton { preset in
+                    document.project.viewports.append(ViewportConfig(preset: preset))
+                } onAddCustomSize: {
+                    sizeEditor = ViewportSizeEditor()
+                }
+                .padding(.top, DesignTokens.Space.s4)
+            }
+            .overlay(alignment: .topLeading) {
+                if !workspace.isSidebarVisible {
+                    CollapsedSidebarHeader(workspace: workspace)
+                        .padding(DesignTokens.Space.s4)
+                        .transition(.opacity)
+                }
+            }
+            .overlay(alignment: .topTrailing) {
+                if !workspace.isRailVisible {
+                    RailHandle(workspace: workspace)
+                        .padding(.top, DesignTokens.Space.s4)
+                        .transition(.opacity)
+                }
+            }
+    }
+
+    /// SIDEBAR-05 / ⌘D: the open address joins the page list, named after the page title.
+    func addCurrentPage() {
+        guard let url = workspace.currentURL else {
+            workspace.focusAddress()
+            return
+        }
+        if let existing = document.project.pages.first(where: { $0.url == url }) {
+            selectedPageID = existing.id
+            return
+        }
+        let title = workspace.currentTitle.trimmingCharacters(in: .whitespaces)
+        let page = Page(name: title.isEmpty ? (url.host() ?? url.absoluteString) : title, url: url)
+        withAnimation(.easeOut(duration: DesignTokens.Motion.standard)) { document.project.pages.append(page) }
+        selectedPageID = page.id
+    }
+
+    /// ⇧⌘] / ⇧⌘[: next or previous page in the list.
+    func selectPage(offset: Int) {
+        let pages = document.project.pages
+        guard !pages.isEmpty else { return }
+        let current = pages.firstIndex { $0.id == selectedPageID } ?? (offset > 0 ? -1 : pages.count)
+        selectedPageID = pages[min(max(current + offset, 0), pages.count - 1)].id
+    }
+
     func handle(_ id: ViewportID, _ command: ViewportCommand) {
         guard let index = document.project.viewports.firstIndex(where: { $0.id == id }) else { return }
         switch command {
@@ -115,6 +174,13 @@ private extension ProjectWindow {
     }
 }
 
+/// Project window actions the menu bar needs that change the document.
+struct ProjectActions {
+    let addCurrentPage: () -> Void
+    let selectPage: (_ offset: Int) -> Void
+}
+
 extension FocusedValues {
     @Entry var workspace: Workspace?
+    @Entry var projectActions: ProjectActions?
 }

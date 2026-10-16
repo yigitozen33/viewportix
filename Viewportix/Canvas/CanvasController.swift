@@ -1,4 +1,5 @@
 import AppKit
+import DesignSystem
 import EngineCore
 import ProjectModel
 import SwiftUI
@@ -43,7 +44,12 @@ final class CanvasController: NSViewController {
         scrollView.hasVerticalScroller = true
         scrollView.autohidesScrollers = true
         scrollView.drawsBackground = true
-        scrollView.backgroundColor = .underPageBackgroundColor
+        scrollView.backgroundColor = NSColor(DesignTokens.Color.canvas)
+        // Floating chrome covers the canvas's top (device strip) and bottom (bottom bar); content
+        // scrolls under it but fits and starts between them.
+        scrollView.automaticallyAdjustsContentInsets = false
+        scrollView.contentInsets = Self.chromeInsets
+        scrollView.scrollerInsets = NSEdgeInsets(top: -Self.chromeInsets.top, left: 0, bottom: -Self.chromeInsets.bottom, right: 0)
         scrollView.documentView = documentView
         view = scrollView
 
@@ -164,9 +170,24 @@ final class CanvasController: NSViewController {
         workspace.zoom = target
     }
 
+    /// Strip (16 + 35) and bar (31 + 49) plus breathing room; DESIGN.md §6 "Pencere chrome'u".
+    static let chromeInsets = NSEdgeInsets(top: 72, left: 0, bottom: 96, right: 0)
+
+    /// Fits all cards between the strip and the bottom bar, centred horizontally, top-aligned.
     func fit() {
-        guard documentView.bounds.width > 0 else { return }
-        scrollView.magnify(toFit: documentView.bounds)
+        let content = documentView.bounds.size
+        guard content.width > 0, content.height > 0 else { return }
+        let insets = scrollView.contentInsets
+        let available = NSSize(width: scrollView.bounds.width - insets.left - insets.right,
+                               height: scrollView.bounds.height - insets.top - insets.bottom)
+        let fitted = min(available.width / content.width, available.height / content.height)
+        scrollView.magnification = min(max(fitted, scrollView.minMagnification), scrollView.maxMagnification)
+        let magnification = scrollView.magnification
+        let clip = scrollView.contentView
+        let origin = NSPoint(x: (content.width - scrollView.bounds.width / magnification) / 2,
+                             y: -insets.top / magnification)
+        clip.scroll(to: clip.constrainBoundsRect(NSRect(origin: origin, size: clip.bounds.size)).origin)
+        scrollView.reflectScrolledClipView(clip)
         reportZoom()
     }
 

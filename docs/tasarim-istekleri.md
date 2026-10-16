@@ -202,3 +202,25 @@ Kod oturumunun arayüze dokunan her değişikliği, değişikliğin commit'inde 
 - Durum: özel çizim
 - Tasarım kararı gerekir mi: evet — karşılaştırma ve farklar `design/handoff/PARITY.md`'ye
 - Bağlantılı: `design/handoff/PLAN.md` aşama 8; `KOD-OTURUMU-ISLERI.md` §14
+
+## 2026-10-16 — Proje penceresi çerçevesi, sidebar ve ray: SIDEBAR-01, 02, 03, 05, 06, 07, 08 ve RAIL-03, 04, 05 bitti
+- Ne: `NavigationSplitView` ve sistem toolbar'ı kalktı. Pencere: başlık çubuğu gizli, koyu, en küçük 1024×640; yatayda sidebar (240, genişlik tutamacıyla 200–360, uygulamaya kaydedilir) · canvas · ray (44). Sistem trafik ışıkları korunuyor, yalnız yeri değişiyor: sidebar açıkken 48 pt'lik satırın ortasında (x 16), kapalıyken kapsülün içinde.
+  - **Sidebar başlığı:** adres alanı (kilit/küre, odakta 1 pt gök kenar, ⌘L odaklar, ⏎ yükler, Esc geri alır; odakta altında SON menüsü: son 5 adres + ne zaman, yazdıkça süzülür, ↑↓ ⏎, "Geçmişi temizle", "Listeye ekle: ⌘D"; geçmiş uygulamaya ait), geri / ileri / yenile.
+  - **Sayfa listesi:** "SAYFALAR", satır (ikon adresten: ana sayfa `house`, ürün `shippingbox`, sepet `cart`, ödeme `creditcard`, diğer `doc.text`), hover'da zemin + kalem + ⋯, açık sayfada zemin + nokta, çift tık / kalem ile yerinde yeniden adlandırma (gök kenar, "↩ kaydet · Esc iptal"), sağ tık / ⋯ menüsü (Aç · Yeniden adlandır · URL'yi kopyala ⇧⌘C · Yukarı taşı ⌥⌘↑ · Aşağı taşı ⌥⌘↓ · Kaldır), açık adres listede yoksa sarı kenarlı "Bu sayfayı ekle · /yol · ⌘D", "+ Ekle", boş durum ("Henüz sayfa yok · Açık sayfayı ⌘D ile ekle."). Satır tooltip'i: ad + adres.
+  - **Sidebar kapalı:** ⌃⌘S ya da kapsüldeki düğme; canvas sol üstünde (16, 16) `CollapsedSidebarHeader` (ışıklar · ayırıcı · sidebar düğmesi · nav · 191 pt adres).
+  - **Ray:** Ayarlar, Cihazlar, MCP, Hesap · ayırıcı · Farklar, Senkron Kaydı · Rayı Gizle; tooltip'ler solda. Gizleyince sağ kenarda üstten 16'da `RailHandle` (tık / ⌥⌘0 geri getirir, tooltip "Rayı göster ⌥⌘0"); tercih uygulamaya kaydedilir.
+  - **Canvas:** zemin `canvas` token'ı; Sığdır kartları şeridin altına ve alt çubuğun üstüne sığdırıyor (üstte 72, altta 96 pt pay).
+  - **Menü:** Görünüm › Sidebar'ı Gizle ⌃⌘S, Rayı Gizle ⌥⌘0; Gezinme › Adres Çubuğu ⌘L, Bu Sayfayı Listeye Ekle ⌘D, Sonraki Sayfa ⇧⌘], Önceki Sayfa ⇧⌘[.
+- Nerede: `Viewportix/Project/ProjectWindow.swift`, `ProjectSidebar.swift`, `SidebarHeader.swift`, `InspectorRail.swift`, `AddDeviceButton.swift`, `URLHistoryStore.swift`; `Viewportix/Chrome/TrafficLights.swift`; `Viewportix/Canvas/CanvasController.swift`; paket `ProjectModel/URLHistory.swift` (`URLHistory`, `PageKind` + testler)
+- Durum: özel çizim (SwiftUI); bağlam menüleri sistem `NSMenu`
+- Eksik / sapma:
+  1. **Ray öğeleri pasif** (yarı saydam): Ayarlar paneli §12 adım 7'de, Farklar/Senkron M5'te gelecek (RAIL-01, RAIL-02 yok). MCP "M7'ye kadar gizli kalabilir" diyordu; çizimdeki gibi görünür bırakıldı.
+  2. **SIDEBAR-04 sürükle-bırak yok;** sıralama şimdilik menüdeki Yukarı/Aşağı taşı ile.
+  3. **Geçici "+ Cihaz":** canvas'ın üstünde ortada tek `ChromeButton`, sistem menüsü açıyor; `DeviceStrip` (sekmeler) ve `DevicePicker` gelince yerini alacak.
+  4. **Tam ekranda** sidebar üst satırını 48 → 16 pt yapma (§5.20 b) henüz yok.
+  5. **Geri/ileri pasif hali yok:** motorun geçmiş durumu henüz izlenmiyor.
+  6. **Adres kısaltma:** odak dışında ortadan kısaltılıyor, ama "alan adı korunur" kuralı uygulanmadı (uzun alan adında ortası gidebilir).
+  7. "+ Ekle" ne yapmalı tanımlı değil; açık adresi ekliyor, adres yoksa adres alanına odaklanıyor.
+  8. SON menüsünün zemin, köşe, gölge ve satır ölçüleri spec'te yok (`Sidebar/Header` notu yalnız "altında Son 5 menüsü" diyor); PNG'den alındı: `surface/header`, köşe 12, satır 12 + 10 pt yazı.
+- Tasarım kararı gerekir mi: evet — 1, 6, 7, 8
+- Bağlantılı: DESIGN.md §3.2 (SIDEBAR-01…08), §3.3 (RAIL-01…05), §5.20, §6 (Pencere chrome'u); `KOD-OTURUMU-ISLERI.md` §9, §11, §12 adım 2–3

@@ -32,6 +32,23 @@ enum PreviewSnapshots {
     }
 
     private static let homeSize = CGSize(width: 1040, height: 700)
+    private static let projectSize = CGSize(width: 1440, height: 900)
+
+    /// The design's sample: Ana sayfa · Ürün (open) · Sepet · Ödeme on the fixture product page.
+    private static var sampleProject: Project {
+        let fixture = URL(filePath: #filePath)
+            .deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
+            .appending(path: "Packages/ViewportixKit/Tests/Fixtures/sample-product.html")
+        let base = URL(string: "https://marka.com")!
+        let pages = [
+            Page(name: "Ana sayfa", url: base.appending(path: "/")),
+            Page(name: "Ürün", url: fixture),
+            Page(name: "Sepet", url: base.appending(path: "sepet")),
+            Page(name: "Ödeme", url: base.appending(path: "odeme")),
+        ]
+        let viewports = ["iphone-16", "ipad-air-11", "desktop"].compactMap(DeviceCatalog.preset(id:)).map { ViewportConfig(preset: $0) }
+        return Project(pages: pages, selectedPageID: pages[1].id, viewports: viewports)
+    }
 
     private static var entries: [Entry] {
         [
@@ -43,6 +60,9 @@ enum PreviewSnapshots {
             Entry("window-home-list", size: homeSize, defaults: ["homeLayout": "list"], HomeView(store: RecentProjects(fixed: samples + [missing]))),
             Entry("window-home-empty", size: homeSize, defaults: ["homeLayout": "grid"], HomeView(store: RecentProjects(fixed: []))),
             Entry("home-states", homeStates),
+            Entry("window-project-dark", size: projectSize, ProjectWindow(document: .constant(ProjectDocument(project: sampleProject)))),
+            Entry("window-project-sidebar-collapsed", size: projectSize, ProjectWindow(document: .constant(ProjectDocument(project: sampleProject)), sidebarVisible: false)),
+            Entry("window-project-rail-hidden", size: projectSize, ProjectWindow(document: .constant(ProjectDocument(project: sampleProject)), railVisible: false)),
         ]
     }
 
@@ -114,6 +134,9 @@ enum PreviewSnapshots {
         guard let folder else { return }
         try? FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
         let defaults = UserDefaults(suiteName: "com.viewportix.snapshots")!
+        // Sample windows write app preferences (rail, sidebar width, history); put the user's back after.
+        let touched = ["railVisible", "sidebarWidth", "urlHistory"]
+        let saved = touched.map { ($0, UserDefaults.standard.object(forKey: $0)) }
         for entry in entries {
             for (key, value) in entry.defaults { defaults.set(value, forKey: key) }
             let view = entry.view.defaultAppStorage(defaults).environment(\.colorScheme, .dark)
@@ -125,6 +148,8 @@ enum PreviewSnapshots {
             try? rep.representation(using: .png, properties: [:])?.write(to: url)
             print("SNAPSHOT \(entry.name) \(rep.pixelsWide)x\(rep.pixelsHigh) → \(url.path)")
         }
+        for (key, value) in saved { UserDefaults.standard.set(value, forKey: key) }
+        UserDefaults.standard.synchronize()
         exit(0)
     }
 
@@ -138,7 +163,7 @@ enum PreviewSnapshots {
         window.setFrameOrigin(NSPoint(x: -10_000, y: -10_000))
         window.orderFrontRegardless()
         // Let SwiftUI lay out, run onAppear and draw.
-        RunLoop.main.run(until: Date().addingTimeInterval(0.5))
+        RunLoop.main.run(until: Date().addingTimeInterval(size.map { $0.width > 1200 } == true ? 3 : 0.5))
         guard let rep = host.bitmapImageRepForCachingDisplay(in: host.bounds) else { return nil }
         host.cacheDisplay(in: host.bounds, to: rep)
         window.orderOut(nil)

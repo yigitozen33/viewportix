@@ -38,12 +38,38 @@ final class Workspace {
     /// Transient status shown at the bottom of the window (screenshot progress and results).
     private(set) var notice: Notice?
 
+    // MARK: Window chrome
+
+    /// Sidebar shown; when hidden its header moves to the capsule at the canvas's top left (SIDEBAR-06).
+    var isSidebarVisible = true
+    /// App-wide preference (SIDEBAR-08): 200–360, default 240.
+    var sidebarWidth: CGFloat {
+        didSet { UserDefaults.standard.set(Double(sidebarWidth), forKey: Self.sidebarWidthKey) }
+    }
+    static let sidebarWidthRange: ClosedRange<CGFloat> = 200...360
+    /// App-wide preference (RAIL-03); default shown.
+    var isRailVisible: Bool {
+        didSet { UserDefaults.standard.set(isRailVisible, forKey: Self.railVisibleKey) }
+    }
+    /// Incremented by ⌘L; the visible address field takes focus.
+    private(set) var addressFocusRequest = 0
+    /// Addresses opened in any project (app-wide), for the address field's SON menu.
+    @ObservationIgnored let history = URLHistoryStore.shared
+
+    func focusAddress() { addressFocusRequest += 1 }
+
+    private static let sidebarWidthKey = "sidebarWidth"
+    private static let railVisibleKey = "railVisible"
+
     @ObservationIgnored weak var canvas: CanvasController?
     @ObservationIgnored private let coordinator = SyncCoordinator()
     @ObservationIgnored private var sessions: [ViewportID: any EngineSession] = [:]
     @ObservationIgnored private var loadingIDs: Set<ViewportID> = []
 
     init() {
+        let width = UserDefaults.standard.object(forKey: Self.sidebarWidthKey) as? Double ?? 240
+        sidebarWidth = min(max(CGFloat(width), Self.sidebarWidthRange.lowerBound), Self.sidebarWidthRange.upperBound)
+        isRailVisible = UserDefaults.standard.object(forKey: Self.railVisibleKey) as? Bool ?? true
         suspendsBackgroundMedia = UserDefaults.standard.object(forKey: Self.suspendMediaKey) as? Bool ?? false
         coordinator.suspendsFollowerMedia = suspendsBackgroundMedia
         coordinator.onEvent = { [weak self] id, event in self?.handle(event, from: id) }
@@ -88,7 +114,13 @@ final class Workspace {
     func navigate(to url: URL) {
         currentURL = url
         addressText = url.absoluteString
+        history.record(url)
         coordinator.loadAll(url)
+    }
+
+    /// Esc in the address field: back to the page's address.
+    func revertAddress() {
+        addressText = currentURL?.absoluteString ?? ""
     }
 
     func submitAddress() {
@@ -115,6 +147,7 @@ final class Workspace {
             if speaksForWindow {
                 currentURL = url
                 addressText = url.absoluteString
+                history.record(url)
             }
         case .titleChanged(let title):
             if speaksForWindow { currentTitle = title }

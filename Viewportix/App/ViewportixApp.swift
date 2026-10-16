@@ -22,6 +22,7 @@ struct ViewportixApp: App {
         DocumentGroup(newDocument: ProjectDocument()) { file in
             ProjectWindow(document: file.$document)
         }
+        .windowStyle(.hiddenTitleBar)
         .defaultLaunchBehavior(.suppressed)
         .defaultSize(width: 1440, height: 900)
         .commands {
@@ -32,6 +33,7 @@ struct ViewportixApp: App {
 
 struct ViewportixCommands: Commands {
     @FocusedValue(\.workspace) private var workspace
+    @FocusedValue(\.projectActions) private var projectActions
     @Environment(\.openWindow) private var openWindow
 
     var body: some Commands {
@@ -49,6 +51,17 @@ struct ViewportixCommands: Commands {
         }
 
         CommandGroup(after: .toolbar) {
+            Button(workspace?.isSidebarVisible == false ? "Sidebar'ı Göster" : "Sidebar'ı Gizle") {
+                withAnimation(.easeInOut(duration: 0.2)) { workspace?.isSidebarVisible.toggle() }
+            }
+            .keyboardShortcut("s", modifiers: [.command, .control])
+            .disabled(workspace == nil)
+            Button(workspace?.isRailVisible == false ? "Rayı Göster" : "Rayı Gizle") {
+                withAnimation(.easeInOut(duration: 0.2)) { workspace?.isRailVisible.toggle() }
+            }
+            .keyboardShortcut("0", modifiers: [.command, .option])
+            .disabled(workspace == nil)
+            Divider()
             Button("Yakınlaştır") { workspace?.canvas?.zoomIn() }
                 .keyboardShortcut("=")
             Button("Uzaklaştır") { workspace?.canvas?.zoomOut() }
@@ -82,6 +95,18 @@ struct ViewportixCommands: Commands {
                 .keyboardShortcut("]")
             Button("Yenile") { workspace?.reload() }
                 .keyboardShortcut("r")
+            Button("Adres Çubuğu") { workspace?.focusAddress() }
+                .keyboardShortcut("l")
+            Divider()
+            Button("Bu Sayfayı Listeye Ekle") { projectActions?.addCurrentPage() }
+                .keyboardShortcut("d")
+                .disabled(projectActions == nil)
+            Button("Sonraki Sayfa") { projectActions?.selectPage(1) }
+                .keyboardShortcut("]", modifiers: [.command, .shift])
+                .disabled(projectActions == nil)
+            Button("Önceki Sayfa") { projectActions?.selectPage(-1) }
+                .keyboardShortcut("[", modifiers: [.command, .shift])
+                .disabled(projectActions == nil)
         }
     }
 

@@ -15,6 +15,12 @@ final class MenuAnchor {
         let topLeft = NSPoint(x: x, y: view.bounds.height + gap + menu.size.height)
         menu.popUp(positioning: nil, at: topLeft, in: view)
     }
+
+    /// Pops `menu` with its top edge `gap` points below the anchor view, left edge at `x`.
+    func popUpBelow(_ menu: NSMenu, x: CGFloat = 0, gap: CGFloat) {
+        guard let view else { return }
+        menu.popUp(positioning: nil, at: NSPoint(x: x, y: -gap), in: view)
+    }
 }
 
 /// Place behind the view the menu should open relative to.
@@ -37,7 +43,7 @@ final class ActionMenuItem: NSMenuItem {
     private let handler: () -> Void
 
     init(_ title: String, key: String = "", modifiers: NSEvent.ModifierFlags = .command, symbol: String? = nil,
-         isChecked: Bool = false, isEnabled: Bool = true, handler: @escaping () -> Void) {
+         isChecked: Bool = false, isEnabled: Bool = true, action handler: @escaping () -> Void) {
         self.handler = handler
         super.init(title: title, action: #selector(runHandler), keyEquivalent: key)
         keyEquivalentModifierMask = modifiers
