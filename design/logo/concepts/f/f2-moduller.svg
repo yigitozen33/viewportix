@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-labelledby="t">
+  <title id="t">F2 modules</title>
+  <g id="symbol" transform="translate(128 128)">
+    <path fill="C1" d="M-96 -96 H-14 A0 0 0 0 1 -14 -96 V-56 A42 42 0 0 1 -56 -14 H-96 Z" transform="translate(-4 -4)"/>
+    <path fill="C2" d="M-96 -96 H-14 A0 0 0 0 1 -14 -96 V-56 A42 42 0 0 1 -56 -14 H-96 Z" transform="rotate(90) translate(-4 -4)"/>
+    <path fill="C1" d="M-96 -96 H-14 A0 0 0 0 1 -14 -96 V-56 A42 42 0 0 1 -56 -14 H-96 Z" transform="rotate(180) translate(-4 -4)"/>
+    <path fill="C2" d="M-96 -96 H-14 A0 0 0 0 1 -14 -96 V-56 A42 42 0 0 1 -56 -14 H-96 Z" transform="rotate(270) translate(-4 -4)"/>
+  </g>
+</svg>

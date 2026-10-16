@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-labelledby="t">
+  <title id="t">E1 negatif X</title>
+  <g id="symbol">
+    <path fill="FG" fill-rule="evenodd" d="M76 32 H180 A44 44 0 0 1 224 76 V180 A44 44 0 0 1 180 224 H76 A44 44 0 0 1 32 180 V76 A44 44 0 0 1 76 32 Z
+      M128 110 L162 76 L180 94 L146 128 L180 162 L162 180 L128 146 L94 180 L76 162 L110 128 L76 94 L94 76 Z"/>
+  </g>
+</svg>

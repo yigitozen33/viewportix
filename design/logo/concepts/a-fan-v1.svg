@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-labelledby="t">
+  <title id="t">Viewportix concept A: fan of pages</title>
+  <g id="symbol" transform="translate(7 -21)">
+    <rect x="104" y="50" width="96" height="150" rx="14" fill="#111" transform="rotate(30 200 200)"/>
+    <rect x="104" y="50" width="96" height="150" rx="14" fill="#111" stroke="#fff" stroke-width="10" transform="rotate(15 200 200)"/>
+    <rect x="104" y="50" width="96" height="150" rx="14" fill="#111" stroke="#fff" stroke-width="10"/>
+  </g>
+</svg>

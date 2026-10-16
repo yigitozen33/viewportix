@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 816" width="1280" height="816">
+<rect width="1280" height="816" fill="#26221F"/>
+<text x="40" y="48" font-family="SF Pro Display, Inter, sans-serif" font-size="22" font-weight="600" fill="#F4EFE9">Uygulama ikonu bağlamı · koyu karo + sarı · 256 / 128 / 64 / 32 / 16 px</text>
+<text x="40" y="74" font-family="SF Pro Display, Inter, sans-serif" font-size="16" fill="#9C9188">A Yelpaze</text>
+<g transform="translate(40 90)"><rect width="256" height="256" rx="57.3" fill="#161412"/>
+<g transform="translate(19.20 19.20) scale(0.8500)"><g id="symbol" transform="translate(-50 -22)">
+    <rect x="104" y="50" width="96" height="150" rx="14" fill="#FFF36B" transform="rotate(30 104 200)"/>
+    <rect x="104" y="50" width="96" height="150" rx="14" fill="#FFF36B" stroke="#161412" stroke-width="10" transform="rotate(15 104 200)"/>
+    <rect x="104" y="50" width="96" height="150" rx="14" fill="#FFF36B" stroke="#161412" stroke-width="10"/>
+  </g></g></g>
+<g transform="translate(40 386)"><rect width="128" height="128" rx="28.6" fill="#161412"/>
+<g transform="translate(9.60 9.60) scale(0.4250)"><g id="symbol" transform="translate(-50 -22)">
+    <rect x="104" y="50" width="96" height="150" rx="14" fill="#FFF36B" transform="rotate(30 104 200)"/>
+    <rect x="104" y="50" width="96" height="150" rx="14" fill="#FFF36B" stroke="#161412" stroke-width="10" transform="rotate(15 104 200)"/>
+    <rect x="104" y="50" width="96" height="150" rx="14" fill="#FFF36B" stroke="#161412" stroke-width="10"/>
+  </g></g></g>
+<g transform="translate(40 554)"><rect width="64" height="64" rx="14.3" fill="#161412"/>
+<g transform="translate(4.80 4.80) scale(0.2125)"><g id="symbol" transform="translate(-50 -22)">
+    <rect x="104" y="50" width="96" height="150" rx="14" fill="#FFF36B" transform="rotate(30 104 200)"/>
+    <rect x="104" y="50" width="96" height="150" rx="14" fill="#FFF36B" stroke="#161412" stroke-width="10" transform="rotate(15 104 200)"/>
+    <rect x="104" y="50" width="96" height="150" rx="14" fill="#FFF36B" stroke="#161412" stroke-width="10"/>
+  </g></g></g>
+<g transform="translate(40 658)"><rect width="32" height="32" rx="7.2" fill="#161412"/>
+<g transform="translate(2.40 2.40) scale(0.1062)"><g id="symbol" transform="translate(-50 -22)">
+    <rect x="104" y="50" width="96" height="150" rx="14" fill="#FFF36B" transform="rotate(30 104 200)"/>
+    <rect x="104" y="50" width="96" height="150" rx="14" fill="#FFF36B" stroke="#161412" stroke-width="10" transform="rotate(15 104 200)"/>
+    <rect x="104" y="50" width="96" height="150" rx="14" fill="#FFF36B" stroke="#161412" stroke-width="10"/>
+  </g></g></g>
+<g transform="translate(40 730)"><rect width="16" height="16" rx="3.6" fill="#161412"/>
+<g transform="translate(1.20 1.20) scale(0.0531)"><g id="symbol" transform="translate(-50 -22)">
+    <rect x="104" y="50" width="96" height="150" rx="14" fill="#FFF36B" transform="rotate(30 104 200)"/>
+    <rect x="104" y="50" width="96" height="150" rx="14" fill="#FFF36B" stroke="#161412" stroke-width="10" transform="rotate(15 104 200)"/>
+    <rect x="104" y="50" width="96" height="150" rx="14" fill="#FFF36B" stroke="#161412" stroke-width="10"/>
+  </g></g></g>
+<text x="340" y="74" font-family="SF Pro Display, Inter, sans-serif" font-size="16" fill="#9C9188">B Merdiven</text>
+<g transform="translate(340 90)"><rect width="256" height="256" rx="57.3" fill="#161412"/>
+<g transform="translate(19.20 19.20) scale(0.8500)"><path id="symbol" fill="#FFF36B" d="M56 40 H100 a16 16 0 0 1 16 16 V88 a8 8 0 0 0 8 8 H156 a16 16 0 0 1 16 16 V144 a8 8 0 0 0 8 8 H200 a16 16 0 0 1 16 16 V200 a16 16 0 0 1 -16 16 H56 a16 16 0 0 1 -16 -16 V56 a16 16 0 0 1 16 -16 Z"/></g></g>
+<g transform="translate(340 386)"><rect width="128" height="128" rx="28.6" fill="#161412"/>
+<g transform="translate(9.60 9.60) scale(0.4250)"><path id="symbol" fill="#FFF36B" d="M56 40 H100 a16 16 0 0 1 16 16 V88 a8 8 0 0 0 8 8 H156 a16 16 0 0 1 16 16 V144 a8 8 0 0 0 8 8 H200 a16 16 0 0 1 16 16 V200 a16 16 0 0 1 -16 16 H56 a16 16 0 0 1 -16 -16 V56 a16 16 0 0 1 16 -16 Z"/></g></g>
+<g transform="translate(340 554)"><rect width="64" height="64" rx="14.3" fill="#161412"/>
+<g transform="translate(4.80 4.80) scale(0.2125)"><path id="symbol" fill="#FFF36B" d="M56 40 H100 a16 16 0 0 1 16 16 V88 a8 8 0 0 0 8 8 H156 a16 16 0 0 1 16 16 V144 a8 8 0 0 0 8 8 H200 a16 16 0 0 1 16 16 V200 a16 16 0 0 1 -16 16 H56 a16 16 0 0 1 -16 -16 V56 a16 16 0 0 1 16 -16 Z"/></g></g>
+<g transform="translate(340 658)"><rect width="32" height="32" rx="7.2" fill="#161412"/>
+<g transform="translate(2.40 2.40) scale(0.1062)"><path id="symbol" fill="#FFF36B" d="M56 40 H100 a16 16 0 0 1 16 16 V88 a8 8 0 0 0 8 8 H156 a16 16 0 0 1 16 16 V144 a8 8 0 0 0 8 8 H200 a16 16 0 0 1 16 16 V200 a16 16 0 0 1 -16 16 H56 a16 16 0 0 1 -16 -16 V56 a16 16 0 0 1 16 -16 Z"/></g></g>
+<g transform="translate(340 730)"><rect width="16" height="16" rx="3.6" fill="#161412"/>
+<g transform="translate(1.20 1.20) scale(0.0531)"><path id="symbol" fill="#FFF36B" d="M56 40 H100 a16 16 0 0 1 16 16 V88 a8 8 0 0 0 8 8 H156 a16 16 0 0 1 16 16 V144 a8 8 0 0 0 8 8 H200 a16 16 0 0 1 16 16 V200 a16 16 0 0 1 -16 16 H56 a16 16 0 0 1 -16 -16 V56 a16 16 0 0 1 16 -16 Z"/></g></g>
+<text x="640" y="74" font-family="SF Pro Display, Inter, sans-serif" font-size="16" fill="#9C9188">C Prizma</text>
+<g transform="translate(640 90)"><rect width="256" height="256" rx="57.3" fill="#161412"/>
+<g transform="translate(19.20 19.20) scale(0.8500)"><g id="symbol" transform="translate(0 24)">
+    <g fill="none" stroke="#FFF36B" stroke-width="20" stroke-linecap="round">
+      <path d="M20 108 H92"/>
+      <path d="M156 80 H236"/>
+      <path d="M170 108 H236"/>
+      <path d="M184 136 H236"/>
+    </g>
+    <path fill="#FFF36B" stroke="#FFF36B" stroke-width="12" stroke-linejoin="round" d="M128 40 L200 176 H56 Z"/>
+  </g></g></g>
+<g transform="translate(640 386)"><rect width="128" height="128" rx="28.6" fill="#161412"/>
+<g transform="translate(9.60 9.60) scale(0.4250)"><g id="symbol" transform="translate(0 24)">
+    <g fill="none" stroke="#FFF36B" stroke-width="20" stroke-linecap="round">
+      <path d="M20 108 H92"/>
+      <path d="M156 80 H236"/>
+      <path d="M170 108 H236"/>
+      <path d="M184 136 H236"/>
+    </g>
+    <path fill="#FFF36B" stroke="#FFF36B" stroke-width="12" stroke-linejoin="round" d="M128 40 L200 176 H56 Z"/>
+  </g></g></g>
+<g transform="translate(640 554)"><rect width="64" height="64" rx="14.3" fill="#161412"/>
+<g transform="translate(4.80 4.80) scale(0.2125)"><g id="symbol" transform="translate(0 24)">
+    <g fill="none" stroke="#FFF36B" stroke-width="20" stroke-linecap="round">
+      <path d="M20 108 H92"/>
+      <path d="M156 80 H236"/>
+      <path d="M170 108 H236"/>
+      <path d="M184 136 H236"/>
+    </g>
+    <path fill="#FFF36B" stroke="#FFF36B" stroke-width="12" stroke-linejoin="round" d="M128 40 L200 176 H56 Z"/>
+  </g></g></g>
+<g transform="translate(640 658)"><rect width="32" height="32" rx="7.2" fill="#161412"/>
+<g transform="translate(2.40 2.40) scale(0.1062)"><g id="symbol" transform="translate(0 24)">
+    <g fill="none" stroke="#FFF36B" stroke-width="20" stroke-linecap="round">
+      <path d="M20 108 H92"/>
+      <path d="M156 80 H236"/>
+      <path d="M170 108 H236"/>
+      <path d="M184 136 H236"/>
+    </g>
+    <path fill="#FFF36B" stroke="#FFF36B" stroke-width="12" stroke-linejoin="round" d="M128 40 L200 176 H56 Z"/>
+  </g></g></g>
+<g transform="translate(640 730)"><rect width="16" height="16" rx="3.6" fill="#161412"/>
+<g transform="translate(1.20 1.20) scale(0.0531)"><g id="symbol" transform="translate(0 24)">
+    <g fill="none" stroke="#FFF36B" stroke-width="20" stroke-linecap="round">
+      <path d="M20 108 H92"/>
+      <path d="M156 80 H236"/>
+      <path d="M170 108 H236"/>
+      <path d="M184 136 H236"/>
+    </g>
+    <path fill="#FFF36B" stroke="#FFF36B" stroke-width="12" stroke-linejoin="round" d="M128 40 L200 176 H56 Z"/>
+  </g></g></g>
+<text x="940" y="74" font-family="SF Pro Display, Inter, sans-serif" font-size="16" fill="#9C9188">Mevcut Vx</text>
+<g transform="translate(940 90)"><rect width="256" height="256" rx="57.3" fill="#161412"/>
+<g transform="translate(19.20 19.20) scale(0.8500)"><g id="symbol" fill="#FFF36B">
+    <path d="M51 51 H86 V67 H67 V86 H51 Z M170 51 H205 V86 H189 V67 H170 Z M51 170 H67 V189 H86 V205 H51 Z M189 170 H205 V205 H170 V189 H189 Z"/>
+    <text fill="#F4EFE9" x="128" y="152" text-anchor="middle" font-family="SF Pro Display, Inter, Helvetica Neue, Arial, sans-serif" font-weight="700" font-size="76" letter-spacing="-4">Vx</text>
+  </g></g></g>
+<g transform="translate(940 386)"><rect width="128" height="128" rx="28.6" fill="#161412"/>
+<g transform="translate(9.60 9.60) scale(0.4250)"><g id="symbol" fill="#FFF36B">
+    <path d="M51 51 H86 V67 H67 V86 H51 Z M170 51 H205 V86 H189 V67 H170 Z M51 170 H67 V189 H86 V205 H51 Z M189 170 H205 V205 H170 V189 H189 Z"/>
+    <text fill="#F4EFE9" x="128" y="152" text-anchor="middle" font-family="SF Pro Display, Inter, Helvetica Neue, Arial, sans-serif" font-weight="700" font-size="76" letter-spacing="-4">Vx</text>
+  </g></g></g>
+<g transform="translate(940 554)"><rect width="64" height="64" rx="14.3" fill="#161412"/>
+<g transform="translate(4.80 4.80) scale(0.2125)"><g id="symbol" fill="#FFF36B">
+    <path d="M51 51 H86 V67 H67 V86 H51 Z M170 51 H205 V86 H189 V67 H170 Z M51 170 H67 V189 H86 V205 H51 Z M189 170 H205 V205 H170 V189 H189 Z"/>
+    <text fill="#F4EFE9" x="128" y="152" text-anchor="middle" font-family="SF Pro Display, Inter, Helvetica Neue, Arial, sans-serif" font-weight="700" font-size="76" letter-spacing="-4">Vx</text>
+  </g></g></g>
+<g transform="translate(940 658)"><rect width="32" height="32" rx="7.2" fill="#161412"/>
+<g transform="translate(2.40 2.40) scale(0.1062)"><g id="symbol" fill="#FFF36B">
+    <path d="M51 51 H86 V67 H67 V86 H51 Z M170 51 H205 V86 H189 V67 H170 Z M51 170 H67 V189 H86 V205 H51 Z M189 170 H205 V205 H170 V189 H189 Z"/>
+    <text fill="#F4EFE9" x="128" y="152" text-anchor="middle" font-family="SF Pro Display, Inter, Helvetica Neue, Arial, sans-serif" font-weight="700" font-size="76" letter-spacing="-4">Vx</text>
+  </g></g></g>
+<g transform="translate(940 730)"><rect width="16" height="16" rx="3.6" fill="#161412"/>
+<g transform="translate(1.20 1.20) scale(0.0531)"><g id="symbol" fill="#FFF36B">
+    <path d="M51 51 H86 V67 H67 V86 H51 Z M170 51 H205 V86 H189 V67 H170 Z M51 170 H67 V189 H86 V205 H51 Z M189 170 H205 V205 H170 V189 H189 Z"/>
+    <text fill="#F4EFE9" x="128" y="152" text-anchor="middle" font-family="SF Pro Display, Inter, Helvetica Neue, Arial, sans-serif" font-weight="700" font-size="76" letter-spacing="-4">Vx</text>
+  </g></g></g>
+</svg>

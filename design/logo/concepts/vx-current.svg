@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-labelledby="t">
+  <title id="t">Current Vx monogram (reference)</title>
+  <g id="symbol" fill="#111">
+    <path d="M51 51 H86 V67 H67 V86 H51 Z M170 51 H205 V86 H189 V67 H170 Z M51 170 H67 V189 H86 V205 H51 Z M189 170 H205 V205 H170 V189 H189 Z"/>
+    <text x="128" y="152" text-anchor="middle" font-family="SF Pro Display, Inter, Helvetica Neue, Arial, sans-serif" font-weight="700" font-size="76" letter-spacing="-4">Vx</text>
+  </g>
+</svg>

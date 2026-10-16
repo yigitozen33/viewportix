@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-labelledby="t">
+  <title id="t">E9 four viewports radiating</title>
+  <g id="symbol" fill="FG" transform="translate(128 128)">
+    <rect x="-26" y="-124" width="52" height="106" rx="14" transform="rotate(45)"/>
+    <rect x="-26" y="-124" width="52" height="106" rx="14" transform="rotate(135)"/>
+    <rect x="-26" y="-124" width="52" height="106" rx="14" transform="rotate(225)"/>
+    <rect x="-26" y="-124" width="52" height="106" rx="14" transform="rotate(315)"/>
+  </g>
+</svg>

@@ -1,0 +1,175 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1880 786" width="1880" height="786">
+<rect width="1880" height="786" fill="#26221F"/>
+<text x="40" y="48" font-family="SF Pro Display, Inter, sans-serif" font-size="22" font-weight="600" fill="#F4EFE9">E7 türevleri · Slack / Figma tarzı · sarı + krem · 256 / 128 / 64 / 32 / 16 px</text>
+<text x="40" y="74" font-family="SF Pro Display, Inter, sans-serif" font-size="16" fill="#9C9188">F3 Gizli V</text>
+<g transform="translate(40 90)"><rect width="256" height="256" rx="57.3" fill="#161412"/><g transform="translate(25.60 25.60) scale(0.8000)"><g id="symbol">
+    <g stroke="#FFF36B" stroke-width="18" stroke-linecap="round" fill="none"><path d="M128 128 L64 192"/><path d="M128 128 L192 192"/></g>
+    <g fill="#FFF36B"><rect x="28" y="160" width="68" height="68" rx="16"/><rect x="160" y="160" width="68" height="68" rx="16"/></g>
+    <g stroke="#F4EFE9" stroke-width="18" stroke-linecap="round" fill="none"><path d="M64 64 L128 128 L192 64"/></g>
+    <g fill="#F4EFE9"><rect x="28" y="28" width="68" height="68" rx="16"/><rect x="160" y="28" width="68" height="68" rx="16"/></g>
+  </g></g></g>
+<g transform="translate(40 382)"><rect width="128" height="128" rx="28.6" fill="#161412"/><g transform="translate(12.80 12.80) scale(0.4000)"><g id="symbol">
+    <g stroke="#FFF36B" stroke-width="18" stroke-linecap="round" fill="none"><path d="M128 128 L64 192"/><path d="M128 128 L192 192"/></g>
+    <g fill="#FFF36B"><rect x="28" y="160" width="68" height="68" rx="16"/><rect x="160" y="160" width="68" height="68" rx="16"/></g>
+    <g stroke="#F4EFE9" stroke-width="18" stroke-linecap="round" fill="none"><path d="M64 64 L128 128 L192 64"/></g>
+    <g fill="#F4EFE9"><rect x="28" y="28" width="68" height="68" rx="16"/><rect x="160" y="28" width="68" height="68" rx="16"/></g>
+  </g></g></g>
+<g transform="translate(40 546)"><rect width="64" height="64" rx="14.3" fill="#161412"/><g transform="translate(6.40 6.40) scale(0.2000)"><g id="symbol">
+    <g stroke="#FFF36B" stroke-width="18" stroke-linecap="round" fill="none"><path d="M128 128 L64 192"/><path d="M128 128 L192 192"/></g>
+    <g fill="#FFF36B"><rect x="28" y="160" width="68" height="68" rx="16"/><rect x="160" y="160" width="68" height="68" rx="16"/></g>
+    <g stroke="#F4EFE9" stroke-width="18" stroke-linecap="round" fill="none"><path d="M64 64 L128 128 L192 64"/></g>
+    <g fill="#F4EFE9"><rect x="28" y="28" width="68" height="68" rx="16"/><rect x="160" y="28" width="68" height="68" rx="16"/></g>
+  </g></g></g>
+<g transform="translate(40 646)"><rect width="32" height="32" rx="7.2" fill="#161412"/><g transform="translate(3.20 3.20) scale(0.1000)"><g id="symbol">
+    <g stroke="#FFF36B" stroke-width="18" stroke-linecap="round" fill="none"><path d="M128 128 L64 192"/><path d="M128 128 L192 192"/></g>
+    <g fill="#FFF36B"><rect x="28" y="160" width="68" height="68" rx="16"/><rect x="160" y="160" width="68" height="68" rx="16"/></g>
+    <g stroke="#F4EFE9" stroke-width="18" stroke-linecap="round" fill="none"><path d="M64 64 L128 128 L192 64"/></g>
+    <g fill="#F4EFE9"><rect x="28" y="28" width="68" height="68" rx="16"/><rect x="160" y="28" width="68" height="68" rx="16"/></g>
+  </g></g></g>
+<g transform="translate(40 714)"><rect width="16" height="16" rx="3.6" fill="#161412"/><g transform="translate(1.60 1.60) scale(0.0500)"><g id="symbol">
+    <g stroke="#FFF36B" stroke-width="18" stroke-linecap="round" fill="none"><path d="M128 128 L64 192"/><path d="M128 128 L192 192"/></g>
+    <g fill="#FFF36B"><rect x="28" y="160" width="68" height="68" rx="16"/><rect x="160" y="160" width="68" height="68" rx="16"/></g>
+    <g stroke="#F4EFE9" stroke-width="18" stroke-linecap="round" fill="none"><path d="M64 64 L128 128 L192 64"/></g>
+    <g fill="#F4EFE9"><rect x="28" y="28" width="68" height="68" rx="16"/><rect x="160" y="28" width="68" height="68" rx="16"/></g>
+  </g></g></g>
+<text x="340" y="74" font-family="SF Pro Display, Inter, sans-serif" font-size="16" fill="#9C9188">F1 Fırıldak</text>
+<g transform="translate(340 90)"><rect width="256" height="256" rx="57.3" fill="#161412"/><g transform="translate(25.60 25.60) scale(0.8000)"><g id="symbol" transform="translate(128 128)">
+    <g fill="#FFF36B"><rect x="-100" y="-100" width="64" height="64" rx="18"/><path d="M-68 -68 L-22 -22" stroke="#FFF36B" stroke-width="24" stroke-linecap="round"/></g>
+    <g fill="#F4EFE9" transform="rotate(90)"><rect x="-100" y="-100" width="64" height="64" rx="18"/><path d="M-68 -68 L-22 -22" stroke="#F4EFE9" stroke-width="24" stroke-linecap="round"/></g>
+    <g fill="#FFF36B" transform="rotate(180)"><rect x="-100" y="-100" width="64" height="64" rx="18"/><path d="M-68 -68 L-22 -22" stroke="#FFF36B" stroke-width="24" stroke-linecap="round"/></g>
+    <g fill="#F4EFE9" transform="rotate(270)"><rect x="-100" y="-100" width="64" height="64" rx="18"/><path d="M-68 -68 L-22 -22" stroke="#F4EFE9" stroke-width="24" stroke-linecap="round"/></g>
+  </g></g></g>
+<g transform="translate(340 382)"><rect width="128" height="128" rx="28.6" fill="#161412"/><g transform="translate(12.80 12.80) scale(0.4000)"><g id="symbol" transform="translate(128 128)">
+    <g fill="#FFF36B"><rect x="-100" y="-100" width="64" height="64" rx="18"/><path d="M-68 -68 L-22 -22" stroke="#FFF36B" stroke-width="24" stroke-linecap="round"/></g>
+    <g fill="#F4EFE9" transform="rotate(90)"><rect x="-100" y="-100" width="64" height="64" rx="18"/><path d="M-68 -68 L-22 -22" stroke="#F4EFE9" stroke-width="24" stroke-linecap="round"/></g>
+    <g fill="#FFF36B" transform="rotate(180)"><rect x="-100" y="-100" width="64" height="64" rx="18"/><path d="M-68 -68 L-22 -22" stroke="#FFF36B" stroke-width="24" stroke-linecap="round"/></g>
+    <g fill="#F4EFE9" transform="rotate(270)"><rect x="-100" y="-100" width="64" height="64" rx="18"/><path d="M-68 -68 L-22 -22" stroke="#F4EFE9" stroke-width="24" stroke-linecap="round"/></g>
+  </g></g></g>
+<g transform="translate(340 546)"><rect width="64" height="64" rx="14.3" fill="#161412"/><g transform="translate(6.40 6.40) scale(0.2000)"><g id="symbol" transform="translate(128 128)">
+    <g fill="#FFF36B"><rect x="-100" y="-100" width="64" height="64" rx="18"/><path d="M-68 -68 L-22 -22" stroke="#FFF36B" stroke-width="24" stroke-linecap="round"/></g>
+    <g fill="#F4EFE9" transform="rotate(90)"><rect x="-100" y="-100" width="64" height="64" rx="18"/><path d="M-68 -68 L-22 -22" stroke="#F4EFE9" stroke-width="24" stroke-linecap="round"/></g>
+    <g fill="#FFF36B" transform="rotate(180)"><rect x="-100" y="-100" width="64" height="64" rx="18"/><path d="M-68 -68 L-22 -22" stroke="#FFF36B" stroke-width="24" stroke-linecap="round"/></g>
+    <g fill="#F4EFE9" transform="rotate(270)"><rect x="-100" y="-100" width="64" height="64" rx="18"/><path d="M-68 -68 L-22 -22" stroke="#F4EFE9" stroke-width="24" stroke-linecap="round"/></g>
+  </g></g></g>
+<g transform="translate(340 646)"><rect width="32" height="32" rx="7.2" fill="#161412"/><g transform="translate(3.20 3.20) scale(0.1000)"><g id="symbol" transform="translate(128 128)">
+    <g fill="#FFF36B"><rect x="-100" y="-100" width="64" height="64" rx="18"/><path d="M-68 -68 L-22 -22" stroke="#FFF36B" stroke-width="24" stroke-linecap="round"/></g>
+    <g fill="#F4EFE9" transform="rotate(90)"><rect x="-100" y="-100" width="64" height="64" rx="18"/><path d="M-68 -68 L-22 -22" stroke="#F4EFE9" stroke-width="24" stroke-linecap="round"/></g>
+    <g fill="#FFF36B" transform="rotate(180)"><rect x="-100" y="-100" width="64" height="64" rx="18"/><path d="M-68 -68 L-22 -22" stroke="#FFF36B" stroke-width="24" stroke-linecap="round"/></g>
+    <g fill="#F4EFE9" transform="rotate(270)"><rect x="-100" y="-100" width="64" height="64" rx="18"/><path d="M-68 -68 L-22 -22" stroke="#F4EFE9" stroke-width="24" stroke-linecap="round"/></g>
+  </g></g></g>
+<g transform="translate(340 714)"><rect width="16" height="16" rx="3.6" fill="#161412"/><g transform="translate(1.60 1.60) scale(0.0500)"><g id="symbol" transform="translate(128 128)">
+    <g fill="#FFF36B"><rect x="-100" y="-100" width="64" height="64" rx="18"/><path d="M-68 -68 L-22 -22" stroke="#FFF36B" stroke-width="24" stroke-linecap="round"/></g>
+    <g fill="#F4EFE9" transform="rotate(90)"><rect x="-100" y="-100" width="64" height="64" rx="18"/><path d="M-68 -68 L-22 -22" stroke="#F4EFE9" stroke-width="24" stroke-linecap="round"/></g>
+    <g fill="#FFF36B" transform="rotate(180)"><rect x="-100" y="-100" width="64" height="64" rx="18"/><path d="M-68 -68 L-22 -22" stroke="#FFF36B" stroke-width="24" stroke-linecap="round"/></g>
+    <g fill="#F4EFE9" transform="rotate(270)"><rect x="-100" y="-100" width="64" height="64" rx="18"/><path d="M-68 -68 L-22 -22" stroke="#F4EFE9" stroke-width="24" stroke-linecap="round"/></g>
+  </g></g></g>
+<text x="640" y="74" font-family="SF Pro Display, Inter, sans-serif" font-size="16" fill="#9C9188">F4 Örgü</text>
+<g transform="translate(640 90)"><rect width="256" height="256" rx="57.3" fill="#161412"/><g transform="translate(25.60 25.60) scale(0.8000)"><g id="symbol" transform="translate(128 128)">
+    <g fill="#FFF36B"><rect x="-104" y="-104" width="60" height="60" rx="17"/><path d="M-64 -84 L30 10" stroke="#FFF36B" stroke-width="22" stroke-linecap="round"/></g>
+    <g fill="#F4EFE9" transform="rotate(90)"><rect x="-104" y="-104" width="60" height="60" rx="17"/><path d="M-64 -84 L30 10" stroke="#F4EFE9" stroke-width="22" stroke-linecap="round"/></g>
+    <g fill="#FFF36B" transform="rotate(180)"><rect x="-104" y="-104" width="60" height="60" rx="17"/><path d="M-64 -84 L30 10" stroke="#FFF36B" stroke-width="22" stroke-linecap="round"/></g>
+    <g fill="#F4EFE9" transform="rotate(270)"><rect x="-104" y="-104" width="60" height="60" rx="17"/><path d="M-64 -84 L30 10" stroke="#F4EFE9" stroke-width="22" stroke-linecap="round"/></g>
+  </g></g></g>
+<g transform="translate(640 382)"><rect width="128" height="128" rx="28.6" fill="#161412"/><g transform="translate(12.80 12.80) scale(0.4000)"><g id="symbol" transform="translate(128 128)">
+    <g fill="#FFF36B"><rect x="-104" y="-104" width="60" height="60" rx="17"/><path d="M-64 -84 L30 10" stroke="#FFF36B" stroke-width="22" stroke-linecap="round"/></g>
+    <g fill="#F4EFE9" transform="rotate(90)"><rect x="-104" y="-104" width="60" height="60" rx="17"/><path d="M-64 -84 L30 10" stroke="#F4EFE9" stroke-width="22" stroke-linecap="round"/></g>
+    <g fill="#FFF36B" transform="rotate(180)"><rect x="-104" y="-104" width="60" height="60" rx="17"/><path d="M-64 -84 L30 10" stroke="#FFF36B" stroke-width="22" stroke-linecap="round"/></g>
+    <g fill="#F4EFE9" transform="rotate(270)"><rect x="-104" y="-104" width="60" height="60" rx="17"/><path d="M-64 -84 L30 10" stroke="#F4EFE9" stroke-width="22" stroke-linecap="round"/></g>
+  </g></g></g>
+<g transform="translate(640 546)"><rect width="64" height="64" rx="14.3" fill="#161412"/><g transform="translate(6.40 6.40) scale(0.2000)"><g id="symbol" transform="translate(128 128)">
+    <g fill="#FFF36B"><rect x="-104" y="-104" width="60" height="60" rx="17"/><path d="M-64 -84 L30 10" stroke="#FFF36B" stroke-width="22" stroke-linecap="round"/></g>
+    <g fill="#F4EFE9" transform="rotate(90)"><rect x="-104" y="-104" width="60" height="60" rx="17"/><path d="M-64 -84 L30 10" stroke="#F4EFE9" stroke-width="22" stroke-linecap="round"/></g>
+    <g fill="#FFF36B" transform="rotate(180)"><rect x="-104" y="-104" width="60" height="60" rx="17"/><path d="M-64 -84 L30 10" stroke="#FFF36B" stroke-width="22" stroke-linecap="round"/></g>
+    <g fill="#F4EFE9" transform="rotate(270)"><rect x="-104" y="-104" width="60" height="60" rx="17"/><path d="M-64 -84 L30 10" stroke="#F4EFE9" stroke-width="22" stroke-linecap="round"/></g>
+  </g></g></g>
+<g transform="translate(640 646)"><rect width="32" height="32" rx="7.2" fill="#161412"/><g transform="translate(3.20 3.20) scale(0.1000)"><g id="symbol" transform="translate(128 128)">
+    <g fill="#FFF36B"><rect x="-104" y="-104" width="60" height="60" rx="17"/><path d="M-64 -84 L30 10" stroke="#FFF36B" stroke-width="22" stroke-linecap="round"/></g>
+    <g fill="#F4EFE9" transform="rotate(90)"><rect x="-104" y="-104" width="60" height="60" rx="17"/><path d="M-64 -84 L30 10" stroke="#F4EFE9" stroke-width="22" stroke-linecap="round"/></g>
+    <g fill="#FFF36B" transform="rotate(180)"><rect x="-104" y="-104" width="60" height="60" rx="17"/><path d="M-64 -84 L30 10" stroke="#FFF36B" stroke-width="22" stroke-linecap="round"/></g>
+    <g fill="#F4EFE9" transform="rotate(270)"><rect x="-104" y="-104" width="60" height="60" rx="17"/><path d="M-64 -84 L30 10" stroke="#F4EFE9" stroke-width="22" stroke-linecap="round"/></g>
+  </g></g></g>
+<g transform="translate(640 714)"><rect width="16" height="16" rx="3.6" fill="#161412"/><g transform="translate(1.60 1.60) scale(0.0500)"><g id="symbol" transform="translate(128 128)">
+    <g fill="#FFF36B"><rect x="-104" y="-104" width="60" height="60" rx="17"/><path d="M-64 -84 L30 10" stroke="#FFF36B" stroke-width="22" stroke-linecap="round"/></g>
+    <g fill="#F4EFE9" transform="rotate(90)"><rect x="-104" y="-104" width="60" height="60" rx="17"/><path d="M-64 -84 L30 10" stroke="#F4EFE9" stroke-width="22" stroke-linecap="round"/></g>
+    <g fill="#FFF36B" transform="rotate(180)"><rect x="-104" y="-104" width="60" height="60" rx="17"/><path d="M-64 -84 L30 10" stroke="#FFF36B" stroke-width="22" stroke-linecap="round"/></g>
+    <g fill="#F4EFE9" transform="rotate(270)"><rect x="-104" y="-104" width="60" height="60" rx="17"/><path d="M-64 -84 L30 10" stroke="#F4EFE9" stroke-width="22" stroke-linecap="round"/></g>
+  </g></g></g>
+<text x="940" y="74" font-family="SF Pro Display, Inter, sans-serif" font-size="16" fill="#9C9188">F5 Her oran</text>
+<g transform="translate(940 90)"><rect width="256" height="256" rx="57.3" fill="#161412"/><g transform="translate(25.60 25.60) scale(0.8000)"><g id="symbol">
+    <g stroke="#FFF36B" stroke-width="16" stroke-linecap="round" fill="none"><path d="M70 70 L186 186"/><path d="M186 70 L70 186"/></g>
+    <g fill="#FFF36B"><rect x="40" y="28" width="52" height="80" rx="14"/><rect x="150" y="36" width="80" height="60" rx="14"/><rect x="28" y="160" width="68" height="68" rx="14"/><rect x="146" y="166" width="84" height="52" rx="14"/></g>
+    <rect x="112" y="112" width="32" height="32" rx="8" fill="#F4EFE9"/>
+  </g></g></g>
+<g transform="translate(940 382)"><rect width="128" height="128" rx="28.6" fill="#161412"/><g transform="translate(12.80 12.80) scale(0.4000)"><g id="symbol">
+    <g stroke="#FFF36B" stroke-width="16" stroke-linecap="round" fill="none"><path d="M70 70 L186 186"/><path d="M186 70 L70 186"/></g>
+    <g fill="#FFF36B"><rect x="40" y="28" width="52" height="80" rx="14"/><rect x="150" y="36" width="80" height="60" rx="14"/><rect x="28" y="160" width="68" height="68" rx="14"/><rect x="146" y="166" width="84" height="52" rx="14"/></g>
+    <rect x="112" y="112" width="32" height="32" rx="8" fill="#F4EFE9"/>
+  </g></g></g>
+<g transform="translate(940 546)"><rect width="64" height="64" rx="14.3" fill="#161412"/><g transform="translate(6.40 6.40) scale(0.2000)"><g id="symbol">
+    <g stroke="#FFF36B" stroke-width="16" stroke-linecap="round" fill="none"><path d="M70 70 L186 186"/><path d="M186 70 L70 186"/></g>
+    <g fill="#FFF36B"><rect x="40" y="28" width="52" height="80" rx="14"/><rect x="150" y="36" width="80" height="60" rx="14"/><rect x="28" y="160" width="68" height="68" rx="14"/><rect x="146" y="166" width="84" height="52" rx="14"/></g>
+    <rect x="112" y="112" width="32" height="32" rx="8" fill="#F4EFE9"/>
+  </g></g></g>
+<g transform="translate(940 646)"><rect width="32" height="32" rx="7.2" fill="#161412"/><g transform="translate(3.20 3.20) scale(0.1000)"><g id="symbol">
+    <g stroke="#FFF36B" stroke-width="16" stroke-linecap="round" fill="none"><path d="M70 70 L186 186"/><path d="M186 70 L70 186"/></g>
+    <g fill="#FFF36B"><rect x="40" y="28" width="52" height="80" rx="14"/><rect x="150" y="36" width="80" height="60" rx="14"/><rect x="28" y="160" width="68" height="68" rx="14"/><rect x="146" y="166" width="84" height="52" rx="14"/></g>
+    <rect x="112" y="112" width="32" height="32" rx="8" fill="#F4EFE9"/>
+  </g></g></g>
+<g transform="translate(940 714)"><rect width="16" height="16" rx="3.6" fill="#161412"/><g transform="translate(1.60 1.60) scale(0.0500)"><g id="symbol">
+    <g stroke="#FFF36B" stroke-width="16" stroke-linecap="round" fill="none"><path d="M70 70 L186 186"/><path d="M186 70 L70 186"/></g>
+    <g fill="#FFF36B"><rect x="40" y="28" width="52" height="80" rx="14"/><rect x="150" y="36" width="80" height="60" rx="14"/><rect x="28" y="160" width="68" height="68" rx="14"/><rect x="146" y="166" width="84" height="52" rx="14"/></g>
+    <rect x="112" y="112" width="32" height="32" rx="8" fill="#F4EFE9"/>
+  </g></g></g>
+<text x="1240" y="74" font-family="SF Pro Display, Inter, sans-serif" font-size="16" fill="#9C9188">F2 Modüller</text>
+<g transform="translate(1240 90)"><rect width="256" height="256" rx="57.3" fill="#161412"/><g transform="translate(25.60 25.60) scale(0.8000)"><g id="symbol" transform="translate(128 128)">
+    <path fill="#FFF36B" d="M-96 -96 H-14 A0 0 0 0 1 -14 -96 V-56 A42 42 0 0 1 -56 -14 H-96 Z" transform="translate(-4 -4)"/>
+    <path fill="#F4EFE9" d="M-96 -96 H-14 A0 0 0 0 1 -14 -96 V-56 A42 42 0 0 1 -56 -14 H-96 Z" transform="rotate(90) translate(-4 -4)"/>
+    <path fill="#FFF36B" d="M-96 -96 H-14 A0 0 0 0 1 -14 -96 V-56 A42 42 0 0 1 -56 -14 H-96 Z" transform="rotate(180) translate(-4 -4)"/>
+    <path fill="#F4EFE9" d="M-96 -96 H-14 A0 0 0 0 1 -14 -96 V-56 A42 42 0 0 1 -56 -14 H-96 Z" transform="rotate(270) translate(-4 -4)"/>
+  </g></g></g>
+<g transform="translate(1240 382)"><rect width="128" height="128" rx="28.6" fill="#161412"/><g transform="translate(12.80 12.80) scale(0.4000)"><g id="symbol" transform="translate(128 128)">
+    <path fill="#FFF36B" d="M-96 -96 H-14 A0 0 0 0 1 -14 -96 V-56 A42 42 0 0 1 -56 -14 H-96 Z" transform="translate(-4 -4)"/>
+    <path fill="#F4EFE9" d="M-96 -96 H-14 A0 0 0 0 1 -14 -96 V-56 A42 42 0 0 1 -56 -14 H-96 Z" transform="rotate(90) translate(-4 -4)"/>
+    <path fill="#FFF36B" d="M-96 -96 H-14 A0 0 0 0 1 -14 -96 V-56 A42 42 0 0 1 -56 -14 H-96 Z" transform="rotate(180) translate(-4 -4)"/>
+    <path fill="#F4EFE9" d="M-96 -96 H-14 A0 0 0 0 1 -14 -96 V-56 A42 42 0 0 1 -56 -14 H-96 Z" transform="rotate(270) translate(-4 -4)"/>
+  </g></g></g>
+<g transform="translate(1240 546)"><rect width="64" height="64" rx="14.3" fill="#161412"/><g transform="translate(6.40 6.40) scale(0.2000)"><g id="symbol" transform="translate(128 128)">
+    <path fill="#FFF36B" d="M-96 -96 H-14 A0 0 0 0 1 -14 -96 V-56 A42 42 0 0 1 -56 -14 H-96 Z" transform="translate(-4 -4)"/>
+    <path fill="#F4EFE9" d="M-96 -96 H-14 A0 0 0 0 1 -14 -96 V-56 A42 42 0 0 1 -56 -14 H-96 Z" transform="rotate(90) translate(-4 -4)"/>
+    <path fill="#FFF36B" d="M-96 -96 H-14 A0 0 0 0 1 -14 -96 V-56 A42 42 0 0 1 -56 -14 H-96 Z" transform="rotate(180) translate(-4 -4)"/>
+    <path fill="#F4EFE9" d="M-96 -96 H-14 A0 0 0 0 1 -14 -96 V-56 A42 42 0 0 1 -56 -14 H-96 Z" transform="rotate(270) translate(-4 -4)"/>
+  </g></g></g>
+<g transform="translate(1240 646)"><rect width="32" height="32" rx="7.2" fill="#161412"/><g transform="translate(3.20 3.20) scale(0.1000)"><g id="symbol" transform="translate(128 128)">
+    <path fill="#FFF36B" d="M-96 -96 H-14 A0 0 0 0 1 -14 -96 V-56 A42 42 0 0 1 -56 -14 H-96 Z" transform="translate(-4 -4)"/>
+    <path fill="#F4EFE9" d="M-96 -96 H-14 A0 0 0 0 1 -14 -96 V-56 A42 42 0 0 1 -56 -14 H-96 Z" transform="rotate(90) translate(-4 -4)"/>
+    <path fill="#FFF36B" d="M-96 -96 H-14 A0 0 0 0 1 -14 -96 V-56 A42 42 0 0 1 -56 -14 H-96 Z" transform="rotate(180) translate(-4 -4)"/>
+    <path fill="#F4EFE9" d="M-96 -96 H-14 A0 0 0 0 1 -14 -96 V-56 A42 42 0 0 1 -56 -14 H-96 Z" transform="rotate(270) translate(-4 -4)"/>
+  </g></g></g>
+<g transform="translate(1240 714)"><rect width="16" height="16" rx="3.6" fill="#161412"/><g transform="translate(1.60 1.60) scale(0.0500)"><g id="symbol" transform="translate(128 128)">
+    <path fill="#FFF36B" d="M-96 -96 H-14 A0 0 0 0 1 -14 -96 V-56 A42 42 0 0 1 -56 -14 H-96 Z" transform="translate(-4 -4)"/>
+    <path fill="#F4EFE9" d="M-96 -96 H-14 A0 0 0 0 1 -14 -96 V-56 A42 42 0 0 1 -56 -14 H-96 Z" transform="rotate(90) translate(-4 -4)"/>
+    <path fill="#FFF36B" d="M-96 -96 H-14 A0 0 0 0 1 -14 -96 V-56 A42 42 0 0 1 -56 -14 H-96 Z" transform="rotate(180) translate(-4 -4)"/>
+    <path fill="#F4EFE9" d="M-96 -96 H-14 A0 0 0 0 1 -14 -96 V-56 A42 42 0 0 1 -56 -14 H-96 Z" transform="rotate(270) translate(-4 -4)"/>
+  </g></g></g>
+<text x="1540" y="74" font-family="SF Pro Display, Inter, sans-serif" font-size="16" fill="#9C9188">F6 İçbükey yıldız</text>
+<g transform="translate(1540 90)"><rect width="256" height="256" rx="57.3" fill="#161412"/><g transform="translate(25.60 25.60) scale(0.8000)"><g id="symbol" transform="translate(128 128)">
+    <path fill="#FFF36B" d="M-100 -100 L-30 -100 A86 86 0 0 1 30 -100 L100 -100 L100 -30 A86 86 0 0 1 100 30 L100 100 L30 100 A86 86 0 0 1 -30 100 L-100 100 L-100 30 A86 86 0 0 1 -100 -30 Z" transform="rotate(0)"/>
+    <rect x="-18" y="-24" width="36" height="48" rx="8" fill="#F4EFE9"/>
+  </g></g></g>
+<g transform="translate(1540 382)"><rect width="128" height="128" rx="28.6" fill="#161412"/><g transform="translate(12.80 12.80) scale(0.4000)"><g id="symbol" transform="translate(128 128)">
+    <path fill="#FFF36B" d="M-100 -100 L-30 -100 A86 86 0 0 1 30 -100 L100 -100 L100 -30 A86 86 0 0 1 100 30 L100 100 L30 100 A86 86 0 0 1 -30 100 L-100 100 L-100 30 A86 86 0 0 1 -100 -30 Z" transform="rotate(0)"/>
+    <rect x="-18" y="-24" width="36" height="48" rx="8" fill="#F4EFE9"/>
+  </g></g></g>
+<g transform="translate(1540 546)"><rect width="64" height="64" rx="14.3" fill="#161412"/><g transform="translate(6.40 6.40) scale(0.2000)"><g id="symbol" transform="translate(128 128)">
+    <path fill="#FFF36B" d="M-100 -100 L-30 -100 A86 86 0 0 1 30 -100 L100 -100 L100 -30 A86 86 0 0 1 100 30 L100 100 L30 100 A86 86 0 0 1 -30 100 L-100 100 L-100 30 A86 86 0 0 1 -100 -30 Z" transform="rotate(0)"/>
+    <rect x="-18" y="-24" width="36" height="48" rx="8" fill="#F4EFE9"/>
+  </g></g></g>
+<g transform="translate(1540 646)"><rect width="32" height="32" rx="7.2" fill="#161412"/><g transform="translate(3.20 3.20) scale(0.1000)"><g id="symbol" transform="translate(128 128)">
+    <path fill="#FFF36B" d="M-100 -100 L-30 -100 A86 86 0 0 1 30 -100 L100 -100 L100 -30 A86 86 0 0 1 100 30 L100 100 L30 100 A86 86 0 0 1 -30 100 L-100 100 L-100 30 A86 86 0 0 1 -100 -30 Z" transform="rotate(0)"/>
+    <rect x="-18" y="-24" width="36" height="48" rx="8" fill="#F4EFE9"/>
+  </g></g></g>
+<g transform="translate(1540 714)"><rect width="16" height="16" rx="3.6" fill="#161412"/><g transform="translate(1.60 1.60) scale(0.0500)"><g id="symbol" transform="translate(128 128)">
+    <path fill="#FFF36B" d="M-100 -100 L-30 -100 A86 86 0 0 1 30 -100 L100 -100 L100 -30 A86 86 0 0 1 100 30 L100 100 L30 100 A86 86 0 0 1 -30 100 L-100 100 L-100 30 A86 86 0 0 1 -100 -30 Z" transform="rotate(0)"/>
+    <rect x="-18" y="-24" width="36" height="48" rx="8" fill="#F4EFE9"/>
+  </g></g></g>
+</svg>

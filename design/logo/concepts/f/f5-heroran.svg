@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-labelledby="t">
+  <title id="t">F5 every ratio</title>
+  <g id="symbol">
+    <g stroke="C1" stroke-width="16" stroke-linecap="round" fill="none"><path d="M70 70 L186 186"/><path d="M186 70 L70 186"/></g>
+    <g fill="C1"><rect x="40" y="28" width="52" height="80" rx="14"/><rect x="150" y="36" width="80" height="60" rx="14"/><rect x="28" y="160" width="68" height="68" rx="14"/><rect x="146" y="166" width="84" height="52" rx="14"/></g>
+    <rect x="112" y="112" width="32" height="32" rx="8" fill="C2"/>
+  </g>
+</svg>

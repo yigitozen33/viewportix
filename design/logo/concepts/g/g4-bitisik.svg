@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-labelledby="t">
+  <title id="t">G4 solid V corners joined to the x</title>
+  <g id="symbol" fill="C1">
+    <path d="M32 32 H96 V56 H56 V96 H32 Z M160 32 H224 V96 H200 V56 H160 Z M32 160 H56 V200 H96 V224 H32 Z M200 160 H224 V224 H160 V200 H200 Z"/>
+    <path d="M56 56 L128 110 L200 56 L200 76 L146 128 L200 180 L200 200 L128 146 L56 200 L56 180 L110 128 L56 76 Z" opacity="0"/>
+    <path d="M128 110 L182 56 L200 74 L146 128 L200 182 L182 200 L128 146 L74 200 L56 182 L110 128 L56 74 L74 56 Z"/>
+  </g>
+</svg>

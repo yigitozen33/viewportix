@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-labelledby="t">
+  <title id="t">G2 windows and X</title>
+  <g id="symbol">
+    <g fill="none" stroke="C1" stroke-width="12"><rect x="30" y="30" width="64" height="64" rx="12"/><rect x="162" y="30" width="64" height="64" rx="12"/><rect x="30" y="162" width="64" height="64" rx="12"/><rect x="162" y="162" width="64" height="64" rx="12"/></g>
+    <g fill="C1"><path d="M30 42 A12 12 0 0 1 42 30 H82 A12 12 0 0 1 94 42 V52 H30 Z"/><path d="M162 42 A12 12 0 0 1 174 30 H214 A12 12 0 0 1 226 42 V52 H162 Z"/><path d="M30 174 A12 12 0 0 1 42 162 H82 A12 12 0 0 1 94 174 V184 H30 Z"/><path d="M162 174 A12 12 0 0 1 174 162 H214 A12 12 0 0 1 226 174 V184 H162 Z"/></g>
+    <path d="M96 96 L160 160 M160 96 L96 160" stroke="C1" stroke-width="16" stroke-linecap="butt" fill="none"/>
+  </g>
+</svg>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-labelledby="t">
+  <title id="t">Viewportix concept D4: notched corner boxes and X</title>
+  <g id="symbol" fill="#111">
+    <path fill-rule="evenodd" d="M32 32 H104 V104 H32 Z M152 32 H224 V104 H152 Z M32 152 H104 V224 H32 Z M152 152 H224 V224 H152 Z  M56 56 H80 V80 H56 Z M176 56 H200 V80 H176 Z M56 176 H80 V200 H56 Z M176 176 H200 V200 H176 Z"/>
+    <path d="M128 117 L164 81 L175 92 L139 128 L175 164 L164 175 L128 139 L92 175 L81 164 L117 128 L81 92 L92 81 Z"/>
+  </g>
+</svg>

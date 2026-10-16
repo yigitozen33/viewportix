@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-labelledby="t">
+  <title id="t">Viewportix concept D2: viewfinder and arrows</title>
+  <g id="symbol" fill="#111">
+    <path d="M32 32 H96 V56 H56 V96 H32 Z  M160 32 H224 V96 H200 V56 H160 Z  M32 160 H56 V200 H96 V224 H32 Z  M200 160 H224 V224 H160 V200 H200 Z"/>
+    <path d="M128 111 L166 73 L150 73 V57 H194 V101 H178 V85 L145 128 L178 171 V155 H194 V199 H150 V183 H166 L128 145 L90 183 H106 V199 H62 V155 H78 V171 L111 128 L78 85 V101 H62 V57 H106 V73 H90 Z"/>
+  </g>
+</svg>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-labelledby="t">
+  <title id="t">Viewportix concept D3: one-piece expand mark</title>
+  <g id="symbol" fill="#111">
+    <path d="M32 32 H96 V56 H56 V96 H32 Z  M160 32 H224 V96 H200 V56 H160 Z  M32 160 H56 V200 H96 V224 H32 Z  M200 160 H224 V224 H160 V200 H200 Z"/>
+    <path d="M128 111 L198 41 L215 58 L145 128 L215 198 L198 215 L128 145 L58 215 L41 198 L111 128 L41 58 L58 41 Z"/>
+  </g>
+</svg>

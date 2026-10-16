@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-labelledby="t">
+  <title id="t">E7 four screens in sync</title>
+  <g id="symbol">
+    <g fill="none" stroke="FG" stroke-width="16" stroke-linecap="round"><path d="M64 64 L192 192"/><path d="M192 64 L64 192"/></g>
+    <g fill="FG"><rect x="28" y="28" width="68" height="68" rx="16"/><rect x="160" y="28" width="68" height="68" rx="16"/><rect x="28" y="160" width="68" height="68" rx="16"/><rect x="160" y="160" width="68" height="68" rx="16"/></g>
+    <circle cx="128" cy="128" r="22" fill="FG" stroke="BG" stroke-width="10"/>
+  </g>
+</svg>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-labelledby="t">
+  <title id="t">G3 pen sketch: hollow V corners and hollow x</title>
+  <g id="symbol" fill="none" stroke="C1" stroke-width="10" stroke-linejoin="round">
+    <path d="M33 33 H97 V57 H57 V97 H33 Z"/><path d="M159 33 H223 V97 H199 V57 H159 Z"/><path d="M33 159 H57 V199 H97 V223 H33 Z"/><path d="M199 159 H223 V223 H159 V199 H199 Z"/>
+    <path d="M128 112 L166 74 L182 90 L144 128 L182 166 L166 182 L128 144 L90 182 L74 166 L112 128 L74 90 L90 74 Z"/>
+  </g>
+</svg>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-labelledby="t">
+  <title id="t">G6 thick-framed screens and x</title>
+  <g id="symbol" fill="C1" fill-rule="evenodd">
+    <path d="M28 28 H100 V100 H28 Z M48 48 H80 V80 H48 Z"/><path d="M156 28 H228 V100 H156 Z M176 48 H208 V80 H176 Z"/><path d="M28 156 H100 V228 H28 Z M48 176 H80 V208 H48 Z"/><path d="M156 156 H228 V228 H156 Z M176 176 H208 V208 H176 Z"/>
+    <path d="M128 112 L160 80 L176 96 L144 128 L176 160 L160 176 L128 144 L96 176 L80 160 L112 128 L80 96 L96 80 Z"/>
+  </g>
+</svg>

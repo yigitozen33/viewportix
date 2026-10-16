@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-labelledby="t">
+  <title id="t">F4 woven pinwheel</title>
+  <g id="symbol" transform="translate(128 128)">
+    <g fill="C1"><rect x="-104" y="-104" width="60" height="60" rx="17"/><path d="M-64 -84 L30 10" stroke="C1" stroke-width="22" stroke-linecap="round"/></g>
+    <g fill="C2" transform="rotate(90)"><rect x="-104" y="-104" width="60" height="60" rx="17"/><path d="M-64 -84 L30 10" stroke="C2" stroke-width="22" stroke-linecap="round"/></g>
+    <g fill="C1" transform="rotate(180)"><rect x="-104" y="-104" width="60" height="60" rx="17"/><path d="M-64 -84 L30 10" stroke="C1" stroke-width="22" stroke-linecap="round"/></g>
+    <g fill="C2" transform="rotate(270)"><rect x="-104" y="-104" width="60" height="60" rx="17"/><path d="M-64 -84 L30 10" stroke="C2" stroke-width="22" stroke-linecap="round"/></g>
+  </g>
+</svg>

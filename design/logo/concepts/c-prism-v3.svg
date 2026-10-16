@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-labelledby="t">
+  <title id="t">Viewportix concept C: prism</title>
+  <g id="symbol" transform="translate(0 24)">
+    <g fill="none" stroke="#111" stroke-width="20" stroke-linecap="round">
+      <path d="M20 108 H92"/>
+      <path d="M156 80 H236"/>
+      <path d="M170 108 H236"/>
+      <path d="M184 136 H236"/>
+    </g>
+    <path fill="#111" stroke="#111" stroke-width="12" stroke-linejoin="round" d="M128 40 L200 176 H56 Z"/>
+  </g>
+</svg>

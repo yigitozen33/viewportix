@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-labelledby="t">
+  <title id="t">G1 outlined screens and X</title>
+  <g id="symbol">
+    <g fill="none" stroke="C1" stroke-width="14"><rect x="31" y="31" width="62" height="62" rx="14"/><rect x="163" y="31" width="62" height="62" rx="14"/><rect x="31" y="163" width="62" height="62" rx="14"/><rect x="163" y="163" width="62" height="62" rx="14"/></g>
+    <path d="M96 96 L160 160 M160 96 L96 160" stroke="C1" stroke-width="16" stroke-linecap="butt" fill="none"/>
+  </g>
+</svg>
