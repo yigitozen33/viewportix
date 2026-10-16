@@ -15,6 +15,11 @@ struct ChromeSymbol: View {
     let source: Source
     let box: CGFloat
 
+    init(_ source: Source, box: CGFloat) {
+        self.source = source
+        self.box = box
+    }
+
     init(_ systemName: String, box: CGFloat) {
         source = .system(systemName)
         self.box = box
@@ -25,7 +30,7 @@ struct ChromeSymbol: View {
         self.box = box
     }
 
-    static func pointSize(box: CGFloat) -> CGFloat { box * 0.875 }
+    nonisolated static func pointSize(box: CGFloat) -> CGFloat { box * 0.875 }
 
     var body: some View {
         image

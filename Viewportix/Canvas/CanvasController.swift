@@ -38,7 +38,7 @@ final class CanvasController: NSViewController {
     override func loadView() {
         scrollView.allowsMagnification = true
         scrollView.minMagnification = 0.1
-        scrollView.maxMagnification = 2
+        scrollView.maxMagnification = 4  // the last zoom stop (BAR-04)
         scrollView.hasHorizontalScroller = true
         scrollView.hasVerticalScroller = true
         scrollView.autohidesScrollers = true
@@ -140,6 +140,28 @@ final class CanvasController: NSViewController {
 
     func setZoomPercent(_ percent: Double) {
         setZoom(percent / 100, anchor: viewCenterInWindow)
+    }
+
+    /// Zoom stops for the bottom bar's ▲▼ (BAR-04) and ⇧-drag (BAR-05).
+    static let zoomSteps: [CGFloat] = [0.25, 0.5, 1, 2, 4]
+
+    /// Moves to the next zoom stop above or below the current zoom, animated (150 ms ease-out).
+    func stepZoom(up: Bool) {
+        let current = scrollView.magnification
+        let tolerance: CGFloat = 0.001
+        let target = up
+            ? Self.zoomSteps.first { $0 > current + tolerance }
+            : Self.zoomSteps.last { $0 < current - tolerance }
+        guard let target else { return }
+        let center = documentView.convert(viewCenterInWindow, from: nil)
+        NSAnimationContext.runAnimationGroup { context in
+            context.duration = 0.15
+            context.timingFunction = CAMediaTimingFunction(name: .easeOut)
+            scrollView.animator().setMagnification(target, centeredAt: center)
+        } completionHandler: { [weak self] in
+            MainActor.assumeIsolated { self?.reportZoom() }
+        }
+        workspace.zoom = target
     }
 
     func fit() {

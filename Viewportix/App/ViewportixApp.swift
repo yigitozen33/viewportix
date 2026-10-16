@@ -3,6 +3,12 @@ import SwiftUI
 
 @main
 struct ViewportixApp: App {
+    init() {
+        #if DEBUG
+        DispatchQueue.main.async { PreviewSnapshots.runIfRequested() }
+        #endif
+    }
+
     var body: some Scene {
         Window("Viewportix", id: HomeView.windowID) {
             HomeView()
@@ -55,6 +61,15 @@ struct ViewportixCommands: Commands {
             ))
             .disabled(workspace == nil)
             Divider()
+        }
+
+        CommandMenu("Viewport") {
+            Toggle("Senkron Açık", isOn: Binding(
+                get: { workspace?.isSyncEnabled ?? false },
+                set: { workspace?.isSyncEnabled = $0 }
+            ))
+            .keyboardShortcut("l", modifiers: [.command, .shift])
+            .disabled(workspace == nil)
         }
 
         CommandMenu("Gezinme") {

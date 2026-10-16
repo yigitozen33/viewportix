@@ -120,3 +120,30 @@ Kod oturumunun arayüze dokunan her değişikliği, değişikliğin commit'inde 
 - Durum: özel çizim (AppKit, SF Symbol)
 - Tasarım kararı gerekir mi: hayır — eşleme ve boyut kuralı tasarımdan (DESIGN.md §4, 2026-10-13)
 - Bağlantılı: DESIGN.md §4 (İkonlar SF Symbols, SF Symbols boyutu); `KOD-OTURUMU-ISLERI.md` §14
+
+## 2026-10-16 — Alt çubuk (BottomBar): BAR-02, BAR-03, BAR-04, BAR-05, BAR-06, BAR-07 bitti; BAR-01 geçici
+- Ne: Toolbar'daki senkron, zoom menüsü ve ekran görüntüsü menüsü kalktı; yerine canvas'ın altında ortada (alttan 31) `BottomBar`: senkron (sarı zincir ↔ gri `link.slash`, 150 ms), Sığdır, `ZoomControl` (yüzdeye tık → zoom menüsü; yüzdeyi yatay sürükle → 1 pt = %1, ⇧ kademeye yapışır, imleç ↔; ▲▼ 25/50/100/200/400 kademeleri, 150 ms ease-out, basılı tutunca tekrar), kamera (seçici: "EKRAN GÖRÜNTÜSÜ · n VIEWPORT" · Görünen alan ⌥⌘S · Tam sayfa ⌃⌥⌘S). Hover / basılı / menü açık `surface/header-leader`. Bildirim kapsülü çubuğun 28 pt üstünde; çubuğun menüsü açıkken gizli. Yeni menü maddesi: Viewport › Senkron Açık ⇧⌘L. Canvas en yüksek zoom %200 → %400 (son kademe). Klavye odağında 2 pt gök halka (sistem halkası kapalı). VoiceOver: Senkron (Açık/Kapalı), Sığdır, Yakınlaştırma ("%100", ↑↓ ayarlanabilir), Ekran görüntüsü al.
+- Nerede: Proje penceresi, canvas altı; `Viewportix/Chrome/BottomBar.swift`, `ChromeButton.swift`, `ZoomControl.swift`, `MenuAnchor.swift`; `Viewportix/Project/ProjectWindow.swift`, `Viewportix/Toolbar/ProjectToolbar.swift`, `Viewportix/App/ViewportixApp.swift`
+- Durum: özel çizim (SwiftUI). Zoom menüsü ve ekran görüntüsü seçicisi şimdilik sistem `NSMenu` (çubuğun 8 pt üstünde, tetikleyiciye sol hizalı); tooltip'ler şimdilik sistem `.help` (BAR-01, `ChromeTooltip` gelince değişecek)
+- Tasarım kararı gerekir mi: evet — aşağıdaki "spec: BottomBar" girdisi; seçici ve zoom menüsünün çizilmiş halleri ayrı bileşen olarak spec'te yok
+- Bağlantılı: DESIGN.md §3.2 (Alt yüzen çubuk, BAR-01…07), §6 (Pencere chrome'u, VoiceOver tablosu); `KOD-OTURUMU-ISLERI.md` §14
+
+## 2026-10-16 — spec: BottomBar
+- Ne: `BottomBar` yalnız `specs/BottomBar.json`, `ChromeButton.json`, `ZoomControl.json` ve `DesignTokens.swift` ile, PNG'ye ve `skeleton/`'a bakmadan kuruldu; sonra `window-project-dark@2x.png` ile piksel taramasıyla karşılaştırıldı (aynı renk uzayında, @2x). Sonuç: yükseklik 49, senkron 30×30, Sığdır ve kamera 32×32, zoom 33 yüksek, stepper 18×25, aralar 8, kenar 1 px — hepsi birebir; renkler birebir. Tek ölçü farkı genişlik: 212 (tasarım 210).
+- Bulgular (eksik / yanlış anlaşılabilen alanlar):
+  1. **Yazı ağırlığı çelişkisi:** spec'te `ZoomText` ve `ChromeButton › Label` `fontWeight: normal`, ama `font/label` token'ının Swift karşılığı `DesignTokens.Font.label` `.medium`. Spec'e uyuldu (regular, `FontSize.label`). Hangisi doğru?
+  2. **`fit` metin genişliği:** `ZoomText` 32 px Inter ölçüsü; SF Pro'da "%100" 34 pt → çubuk 212. Ayrıca değer değiştikçe (%25 ↔ %100) genişlik oynuyor, kapsül ortalı olduğu için çubuk zıplıyordu; kodda üç haneli değere göre sabit genişlik ayrıldı. Spec "sabit genişlik / tabular rakam" demeli mi?
+  3. **Senkron düğmesinin hover / basılı hali yok** (not yalnız "Düğmeler Toolbar/Button" için `header-leader` diyor; sarı zeminde ne olacağı yok). Şimdilik hover'da değişmiyor.
+  4. **Stepper ▲▼ hover / basılı hali yok.** Şimdilik basılıyken ok `ink/primary`.
+  5. **Zoom kontrolünün hover hali yok;** düğmelerle aynı (`header-leader`, tüm kontrol) yapıldı. Zoom kontrolüne tooltip gerekir mi (BAR-01 "ikon hover" diyor)? Şimdilik "Yakınlaştırma".
+  6. **Tooltip metinleri:** spec'te yalnız Sığdır (⌘1) örneği var. Diğerleri §6 VoiceOver ve §3.2.1 tablolarından: "Senkron ⇧⌘L", "Ekran görüntüsü ⌥⌘S". Spec düğme başına tooltip metni ve kısayolu taşımalı.
+  7. **Basılı tutma tekrarı (BAR-04):** gecikme ve aralık yok; 400 ms sonra 200 ms'de bir yapıldı.
+  8. **Tık ile sürükleme ayrımı (BAR-03 / BAR-05):** eşik yok; 3 pt.
+  9. **Menülerin konumu:** "çubuğun üstüne açılır" ve "120 ms fade + 4 px" var, çubukla menü arası boşluk ve hizalama yok; 8 pt üstte, tetikleyiciye sol hizalı yapıldı. Zoom menüsü ve ekran görüntüsü seçicisi spec'te bileşen değil (yalnız ekran frame'lerinde); bunlar için de spec gerekir. Seçicinin alt satırındaki ayar özeti (panoya kopyala, ölçek, klasör → Ayarlar) Ayarlar paneli olmadığı için yok.
+  10. **Kapsül ile çubuk arası:** spec'te yok; PNG'den 28 pt ölçüldü.
+  11. **Odak halkası:** yalnız `ChromeButton` için çizili; senkron düğmesine de aynısı uygulandı, zoom kontrolü (tek erişilebilirlik öğesi) için hal yok.
+  12. **Zincir şekli:** Lucide `link-2` yatay, SF `link` çapraz (icons.md "yakın"); karşılaştırmada en göze batan fark bu.
+- Nerede: `Viewportix/Chrome/`; karşılaştırma görüntüleri `Scripts/snapshots.sh` ile üretilir
+- Durum: özel çizim
+- Tasarım kararı gerekir mi: evet — 1, 2, 3, 4, 6, 9 karar ister; diğerleri onay
+- Bağlantılı: `design/handoff/PLAN.md` aşama 3 kabulü; `KOD-OTURUMU-ISLERI.md` §14 "Deneme"

@@ -1,3 +1,4 @@
+import DesignSystem
 import EngineCore
 import ProjectModel
 import SwiftUI
@@ -8,6 +9,7 @@ struct ProjectWindow: View {
     @State private var workspace = Workspace()
     @State private var selectedPageID: Page.ID?
     @State private var sizeEditor: ViewportSizeEditor?
+    @State private var isBarMenuOpen = false
 
     init(document: Binding<ProjectDocument>) {
         _document = document
@@ -26,11 +28,16 @@ struct ProjectWindow: View {
         } detail: {
             CanvasView(workspace: workspace, onCommand: handle)
             .overlay(alignment: .bottom) {
-                if let notice = workspace.notice {
-                    NoticeBar(notice: notice, dismiss: workspace.dismissNotice)
-                        .padding(.bottom, 16)
-                        .transition(.move(edge: .bottom).combined(with: .opacity))
+                // 28 pt gap measured in window-project-dark@2x.png; no spec value yet.
+                VStack(spacing: 28) {
+                    // The notice sits above the bottom bar and hides while a bar menu is open.
+                    if let notice = workspace.notice, !isBarMenuOpen {
+                        NoticeBar(notice: notice, dismiss: workspace.dismissNotice)
+                            .transition(.move(edge: .bottom).combined(with: .opacity))
+                    }
+                    BottomBar(workspace: workspace, isMenuOpen: $isBarMenuOpen)
                 }
+                .padding(.bottom, BottomBar.bottomInset)
             }
             .animation(.snappy, value: workspace.notice)
             .overlay {
