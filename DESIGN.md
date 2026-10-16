@@ -1,6 +1,6 @@
 # Viewportix — UI/UX
 
-> Son güncelleme: 2026-10-06 · Görsel tasarım kullanıcıya ait; bu dosya ekranları, akışları ve verilen kararları kaydeder.
+> Son güncelleme: 2026-10-16 · Görsel tasarım kullanıcıya ait; bu dosya ekranları, akışları ve verilen kararları kaydeder.
 
 ## 1. İlkeler
 
@@ -337,6 +337,7 @@ Sağ raydan açılır, canvas'ı iter (320 px). Tasarım ilkesi: **sakin ama tek
 | MCP ikonu `powerplug.portrait` (dikey fiş, Lucide `plug` ile aynı yön); önceki `powerplug` superseded | 2026-10-13 |
 | Kırık zincir metaforu eğik çizgili zincir oldu: pen'de Lucide `link-2-off` (hover şeridi Senkrondan çıkar, alt çubuk senkron kapalı; önceki `unlink` / `unlink-2` superseded), uygulamada özel sembol `link.slash` — asset (`.symbolset`), `link` şablonundan Apple'ın `*.slash` kuralıyla (sol üst → sağ alt, kalınlık = glif çizgisi, iki yanda boşluk; oranlar `design/handoff/skeleton/link-slash@2x.png`). Asset gelene kadar iskelet kodda bileşimle çizer. Elenen: kalıcı kod bileşimi | 2026-10-13 |
 | Motor glifleri uygulamada özel SF sembolü (`engine.webkit` / `.chromium` / `.firefox`, `.symbolset`): boyut SF `circle` halkasına oturtulur (dış çap 14 ızgara = halka çapı), bant her ağırlıkta SF halkası kadar (W1; en az 0,6 ızgara birimi) — kart başlığında kamerayla aynı ağırlık, pen'deki glif–kamera ilişkisi gibi. Elenen: W2 Regular'da tasarım bandı (Black'te topaklanıyor), W3 her ağırlıkta 2 birim (SF'den kalın, ağırlığa tepkisiz). Pano `design/handoff/skeleton/engine-weights-options@2x.png` | 2026-10-13 |
+| Uygulama ikonu küçük boyut (K1): 16 ve 32 px'te "Vx" kaldırılır, yalnız dört bracket kalır; 16 px'te kenar boşluğu 2, kol 4, kalınlık 2 px (1024 ızgarasında 128 / 256 / 128), 32 px'te iki katı; 64 px ve üstü tam monogram. Pano `design/logo/small-size-options@2x.png` (betik `design/logo/make-small-options.swift`, renkler token dosyasından). Elenen: K2 bracket + tek V (16 px'te leke), K3 değişmez (32 px'te okunmuyor). Logo dili ve üretim promptu `design/logo-dili.md` | 2026-10-16 |
 
 ## 5. Bekleyen tasarım kararları
 

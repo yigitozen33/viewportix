@@ -1,7 +1,7 @@
 # Tasarım oturumu — güncel durum
 
 > Bu dosya **üzerine yazılır**; yalnızca tasarım oturumu yazar. Tarihçe: `notlar/`. Kod oturumu salt okur.
-> Son güncelleme: 2026-10-13
+> Son güncelleme: 2026-10-16
 
 ## Kod oturumu için: nereden başla
 
@@ -27,7 +27,7 @@ Dışa aktarım adları: `window-project-*` (proje penceresi halleri), `window-h
 Yok (2026-10-13). MVP ve M3 kapsamı çizildi, onaylandı ve koda aktarıldı (`KOD-OTURUMU-ISLERI.md` §12 iskelet, §13 yeni haller).
 
 **Kilometre taşıyla gelecekler:** lisans/takım akışı (iş modeli), MCP istemci onayı (M7), güncelleme bildirimi (dağıtım), Farklar paneli yükleniyor/boş halleri (M5), Chromium canlı / Firefox snapshot kart halleri (M4/M6).
-**İleride:** Icon Composer (B6), açık tema, inspector, tam yükseklik modu, çoklu seçim. **Kullanıcıda:** `viewportix.lib.pen` dönüşümü.
+**İleride:** Icon Composer paketi (B6; logo dili `design/logo-dili.md`, katmanlar ve düz `.icns` `design/logo/out/` içinde üretildi, `sh design/logo/make-logo.sh`), açık tema, inspector, tam yükseklik modu, çoklu seçim. **Kullanıcıda:** `viewportix.lib.pen` dönüşümü.
 
 ## Sürmekte olan iş: aktarım paketi
 
