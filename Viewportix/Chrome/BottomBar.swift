@@ -89,7 +89,8 @@ struct BottomBar: View {
         }
         menu.addItem(.separator())
         menu.addItem(ActionMenuItem("Gerçek Boyut", key: "0") { canvas?.actualSize() })
-        menu.addItem(ActionMenuItem("Yakınlaştır", key: "+") { canvas?.zoomIn() })
+        // "=" like the View menu: on a Turkish keyboard "+" shows as "⌘:".
+        menu.addItem(ActionMenuItem("Yakınlaştır", key: "=") { canvas?.zoomIn() })
         menu.addItem(ActionMenuItem("Uzaklaştır", key: "-") { canvas?.zoomOut() })
         return menu
     }

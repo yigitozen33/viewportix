@@ -12,8 +12,12 @@ final class URLHistoryStore {
     private static let key = "urlHistory"
 
     private init() {
-        history = UserDefaults.standard.data(forKey: Self.key)
+        let saved = UserDefaults.standard.data(forKey: Self.key)
             .flatMap { try? JSONDecoder().decode(URLHistory.self, from: $0) } ?? URLHistory()
+        // Older builds kept redirect variants of one page as separate entries; fold them.
+        var history = URLHistory()
+        for entry in saved.entries.reversed() { history.record(entry.url, at: entry.date) }
+        self.history = history
     }
 
     func record(_ url: URL) {

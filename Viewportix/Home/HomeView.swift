@@ -67,6 +67,7 @@ struct HomeView: View {
         .padding(.top, 52)
         .padding(.horizontal, DesignTokens.Space.s3)
         .frame(width: 200)
+        .trafficLights(leading: 15, centerY: 24)  // same row as the project window's sidebar
         .frame(maxHeight: .infinity)
         .background(DesignTokens.Color.surfaceBar)
         .overlay(alignment: .trailing) {

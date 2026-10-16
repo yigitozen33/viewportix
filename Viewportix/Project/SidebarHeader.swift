@@ -12,6 +12,7 @@ struct SidebarHeader: View {
             // The traffic lights' row; 16 pt in full screen, where there are none (§5.20 b).
             Color.clear.frame(height: workspace.isFullScreen ? 16 : 48)
             AddressField(workspace: workspace)
+                .zIndex(1)  // its SON menu opens over the navigation row
             NavButtons(workspace: workspace, spacing: 14)
                 .padding(EdgeInsets(top: 6, leading: 8, bottom: 2, trailing: 8))
         }
@@ -133,14 +134,13 @@ struct AddressField: View {
         }
         .contentShape(.rect)
         .onTapGesture { isFocused = true }
-        .overlay(alignment: .topLeading) {
+        .outside(.bottom, alignment: .leading, gap: DesignTokens.Space.s1) {
             if isFocused, !suggestions.isEmpty {
                 RecentAddressMenu(
                     entries: suggestions, highlighted: highlighted,
                     open: { open($0.url) },
                     clear: { workspace.history.clear() }
                 )
-                .alignmentGuide(.top) { $0[.top] - fieldHeight - 4 }
                 .transition(.opacity.combined(with: .offset(y: -4)))
             }
         }
@@ -155,8 +155,6 @@ struct AddressField: View {
             if isFocused { hasEdited = true; highlighted = nil }
         }
     }
-
-    private var fieldHeight: CGFloat { isCompact ? 26 : 30 }
 
     private var isSecure: Bool {
         workspace.addressText.hasPrefix("https://")

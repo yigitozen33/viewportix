@@ -353,3 +353,22 @@ Kod oturumunun arayüze dokunan her değişikliği, değişikliğin commit'inde 
 - Durum: özel çizim
 - Tasarım kararı gerekir mi: evet — karşılaştırma ve farklar `design/handoff/PARITY.md`'ye
 - Bağlantılı: `design/handoff/PLAN.md` aşama 8
+
+## 2026-10-16 — Canlı test düzeltmeleri (1. tur)
+- Ne: Uygulama canlıda sürülerek (gerçek pencere, `orca computer` + fare olayları) bulunan hatalar düzeltildi:
+  1. **Tooltip'ler, kart hover şeridi ve adres SON menüsü yanlış yerdeydi:** hedefin 8 pt dışında olacakken üstüne biniyordu (SwiftUI bindirmelerinde `alignmentGuide` uygulanmıyor). Hepsi kenara sıfır kalınlıkta çapa ile konumlanıyor; tooltip gösterilirken kardeşlerinin önüne alınıyor (alt çubukta zoom kontrolünün arkasında kalıyordu).
+  2. **SON menüsünün üstüne gezinme düğmeleri çiziliyordu;** menü artık önde.
+  3. **Yönlendirme yapan adreste** (apple.com/tr → www.apple.com/tr/) açık sayfa listede yokmuş gibi "Bu sayfayı ekle" çıkıyordu; SON listesinde aynı sayfa üç kez görünüyordu. http/https, "www." ve sondaki "/" artık aynı sayfa sayılıyor; eski tekrarlı geçmiş açılışta birleştiriliyor.
+  4. **Sistem menüleri İngilizceydi** (File, Edit, View…); uygulamanın dili Türkçe bildirildi: Dosya, Düzen, Görüntü, Pencere, Yardım; "Tam Ekrana Geç", "Adsız" belge vb. Not: sistem "View" menüsünü "Görüntü" diye çeviriyor (DESIGN.md §3.2.1 "Görünüm" diyor).
+  5. **Pencere sekme maddeleri** ("Show Tab Bar / Show All Tabs") kaldırıldı.
+  6. **Zoom menüsünde "Yakınlaştır" kısayolu** Türkçe klavyede "⌘ :" görünüyordu; Görünüm menüsüyle aynı tuşa alındı.
+  7. **Sınır ipucu "200–3.840 × 200–4.320 px"** binlik ayırıcıyla yazılıyordu; düzeltildi.
+  8. **Üst üste binen kartlarda** sürüklenen kartın sayfası öne geçiyor ama başlık/kenar katmanı geride kalıyordu; son sürüklenen kart her iki katmanda önde.
+  9. **Giriş ekranında trafik ışıkları** sistem varsayılanındaydı (üstten ~16); proje penceresiyle aynı hizaya (24) alındı.
+  10. **Çok küçük zoom'da** (%15) telefon kartlarının başlığında ad tamamen kayboluyor, yalnız motor ve kamera kalıyordu. Darlık sırası: önce boyut, sonra ad ortadan kısalır (tasarım kuralı); ad 56 pt'nin altına inince motor glifi, 40 pt'nin altına inince kamera çekiliyor, ad kalıyor.
+- Doğrulanan (canlı): zoom menüsü (BAR-03), Sığdır tooltip'i (BAR-01), cihaz seçici (STRIP-07), kart sağ tık menüsü (CARD-05), Boyutu düzenle (CARD-06), Döndür, Kapat + "Geri al" kapsülü ve ⌘Z, hover şeridi (CARD-01), lider ve seçili halleri, kart sürükleme ve konumun kalması (CARD-08), Grupla › Cihaz Türü (PW-02), sidebar gizleme ve kapsüldeki trafik ışıkları (SIDEBAR-06), Ayarlar paneli (RAIL-01), geçersiz adres (HOME-01), şablonla proje açma (HOME-02).
+- Nerede: `Viewportix/Chrome/ChromeTooltip.swift` (`outside(_:alignment:gap:)`), `Viewportix/Canvas/CardChrome.swift`, `CanvasController.swift`, `Viewportix/Project/SidebarHeader.swift`, `ProjectSidebar.swift`, `ProjectWindow.swift`, `URLHistoryStore.swift`, `Viewportix/Chrome/BottomBar.swift`, `Viewportix/Home/HomeView.swift`, `Viewportix/App/ViewportixApp.swift`, `project.yml` (`developmentLanguage: tr`); paket `URLHistory` (`isSamePage`) + test
+- Durum: özel çizim
+- Tasarım kararı gerekir mi: evet — 10 ("motor ve kamera asla gizlenmez" kuralının çok küçük zoom'da esnetilmesi) ve 4 (Görünüm / Görüntü)
+- Açık kalan (düşük öncelik): açılır yüzeylerin (cihaz seçici) zemini altındaki web sayfasını ~%1 geçiriyor (piksel ölçümünde 1–3 birim); çıplak gözle zor seçiliyor.
+- Bağlantılı: DESIGN.md §3.2, §3.2.1, §5.20 d

@@ -166,7 +166,7 @@ struct DevicePicker: View {
             }
             .buttonStyle(.plain)
             .disabled(!customSize.isWithinLimits)
-            .chromeTooltip("\(ViewportSize.widthRange.lowerBound)–\(ViewportSize.widthRange.upperBound) × \(ViewportSize.heightRange.lowerBound)–\(ViewportSize.heightRange.upperBound) px", edge: .bottom)
+            .chromeTooltip(String(describing: "\(ViewportSize.widthRange.lowerBound)–\(ViewportSize.widthRange.upperBound) × \(ViewportSize.heightRange.lowerBound)–\(ViewportSize.heightRange.upperBound) px"), edge: .bottom)
             Spacer()
             // Ayarlar › Cihazlar arrives with the settings panel (§12 step 7).
             HStack(spacing: DesignTokens.Space.s1) {

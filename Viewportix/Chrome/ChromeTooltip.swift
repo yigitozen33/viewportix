@@ -95,34 +95,56 @@ private struct ChromeTooltipModifier: ViewModifier {
                 pending?.cancel()
                 isShown = false
             })
-            .overlay(alignment: alignment) {
+            .outside(edge, gap: ChromeTooltip.gap) {
                 if isShown {
-                    placed(ChromeTooltip(title: title, shortcut: shortcut, showsCaret: edge == .top))
+                    ChromeTooltip(title: title, shortcut: shortcut, showsCaret: edge == .top)
                         .allowsHitTesting(false)
                         .transition(.opacity)
                 }
             }
+            // Above the following siblings in its stack, which would otherwise cover it.
+            .zIndex(isShown ? 1 : 0)
             .animation(.linear(duration: DesignTokens.Motion.hover), value: isShown)
             .preference(key: ChromeTooltipVisibleKey.self, value: isShown)
     }
+}
 
-    private var alignment: Alignment {
-        switch edge {
-        case .top: .top
-        case .bottom: .bottom
-        case .leading: .leading
-        case .trailing: .trailing
+extension View {
+    /// Places `content` outside this view's `edge`, `gap` points away, aligned along that edge by
+    /// `alignment` (`.leading`, `.center`, `.trailing` for top/bottom; ignored for sides, which centre).
+    /// Uses a zero-thickness anchor on the edge, because `alignmentGuide` is not applied to overlay
+    /// content here (found in the live app: tooltips and the hover strip landed on their targets).
+    func outside<Content: View>(_ edge: Edge, alignment: HorizontalAlignment = .center, gap: CGFloat,
+                                @ViewBuilder _ content: () -> Content) -> some View {
+        let content = content()
+        return overlay(alignment: Self.alignment(on: edge, alignment)) {
+            switch edge {
+            case .top:
+                Color.clear.frame(height: 0).overlay(alignment: Alignment(horizontal: alignment, vertical: .bottom)) {
+                    content.fixedSize().padding(.bottom, gap)
+                }
+            case .bottom:
+                Color.clear.frame(height: 0).overlay(alignment: Alignment(horizontal: alignment, vertical: .top)) {
+                    content.fixedSize().padding(.top, gap)
+                }
+            case .leading:
+                Color.clear.frame(width: 0).overlay(alignment: .trailing) {
+                    content.fixedSize().padding(.trailing, gap)
+                }
+            case .trailing:
+                Color.clear.frame(width: 0).overlay(alignment: .leading) {
+                    content.fixedSize().padding(.leading, gap)
+                }
+            }
         }
     }
 
-    @ViewBuilder
-    private func placed(_ tooltip: ChromeTooltip) -> some View {
-        let gap = ChromeTooltip.gap
+    private static func alignment(on edge: Edge, _ horizontal: HorizontalAlignment) -> Alignment {
         switch edge {
-        case .top: tooltip.alignmentGuide(.top) { $0[.bottom] + gap }
-        case .bottom: tooltip.alignmentGuide(.bottom) { $0[.top] - gap }
-        case .leading: tooltip.alignmentGuide(.leading) { $0[.trailing] + gap }
-        case .trailing: tooltip.alignmentGuide(.trailing) { $0[.leading] - gap }
+        case .top: Alignment(horizontal: horizontal, vertical: .top)
+        case .bottom: Alignment(horizontal: horizontal, vertical: .bottom)
+        case .leading: .leading
+        case .trailing: .trailing
         }
     }
 }

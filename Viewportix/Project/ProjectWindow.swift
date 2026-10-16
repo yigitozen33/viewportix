@@ -75,7 +75,7 @@ struct ProjectWindow: View {
         .onChange(of: selectedPageID) { _, id in
             document.project.selectedPageID = id
             guard let page = document.project.pages.first(where: { $0.id == id }),
-                  page.url != workspace.currentURL else { return }
+                  workspace.currentURL.map({ !page.url.isSamePage(as: $0) }) ?? true else { return }
             workspace.navigate(to: page.url)
         }
     }
@@ -216,7 +216,7 @@ private extension ProjectWindow {
             workspace.focusAddress()
             return
         }
-        if let existing = document.project.pages.first(where: { $0.url == url }) {
+        if let existing = document.project.pages.first(where: { $0.url.isSamePage(as: url) }) {
             selectedPageID = existing.id
             return
         }

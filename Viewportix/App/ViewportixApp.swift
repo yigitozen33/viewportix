@@ -1,3 +1,4 @@
+import AppKit
 import EngineCore
 import ProjectModel
 import SwiftUI
@@ -6,6 +7,8 @@ import SwiftUI
 struct ViewportixApp: App {
     init() {
         AppSettings.register()
+        // One project per window; window tabs (Show Tab Bar…) have no place here.
+        NSWindow.allowsAutomaticWindowTabbing = false
         #if DEBUG
         DispatchQueue.main.async { PreviewSnapshots.runIfRequested() }
         #endif

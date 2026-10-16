@@ -53,6 +53,8 @@ struct CardChromeLayer: View {
                         saveSize: saveSize
                     )
                     .offset(x: frame.minX, y: frame.minY - ViewportCardChrome.headerHeight)
+                    // Overlapping cards: the one last dragged is in front, chrome and page alike.
+                    .zIndex(workspace.frontCardID == config.id ? 1 : 0)
                 }
             }
         }
@@ -85,6 +87,7 @@ struct CardChromeLayer: View {
         }
         if workspace.draggingID != id {
             workspace.draggingID = id
+            workspace.frontCardID = id
             workspace.selectedViewportID = id
             canvas.beginDrag(id)
         }
@@ -203,11 +206,10 @@ struct ViewportCardChrome: View {
                     .allowsHitTesting(false)
             }
         }
-        .overlay(alignment: .topTrailing) {
+        .outside(.top, alignment: .trailing, gap: DesignTokens.Space.s2) {
             if (state.isHovered || isStripHovered) && editor == nil && !state.isDragging {
                 ViewportHoverStrip(isSyncEnabled: state.isSyncEnabled, command: command)
                     .onHover { isStripHovered = $0; hover($0) }
-                    .alignmentGuide(.top) { $0[.bottom] + DesignTokens.Space.s2 }
                     .padding(.trailing, DesignTokens.Space.s1)
                     .transition(.opacity)
             }
@@ -230,21 +232,16 @@ struct ViewportCardChrome: View {
 
     // MARK: Header
 
+    /// Narrowing order (DESIGN.md §3.2): size goes first, then the name shortens in the middle.
+    /// Below that (zoomed far out) the engine glyph, then the camera give way so the name stays
+    /// readable — a deviation from "motor ve kamera asla gizlenmez", raised with the design side.
     private var header: some View {
-        HStack(spacing: DesignTokens.Space.s2) {
-            ViewThatFits(in: .horizontal) {
-                title(showsSize: true)
-                title(showsSize: false)
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            ChromeSymbol(asset: config.engine.glyph, box: DesignTokens.Size.iconSm)
-                .foregroundStyle(state.isLeader || state.isSelected ? DesignTokens.Color.statusLeader : DesignTokens.Color.inkSecondary)
-                .chromeTooltip(engineTitle, shortcut: osTitle)
-                .accessibilityLabel("Motor")
-                .accessibilityValue("\(engineTitle) · \(osTitle)")
-            camera
+        ViewThatFits(in: .horizontal) {
+            headerRow(showsSize: true, showsEngine: true, showsCamera: true)
+            headerRow(showsSize: false, showsEngine: true, showsCamera: true, minimumName: 56)
+            headerRow(showsSize: false, showsEngine: false, showsCamera: true, minimumName: 40)
+            headerRow(showsSize: false, showsEngine: false, showsCamera: false)
         }
-        .padding(.horizontal, DesignTokens.Space.s3)
         .frame(width: pageSize.width, height: Self.headerHeight)
         .background(state.isLeader ? DesignTokens.Color.surfaceHeaderLeader : DesignTokens.Color.surfaceHeader,
                     in: UnevenRoundedRectangle(topLeadingRadius: DesignTokens.Radius.card, topTrailingRadius: DesignTokens.Radius.card))
@@ -258,6 +255,25 @@ struct ViewportCardChrome: View {
         .pointerStyle(state.isDragging ? .grabActive : .grabIdle)
         .onHover(perform: hover)
         .chromeContextMenu(isOpen: $isMenuOpen, menu: contextMenu)
+    }
+
+    private func headerRow(showsSize: Bool, showsEngine: Bool, showsCamera: Bool, minimumName: CGFloat = 0) -> some View {
+        let padding = showsCamera ? DesignTokens.Space.s3 : DesignTokens.Space.s2
+        return HStack(spacing: DesignTokens.Space.s2) {
+            // ViewThatFits measures ideal widths: a row fits when at least `minimumName` of the name
+            // shows next to its icons (0: the whole name).
+            title(showsSize: showsSize)
+                .frame(idealWidth: minimumName > 0 ? minimumName : nil, maxWidth: .infinity, alignment: .leading)
+            if showsEngine {
+                ChromeSymbol(asset: config.engine.glyph, box: DesignTokens.Size.iconSm)
+                    .foregroundStyle(state.isLeader || state.isSelected ? DesignTokens.Color.statusLeader : DesignTokens.Color.inkSecondary)
+                    .chromeTooltip(engineTitle, shortcut: osTitle)
+                    .accessibilityLabel("Motor")
+                    .accessibilityValue("\(engineTitle) · \(osTitle)")
+            }
+            if showsCamera { camera }
+        }
+        .padding(.horizontal, padding)
     }
 
     private func title(showsSize: Bool) -> some View {
@@ -474,7 +490,7 @@ struct SizeEditorPopover: View {
                     TextField("", value: $editor.height, format: .number.grouping(.never)).focused($focused, equals: .height)
                 }
             }
-            Text("\(ViewportSize.widthRange.lowerBound)–\(ViewportSize.widthRange.upperBound) × \(ViewportSize.heightRange.lowerBound)–\(ViewportSize.heightRange.upperBound) px")
+            Text(verbatim: "\(ViewportSize.widthRange.lowerBound)–\(ViewportSize.widthRange.upperBound) × \(ViewportSize.heightRange.lowerBound)–\(ViewportSize.heightRange.upperBound) px")
                 .font(.system(size: DesignTokens.FontSize.caption))
                 .foregroundStyle(editor.isValid ? DesignTokens.Color.inkSecondary : DesignTokens.Color.statusWarning)
             HStack(spacing: DesignTokens.Space.s2) {

@@ -4,6 +4,7 @@ options:
   deploymentTarget:
     macOS: "26.0"
   createIntermediateGroups: true
+  developmentLanguage: tr
 packages:
   ViewportixKit:
     path: Packages/ViewportixKit
@@ -38,6 +39,9 @@ targets:
     info:
       path: Viewportix/Info.plist
       properties:
+        # The interface is Turkish; system menus and panels follow (File → Dosya…).
+        CFBundleDevelopmentRegion: tr
+        CFBundleLocalizations: [tr]
         CFBundleDocumentTypes:
           - CFBundleTypeName: Viewportix Project
             CFBundleTypeRole: Editor

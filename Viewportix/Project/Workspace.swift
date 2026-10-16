@@ -38,6 +38,8 @@ final class Workspace {
     var groupFrames: [String: CGRect] = [:]
     /// The card being dragged by its header (CARD-08) and the alignment guides to draw (screen points).
     var draggingID: ViewportID?
+    /// Drawn above the other cards where they overlap (the last one dragged).
+    var frontCardID: ViewportID?
     var dragGuides: [(from: CGPoint, to: CGPoint)] = []
     /// Card under the pointer (page, header or hover strip): shows its hover strip.
     private(set) var hoveredViewportID: ViewportID?

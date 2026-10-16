@@ -20,9 +20,10 @@ public struct URLHistory: Codable, Hashable, Sendable {
         self.entries = entries
     }
 
-    /// Moves `url` to the top; the same address appears once.
+    /// Moves `url` to the top; the same page appears once (http/https, "www." and a trailing slash
+    /// do not make a different page; a redirect from apple.com/tr to www.apple.com/tr/ is one entry).
     public mutating func record(_ url: URL, at date: Date = .now) {
-        entries.removeAll { $0.url == url }
+        entries.removeAll { $0.url.isSamePage(as: url) }
         entries.insert(Entry(url: url, date: date), at: 0)
         if entries.count > Self.capacity { entries.removeLast(entries.count - Self.capacity) }
     }
@@ -49,6 +50,14 @@ public struct URLHistory: Codable, Hashable, Sendable {
         if text.hasPrefix("www.") { text.removeFirst(4) }
         if text.hasSuffix("/") { text.removeLast() }
         return text
+    }
+}
+
+extension URL {
+    /// Same page for the page list and history: scheme (http/https), "www." and a trailing slash
+    /// are ignored; host, path and query must match.
+    public func isSamePage(as other: URL) -> Bool {
+        URLHistory.display(self) == URLHistory.display(other)
     }
 }
 

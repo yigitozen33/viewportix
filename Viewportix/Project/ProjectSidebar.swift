@@ -43,7 +43,7 @@ struct ProjectSidebar: View {
                             menu: { menu(for: page) }
                         )
                     }
-                    if let current = workspace.currentURL, !pages.contains(where: { $0.url == current }) {
+                    if let current = workspace.currentURL, !pages.contains(where: { $0.url.isSamePage(as: current) }) {
                         AddCurrentPageRow(url: current, action: addCurrentPage)
                     }
                     AddPageRow(action: addCurrentPage)

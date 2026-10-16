@@ -235,6 +235,7 @@ final class CanvasController: NSViewController {
     func beginDrag(_ id: ViewportID) {
         guard let card = cards[id] else { return }
         drag = (id, card.frame.origin)
+        documentView.addSubview(card, positioned: .above, relativeTo: nil)  // in front of overlapped cards
     }
 
     /// Moves the card by a screen-point translation from where the drag began; snaps to the other

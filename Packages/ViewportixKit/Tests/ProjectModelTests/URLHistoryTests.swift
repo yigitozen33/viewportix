@@ -42,4 +42,16 @@ struct URLHistoryTests {
         #expect(PageKind(url: URL(string: "https://marka.com/odeme/adim-1")!) == .checkout)
         #expect(PageKind(url: URL(string: "https://marka.com/kampanya")!) == .other)
     }
+
+    @Test func redirectsAndSchemeVariantsAreOnePage() {
+        let typed = URL(string: "https://apple.com/tr")!
+        let landed = URL(string: "https://www.apple.com/tr/")!
+        #expect(typed.isSamePage(as: landed))
+        #expect(!typed.isSamePage(as: URL(string: "https://apple.com/de")!))
+        var history = URLHistory()
+        history.record(typed)
+        history.record(landed)
+        history.record(URL(string: "http://apple.com/tr")!)
+        #expect(history.entries.count == 1)
+    }
 }
