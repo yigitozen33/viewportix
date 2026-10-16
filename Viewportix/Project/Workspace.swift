@@ -62,6 +62,9 @@ final class Workspace {
         }
     }
     var addressText = ""
+    /// While the address field has focus, page events don't overwrite what is being typed (found in
+    /// the live app: a page finishing its load replaced the half-typed address after ⌘L).
+    @ObservationIgnored var isEditingAddress = false
     var zoom: Double = 1
     var isSyncEnabled = true {
         didSet { coordinator.isEnabled = isSyncEnabled }
@@ -125,6 +128,34 @@ final class Workspace {
 
     func session(for id: ViewportID) -> (any EngineSession)? {
         sessions[id]
+    }
+
+    /// Set by the project window, which owns the document: rotate, resize, remove…
+    @ObservationIgnored var performCommand: ((ViewportID, ViewportCommand) -> Void)?
+
+    /// Viewport menu and ⌫: the command on the selected card.
+    func performOnSelection(_ command: ViewportCommand) {
+        guard let selectedViewportID else { return }
+        performCommand?(selectedViewportID, command)
+    }
+
+    var selectedViewport: ViewportConfig? {
+        viewports.first { $0.id == selectedViewportID }
+    }
+
+    /// Sonraki / Önceki Viewport (⌃⇥, ⌃⇧⇥): selects the next card in strip order and pans to it.
+    func selectViewport(_ offset: Int) {
+        let ids = viewports.map(\.id)
+        guard !ids.isEmpty else { return }
+        let index = selectedViewportID.flatMap(ids.firstIndex(of:)).map { ($0 + offset % ids.count + ids.count) % ids.count }
+            ?? (offset > 0 ? 0 : ids.count - 1)
+        reveal(ids[index])
+    }
+
+    /// "Seçimi Sığdır" (⌘2).
+    func fitSelection() {
+        guard let selectedViewportID else { return }
+        canvas?.fitCard(selectedViewportID)
     }
 
     /// STRIP-01, STRIP-04, STRIP-05: select the viewport and pan the canvas to its card.
@@ -200,7 +231,7 @@ final class Workspace {
         case .urlChanged(let url):
             if speaksForWindow {
                 currentURL = url
-                addressText = url.absoluteString
+                if !isEditingAddress { addressText = url.absoluteString }
                 history.record(url)
             }
         case .titleChanged(let title):

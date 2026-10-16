@@ -43,11 +43,21 @@ enum PreviewSnapshots {
             LoadFailure(domain: NSURLErrorDomain, code: NSURLErrorCannotConnectToHost, url: URL(string: "http://localhost:3000")!),
             LoadFailure(domain: NSURLErrorDomain, code: NSURLErrorCannotFindHost, url: URL(string: "https://marka.comm")!),
         ].compactMap(\.self)
-        return HStack(alignment: .top, spacing: 24) {
-            ForEach(failures, id: \.self) { failure in
-                LoadFailureView(failure: failure) { _ in }
-                    .frame(width: 218, height: 246)
-                    .overlay { RoundedRectangle(cornerRadius: 12).strokeBorder(DesignTokens.Color.line) }
+        return VStack(alignment: .leading, spacing: 24) {
+            HStack(alignment: .top, spacing: 24) {
+                ForEach(failures, id: \.self) { failure in
+                    LoadFailureView(failure: failure) { _ in }
+                        .frame(width: 218, height: 246)
+                        .overlay { RoundedRectangle(cornerRadius: 12).strokeBorder(DesignTokens.Color.line) }
+                }
+            }
+            // Zoomed far out: the same failures in small page areas.
+            HStack(alignment: .top, spacing: 24) {
+                ForEach([CGSize(width: 56, height: 120), CGSize(width: 120, height: 160), CGSize(width: 160, height: 90)], id: \.width) { size in
+                    LoadFailureView(failure: failures[0]) { _ in }
+                        .frame(width: size.width, height: size.height)
+                        .overlay { RoundedRectangle(cornerRadius: 12).strokeBorder(DesignTokens.Color.line) }
+                }
             }
         }
     }

@@ -189,6 +189,12 @@ final class CanvasController: NSViewController {
         }
     }
 
+    /// "Seçimi Sığdır" (⌘2): fits one card like ⌘1 fits all.
+    func fitCard(_ id: ViewportID) {
+        guard let card = cards[id] else { return }
+        fit(rect: card.frame.insetBy(dx: -CanvasLayout.margin, dy: -CanvasLayout.margin))
+    }
+
     /// "Grubu sığdır": fits the group's cards like ⌘1 fits all.
     func fitGroup(_ key: String) {
         guard let rect = groupRects[key], !rect.isEmpty else { return }
@@ -427,8 +433,15 @@ final class CanvasController: NSViewController {
             }
             return event
 
-        case .keyDown where event.keyCode == Self.escapeKeyCode && !firstResponderIsWebContent && workspace.selectedViewportID != nil:
+        case .keyDown where event.keyCode == Self.escapeKeyCode && canTakeCardKeys && workspace.selectedViewportID != nil:
             workspace.selectedViewportID = nil
+            return nil
+
+        // Kaldır ⌫ (DESIGN.md §3.2.1) on the selected card. Not a menu key equivalent: that would take
+        // ⌫ from web forms and text fields.
+        case .keyDown where event.keyCode == Self.deleteKeyCode && canTakeCardKeys && workspace.selectedViewportID != nil
+            && event.modifierFlags.intersection(.deviceIndependentFlagsMask).subtracting([.function, .numericPad]).isEmpty:
+            workspace.performOnSelection(.remove)
             return nil
 
         case .leftMouseDown where spaceHeld:
@@ -460,11 +473,18 @@ final class CanvasController: NSViewController {
 
     private static let spaceKeyCode: UInt16 = 49
     private static let escapeKeyCode: UInt16 = 53
+    private static let deleteKeyCode: UInt16 = 51
 
     private var isPointerOverCanvas: Bool {
         guard let window = view.window else { return false }
         let point = scrollView.convert(window.mouseLocationOutsideOfEventStream, from: nil)
         return scrollView.bounds.contains(point)
+    }
+
+    /// Esc and ⌫ belong to the card selection unless a page or a text field has the keyboard
+    /// (Esc in the address field reverts it).
+    private var canTakeCardKeys: Bool {
+        !firstResponderIsWebContent && !(view.window?.firstResponder is NSText)
     }
 
     private var firstResponderIsWebContent: Bool {

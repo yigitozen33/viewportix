@@ -89,6 +89,9 @@ struct ViewportixCommands: Commands {
                 .keyboardShortcut("0")
             Button("Sığdır") { workspace?.canvas?.fit() }
                 .keyboardShortcut("1")
+            Button("Seçimi Sığdır") { workspace?.fitSelection() }
+                .keyboardShortcut("2")
+                .disabled(workspace?.selectedViewportID == nil)
             Divider()
             Picker("Grupla", selection: Binding(
                 get: { projectActions?.grouping ?? .none },
@@ -115,12 +118,34 @@ struct ViewportixCommands: Commands {
             Button("Kartları Diz") { projectActions?.arrangeCards() }
                 .disabled(projectActions == nil)
             Divider()
+            // On the selected card (CARD-02); the same as its context menu and hover strip.
+            Group {
+                Button("Döndür") { workspace?.performOnSelection(.rotate) }
+                    .keyboardShortcut("r", modifiers: [.command, .option])
+                Button("Boyutu Düzenle…") { workspace?.performOnSelection(.editSize) }
+                Button(workspace?.selectedViewport?.isSyncEnabled == false ? "Senkrona Kat" : "Senkrondan Çıkar") {
+                    workspace?.performOnSelection(.toggleSync)
+                }
+                // ⌫ is handled by the canvas while no page or text field has the keyboard.
+                Button("Kaldır") { workspace?.performOnSelection(.remove) }
+            }
+            .disabled(workspace?.selectedViewportID == nil)
+            Divider()
             Toggle("Senkron Açık", isOn: Binding(
                 get: { workspace?.isSyncEnabled ?? false },
                 set: { workspace?.isSyncEnabled = $0 }
             ))
             .keyboardShortcut("l", modifiers: [.command, .shift])
             .disabled(workspace == nil)
+            Divider()
+            Group {
+                Button("Sonraki Viewport") { workspace?.selectViewport(1) }
+                    .keyboardShortcut(.tab, modifiers: .control)
+                Button("Önceki Viewport") { workspace?.selectViewport(-1) }
+                    .keyboardShortcut(.tab, modifiers: [.control, .shift])
+            }
+            .disabled(workspace?.viewports.isEmpty ?? true)
+            // Seçimi Kaldır (Esc) is the canvas's: as a menu key it would take Esc from every field.
         }
 
         CommandMenu("Gezinme") {

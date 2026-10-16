@@ -136,15 +136,18 @@ struct DeviceStrip: View {
                 }
             }
             .coordinateSpace(.named(Self.space))
+            // The row's own width: the scroll geometry's content size did not follow when tabs got
+            // narrower (spinners leaving after the first load), so the strip kept a gap before
+            // "+ Cihaz" (found in the live app).
+            .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { contentWidth = $0 }
         }
         .scrollIndicators(.never)
         .scrollPosition($scrollPosition)
         .onScrollGeometryChange(for: [CGFloat].self) { geometry in
-            [geometry.contentOffset.x, geometry.containerSize.width, geometry.contentSize.width]
+            [geometry.contentOffset.x, geometry.containerSize.width]
         } action: { _, values in
             scrollOffset = values[0]
             scrollWidth = values[1]
-            contentWidth = values[2]
         }
         .frame(width: min(contentWidth, tabsMaxWidth))
         .mask(fadeMask)
@@ -270,7 +273,7 @@ struct DeviceTab: View {
                     .contentShape(.rect)
             }
             .buttonStyle(.plain)
-            .accessibilityLabel("\(name)'ı kapat")
+            .accessibilityLabel("\(name) sekmesini kapat")
         }
         .padding(EdgeInsets(top: 6, leading: 10, bottom: 6, trailing: 10))
         .background(fill, in: .rect(cornerRadius: DesignTokens.Radius.control))

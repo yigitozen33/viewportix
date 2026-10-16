@@ -372,3 +372,24 @@ Kod oturumunun arayüze dokunan her değişikliği, değişikliğin commit'inde 
 - Tasarım kararı gerekir mi: evet — 10 ("motor ve kamera asla gizlenmez" kuralının çok küçük zoom'da esnetilmesi) ve 4 (Görünüm / Görüntü)
 - Açık kalan (düşük öncelik): açılır yüzeylerin (cihaz seçici) zemini altındaki web sayfasını ~%1 geçiriyor (piksel ölçümünde 1–3 birim); çıplak gözle zor seçiliyor.
 - Bağlantılı: DESIGN.md §3.2, §3.2.1, §5.20 d
+
+## 2026-10-16 — Canlı test düzeltmeleri (2. tur)
+- Ne: Uygulama canlıda yerel test sayfalarıyla (`Tests/Fixtures`, 8 cihaz) sürülerek bulunanlar:
+  1. **Sayfa yüklenemedi kartı çok küçük zoom'da taşıyordu** (%15'te 56 pt'lik telefon kartında metin harf harf kırılıp şeridin ve başlığın üstüne çıkıyordu): dar kartlarda önce kısa hal (ikon + başlık + ↻), sonra yalnız ikon + ↻, en dar halde yalnız ikon; içerik kartın dışına taşmıyor (CARD-10…12).
+  2. **⌘L'den hemen sonra yazılan adres eziliyordu:** sayfanın yüklenmesi bitince adres alanı yarım yazılmış metnin üstüne sayfanın adresini yazıyordu ("…htmlrm.html"). Alan odaktayken sayfa olayları adresi değiştirmiyor (SIDEBAR-01).
+  3. **Kart başlıkları, kenarlar ve seçim halkası yüksek zoom'da kayıyordu:** pencereden büyük bir kart varken (%118, ⌘2 sonrası) tüm başlık katmanı sola-yukarı kayıyor, başlık kartın üstünde görünmüyordu (CARD-01…03).
+  4. **Trafik ışıkları yerinden oynuyordu:** adres yazıp sayfa değişince ışıklar sistem konumuna (sol üst 16 pt) dönüyordu; AppKit başlık çubuğunu bildirimsiz yeniden yerleştiriyor. Artık her yer değişiminde geri konuyor (§6 Sidebar/Header).
+  5. **Cihaz şeridinde "+ Cihaz" öncesi boşluk:** ilk yüklemede sekmelerdeki yükleniyor göstergeleri kalkınca şerit eski genişlikte kalıyordu; şerit artık sekmelere oturuyor (STRIP-01).
+  6. **Sidebar ayırıcı çizgisi canvas'ın 3 pt içindeydi;** arada sayfa içeriği görünüyordu (genişlik tutamacı kenara ortalanırken çizgiyi de kaydırıyordu). Çizgi sidebar'ın kendi kenarında; tutamacın gök çizgisi kenara ortalı (SIDEBAR-07).
+  7. **Sayfa satırı ipucu pencerenin solundan taşıyordu** ve sağ tık menüsü açıkken altında kalıyordu. Satır ipuçları satırın sol kenarına hizalı; bütün ipuçları pencere kenarına 8 pt kala içeri kayıyor; sağ tık, tuş veya kaydırma ipucunu kapatıyor (SIDEBAR-02, BAR-01).
+  8. **Viewport menüsü eksikti** (DESIGN.md §3.2.1): Döndür ⌥⌘R, Boyutu Düzenle…, Senkrondan Çıkar / Senkrona Kat, Kaldır, Sonraki Viewport ⌃⇥, Önceki Viewport ⌃⇧⇥ eklendi; Görünüm'e Seçimi Sığdır ⌘2. Hepsi seçili kartta çalışır (seçim yoksa pasif). Hover şeridindeki "Kapat ⌫" artık gerçekten çalışıyor.
+  9. Erişilebilirlik: sekme kapatma etiketi "Masaüstü'ı kapat" yerine "Masaüstü sekmesini kapat".
+- Bilinçli sapmalar: **Kaldır ⌫** ve **Seçimi Kaldır Esc** menüde kısayolsuz; tuşları canvas, odak sayfada ya da bir metin alanında değilken işliyor (menü kısayolu olsalar web formlarında ve adres alanında ⌫/Esc'i alırlardı). Esc adres alanındayken artık seçimi değil adresi geri alıyor.
+- Doğrulanan (canlı): senkron tık / yazı / onay kutusu (8 kartta aynı), Senkron kapalı ⇧⌘L (BAR-02: yalnız lider değişiyor), ekran görüntüsü seçici + "Kaydedildi ve kopyalandı · Finder'da Göster" kapsülü (BAR-06; 16000 px'lik birleşik görüntü), ⌘D sayfa ekleme (SIDEBAR-05), sayfa sağ tık menüsü ve yeniden adlandırma (SIDEBAR-03), şerit taşması "+4" ve menüden karta gitme (STRIP-03…05), tam ekran 16 pt üst satır ve çıkışta ışıkların yeri (§5.20 b), ⌃⇥ / ⌥⌘R / ⌘2 / ⌫ / ⌘Z.
+- Nerede: `Viewportix/Canvas/CardChrome.swift`, `CanvasController.swift`, `Viewportix/Chrome/TrafficLights.swift`, `ChromeTooltip.swift`, `Viewportix/Project/DeviceStrip.swift`, `ProjectSidebar.swift`, `SidebarHeader.swift`, `Workspace.swift`, `ProjectWindow.swift`, `Viewportix/App/ViewportixApp.swift`
+- Durum: özel çizim
+- Tasarım kararı gerekir mi: evet —
+  - Adlandırma: menü "Sidebar'ı Gizle" (§3.2.1), kapsül düğmesi "Kenar çubuğunu göster" (§5.20 tooltip tablosu); biri seçilmeli.
+  - Pencere boyutu değişince canvas yeniden sığdırılmıyor (zoom kalıyor, kartlar sağdan kesilebiliyor); Figma gibi bırakmak mı, kullanıcı zoom'a dokunmadıysa yeniden sığdırmak mı?
+  - Sekiz cihazda tek sıra (§3.2) %15 zoom'a iniyor ve pencerenin altı boş kalıyor; çok cihazda satıra sarmak istenir mi?
+- Bağlantılı: DESIGN.md §3.2, §3.2.1, §5.20

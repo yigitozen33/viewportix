@@ -57,6 +57,7 @@ struct ProjectWindow: View {
         .onAppear {
             // Opening a project from Finder or Open Recent should not leave the home window behind.
             dismissWindow(id: HomeView.windowID)
+            workspace.performCommand = { handle($0, $1) }
             workspace.reconcile(with: document.project.viewports)
             if let page = document.project.selectedPage {
                 workspace.navigate(to: page.url)

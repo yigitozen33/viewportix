@@ -20,8 +20,29 @@ struct CardChromeLayer: View {
     @Binding var editingSize: ViewportSizeEditor?
 
     var body: some View {
+        // The cards hang off a clear view of the canvas's size: a ZStack of them grows with cards
+        // larger than the window (high zoom) and was then centred, shifting every header and ring
+        // up and left (found in the live app at %118 after ⌘2).
+        Color.clear
+            .overlay(alignment: .topLeading) { cards }
+            .overlay {
+                // CARD-08: sky alignment guides while dragging.
+                Canvas { context, _ in
+                    for guide in workspace.dragGuides {
+                        var path = Path()
+                        path.move(to: guide.from)
+                        path.addLine(to: guide.to)
+                        context.stroke(path, with: .color(DesignTokens.Color.statusLeader), lineWidth: 1)
+                    }
+                }
+                .allowsHitTesting(false)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .clipped()
+    }
+
+    private var cards: some View {
         ZStack(alignment: .topLeading) {
-            Color.clear.allowsHitTesting(false)
             ForEach(workspace.groups, id: \.key) { group in
                 if let frame = workspace.groupFrames[group.key] {
                     let isCollapsed = frame.isEmpty
@@ -58,20 +79,6 @@ struct CardChromeLayer: View {
                 }
             }
         }
-        .overlay {
-            // CARD-08: sky alignment guides while dragging.
-            Canvas { context, _ in
-                for guide in workspace.dragGuides {
-                    var path = Path()
-                    path.move(to: guide.from)
-                    path.addLine(to: guide.to)
-                    context.stroke(path, with: .color(DesignTokens.Color.statusLeader), lineWidth: 1)
-                }
-            }
-            .allowsHitTesting(false)
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-        .clipped()
     }
 
     /// Drag phases from a card header; nil translation ends the drag. Grouped canvases lay out
@@ -172,6 +179,7 @@ struct ViewportCardChrome: View {
                 .overlay {
                     if let failure = state.failure {
                         LoadFailureView(failure: failure, action: failureAction)
+                            .clipped()
                             .transition(.opacity)
                     }
                 }
@@ -553,7 +561,24 @@ struct LoadFailureView: View {
     let failure: LoadFailure
     let action: (ViewportCardChrome.FailureAction) -> Void
 
+    /// Full layout in a roomy card; zoomed far out the page area can be a few dozen points, so the
+    /// view steps down (title + action, then icon + action, then icon) and never leaves the card.
     var body: some View {
+        ViewThatFits {
+            full
+            compact(showsTitle: true)
+            compact(showsTitle: false)
+            icon
+        }
+        .padding(EdgeInsets(top: 12, leading: 8, bottom: 12, trailing: 8))
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(DesignTokens.Color.surfaceCard)
+        .clipShape(UnevenRoundedRectangle(bottomLeadingRadius: DesignTokens.Radius.card, bottomTrailingRadius: DesignTokens.Radius.card))
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel("\(title). \(message)")
+    }
+
+    private var full: some View {
         VStack(spacing: DesignTokens.Space.s2) {
             icon
                 .padding(.bottom, DesignTokens.Space.s1)
@@ -561,12 +586,10 @@ struct LoadFailureView: View {
                 .font(.system(size: DesignTokens.FontSize.title, weight: .semibold))
                 .foregroundStyle(DesignTokens.Color.inkPrimary)
                 .multilineTextAlignment(.center)
-                .fixedSize(horizontal: false, vertical: true)
             Text(message)
                 .font(.system(size: DesignTokens.FontSize.body))
                 .foregroundStyle(DesignTokens.Color.inkSecondary)
                 .multilineTextAlignment(.center)
-                .fixedSize(horizontal: false, vertical: true)
             Text(failure.code)
                 .font(DesignTokens.Font.mono(DesignTokens.FontSize.caption))
                 .foregroundStyle(DesignTokens.Color.inkSecondary)
@@ -581,12 +604,42 @@ struct LoadFailureView: View {
                 }
                 .padding(.top, DesignTokens.Space.s1)
             }
-            Spacer(minLength: 0)
         }
-        .padding(EdgeInsets(top: 28, leading: 18, bottom: 16, trailing: 18))
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(DesignTokens.Color.surfaceCard)
-        .clipShape(UnevenRoundedRectangle(bottomLeadingRadius: DesignTokens.Radius.card, bottomTrailingRadius: DesignTokens.Radius.card))
+        .padding(EdgeInsets(top: 16, leading: 10, bottom: 4, trailing: 10))
+        // ViewThatFits compares ideal sizes: chosen from ~180 pt up, where lines wrap by words.
+        .frame(idealWidth: 180)
+    }
+
+    private func compact(showsTitle: Bool) -> some View {
+        VStack(spacing: DesignTokens.Space.s2) {
+            icon
+            if showsTitle {
+                Text(title)
+                    .font(.system(size: DesignTokens.FontSize.label, weight: .semibold))
+                    .foregroundStyle(DesignTokens.Color.inkPrimary)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+            }
+            ChromeIconButton(symbol: "arrow.clockwise", label: retryLabel, action: compactAction)
+        }
+        .frame(idealWidth: showsTitle ? 120 : 24)
+    }
+
+    private var retryLabel: String {
+        switch failure.kind {
+        case .certificate: "Bu oturumda güven"
+        case .notFound: "Adresi düzenle"
+        case .serverDown: "Şimdi dene"
+        case .network, .other: "Yeniden dene"
+        }
+    }
+
+    private func compactAction() {
+        switch failure.kind {
+        case .certificate: action(.trust)
+        case .notFound: action(.editAddress)
+        case .serverDown, .network, .other: action(.retry)
+        }
     }
 
     @ViewBuilder

@@ -149,6 +149,7 @@ struct AddressField: View {
         .onChange(of: isFocused) { _, focused in
             hasEdited = false
             highlighted = nil
+            workspace.isEditingAddress = focused
             if !focused { workspace.revertAddress() }
         }
         .onChange(of: workspace.addressText) {

@@ -62,6 +62,9 @@ struct ProjectSidebar: View {
         .frame(width: workspace.sidebarWidth)
         .frame(maxHeight: .infinity, alignment: .top)
         .background(DesignTokens.Color.surfaceBar)
+        .overlay(alignment: .trailing) {
+            Rectangle().fill(DesignTokens.Color.line).frame(width: DesignTokens.Stroke.hairline)
+        }
         .overlay(alignment: .trailing) { SidebarResizeHandle(workspace: workspace) }
         .zIndex(1)
     }
@@ -191,7 +194,7 @@ struct SidebarRow: View {
         .animation(.linear(duration: DesignTokens.Motion.hover), value: isHovered)
         .chromeFocusRing(cornerRadius: DesignTokens.Radius.control)
         .chromeContextMenu(isOpen: $isMenuOpen, menu: menu)
-        .chromeTooltip(page.name, shortcut: URLHistory.display(page.url), edge: .bottom)
+        .chromeTooltip(page.name, shortcut: URLHistory.display(page.url), edge: .bottom, alignment: .leading)
         .accessibilityLabel(page.name)
         .accessibilityValue(isSelected ? "açık" : "")
     }
@@ -238,7 +241,7 @@ private struct AddPageRow: View {
         .buttonStyle(.plain)
         .onHover { isHovered = $0 }
         .chromeFocusRing(cornerRadius: DesignTokens.Radius.control)
-        .chromeTooltip("Açık sayfayı ekle", shortcut: "⌘D", edge: .bottom)
+        .chromeTooltip("Açık sayfayı ekle", shortcut: "⌘D", edge: .bottom, alignment: .leading)
     }
 }
 
@@ -287,40 +290,40 @@ private struct SidebarResizeHandle: View {
     @State private var dragStart: CGFloat?
 
     var body: some View {
-        ZStack(alignment: .trailing) {
-            Rectangle().fill(DesignTokens.Color.line).frame(width: DesignTokens.Stroke.hairline)
-            Rectangle().fill(DesignTokens.Color.statusLeader).frame(width: 2)
-                .opacity(isHovered || dragStart != nil ? 1 : 0)
-        }
-        .frame(width: 6, alignment: .trailing)
-        .frame(maxHeight: .infinity)
-        .contentShape(.rect)
-        .pointerStyle(.columnResize)
-        .onHover { isHovered = $0 }
-        .gesture(
-            DragGesture(minimumDistance: 1, coordinateSpace: .global)
-                .onChanged { value in
-                    let start = dragStart ?? workspace.sidebarWidth
-                    dragStart = start
-                    let range = Workspace.sidebarWidthRange
-                    // Below 200 it stops; it does not close the sidebar (that is ⌃⌘S).
-                    workspace.sidebarWidth = min(max(start + value.translation.width, range.lowerBound), range.upperBound)
+        // The sky line sits on the edge; the hairline is the sidebar's own (it moved 3 pt into the
+        // canvas with the handle's offset, page content showed between: found in the live app).
+        Rectangle().fill(DesignTokens.Color.statusLeader)
+            .frame(width: 2)
+            .opacity(isHovered || dragStart != nil ? 1 : 0)
+            .frame(width: 6)
+            .frame(maxHeight: .infinity)
+            .contentShape(.rect)
+            .pointerStyle(.columnResize)
+            .onHover { isHovered = $0 }
+            .gesture(
+                DragGesture(minimumDistance: 1, coordinateSpace: .global)
+                    .onChanged { value in
+                        let start = dragStart ?? workspace.sidebarWidth
+                        dragStart = start
+                        let range = Workspace.sidebarWidthRange
+                        // Below 200 it stops; it does not close the sidebar (that is ⌃⌘S).
+                        workspace.sidebarWidth = min(max(start + value.translation.width, range.lowerBound), range.upperBound)
+                    }
+                    .onEnded { _ in dragStart = nil }
+            )
+            .overlay(alignment: .topLeading) {
+                if dragStart != nil {
+                    Text("\(Int(workspace.sidebarWidth))")
+                        .font(.system(size: DesignTokens.FontSize.caption).monospacedDigit())
+                        .foregroundStyle(DesignTokens.Color.inkPrimary)
+                        .padding(EdgeInsets(top: 3, leading: 6, bottom: 3, trailing: 6))
+                        .background(DesignTokens.Color.surfaceTooltip, in: .rect(cornerRadius: DesignTokens.Radius.badge))
+                        .fixedSize()
+                        .offset(x: 12, y: 60)
                 }
-                .onEnded { _ in dragStart = nil }
-        )
-        .overlay(alignment: .topLeading) {
-            if dragStart != nil {
-                Text("\(Int(workspace.sidebarWidth))")
-                    .font(.system(size: DesignTokens.FontSize.caption).monospacedDigit())
-                    .foregroundStyle(DesignTokens.Color.inkPrimary)
-                    .padding(EdgeInsets(top: 3, leading: 6, bottom: 3, trailing: 6))
-                    .background(DesignTokens.Color.surfaceTooltip, in: .rect(cornerRadius: DesignTokens.Radius.badge))
-                    .fixedSize()
-                    .offset(x: 12, y: 60)
             }
-        }
-        .animation(.linear(duration: DesignTokens.Motion.hover), value: isHovered)
-        .offset(x: 3)  // centred on the sidebar's edge
+            .animation(.linear(duration: DesignTokens.Motion.hover), value: isHovered)
+            .offset(x: 3)  // centred on the sidebar's edge
     }
 }
 

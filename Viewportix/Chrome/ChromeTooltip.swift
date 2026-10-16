@@ -1,3 +1,4 @@
+import AppKit
 import DesignSystem
 import SwiftUI
 
@@ -57,8 +58,11 @@ private struct Caret: Shape {
 extension View {
     /// Shows a `ChromeTooltip` 400 ms after the pointer rests on the view; hides on exit or press.
     /// `.top` draws the caret toward the target; side tooltips (`.leading`, `.trailing`) have none.
-    func chromeTooltip(_ title: String, shortcut: String? = nil, edge: Edge = .top) -> some View {
-        modifier(ChromeTooltipModifier(title: title, shortcut: shortcut, edge: edge))
+    /// `alignment` lines a top/bottom tooltip up with the target's leading edge instead of its
+    /// centre, for wide targets near the window edge (sidebar rows).
+    func chromeTooltip(_ title: String, shortcut: String? = nil, edge: Edge = .top,
+                       alignment: HorizontalAlignment = .center) -> some View {
+        modifier(ChromeTooltipModifier(title: title, shortcut: shortcut, edge: edge, alignment: alignment))
     }
 }
 
@@ -74,9 +78,14 @@ private struct ChromeTooltipModifier: ViewModifier {
     let title: String
     let shortcut: String?
     let edge: Edge
+    let alignment: HorizontalAlignment
 
     @State private var isShown = false
     @State private var pending: Task<Void, Never>?
+    @State private var monitor: Any?
+    /// Target in window coordinates and the tooltip's width, to keep it inside the window.
+    @State private var targetFrame: CGRect = .zero
+    @State private var tooltipWidth: CGFloat = 0
 
     func body(content: Content) -> some View {
         content
@@ -87,17 +96,19 @@ private struct ChromeTooltipModifier: ViewModifier {
                         try? await Task.sleep(for: ChromeTooltip.delay)
                         if !Task.isCancelled { isShown = true }
                     }
+                    watchPresses()
                 } else {
                     isShown = false
+                    stopWatching()
                 }
             }
-            .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in
-                pending?.cancel()
-                isShown = false
-            })
-            .outside(edge, gap: ChromeTooltip.gap) {
+            .onDisappear(perform: stopWatching)
+            .onGeometryChange(for: CGRect.self) { $0.frame(in: .global) } action: { targetFrame = $0 }
+            .outside(edge, alignment: alignment, gap: ChromeTooltip.gap) {
                 if isShown {
                     ChromeTooltip(title: title, shortcut: shortcut, showsCaret: edge == .top)
+                        .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { tooltipWidth = $0 }
+                        .offset(x: horizontalShift)
                         .allowsHitTesting(false)
                         .transition(.opacity)
                 }
@@ -106,6 +117,39 @@ private struct ChromeTooltipModifier: ViewModifier {
             .zIndex(isShown ? 1 : 0)
             .animation(.linear(duration: DesignTokens.Motion.hover), value: isShown)
             .preference(key: ChromeTooltipVisibleKey.self, value: isShown)
+    }
+
+    /// A top or bottom tooltip wider than its target can run past the window's edge (found in the
+    /// live app: sidebar rows, ‹ Geri); it moves in to stay `margin` inside.
+    private var horizontalShift: CGFloat {
+        guard edge == .top || edge == .bottom, tooltipWidth > 0 else { return 0 }
+        let margin: CGFloat = 8
+        let minX = switch alignment {
+        case .leading: targetFrame.minX
+        case .trailing: targetFrame.maxX - tooltipWidth
+        default: targetFrame.midX - tooltipWidth / 2
+        }
+        if minX < margin { return margin - minX }
+        let windowWidth = NSApp.keyWindow?.contentLayoutRect.width ?? .infinity
+        if minX + tooltipWidth > windowWidth - margin { return windowWidth - margin - minX - tooltipWidth }
+        return 0
+    }
+
+    /// Any press (left, right — a context menu opening — or a key) hides the tooltip and cancels a
+    /// pending one; a gesture would only see left clicks (found in the live app: the page row's
+    /// tooltip stayed under its context menu).
+    private func watchPresses() {
+        guard monitor == nil else { return }
+        monitor = NSEvent.addLocalMonitorForEvents(matching: [.leftMouseDown, .rightMouseDown, .otherMouseDown, .keyDown, .scrollWheel]) { event in
+            pending?.cancel()
+            isShown = false
+            return event
+        }
+    }
+
+    private func stopWatching() {
+        if let monitor { NSEvent.removeMonitor(monitor) }
+        monitor = nil
     }
 }
 

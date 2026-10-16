@@ -40,6 +40,25 @@ private struct TrafficLightPlacer: NSViewRepresentable {
                 })
             }
             place()
+            // AppKit also lays the title bar out on its own (title or edited state changes, a sheet,
+            // focus moving into a web view) without a window notification; found in the live app.
+            // Watching the frames catches every case.
+            if let close = window.standardWindowButton(.closeButton), let container = close.superview?.superview {
+                for view in [close, container] {
+                    view.postsFrameChangedNotifications = true
+                    observers.append(NotificationCenter.default.addObserver(forName: NSView.frameDidChangeNotification, object: view, queue: .main) { [weak self] _ in
+                        MainActor.assumeIsolated { self?.placeIfMoved() }
+                    })
+                }
+            }
+        }
+
+        private var isPlacing = false
+
+        private func placeIfMoved() {
+            guard !isPlacing else { return }
+            // Out of AppKit's own layout pass, or it moves them right back.
+            DispatchQueue.main.async { [weak self] in self?.place() }
         }
 
         /// Same approach as Electron's `trafficLightPosition`: grow the title bar container to fit,
@@ -50,16 +69,18 @@ private struct TrafficLightPlacer: NSViewRepresentable {
                   let miniaturize = window.standardWindowButton(.miniaturizeButton),
                   let zoom = window.standardWindowButton(.zoomButton),
                   let container = close.superview?.superview else { return }
+            isPlacing = true
+            defer { isPlacing = false }
             let buttonHeight = close.frame.height
             let titleBarHeight = position.centerY * 2
             var frame = container.frame
             frame.size.height = titleBarHeight
             frame.origin.y = window.frame.height - titleBarHeight
-            container.frame = frame
+            if container.frame != frame { container.frame = frame }
             let spacing: CGFloat = 20  // 12 pt lights, 8 pt gap (Sidebar/Header spec)
             for (index, button) in [close, miniaturize, zoom].enumerated() {
-                button.setFrameOrigin(NSPoint(x: position.leading + CGFloat(index) * spacing,
-                                              y: (titleBarHeight - buttonHeight) / 2))
+                let origin = NSPoint(x: position.leading + CGFloat(index) * spacing, y: (titleBarHeight - buttonHeight) / 2)
+                if button.frame.origin != origin { button.setFrameOrigin(origin) }
             }
         }
     }
