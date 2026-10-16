@@ -168,7 +168,9 @@ Kullanıcının kaydettiği birim **proje**dir: bir markanın tüm kurulumu (URL
 
 ### 3.8 Özel arayüz çerçevesi
 
-Karar (2026-10-10, kullanıcı): toolbar ve sidebar dahil tüm arayüz özel çizilir; tasarım pen.dev'den gelir. Tasarım gelene kadar mevcut sistem görünümü (`NavigationSplitView`, SwiftUI `.toolbar`) kalır; geçiş M3'te.
+Karar (2026-10-10, kullanıcı): toolbar ve sidebar dahil tüm arayüz özel çizilir; tasarım pen.dev'den gelir. Tasarım gelene kadar mevcut sistem görünümü (`NavigationSplitView`, SwiftUI `.toolbar`) kalır; geçiş M3'te. Geçiş yapıldı (2026-10-16): üst çubuk yok, gezinme ve adres sidebar başlığında, cihaz ekleme şeritte, zoom/ekran görüntüsü/senkron alt çubukta (DESIGN.md §4 B2); aşağıdaki "üst çubuk" maddeleri buna göre superseded.
+
+Kart başlığı (2026-10-16): viewport kartının başlığı, kenarları, seçim halkası ve hover şeridi zoom'dan bağımsız sabit boyutta, canvas'ın üstünde ayrı bir SwiftUI katmanında çizilir (`CardChromeLayer`); yalnız sayfa (motor görünümü) ölçeklenir. Canvas kartların ekrandaki konumlarını yayınlar (`Workspace.cardFrames`).
 
 **Pencere (standart kalır):** `NSWindow` + `.fullSizeContentView`, şeffaf başlık çubuğu, başlık metni gizli, sistem `NSToolbar` yok. Trafik ışıkları, pencereyi sürükleyerek taşıma (özel üst çubuğun boş alanları sürükleme bölgesi), tam ekran ve pencere yeniden boyutlandırma sistemde kalır.
 
@@ -321,14 +323,14 @@ Cihaz çerçeveleri, screenshot, form girişi senkronu, gruplama, elle sürükle
 
 ### M3 — Şirket içi sürüm
 
-- [ ] Arayüz tasarımının uygulanması (tasarım kullanıcıdan)
-- [ ] Özel pencere çerçevesi: şeffaf başlık çubuğu, özel üst çubuk ve sidebar, sistem davranışları (§3.8)
-- [ ] Giriş ekranının tam hali: küçük resimler, şablonlar, ızgara/liste, arama
-- [ ] Sidebar'da viewport listesi ve gruplar
+- [x] Arayüz tasarımının uygulanması (2026-10-16; `KOD-OTURUMU-ISLERI.md` §12 adım 1–8: token'lar, pencere çerçevesi, sidebar başlığı ve sayfa listesi, cihaz şeridi, alt çubuk, kapsül, viewport kartı, cihaz seçici, Ayarlar paneli, giriş ekranı; kalan haller `docs/tasarim-istekleri.md`'de)
+- [x] Özel pencere çerçevesi: şeffaf başlık çubuğu, sidebar 240 (200–360 sürüklenir) + canvas + ray 44, sistem trafik ışıkları sidebar satırına / kapalıyken kapsüle taşınır; üst çubuk yok (DESIGN.md §4 B2) (§3.8)
+- [x] Giriş ekranının tam hali: şablonlar, ızgara/liste, arama, dosyası bulunamayan kart, açılamayan proje uyarısı. Küçük resim henüz projenin viewport'larından çizilen yer tutucu (`thumbnail.png` yok)
+- [ ] ~~Sidebar'da viewport listesi ve gruplar~~ — superseded (2026-10-11, DESIGN.md §4 V1): sidebar yalnızca sayfalar; cihaz listesi şeritte (sekmeler, "+N" menüsü), gruplar canvas'ta ve şeritte → aşağıdaki "Elle sürükleme ve gruplama"'ya taşındı
 - [x] Form girişi ve hover senkronu (hover: CSS kural taklidi, S4)
 - [x] Screenshot (tek viewport ve tümü): kart başlığında kamera (⌥ ile tam sayfa), toolbar menüsü, ⌥⌘S / ⌃⌥⌘S. Birden fazla viewport tek PNG'de yan yana, başlıklarıyla; `~/Pictures/Viewportix`'e kaydedilir ve panoya kopyalanır (Masaüstü TCC izni istediği için Resimler). Tam sayfa, sayfayı kaydırmadan PDF üzerinden çizilir: bitmap snapshot yalnızca ekrana yakın tile'ları içeriyor; uzun içerik birden çok PDF sayfasına bölündüğü için sayfalar üst üste birleştirilir. Sınırlar: ekranın altındaki lazy-load görseller yüklenmemişse boş çıkar; video/canvas PDF'de çizilmeyebilir; en fazla 32.000 CSS px, çok büyük görsellerde 1x
 - [x] Özel cihaz boyutu, viewport döndürme (kart düğmesi ve sağ tık menüsü; sınırlar 200–3840 × 200–4320 CSS px)
-- [ ] Elle sürükleme ve gruplama
+- [ ] Elle sürükleme ve gruplama: kartı başlıktan sürükleme (hizalama çizgileri, 6 px yapışma, ⌥ kapatır, konum projeye), Kartları Diz; Görünüm › Grupla (Yok / Cihaz türü / Motor): canvas'ta grup alanı + katlanır başlık, şeritte ayırıcı ve katlı grup çipi
 - [x] Senkronu viewport bazında açıp kapama (kart sağ tık menüsü; kapalı viewport ne yönetir ne izler, adres çubuğu ve sayfa seçimi yine her yere yükler; projede saklanır)
 - [ ] Developer ID imzası + notarization, şirket içi dağıtım
 
