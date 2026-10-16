@@ -184,3 +184,21 @@ Kod oturumunun arayüze dokunan her değişikliği, değişikliğin commit'inde 
 - Spec boşlukları (giriş): `ProjectCard` hover ve sağ tık hedefi durumlarında kenar rengi override'ı spec'te yok (yalnız ⋯ görünürlüğü var; renkler DESIGN.md §6 ve PNG'den); `TemplateChip` seçili durumunda override yok (sarı kenar + `surface/header` zemin PNG'den); geçersiz URL açıklamasının yazı boyutu yok (12 kullanıldı); sidebar satırı, arama alanı, ızgara/liste anahtarı ve liste satırı bileşen değil (ölçüler PNG'den: liste sütunları 516 / 648 / 760 pt); çiplerin hover hali yok.
 - Tasarım kararı gerekir mi: evet — 1, 2, 6 ve spec boşlukları
 - Bağlantılı: DESIGN.md §3.1 (HOME-01…18), §4 (2026-10-13 giriş durumları, `line/strong`); `KOD-OTURUMU-ISLERI.md` §13 "Giriş ekranı", §14
+
+## 2026-10-16 — parite: Giriş ekranı (Home Window)
+- Ne: Parite turunun ilk ekranı (`design/handoff/PLAN.md` aşama 8). Kod görüntüleri, karşılaştırılacak dışa aktarımla aynı adla:
+  - `docs/parity/window-home-dark@2x.png` ↔ `design/exports/window-home-dark@2x.png` (ızgara; örnek veri "Marka A · 2 sa. önce · 3 cihaz", "Marka B · Dün · 5 cihaz")
+  - `docs/parity/window-home-list@2x.png` ↔ `window-home-list@2x.png` (liste; + dosyası bulunamayan "Marka C")
+  - `docs/parity/window-home-empty@2x.png` ↔ `window-home-empty@2x.png`
+  - `docs/parity/home-states@2x.png` ↔ `home-states@2x.png` (URLBox üç hal; ProjectCard normal / hover / taslak / sağ tık hedefi / dosya bulunamadı; TemplateChip normal / seçili / pasif)
+- Nasıl üretildi: Xcode önizlemesi bu makinede imza yüzünden derlenmiyor ("No Accounts", 10-10'daki aynı sorun), bu yüzden `Scripts/snapshots.sh` (DEBUG `--snapshots`): görünüm ekran dışı bir pencerede çizilir, @2x, sRGB'ye çevrilir (dışa aktarımlarla aynı renk uzayı). 53365f3 üzerinde.
+- Kodun kendi ölçümü (piksel taraması, x = 700 pt sütunu): URL kutusu, çipler, başlık satırı ve kart üst/alt kenarları dışa aktarımla aynı satırlarda (fark ≤ 2 px @2x); renkler ±2 (sRGB dönüşüm yuvarlaması).
+- Bilinen farklar (tasarım listeye eklesin ya da kapatsın):
+  1. Trafik ışıkları görüntüde yok: ekran dışı pencere kenarsız; uygulamada sistem ışıkları var.
+  2. Motor karşılaştırma çipi ve ⚙ pasif (yarı saydam) — yukarıdaki giriş ekranı girdisi madde 2 ve 4.
+  3. Küçük resimler projenin gerçek cihaz oranlarıyla çiziliyor (tasarımda sabit örnek mini kartlar); favicon renkli kare yerine `surface/pill`.
+  4. Yazı SF Pro (tasarım vekili Inter): "SON PROJELER" ve sütun başlıklarında harf aralığı farkı göze çarpabilir (kodda 0,5 / 1).
+  5. Taslak kartı "Untitled" ızgarada yok (taslak saklama yok); rozet `home-states`'te görülebilir.
+- Durum: özel çizim
+- Tasarım kararı gerekir mi: evet — karşılaştırma ve farklar `design/handoff/PARITY.md`'ye
+- Bağlantılı: `design/handoff/PLAN.md` aşama 8; `KOD-OTURUMU-ISLERI.md` §14
