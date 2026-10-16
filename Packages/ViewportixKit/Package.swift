@@ -11,6 +11,7 @@ let package = Package(
         .library(name: "SyncCore", targets: ["SyncCore"]),
         .library(name: "WebKitEngine", targets: ["WebKitEngine"]),
         .library(name: "Capture", targets: ["Capture"]),
+        .library(name: "DesignSystem", targets: ["DesignSystem"]),
     ],
     targets: [
         .target(name: "EngineCore"),
@@ -19,6 +20,8 @@ let package = Package(
         .target(name: "SyncCore", dependencies: ["EngineCore"], resources: [.copy("Resources/sync-agent.js")]),
         .target(name: "WebKitEngine", dependencies: ["EngineCore", "SyncCore"]),
         .target(name: "Capture"),
+        // DesignTokens.swift is copied from design/tokens/ unchanged; regenerate there, never edit here.
+        .target(name: "DesignSystem"),
         .testTarget(name: "DeviceCatalogTests", dependencies: ["DeviceCatalog"]),
         .testTarget(name: "ProjectModelTests", dependencies: ["ProjectModel"]),
         .testTarget(name: "SyncCoreTests", dependencies: ["SyncCore"]),

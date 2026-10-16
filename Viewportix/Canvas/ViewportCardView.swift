@@ -1,4 +1,5 @@
 import AppKit
+import DesignSystem
 import EngineCore
 import ProjectModel
 
@@ -15,6 +16,8 @@ enum ViewportCommand {
 /// Placeholder styling until the design lands (DESIGN.md, M3).
 final class ViewportCardView: NSView {
     static let headerHeight: CGFloat = 28
+    /// Header icons sit in a 14 pt box in the design (`size/icon-sm`).
+    private static let iconBox = DesignTokens.Size.iconSm
 
     let viewportID: ViewportID
     var onHover: ((ViewportID) -> Void)?
@@ -46,29 +49,29 @@ final class ViewportCardView: NSView {
         detailLabel.font = .monospacedDigitSystemFont(ofSize: 11, weight: .regular)
         detailLabel.textColor = .secondaryLabelColor
 
-        missedIcon.image = NSImage(systemSymbolName: "exclamationmark.triangle.fill", accessibilityDescription: "Senkron kaçtı")
+        missedIcon.image = NSImage.chromeSymbol("exclamationmark.triangle", box: Self.iconBox, label: "Senkron kaçtı")
         missedIcon.contentTintColor = .systemOrange
         missedIcon.toolTip = "Tıklanan eleman bu viewport'ta bulunamadı"
         missedIcon.isHidden = true
 
-        syncOffIcon.image = NSImage(systemSymbolName: "pause.circle", accessibilityDescription: "Senkron kapalı")
+        syncOffIcon.image = NSImage.chromeSymbol("pause", box: Self.iconBox, label: "Senkron kapalı")
         syncOffIcon.contentTintColor = .secondaryLabelColor
         syncOffIcon.toolTip = "Bu viewport için senkron kapalı"
         syncOffIcon.isHidden = true
 
-        closeButton.image = NSImage(systemSymbolName: "xmark", accessibilityDescription: "Viewport'u kaldır")
+        closeButton.image = NSImage.chromeSymbol("xmark", box: Self.iconBox, label: "Viewport'u kaldır")
         closeButton.isBordered = false
         closeButton.target = self
         closeButton.action = #selector(closeTapped)
         closeButton.toolTip = "Viewport'u kaldır"
 
-        captureButton.image = NSImage(systemSymbolName: "camera", accessibilityDescription: "Ekran görüntüsü")
+        captureButton.image = NSImage.chromeSymbol("camera", box: Self.iconBox, label: "Ekran görüntüsü")
         captureButton.isBordered = false
         captureButton.target = self
         captureButton.action = #selector(captureTapped)
         captureButton.toolTip = "Ekran görüntüsü (⌥ ile tam sayfa)"
 
-        rotateButton.image = NSImage(systemSymbolName: "rotate.right", accessibilityDescription: "Döndür")
+        rotateButton.image = NSImage.chromeSymbol("rectangle.portrait.rotate", box: Self.iconBox, label: "Döndür")
         rotateButton.isBordered = false
         rotateButton.target = self
         rotateButton.action = #selector(rotateTapped)

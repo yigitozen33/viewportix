@@ -113,3 +113,10 @@ Kod oturumunun arayüze dokunan her değişikliği, değişikliğin commit'inde 
 - Durum: sistem varsayılanı
 - Tasarım kararı gerekir mi: hayır — yalnızca menü maddesi; ileride bir ayarlar penceresi olursa oraya taşınabilir
 - Bağlantılı: PLAN.md §6 M2 "Performans"
+
+## 2026-10-16 — Kart ikonları SF Symbols eşlemesine ve × 0.875 puntoya geçti
+- Ne: Viewport kartı başlığındaki ikonlar `design/handoff/icons.md` adlarıyla ve kutu × 0.875 punto, regular ağırlıkla çiziliyor (kutu `Size.iconSm` 14 → 12,25 pt): senkron kaçtı `exclamationmark.triangle` (önce `.fill`), senkron kapalı `pause` (önce `pause.circle`), döndür `rectangle.portrait.rotate` (önce `rotate.right`; boyut sheet'indeki Döndür düğmesi de), kamera `camera`, kaldır `xmark`. Kartın yerleşimi ve renkleri değişmedi (kart hâlâ yer tutucu; §12 adım 5'te yeniden kurulacak). Özel semboller `link.slash`, `engine.webkit/chromium/firefox` Assets'te (`Image("link.slash")`; derlenen `Assets.car`'da her biri 27 vektör glif).
+- Nerede: Canvas, viewport kartı başlığı; `Viewportix/Canvas/ViewportCardView.swift`, `Viewportix/Project/ViewportSizeSheet.swift`, yardımcı `Viewportix/Chrome/ChromeSymbol.swift`
+- Durum: özel çizim (AppKit, SF Symbol)
+- Tasarım kararı gerekir mi: hayır — eşleme ve boyut kuralı tasarımdan (DESIGN.md §4, 2026-10-13)
+- Bağlantılı: DESIGN.md §4 (İkonlar SF Symbols, SF Symbols boyutu); `KOD-OTURUMU-ISLERI.md` §14

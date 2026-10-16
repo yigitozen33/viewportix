@@ -34,7 +34,7 @@ struct ViewportSizeSheet: View {
             TextField("Genişlik", value: $editor.width, format: .number.grouping(.never))
             TextField("Yükseklik", value: $editor.height, format: .number.grouping(.never))
             HStack {
-                Button("Döndür", systemImage: "rotate.right") {
+                Button("Döndür", systemImage: "rectangle.portrait.rotate") {
                     (editor.width, editor.height) = (editor.height, editor.width)
                 }
                 Spacer()

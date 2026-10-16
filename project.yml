@@ -33,6 +33,8 @@ targets:
         product: WebKitEngine
       - package: ViewportixKit
         product: Capture
+      - package: ViewportixKit
+        product: DesignSystem
     info:
       path: Viewportix/Info.plist
       properties:
