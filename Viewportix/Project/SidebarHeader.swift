@@ -9,7 +9,8 @@ struct SidebarHeader: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: DesignTokens.Space.s1) {
-            Color.clear.frame(height: 48)
+            // The traffic lights' row; 16 pt in full screen, where there are none (§5.20 b).
+            Color.clear.frame(height: workspace.isFullScreen ? 16 : 48)
             AddressField(workspace: workspace)
             NavButtons(workspace: workspace, spacing: 14)
                 .padding(EdgeInsets(top: 6, leading: 8, bottom: 2, trailing: 8))

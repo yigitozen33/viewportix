@@ -7,6 +7,7 @@ struct ProjectWindow: View {
     @Binding var document: ProjectDocument
     @Environment(\.dismissWindow) private var dismissWindow
     @Environment(\.undoManager) private var undoManager
+    @Environment(\.openDocument) private var openDocument
     @State private var workspace: Workspace
     @State private var selectedPageID: Page.ID?
     /// CARD-06: the "Boyutu düzenle" popover under a card header.
@@ -45,6 +46,7 @@ struct ProjectWindow: View {
                     .transition(.move(edge: .trailing))
             }
         }
+        .onFullScreenChange { workspace.isFullScreen = $0 }
         .frame(minWidth: 1024, minHeight: 640)  // DESIGN.md §5.20 a
         .background(DesignTokens.Color.canvas)
         .ignoresSafeArea()
@@ -115,6 +117,34 @@ private extension ProjectWindow {
                 .padding(.top, DesignTokens.Space.s4)
             }
             .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { canvasWidth = $0 }
+            .onDrop(of: [.url, .fileURL], delegate: LinkDropDelegate(workspace: workspace, openDocument: openDocument))
+            .overlay {
+                // §5.20 g: a dragged link shows where it will open; dropping opens it in every viewport.
+                if let address = workspace.droppingAddress {
+                    ZStack {
+                        Rectangle()
+                            .strokeBorder(DesignTokens.Color.statusLeader, lineWidth: DesignTokens.Stroke.focus)
+                        HStack(spacing: 10) {
+                            ChromeSymbol("link", box: DesignTokens.Size.icon).foregroundStyle(DesignTokens.Color.statusLeader)
+                            Text("Bu adresi aç")
+                                .font(.system(size: DesignTokens.FontSize.label, weight: .semibold))
+                                .foregroundStyle(DesignTokens.Color.inkPrimary)
+                            Text(address)
+                                .font(.system(size: DesignTokens.FontSize.label))
+                                .foregroundStyle(DesignTokens.Color.inkSecondary)
+                                .lineLimit(1)
+                                .truncationMode(.middle)
+                        }
+                        .padding(EdgeInsets(top: 10, leading: 16, bottom: 10, trailing: 16))
+                        .background(DesignTokens.Color.surfaceHeader, in: .capsule)
+                        .overlay { Capsule().strokeBorder(DesignTokens.Color.statusLeader, lineWidth: DesignTokens.Stroke.hairline) }
+                        .frame(maxWidth: 420)
+                    }
+                    .allowsHitTesting(false)
+                    .transition(.opacity)
+                }
+            }
+            .animation(.linear(duration: DesignTokens.Motion.hover), value: workspace.droppingAddress)
             .overlay(alignment: .topLeading) {
                 if !workspace.isSidebarVisible {
                     CollapsedSidebarHeader(workspace: workspace)
@@ -293,4 +323,46 @@ struct ProjectActions {
 extension FocusedValues {
     @Entry var workspace: Workspace?
     @Entry var projectActions: ProjectActions?
+}
+
+/// Links dropped on the canvas open in every viewport (not added to the page list; ⌘D adds);
+/// `.viewportix` files open as projects.
+struct LinkDropDelegate: DropDelegate {
+    let workspace: Workspace
+    let openDocument: OpenDocumentAction
+
+    func dropEntered(info: DropInfo) {
+        workspace.droppingAddress = ""
+        guard let provider = info.itemProviders(for: [.url, .fileURL]).first else { return }
+        _ = provider.loadObject(ofClass: URL.self) { url, _ in
+            let text = url.map { $0.isFileURL ? $0.lastPathComponent : URLHistory.display($0) }
+            Task { @MainActor in
+                if workspace.droppingAddress != nil { workspace.droppingAddress = text ?? "" }
+            }
+        }
+    }
+
+    func dropExited(info: DropInfo) {
+        workspace.droppingAddress = nil
+    }
+
+    func validateDrop(info: DropInfo) -> Bool {
+        info.hasItemsConforming(to: [.url, .fileURL])
+    }
+
+    func performDrop(info: DropInfo) -> Bool {
+        workspace.droppingAddress = nil
+        guard let provider = info.itemProviders(for: [.url, .fileURL]).first else { return false }
+        _ = provider.loadObject(ofClass: URL.self) { url, _ in
+            guard let url else { return }
+            Task { @MainActor in
+                if url.isFileURL, url.pathExtension == "viewportix" {
+                    try? await openDocument(at: url)
+                } else if url.scheme == "http" || url.scheme == "https" || url.isFileURL {
+                    workspace.navigate(to: url)
+                }
+            }
+        }
+        return true
+    }
 }

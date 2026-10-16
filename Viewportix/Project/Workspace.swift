@@ -79,6 +79,9 @@ final class Workspace {
 
     // MARK: Window chrome
 
+    var isFullScreen = false
+    /// A link dragged over the window (§5.20 g): the address it would open, shown in a capsule.
+    var droppingAddress: String?
     /// Sidebar shown; when hidden its header moves to the capsule at the canvas's top left (SIDEBAR-06).
     var isSidebarVisible = true
     /// App-wide preference (SIDEBAR-08): 200–360, default 240.

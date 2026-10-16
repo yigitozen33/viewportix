@@ -64,3 +64,42 @@ private struct TrafficLightPlacer: NSViewRepresentable {
         }
     }
 }
+
+extension View {
+    /// Reports whether the window is in full screen (DESIGN.md §5.20 b: no traffic lights there,
+    /// the sidebar's 48 pt top row drops to 16).
+    func onFullScreenChange(_ action: @escaping (Bool) -> Void) -> some View {
+        background(FullScreenObserver(action: action))
+    }
+}
+
+private struct FullScreenObserver: NSViewRepresentable {
+    let action: (Bool) -> Void
+
+    func makeNSView(context: Context) -> ObserverView { ObserverView() }
+
+    func updateNSView(_ view: ObserverView, context: Context) {
+        view.action = action
+    }
+
+    final class ObserverView: NSView {
+        var action: ((Bool) -> Void)?
+        private var observers: [NSObjectProtocol] = []
+
+        override func viewDidMoveToWindow() {
+            super.viewDidMoveToWindow()
+            observers.forEach(NotificationCenter.default.removeObserver)
+            observers = []
+            guard let window else { return }
+            for name in [NSWindow.willEnterFullScreenNotification, NSWindow.didExitFullScreenNotification] {
+                let entering = name == NSWindow.willEnterFullScreenNotification
+                observers.append(NotificationCenter.default.addObserver(forName: name, object: window, queue: .main) { [weak self] _ in
+                    MainActor.assumeIsolated {
+                        self?.action?(entering)
+                    }
+                })
+            }
+            action?(window.styleMask.contains(.fullScreen))
+        }
+    }
+}

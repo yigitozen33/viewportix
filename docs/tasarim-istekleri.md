@@ -334,3 +334,11 @@ Kod oturumunun arayüze dokunan her değişikliği, değişikliğin commit'inde 
   3. Çok küçük zoom'larda (< %20) grup alanlarının ekran payı gruplar arası boşluğu aşıp üst üste binebilir.
 - Tasarım kararı gerekir mi: evet — 1
 - Bağlantılı: DESIGN.md §3.2 (PW-02, PW-03, STRIP-12), §4 (Gruplama, katlanmış grup), §5.20 i; `KOD-OTURUMU-ISLERI.md` §13
+
+## 2026-10-16 — Tam ekranda sidebar üst satırı, pencereye bağlantı bırakma (§5.20 b, g)
+- Ne: Tam ekranda (trafik ışıkları yok) sidebar'ın 48 pt'lik üst satırı 16 pt'ye iniyor. Canvas'a bir bağlantı sürüklenince 2 pt gök iç kenar ve ortada gök kenarlı kapsül "Bu adresi aç · marka.com/kampanya"; bırakınca adres tüm viewport'larda açılıyor (sayfa listesine eklenmiyor, ⌘D ekler). `.viewportix` dosyası bırakılırsa proje açılıyor.
+- Nerede: `Viewportix/Chrome/TrafficLights.swift` (`onFullScreenChange`), `Viewportix/Project/SidebarHeader.swift`, `ProjectWindow.swift` (`LinkDropDelegate`), `Workspace.swift`
+- Durum: özel çizim
+- Eksik / sapma: kapsülün çizimdeki ölçüleri spec'te yok (bileşen değil); bildirim kapsülüyle aynı ölçüler + gök kenar kullanıldı. Elle test gerekiyor.
+- Tasarım kararı gerekir mi: hayır
+- Bağlantılı: DESIGN.md §5.20 b, g; `KOD-OTURUMU-ISLERI.md` §13 "Küçük ayrıntılar"
