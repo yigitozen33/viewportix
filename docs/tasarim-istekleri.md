@@ -342,3 +342,14 @@ Kod oturumunun arayüze dokunan her değişikliği, değişikliğin commit'inde 
 - Eksik / sapma: kapsülün çizimdeki ölçüleri spec'te yok (bileşen değil); bildirim kapsülüyle aynı ölçüler + gök kenar kullanıldı. Elle test gerekiyor.
 - Tasarım kararı gerekir mi: hayır
 - Bağlantılı: DESIGN.md §5.20 b, g; `KOD-OTURUMU-ISLERI.md` §13 "Küçük ayrıntılar"
+
+## 2026-10-16 — parite: Proje penceresi (ikinci tur)
+- Ne: Proje penceresinin halleri dışa aktarımlarla aynı adla `docs/parity/`'de (@2x, sRGB, `Scripts/snapshots.sh`): `window-project-dark`, `-sidebar-collapsed`, `-rail-hidden`, `-device-picker`, `-settings-panel`, `-settings-devices`, `-settings-account`, `-many-devices`, `-groups`, `-groups-collapsed`, `card-load-errors`, `toast-states`. Giriş ekranı görüntüleri de güncellendi (⚙ artık etkin).
+- Bilinen farklar:
+  1. **Sayfa içeriği boş:** ekran dışı pencerede WKWebView çizilmiyor ve yükleme bitmiyor; kartlar koyu ve başlıkta yükleniyor göstergesi var. Kartların sayfa alanı için uygulamanın kendisine bakılmalı.
+  2. Trafik ışıkları görüntüde yok (kenarsız ekran dışı pencere).
+  3. Örnek proje tasarımdaki cihazlarla değil katalogdaki adlarla ("iPad Air 11"", "Masaüstü"); sayfa `sample-product.html` fixture'ı.
+  4. Kart sürükleme, hover şeridi, tooltip'ler, menüler ve bağlantı bırakma etkileşim gerektirdiği için görüntülerde yok.
+- Durum: özel çizim
+- Tasarım kararı gerekir mi: evet — karşılaştırma ve farklar `design/handoff/PARITY.md`'ye
+- Bağlantılı: `design/handoff/PLAN.md` aşama 8
