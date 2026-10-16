@@ -56,8 +56,8 @@ struct ZoomControl: View {
     }
 
     private var percentage: some View {
-        // Width reserved for a three-digit value so the bar does not jump while zooming. SF Pro sets
-        // "%100" at 34 pt where the design's Inter proxy is 32, so the bar is 212 wide, not 210.
+        // Tabular digits and a width reserved for a three-digit value keep the bar from jumping while
+        // zooming. Costs 2 pt: "%100" is 32 pt proportional (as in the design), 34 tabular.
         ZStack(alignment: .leading) {
             Text(Self.format(4)).hidden()
             Text(Self.format(zoom))

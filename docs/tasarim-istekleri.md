@@ -147,3 +147,16 @@ Kod oturumunun arayüze dokunan her değişikliği, değişikliğin commit'inde 
 - Durum: özel çizim
 - Tasarım kararı gerekir mi: evet — 1, 2, 3, 4, 6, 9 karar ister; diğerleri onay
 - Bağlantılı: `design/handoff/PLAN.md` aşama 3 kabulü; `KOD-OTURUMU-ISLERI.md` §14 "Deneme"
+
+## 2026-10-16 — iskelet: BottomBar (aşama 9) — kod kaynağı olarak işe yaramaz, ölçü kontrolü olarak işe yarar
+- Ne: Elle kurulan `BottomBar` (`Viewportix/Chrome/`, fe93bfd) ile `design/handoff/skeleton/BottomBar.swift` (+ `ChromeButton`, `ZoomControl`, `SkeletonSymbol`) karşılaştırıldı. İskelet `DesignTokens.swift` ile ayrı derlenip `ImageRenderer` ile aynı koşulda (@2x, 24 pt kenar, canvas zemini) çizildi, iki görüntü satır satır piksel taramasıyla kıyaslandı.
+- Kanıt: yatay taramada senkron düğmesi, Sığdır, zoom zemini ve renkler birebir; tek fark zoom metninden sonra 4 px (@2x) kayma. İskelet 210 × 49, elle kurulan 212 × 49. **Düzeltme** (önceki "spec: BottomBar" girdisi madde 2): fark SF Pro'dan değil, benim seçimimden — SF Pro'da "%100" orantılı rakamla 32 pt (tasarımla aynı), tabular rakamla 34 pt. Kodda zoom değiştikçe çubuk zıplamasın diye tabular rakam + üç haneli genişlik kullanılıyor; soru aynı kalıyor: 2 pt'lik sabitlik mi, 210 mu?
+- Değerlendirme:
+  - **Yerleşim kısmı:** iskelet doğru ve elle yazdığımla aynı sayılar, aynı token'lar. Ama bu kısım işin küçük bölümü; spec JSON'dan elle yazmak kısa sürdü ve aynı sonucu verdi (yukarıdaki piksel eşitliği), yani iskelet bir şey kazandırmadı.
+  - **Kullanılamayan kısımlar:** (1) durumlar tek enum (`senkronAcik`, `hoverTooltip`, `menuAcikZoom`): gerçekte senkron açık/kapalı, düğme hover'ı, basılı ve menü açık bağımsız; uygulamada hepsi ayrı değer. (2) Davranış yok: hover izleme, `ButtonStyle`, tık/sürükle ayrımı, basılı tutma tekrarı, menüler, VoiceOver, odak halkası — dosyanın büyük kısmı bunlar. (3) Parametreler katman verisi (`syncIcon: String?`, `syncIconSize`, `background`), anlam değil (`isSyncEnabled`, `zoom`); her metin ve ikon dışarı açılmış. (4) Ad çakışması: `public struct ChromeButton/ZoomControl` uygulamadaki adlarla aynı, yan yana derlenmez; "yeniden üret, düzenleme" kuralı yüzünden üstüne de yazılamaz. (5) Spec'te olmayan karar yok — iskelet spec'in eksiklerini (madde 3–9) göstermiyor, sessizce varsayılanla dolduruyor.
+  - **İşe yarayan kullanım:** ölçü kehaneti. İskelet ile uygulama görünümünü aynı koşulda çizip piksel karşılaştırmak, PNG'ye göre daha temiz bir parite kontrolü (aynı yazı tipi ve sembol motoru, tasarım vekili Inter yok). Katmanlı bileşenlerde (kart) iskelet bozuk çiziyor (`design/handoff/PLAN.md` aşama 9 notu), bu kullanım da akışlı bileşenlerle sınırlı.
+- Öneri: aşama 9'u kod kaynağı olarak ⛔; üreteç istenirse yalnız "ölçü kehaneti" olarak (önekli adlarla, ör. `SkeletonBottomBar`) sürsün. Spec'in kendisi (aşama 3) kurmaya yetti.
+- Nerede: `design/handoff/skeleton/`, `Viewportix/Chrome/`; tarama aracı geçici (scratchpad), görüntüler `Scripts/snapshots.sh` ile yeniden üretilir
+- Durum: —
+- Tasarım kararı gerekir mi: evet — aşama 9'un sonucu (⛔ / ölçü kehaneti olarak sürsün) ve 210 ↔ 212
+- Bağlantılı: `design/handoff/PLAN.md` aşama 9; `KOD-OTURUMU-ISLERI.md` §14 "İskelet denemesi"
