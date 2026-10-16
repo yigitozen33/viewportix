@@ -110,11 +110,17 @@ private extension ProjectWindow {
                 }
             }
             .overlay(alignment: .top) {
-                DeviceStrip(workspace: workspace, maxWidth: stripMaxWidth, remove: removeViewport,
-                            add: { addViewport(ViewportConfig(preset: $0)) },
-                            addCustom: { addViewport(ViewportConfig(name: "Özel", size: $0)) },
-                            collapsedGroups: document.project.canvas.collapsedGroups,
-                            openGroup: openGroup)
+                // Centred on the canvas while it fits; past the collapsed header capsule it moves
+                // right instead of overflowing early (found in the live app: "+6" with room to spare).
+                HStack(spacing: 0) {
+                    Spacer(minLength: stripLeadingRoom)
+                    DeviceStrip(workspace: workspace, maxWidth: stripMaxWidth, remove: removeViewport,
+                                add: { addViewport(ViewportConfig(preset: $0)) },
+                                addCustom: { addViewport(ViewportConfig(name: "Özel", size: $0)) },
+                                collapsedGroups: document.project.canvas.collapsedGroups,
+                                openGroup: openGroup)
+                    Spacer(minLength: Self.stripTrailingRoom)
+                }
                 .padding(.top, DesignTokens.Space.s4)
             }
             .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { canvasWidth = $0 }
@@ -175,9 +181,12 @@ private extension ProjectWindow {
     }
 
     /// The strip stays centred on the canvas and clear of the collapsed header capsule (16 + 396 + 16).
+    /// Room left of the strip: the collapsed header capsule takes the canvas's top left.
+    var stripLeadingRoom: CGFloat { workspace.isSidebarVisible ? Self.stripTrailingRoom : 428 }
+    static let stripTrailingRoom: CGFloat = 32
+
     var stripMaxWidth: CGFloat {
-        let side: CGFloat = workspace.isSidebarVisible ? 32 : 428
-        return max(canvasWidth - 2 * side, 200)
+        max(canvasWidth - stripLeadingRoom - Self.stripTrailingRoom, 200)
     }
 
     /// STRIP-08: the device joins the end of the canvas; the canvas fits (⌘1) once it is laid out.

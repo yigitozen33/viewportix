@@ -22,6 +22,10 @@ final class CanvasController: NSViewController {
     private var spaceHeld = false
     private var panStart: (mouse: NSPoint, origin: NSPoint)?
     private var needsInitialFit = true
+    /// Where the last ⌘1 left the canvas. While nobody zooms or pans away from it, the canvas fits
+    /// again when its size changes (window resize, sidebar or rail toggled); found in the live app:
+    /// cards stayed in the left corner with the sidebar hidden.
+    private var fitted: (origin: NSPoint, magnification: CGFloat, size: NSSize)?
 
     init(workspace: Workspace) {
         self.workspace = workspace
@@ -80,6 +84,8 @@ final class CanvasController: NSViewController {
         publishFrames()
         if needsInitialFit, !layout.isEmpty, scrollView.bounds.width > 0 {
             needsInitialFit = false
+            fit()
+        } else if let fitted, scrollView.bounds.size != fitted.size, isStill(at: fitted) {
             fit()
         }
     }
@@ -343,8 +349,19 @@ final class CanvasController: NSViewController {
     static let chromeInsets = NSEdgeInsets(top: 144, left: 0, bottom: 112, right: 0)
 
     /// Fits all cards between the strip and the bottom bar, centred horizontally, top-aligned.
+    /// The canvas is where the last fit left it, within 2 screen points (resizing nudges the
+    /// clip view by fractions of a point).
+    private func isStill(at fitted: (origin: NSPoint, magnification: CGFloat, size: NSSize)) -> Bool {
+        let magnification = scrollView.magnification
+        let origin = scrollView.contentView.bounds.origin
+        return abs(magnification - fitted.magnification) < 0.0005
+            && abs(origin.x - fitted.origin.x) * magnification < 2
+            && abs(origin.y - fitted.origin.y) * magnification < 2
+    }
+
     func fit() {
         fit(rect: documentView.bounds)
+        fitted = (scrollView.contentView.bounds.origin, scrollView.magnification, scrollView.bounds.size)
     }
 
     private func fit(rect: CGRect) {

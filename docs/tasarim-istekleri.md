@@ -393,3 +393,17 @@ Kod oturumunun arayüze dokunan her değişikliği, değişikliğin commit'inde 
   - Pencere boyutu değişince canvas yeniden sığdırılmıyor (zoom kalıyor, kartlar sağdan kesilebiliyor); Figma gibi bırakmak mı, kullanıcı zoom'a dokunmadıysa yeniden sığdırmak mı?
   - Sekiz cihazda tek sıra (§3.2) %15 zoom'a iniyor ve pencerenin altı boş kalıyor; çok cihazda satıra sarmak istenir mi?
 - Bağlantılı: DESIGN.md §3.2, §3.2.1, §5.20
+
+## 2026-10-16 — Canlı test düzeltmeleri (3. tur)
+- Ne:
+  1. **Canvas yeniden sığdırma (yapışkan ⌘1):** son işlem Sığdır (ya da açılıştaki otomatik sığdırma) ise ve sonra zoom/kaydırma yapılmadıysa, canvas'ın boyutu değişince (pencere, sidebar ⌃⌘S, ray ⌥⌘0) kartlar yeniden sığdırılıyor. Elle zoom ya da kaydırma yapıldıysa zoom korunuyor. Önce: sidebar kapanınca kartlar sol köşede kalıyor, pencere daralınca sağdan kesiliyordu (BAR-03, SIDEBAR-06). 2. turdaki "pencere boyutu değişince yeniden sığdırılmıyor" sorusunun yerine geçer; davranış beğenilmezse geri alınır.
+  2. **Sidebar kapalıyken cihaz şeridi erken taşıyordu** ("+6", sağda yer varken): şerit sol kapsülden kaçmak için iki yandan da 428 pt bırakıyordu. Şimdi sığdıkça canvas'a ortalı; sığmazsa kapsülün sağına kayarak genişliyor (STRIP-03, SIDEBAR-06).
+  3. **Ayarlar paneli erişilebilirliği:** anahtarların (Senkron açık başlasın, Taslakları sakla, medya duraklatma, Panoya da kopyala, Otomatik güncelle) ve seçicilerin (Dil, Varsayılan şablon, Klasör, Motor) VoiceOver adı yoktu; satır adları verildi (SETTINGS-01).
+- Doğrulanan (canlı): cihaz seçici aramaya "1024x768" + ⏎ ile özel cihaz ekleme, seçici açık kalıyor (STRIP-08); Esc ile kapanma; Ayarlar paneli (RAIL-01); tam ekrandan çıkışta trafik ışıkları.
+- Nerede: `Viewportix/Canvas/CanvasController.swift` (`fitted`, `isStill(at:)`), `Viewportix/Project/ProjectWindow.swift` (`stripLeadingRoom`), `Viewportix/Settings/SettingsPanel.swift`
+- Durum: özel çizim
+- Tasarım kararı gerekir mi: evet —
+  - Yapışkan sığdırma davranışı (yukarıda 1).
+  - Özel boyutla eklenen cihazlar hep "Özel" adını alıyor; iki özel cihaz şeritte ayırt edilemiyor (boyut yalnız tooltip'te). "Özel 1024×768" gibi bir ad mı?
+  - Kaydetme penceresinde yeni projenin önerilen adı "Adsız"; sitenin alan adı (ör. "localhost") ya da sayfa başlığı önerilsin mi?
+- Bağlantılı: DESIGN.md §3.2, §3.3, §5.20

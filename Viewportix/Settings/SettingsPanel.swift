@@ -172,6 +172,7 @@ private struct GeneralSettings: View {
                         if matches("Dil") {
                             SettingsRow(label: "Dil") {
                                 ChromeSelect(value: "Türkçe") { [.init(title: "Türkçe", isSelected: true) {}] }
+                                .accessibilityLabel("Dil")
                             }
                         }
                     }
@@ -185,18 +186,19 @@ private struct GeneralSettings: View {
                                         .init(title: item.title, isSelected: item == template, isEnabled: item.isAvailable) { template = item }
                                     }
                                 }
+                                .accessibilityLabel("Varsayılan şablon")
                             }
                         }
                         if matches("Senkron açık başlasın") {
-                            SettingsRow(label: "Senkron açık başlasın") { Toggle("", isOn: $syncOnStart).toggleStyle(ChromeToggleStyle()) }
+                            SettingsRow(label: "Senkron açık başlasın") { Toggle("", isOn: $syncOnStart).toggleStyle(ChromeToggleStyle()).accessibilityLabel("Senkron açık başlasın") }
                         }
                         if matches("Taslakları sakla") {
                             // Drafts are not stored yet; the switch shows the intended default.
-                            SettingsRow(label: "Taslakları sakla") { Toggle("", isOn: $keepDrafts).toggleStyle(ChromeToggleStyle()).disabled(true) }
+                            SettingsRow(label: "Taslakları sakla") { Toggle("", isOn: $keepDrafts).toggleStyle(ChromeToggleStyle()).disabled(true).accessibilityLabel("Taslakları sakla") }
                         }
                         if matches("Arka plandaki viewport'larda medyayı duraklat") {
                             SettingsRow(label: "Arka plandaki viewport'larda medyayı duraklat") {
-                                Toggle("", isOn: mediaBinding).toggleStyle(ChromeToggleStyle())
+                                Toggle("", isOn: mediaBinding).toggleStyle(ChromeToggleStyle()).accessibilityLabel("Arka plandaki viewport'larda medyayı duraklat")
                             }
                         }
                     }
@@ -215,10 +217,11 @@ private struct GeneralSettings: View {
                                         },
                                     ]
                                 }
+                                .accessibilityLabel("Klasör")
                             }
                         }
                         if matches("Panoya da kopyala") {
-                            SettingsRow(label: "Panoya da kopyala") { Toggle("", isOn: $copyScreenshot).toggleStyle(ChromeToggleStyle()) }
+                            SettingsRow(label: "Panoya da kopyala") { Toggle("", isOn: $copyScreenshot).toggleStyle(ChromeToggleStyle()).accessibilityLabel("Panoya da kopyala") }
                         }
                         if matches("Ölçek") {
                             SettingsRow(label: "Ölçek") { ChromeSegments(items: [(1, "1×"), (2, "2×")], selection: $scale) }
@@ -244,6 +247,7 @@ private struct GeneralSettings: View {
                                               isSelected: engine == .webKit, isEnabled: engine == .webKit) {}
                                     }
                                 }
+                                .accessibilityLabel("Motor")
                             }
                         }
                     }
@@ -555,7 +559,7 @@ private struct AccountSettings: View {
                         ChromeButton(icon: .system("arrow.clockwise"), title: "Denetle") {}.disabled(true)
                     }
                     SettingsRow(label: "Otomatik güncelle") {
-                        Toggle("", isOn: .constant(true)).toggleStyle(ChromeToggleStyle()).disabled(true)
+                        Toggle("", isOn: .constant(true)).toggleStyle(ChromeToggleStyle()).disabled(true).accessibilityLabel("Otomatik güncelle")
                     }
                 }
             }
