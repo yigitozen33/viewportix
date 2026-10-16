@@ -51,13 +51,13 @@ Sarı yalnızca bracket'lerde: arayüzdeki "sarı = eylem" kuralının logodaki 
 
 | Varyant | Nerede | Ne |
 |---|---|---|
-| Uygulama ikonu | Dock, Finder, Launchpad | Koyu karo + sarı bracket + krem Vx; Icon Composer `.icon` paketi, üç katman: `background` / `brackets` / `monogram` |
+| Uygulama ikonu | Dock, Finder, Launchpad | Koyu karo + sarı bracket + krem Vx; Icon Composer paketi `design/logo/Viewportix.icon`: düz zemin (`fill.solid` = `canvas`) + tek grup, iki katman `monogram` / `brackets` (glass kapalı, translucency kapalı, nötr gölge 0,5) |
 | Düz `.icns` yedeği | Icon Composer dışı araçlar, eski dağıtım yolları | Aynı tasarımın tek katmanlı `.iconset` → `.icns` (16–1024, 1x/2x) |
 | README logosu, koyu | GitHub koyu mod | Şeffaf zemin, sarı bracket + krem Vx |
 | README logosu, açık | GitHub açık mod | Şeffaf zemin, hardal bracket + koyu Vx (açık token'lar) |
 | Tek renkli glif | Menü çubuğu, favicon, template image | Bracket + Vx tek renk, `template` olarak işaretli; sistem rengi uygular |
 
-**Küçük boyut (karar, 2026-10-16: K1).** 16 ve 32 px'te "Vx" kaldırılır, yalnız dört bracket kalır; vizör motifi tek başına da logodur. Kollar piksel ızgarasına oturur: 16 px'te kenar boşluğu 2, kol 4, kalınlık 2 px (aralarında 4 px boşluk); 32 px'te hepsi iki katı. 1024 ızgarasında karşılığı: boşluk 128, kol 256, kalınlık 128. 64 px ve üstü tam monogram. Pano: `design/logo/small-size-options@2x.png` (betik `design/logo/make-small-options.swift`). Elenen: K2 bracket + tek "V" (16 px'te krem leke, bracket'ler bulanık), K3 değişmez (32 px'te "Vx" seçilmiyor, 16 px'te gri leke).
+**Küçük boyut (karar, 2026-10-16: K1).** 16 ve 32 px'te "Vx" kaldırılır, yalnız dört bracket kalır; vizör motifi tek başına da logodur. Kollar piksel ızgarasına oturur: 16 px'te kenar boşluğu 2, kol 4, kalınlık 2 px (aralarında 4 px boşluk); 32 px'te hepsi iki katı. 1024 ızgarasında karşılığı: boşluk 128, kol 256, kalınlık 128. 64 px ve üstü tam monogram. **Sınır:** Icon Composer paketi boyuta göre katman değiştiremez; macOS 26 `.icon`'u her boyutta tam monogramla küçültür (`out/icon-composer/macos-Default-16@2x.png`). K1 yalnız düz `.icns` yedeğinde ve bizim ürettiğimiz görsellerde geçerli. Pano: `design/logo/small-size-options@2x.png` (betik `design/logo/make-small-options.swift`). Elenen: K2 bracket + tek "V" (16 px'te krem leke, bracket'ler bulanık), K3 değişmez (32 px'te "Vx" seçilmiyor, 16 px'te gri leke).
 
 ## 6. Üretim yöntemi
 
@@ -66,13 +66,14 @@ Logo bir görsel modelle değil, **kodla** çizilir (yöntem Fox uygulamasından
 Araçlar: Swift betiği (CoreGraphics, Xcode gerekmez), `iconutil`; Icon Composer (`.icon` paketi, macOS 26). Betik ve çıktılar `design/logo/` altında (2026-10-16'da yazıldı ve çalıştırıldı):
 
 - `make-logo.sh` → `make-logo.swift` + `iconutil`; repo kökünden `sh design/logo/make-logo.sh`.
-- `out/background.png`, `out/brackets.png`, `out/monogram.png` — Icon Composer katmanları (1024, alfa; zemin tam kare, şekli sistem verir).
+- `out/background.png`, `out/brackets.png`, `out/monogram.png` — katman PNG'leri (1024, alfa).
+- `Viewportix.icon/` — Icon Composer paketi (`icon.json` + `Assets/`), betik üretir; Icon Composer'da açılır, Xcode 26 asset kataloğuna sürüklenir. `out/icon-composer/macos-*.png` — `ictool` ile sistemin render'ı (512/128/32/16, Default ve Dark).
 - `out/Viewportix.iconset/` + `out/Viewportix.icns` + `out/icon-1024.png` — düz yedek (köşe yarıçapı %22,37 yaklaşık squircle).
 - `out/logo-dark.png`, `out/logo-light.png` (512, şeffaf) + `out/README-picture.html` — README `<picture>` parçası.
 - `out/glyph-template@2x.png` — tek renk, siyah/şeffaf.
 - `out/check@2x.png` — 16–512 px kontrol panosu.
 
-Betik "Vx"i sistem fontundan (SF Pro Display Bold, tracking −0,05 em) path'e çevirir, token'ları JSON'dan okur, K1 kuralını 32 px ve altında uygular. Icon Composer paketi (`.icon`) henüz kurulmadı; katmanlar hazır.
+Betik "Vx"i sistem fontundan (SF Pro Display Bold, tracking −0,05 em) path'e çevirir, token'ları JSON'dan okur, K1 kuralını 32 px ve altında uygular. `icon.json` anahtarları Apple'ın yayımlamadığı bir şema; açık kaynak fixture'lardan alındı (giginet/apple-icon-composer-skill, ethbak/icon-composer-mcp) ve `ictool` ile doğrulandı.
 
 Doğrulama: `out/check@2x.png` ve `out/icon-1024.png` gözle açılır; 2026-10-16'da yapıldı, 16/32 yalnız bracket, 64+ tam monogram, açık varyant hardal + koyu mürekkep. Renkler `design/tokens/viewportix.tokens.json`'dan okunur; sabit hex yazılmaz.
 

@@ -146,6 +146,38 @@ let picture = """
 try! picture.write(to: outDir.appendingPathComponent("README-picture.html"), atomically: true, encoding: .utf8)
 files.append("README-picture.html")
 
+// 3b. Icon Composer package (design/logo/Viewportix.icon): solid canvas fill + one group, two image layers.
+// Format keys from open-source fixtures (giginet/apple-icon-composer-skill, ethbak/icon-composer-mcp); Apple publishes no schema.
+do {
+    let pkg = URL(fileURLWithPath: "design/logo/Viewportix.icon")
+    let assets = pkg.appendingPathComponent("Assets")
+    try? FileManager.default.removeItem(at: pkg)
+    try! FileManager.default.createDirectory(at: assets, withIntermediateDirectories: true)
+    for name in ["brackets.png", "monogram.png"] {
+        try! FileManager.default.copyItem(at: outDir.appendingPathComponent(name), to: assets.appendingPathComponent(name))
+    }
+    func iconColor(_ h: String) -> String {
+        let c = hex(h).components!
+        return String(format: "srgb:%.5f,%.5f,%.5f,1.00000", c[0], c[1], c[2])
+    }
+    let manifest: [String: Any] = [
+        "fill": ["solid": iconColor(tokenHex("canvas"))],
+        "groups": [[
+            "name": "Vizör",
+            "layers": [ // top first
+                ["image-name": "monogram.png", "name": "monogram", "glass": false],
+                ["image-name": "brackets.png", "name": "brackets", "glass": false],
+            ],
+            "shadow": ["kind": "neutral", "opacity": 0.5],
+            "translucency": ["enabled": false, "value": 0.5],
+        ]],
+        "supported-platforms": ["squares": "shared"],
+    ]
+    let data = try! JSONSerialization.data(withJSONObject: manifest, options: [.prettyPrinted, .sortedKeys])
+    try! data.write(to: pkg.appendingPathComponent("icon.json"))
+    files.append("../Viewportix.icon/ (icon.json + 2 assets)")
+}
+
 // 4. Single-color template glyph (black on transparent, 2x of 64 pt)
 let mono = Palette(tile: .black, brackets: .black, monogram: .black, names: "template")
 files.append(write(icon(px: 128, palette: mono, layers: [.brackets, .monogram]), "glyph-template@2x.png").lastPathComponent)

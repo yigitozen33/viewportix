@@ -1,0 +1,33 @@
+{
+  "fill" : {
+    "solid" : "srgb:0.08627,0.07843,0.07059,1.00000"
+  },
+  "groups" : [
+    {
+      "layers" : [
+        {
+          "glass" : false,
+          "image-name" : "monogram.png",
+          "name" : "monogram"
+        },
+        {
+          "glass" : false,
+          "image-name" : "brackets.png",
+          "name" : "brackets"
+        }
+      ],
+      "name" : "Vizör",
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.5
+      },
+      "translucency" : {
+        "enabled" : false,
+        "value" : 0.5
+      }
+    }
+  ],
+  "supported-platforms" : {
+    "squares" : "shared"
+  }
+}
