@@ -109,26 +109,21 @@ struct ProjectSidebar: View {
     }
 
     /// Page row context menu (`sidebar-page-context-menu@2x.png`).
-    private func menu(for page: Page) -> NSMenu {
+    private func menu(for page: Page) -> ChromeMenu {
         let index = pages.firstIndex(where: { $0.id == page.id }) ?? 0
-        let menu = NSMenu()
-        menu.autoenablesItems = false
-        menu.addItem(ActionMenuItem("Aç", key: "\r", modifiers: []) { selection = page.id })
-        menu.addItem(ActionMenuItem("Yeniden adlandır") { beginRename(page) })
-        menu.addItem(ActionMenuItem("URL'yi kopyala", key: "c", modifiers: [.command, .shift]) {
-            NSPasteboard.general.clearContents()
-            NSPasteboard.general.setString(page.url.absoluteString, forType: .string)
-        })
-        menu.addItem(.separator())
-        menu.addItem(ActionMenuItem("Yukarı taşı", key: String(UnicodeScalar(NSUpArrowFunctionKey)!), modifiers: [.command, .option],
-                                    isEnabled: index > 0) { move(page, by: -1) })
-        menu.addItem(ActionMenuItem("Aşağı taşı", key: String(UnicodeScalar(NSDownArrowFunctionKey)!), modifiers: [.command, .option],
-                                    isEnabled: index < pages.count - 1) { move(page, by: 1) })
-        menu.addItem(.separator())
-        let remove = ActionMenuItem("Kaldır", key: "\u{8}", modifiers: []) { self.remove(page) }
-        remove.attributedTitle = NSAttributedString(string: "Kaldır", attributes: [.foregroundColor: NSColor(DesignTokens.Color.statusWarning)])
-        menu.addItem(remove)
-        return menu
+        return ChromeMenu(style: .list, width: 220, items: [
+            .button("Aç", shortcut: "⏎") { selection = page.id },
+            .button("Yeniden adlandır", shortcut: "Çift tık") { beginRename(page) },
+            .button("URL'yi kopyala", shortcut: "⇧⌘C") {
+                NSPasteboard.general.clearContents()
+                NSPasteboard.general.setString(page.url.absoluteString, forType: .string)
+            },
+            .separator,
+            .button("Yukarı taşı", shortcut: "⌥⌘↑", isEnabled: index > 0) { move(page, by: -1) },
+            .button("Aşağı taşı", shortcut: "⌥⌘↓", isEnabled: index < pages.count - 1) { move(page, by: 1) },
+            .separator,
+            .button("Kaldır", shortcut: "⌫", role: .destructive) { remove(page) },
+        ])
     }
 }
 
@@ -143,7 +138,7 @@ struct SidebarRow: View {
     let beginRename: () -> Void
     let commitRename: () -> Void
     let cancelRename: () -> Void
-    let menu: () -> NSMenu
+    let menu: () -> ChromeMenu
 
     @State private var isHovered = false
     @State private var isMenuOpen = false
@@ -174,10 +169,9 @@ struct SidebarRow: View {
                         ChromeIconButton(symbol: "pencil", label: "Yeniden adlandır", box: 12, action: beginRename)
                         ChromeIconButton(symbol: "ellipsis", label: "Diğer", box: 12) {
                             isMenuOpen = true
-                            moreAnchor.popUpBelow(menu(), gap: 4)
-                            isMenuOpen = false
+                            moreAnchor.show(menu(), edge: .bottom, gap: 4) { isMenuOpen = false }
                         }
-                        .background(alignment: .bottomLeading) { MenuAnchorView(anchor: moreAnchor).frame(width: 0, height: 0) }
+                        .background(MenuAnchorView(anchor: moreAnchor))
                     }
                 } else if isSelected {
                     Circle().fill(DesignTokens.Color.inkPrimary).frame(width: 6, height: 6)

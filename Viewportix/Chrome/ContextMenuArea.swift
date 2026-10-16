@@ -2,16 +2,16 @@ import AppKit
 import SwiftUI
 
 extension View {
-    /// AppKit context menu on right-click / ⌃-click that also reports while it is open, so the target
-    /// can show its "context target" look (HOME-06). SwiftUI's `.contextMenu` reports neither.
-    func chromeContextMenu(isOpen: Binding<Bool>, menu: @escaping () -> NSMenu) -> some View {
+    /// Our context menu (`ChromeMenu`) on right-click / ⌃-click, top-left at the pointer; reports
+    /// while it is open, so the target can show its "context target" look (HOME-06).
+    func chromeContextMenu(isOpen: Binding<Bool>, menu: @escaping () -> ChromeMenu) -> some View {
         overlay(ContextMenuArea(isOpen: isOpen, makeMenu: menu))
     }
 }
 
 private struct ContextMenuArea: NSViewRepresentable {
     @Binding var isOpen: Bool
-    let makeMenu: () -> NSMenu
+    let makeMenu: () -> ChromeMenu
 
     func makeNSView(context: Context) -> ContextMenuView {
         ContextMenuView()
@@ -22,8 +22,8 @@ private struct ContextMenuArea: NSViewRepresentable {
         view.onOpenChange = { isOpen = $0 }
     }
 
-    final class ContextMenuView: NSView, NSMenuDelegate {
-        var makeMenu: (() -> NSMenu)?
+    final class ContextMenuView: NSView {
+        var makeMenu: (() -> ChromeMenu)?
         var onOpenChange: ((Bool) -> Void)?
 
         /// Only right-clicks (and ⌃-clicks) land here; everything else passes through to SwiftUI.
@@ -34,19 +34,18 @@ private struct ContextMenuArea: NSViewRepresentable {
             return isContextClick ? super.hitTest(point) : nil
         }
 
-        override func menu(for event: NSEvent) -> NSMenu? {
-            guard let menu = makeMenu?() else { return nil }
-            menu.delegate = self
-            return menu
-        }
+        override func rightMouseDown(with event: NSEvent) { present(event) }
 
-        override func mouseDown(with event: NSEvent) {
-            // ⌃-click arrives as a left click.
-            guard let menu = menu(for: event) else { return }
-            NSMenu.popUpContextMenu(menu, with: event, for: self)
-        }
+        /// ⌃-click arrives as a left click.
+        override func mouseDown(with event: NSEvent) { present(event) }
 
-        func menuWillOpen(_ menu: NSMenu) { onOpenChange?(true) }
-        func menuDidClose(_ menu: NSMenu) { onOpenChange?(false) }
+        private func present(_ event: NSEvent) {
+            guard let window, let menu = makeMenu?() else { return }
+            onOpenChange?(true)
+            let onOpenChange = onOpenChange
+            ChromeMenuPresenter.show(menu, in: window, placement: .at(event.locationInWindow)) {
+                onOpenChange?(false)
+            }
+        }
     }
 }

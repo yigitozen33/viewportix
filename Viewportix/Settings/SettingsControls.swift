@@ -54,17 +54,12 @@ struct ChromeSelect: View {
     var body: some View {
         Button {
             isOpen = true
-            DispatchQueue.main.async {
-                let menu = NSMenu()
-                menu.autoenablesItems = false
-                for option in options() {
-                    if option.title == "-" {
-                        menu.addItem(.separator())
-                    } else {
-                        menu.addItem(ActionMenuItem(option.title, isChecked: option.isSelected, isEnabled: option.isEnabled, action: option.action))
-                    }
-                }
-                anchor.popUpBelow(menu, gap: DesignTokens.Space.s1)
+            let items: [ChromeMenuItem] = options().map { option in
+                option.title == "-" ? .separator
+                    : .button(option.title, isChecked: option.isSelected, isEnabled: option.isEnabled, action: option.action)
+            }
+            // As wide as the field, a check on the current value.
+            anchor.show(ChromeMenu(width: 0, showsChecks: true, items: items), edge: .bottom, gap: DesignTokens.Space.s1) {
                 isOpen = false
             }
         } label: {
@@ -87,7 +82,7 @@ struct ChromeSelect: View {
             .contentShape(.rect)
         }
         .buttonStyle(.plain)
-        .background(alignment: .bottomLeading) { MenuAnchorView(anchor: anchor).frame(width: 0, height: 0) }
+        .background(MenuAnchorView(anchor: anchor))
         .chromeFocusRing(cornerRadius: DesignTokens.Radius.control)
         .accessibilityValue(value)
     }

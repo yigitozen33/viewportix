@@ -291,44 +291,41 @@ struct HomeView: View {
         store.relocate(summary.url, to: found)
     }
 
-    /// HOME-06, HOME-08: card and row context menu (also the ⋯ target).
-    private func menu(for summary: ProjectSummary) -> NSMenu {
+    /// HOME-06, HOME-08: card and row context menu (`window-home-context-menu@2x.png`); Kaldır opens
+    /// its submenu with a line under each choice, so there is no confirmation dialog.
+    private func menu(for summary: ProjectSummary) -> ChromeMenu {
         let url = summary.url
-        let menu = NSMenu()
-        menu.autoenablesItems = false
+        var items: [ChromeMenuItem] = []
         if summary.isMissing {
-            menu.addItem(ActionMenuItem("Bul…") { locate(summary) })
-            menu.addItem(.separator())
+            items += [.button("Bul…", symbol: "magnifyingglass") { locate(summary) }, .separator]
         } else {
-            menu.addItem(ActionMenuItem("Aç", key: "\r", modifiers: []) { open(summary) })
+            items.append(.button("Aç", symbol: "folder", shortcut: "↩") { open(summary) })
         }
-        // HOME-07 (in-place rename) is not built yet.
-        menu.addItem(ActionMenuItem("Yeniden adlandır", isEnabled: false) {})
-        menu.addItem(ActionMenuItem("Çoğalt", key: "d", isEnabled: !summary.isMissing) { try? store.duplicate(url) })
-        menu.addItem(.separator())
-        menu.addItem(ActionMenuItem("Finder'da göster", key: "r", modifiers: [.command, .shift], isEnabled: !summary.isMissing) {
-            NSWorkspace.shared.activateFileViewerSelecting([url])
-        })
-        menu.addItem(ActionMenuItem("Dosya yolunu kopyala") {
-            NSPasteboard.general.clearContents()
-            NSPasteboard.general.setString(url.path(percentEncoded: false), forType: .string)
-        })
-        menu.addItem(.separator())
-
-        let remove = NSMenuItem(title: "Kaldır", action: nil, keyEquivalent: "")
-        remove.attributedTitle = NSAttributedString(string: "Kaldır", attributes: [.foregroundColor: NSColor(DesignTokens.Color.statusWarning)])
-        let submenu = NSMenu()
-        let fromList = ActionMenuItem("Listeden kaldır", key: "\u{8}", modifiers: []) { store.removeFromList(url) }
-        fromList.subtitle = "Dosya diskte kalır"
-        submenu.addItem(fromList)
+        items += [
+            // HOME-07 (in-place rename) is not built yet.
+            .button("Yeniden adlandır", symbol: "pencil", shortcut: "⏎", isEnabled: false) {},
+            .button("Çoğalt", symbol: "doc.on.doc", shortcut: "⌘D", isEnabled: !summary.isMissing) { try? store.duplicate(url) },
+            .separator,
+            .button("Finder'da göster", symbol: "folder", shortcut: "⌘⇧R", isEnabled: !summary.isMissing) {
+                NSWorkspace.shared.activateFileViewerSelecting([url])
+            },
+            .button("Dosya yolunu kopyala", symbol: "link") {
+                NSPasteboard.general.clearContents()
+                NSPasteboard.general.setString(url.path(percentEncoded: false), forType: .string)
+            },
+            .separator,
+        ]
+        var remove: [ChromeMenuItem] = [
+            .button("Listeden kaldır", subtitle: "Dosya diskte kalır", symbol: "text.badge.xmark", shortcut: "⌫") {
+                store.removeFromList(url)
+            },
+        ]
         if !summary.isMissing {
-            let trash = ActionMenuItem("Çöp Sepeti'ne taşı", key: "\u{8}") { try? store.moveToTrash(url) }
-            trash.subtitle = "Finder'dan geri alınabilir"
-            submenu.addItem(trash)
+            remove.append(.button("Çöp Sepeti'ne taşı", subtitle: "Finder'dan geri alınabilir", symbol: "trash",
+                                  shortcut: "⌘⌫", role: .destructive) { try? store.moveToTrash(url) })
         }
-        remove.submenu = submenu
-        menu.addItem(remove)
-        return menu
+        items.append(.submenu("Kaldır", symbol: "trash", role: .destructive, ChromeMenu(width: 260, items: remove)))
+        return ChromeMenu(width: 220, items: items)
     }
 }
 

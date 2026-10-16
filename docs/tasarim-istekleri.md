@@ -407,3 +407,23 @@ Kod oturumunun arayüze dokunan her değişikliği, değişikliğin commit'inde 
   - Özel boyutla eklenen cihazlar hep "Özel" adını alıyor; iki özel cihaz şeritte ayırt edilemiyor (boyut yalnız tooltip'te). "Özel 1024×768" gibi bir ad mı?
   - Kaydetme penceresinde yeni projenin önerilen adı "Adsız"; sitenin alan adı (ör. "localhost") ya da sayfa başlığı önerilsin mi?
 - Bağlantılı: DESIGN.md §3.2, §3.3, §5.20
+
+## 2026-10-16 — Menüler tasarımdaki gibi (sistem menüsü yerine kendi çizimimiz)
+- Ne: Kullanıcı isteği: "sağ tık ve basınca çıkan menüler canvas'taki tasarım neyse öyle olsun". Bütün menüler sistem `NSMenu`'süydü (Liquid Glass, saydam, sistem satır ölçüleri). Hepsi tasarımdaki çerçevelerden okunan ölçülerle kendi çizimimiz oldu (`ChromeMenu`): opak `surface/header`, 12 pt köşe, `line` kenar, gölge `#00000066` 0/8/24; satırlar 8 pt köşe, üzerine gelince `surface/header-leader`; kısayollar sağda `ink/secondary` metin; Kaldır `status/warning`.
+  - Sayfa sağ tık menüsü (`Context Menu` xvKcu, `.list`: 13 pt, 5/10 dolgu, aralıklı ayraç; "Çift tık" ipucu).
+  - Kart sağ tık menüsü (`Card Context Menu` D4fduK, 240): ikonlar kalktı; "Motor · WebKit 26.6 ›" seçilmeyen bilgi satırı.
+  - Giriş ekranı bağlam menüsü (`Context Menu` pJ3Y2, 220, 14 pt ikonlar) ve Kaldır alt menüsü (`Remove Submenu` srq56, 260, iki satırlı seçenekler): alt menü tasarımdaki gibi ana menünün **solunda**, 4 pt boşlukla, son satırı tetikleyen satırla aynı hizada; solda yer yoksa sağda.
+  - Zoom menüsü (`Zoom Menu` CzmyR, 240): işaret sütunu, geçerli kademede ✓; "Seçimi sığdır ⌘2" artık çalışıyor (seçim yoksa pasif). Zoom kontrolüyle sola hizalı, çubuğun 8 pt üstünde.
+  - Ekran görüntüsü seçicisi (`Screenshot Chooser` OBkUO, 300): başlık, açıklamalı iki seçenek + kısayollar, altta ayar özeti satırı (tıklanınca Ayarlar › Genel). Kameranın sağ kenarıyla hizalı, çubuğun 8 pt üstünde.
+  - Kart kamerası seçicisi (`Card Screenshot Chooser` BG9Q3, 250): karta ortalı, başlığın 6 pt altında.
+  - Grup menüsü (`Menu` vcc5P, 200), Ayarlar seçicileri (Dil, Şablon, Klasör, Motor; tetikleyici genişliğinde, ✓) ve Ayarlar › Cihazlar satır menüsü aynı bileşenle.
+  - Klavye: ↑↓ (pasif satırları atlar), ⏎/boşluk seçer, → alt menüyü açar, ← kapatır, Esc kapatır; başka bir tuş menüyü kapatıp yoluna devam eder. Dışarı tık menüyü kapatır (sol tık tüketilir, sağ tık yeni menüyü açar). Seçicilerde ilk seçenek açılışta vurgulu (çizimlerdeki gibi).
+- Boyutu düzenle popover'ı da çizime göre yeniden ölçülendi (`Size Popover` emiiU): 10 pt etiketler, 6 pt köşeli kutular, 12 pt yazı, sayılar mono, G/Y alanları 90 pt, ⇄ `surface/card` kutuda, sınır ipucu mono 10 pt, "İptal" düz metin; kartın 20 pt içinden, başlığın 8 pt altından açılıyor. Açıkken diğer kartların kenar çizgileri artık üstünden geçmiyor (canlıda bulundu).
+- Kanıt: `docs/parity/menus@2x.png` (yan yana sekiz menü). Ölçü karşılaştırması (pt, kod / tasarım): sayfa 220×182 / 220×184, kart 240×170 / 240×171, giriş 220×201 / 220×202, zoom 240×293 / 240×295, grup 200×104 / 200×106, ekran görüntüsü seçicisi 300×157 / 300×169 (fark yazı satır yüksekliklerinden). Canlıda: sayfa, kart, giriş + alt menü, zoom, iki seçici, Ayarlar Klasör seçicisi açıldı; üzerine gelme, tıklama, klavye ve alt menüye geçiş denendi.
+- Nerede: `Viewportix/Chrome/ChromeMenu.swift` (model, çizim, `ChromeMenuPresenter`), `MenuAnchor.swift`, `ContextMenuArea.swift`, `BottomBar.swift`, `Viewportix/Canvas/CardChrome.swift`, `Viewportix/Project/ProjectSidebar.swift`, `Viewportix/Home/HomeView.swift`, `ProjectCard.swift`, `Viewportix/Settings/SettingsControls.swift`, `SettingsPanel.swift`
+- Durum: özel çizim
+- Tasarım kararı gerekir mi: evet —
+  - Alt menünün açıldığı taraf: çizimde solda; macOS'ta alt menüler sağa açılır. Çizime uyuldu; → tuşu yine alt menüyü açıyor.
+  - Ayarlar seçicilerinin ve Ayarlar › Cihazlar satır menüsünün çizimi yok; zoom menüsünün (✓ sütunu) ve standart menünün ölçüleri kullanıldı.
+  - Giriş ekranı kartındaki ⋯ hâlâ yalnız görüntü (tıklayınca kart açılıyor); menüyü ⋯'dan da açalım mı?
+- Bağlantılı: DESIGN.md §3.1 (HOME-06), §3.2 (BAR-03, BAR-06, CARD-04/05/06), §4 (Liquid Glass yok)

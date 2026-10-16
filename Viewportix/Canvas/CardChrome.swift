@@ -74,8 +74,9 @@ struct CardChromeLayer: View {
                         saveSize: saveSize
                     )
                     .offset(x: frame.minX, y: frame.minY - ViewportCardChrome.headerHeight)
-                    // Overlapping cards: the one last dragged is in front, chrome and page alike.
-                    .zIndex(workspace.frontCardID == config.id ? 1 : 0)
+                    // Overlapping cards: the one last dragged is in front, chrome and page alike; a card
+                    // with its size popover open is above every other card's chrome.
+                    .zIndex(editingSize?.viewportID == config.id ? 2 : workspace.frontCardID == config.id ? 1 : 0)
                 }
             }
         }
@@ -230,7 +231,8 @@ struct ViewportCardChrome: View {
                 } cancel: {
                     self.editor = nil
                 }
-                .offset(x: 0, y: Self.headerHeight + DesignTokens.Space.s2)
+                // `Size Popover`: 20 pt in from the card's left, 8 pt under its header.
+                .offset(x: 20, y: Self.headerHeight + DesignTokens.Space.s2)
                 .transition(.opacity.combined(with: .offset(y: -4)))
             }
         }
@@ -251,6 +253,7 @@ struct ViewportCardChrome: View {
             headerRow(showsSize: false, showsEngine: false, showsCamera: false)
         }
         .frame(width: pageSize.width, height: Self.headerHeight)
+        .background(MenuAnchorView(anchor: cameraAnchor))
         .background(state.isLeader ? DesignTokens.Color.surfaceHeaderLeader : DesignTokens.Color.surfaceHeader,
                     in: UnevenRoundedRectangle(topLeadingRadius: DesignTokens.Radius.card, topTrailingRadius: DesignTokens.Radius.card))
         .contentShape(.rect)
@@ -318,17 +321,14 @@ struct ViewportCardChrome: View {
         } else {
             Button {
                 isCameraOpen = true
-                DispatchQueue.main.async {
-                    cameraAnchor.popUpBelow(cameraMenu(), gap: 10)
-                    isCameraOpen = false
-                }
+                // `Card Screenshot Chooser`: centred on the card, 6 pt under its header.
+                cameraAnchor.show(cameraMenu(), edge: .bottom, alignment: .center, gap: 6) { isCameraOpen = false }
             } label: {
                 ChromeSymbol("camera", box: DesignTokens.Size.icon)
                     .foregroundStyle(cameraColor)
                     .contentShape(.rect)
             }
             .buttonStyle(.plain)
-            .background(alignment: .bottomLeading) { MenuAnchorView(anchor: cameraAnchor).frame(width: 0, height: 0) }
             .chromeTooltip("Ekran görüntüsü")
             .accessibilityLabel("Ekran görüntüsü al")
             .accessibilityHint("bu viewport")
@@ -358,35 +358,27 @@ struct ViewportCardChrome: View {
 
     // MARK: Menus
 
-    /// CARD-04: same chooser as the bottom bar, for this viewport only, under the camera.
-    private func cameraMenu() -> NSMenu {
-        let menu = NSMenu()
-        menu.addItem(.sectionHeader(title: "EKRAN GÖRÜNTÜSÜ · \(config.name)"))
-        menu.addItem(ActionMenuItem("Görünen alan", symbol: "viewfinder") { command(.capture(.visible)) })
-        menu.addItem(ActionMenuItem("Tam sayfa", symbol: "arrow.down.document") { command(.capture(.fullPage)) })
-        return menu
+    /// CARD-04: the bottom bar's chooser for this viewport only (`Card Screenshot Chooser`).
+    private func cameraMenu() -> ChromeMenu {
+        ChromeMenu(style: .chooser, width: 250, items: [
+            .header("EKRAN GÖRÜNTÜSÜ · \(config.name)"),
+            .button("Görünen alan", subtitle: "Ekrandaki kısım", symbol: "viewfinder") { command(.capture(.visible)) },
+            .button("Tam sayfa", subtitle: "Sayfanın tamamı", symbol: "arrow.down.document") { command(.capture(.fullPage)) },
+        ])
     }
 
-    /// CARD-05: Döndür ⌥⌘R · Boyutu düzenle… · Senkrondan çıkar · — · Motor › · — · Kaldır ⌫.
-    private func contextMenu() -> NSMenu {
-        let menu = NSMenu()
-        menu.autoenablesItems = false
-        menu.addItem(ActionMenuItem("Döndür", key: "r", modifiers: [.command, .option], symbol: "rectangle.portrait.rotate") { command(.rotate) })
-        menu.addItem(ActionMenuItem("Boyutu düzenle…") { command(.editSize) })
-        menu.addItem(ActionMenuItem(config.isSyncEnabled ? "Senkrondan çıkar" : "Senkrona kat") { command(.toggleSync) })
-        menu.addItem(.separator())
-        let engine = NSMenuItem(title: "Motor", action: nil, keyEquivalent: "")
-        let engines = NSMenu()
-        engines.autoenablesItems = false
-        engines.addItem(ActionMenuItem(engineTitle, isChecked: true, isEnabled: false) {})
-        engine.submenu = engines
-        engine.isEnabled = false  // engine switching arrives with Chromium (M4)
-        menu.addItem(engine)
-        menu.addItem(.separator())
-        let remove = ActionMenuItem("Kaldır", key: "\u{8}", modifiers: []) { command(.remove) }
-        remove.attributedTitle = NSAttributedString(string: "Kaldır", attributes: [.foregroundColor: NSColor(DesignTokens.Color.statusWarning)])
-        menu.addItem(remove)
-        return menu
+    /// CARD-05 (`Card Context Menu`): Döndür ⌥⌘R · Boyutu düzenle… · Senkrondan çıkar · — · Motor ·
+    /// — · Kaldır ⌫. Motor only shows the engine until switching arrives with Chromium (M4).
+    private func contextMenu() -> ChromeMenu {
+        ChromeMenu(width: 240, items: [
+            .button("Döndür", shortcut: "⌥⌘R") { command(.rotate) },
+            .button("Boyutu düzenle…") { command(.editSize) },
+            .button(config.isSyncEnabled ? "Senkrondan çıkar" : "Senkrona kat") { command(.toggleSync) },
+            .separator,
+            .info("Motor", value: "\(engineTitle) ›"),
+            .separator,
+            .button("Kaldır", shortcut: "⌫", role: .destructive) { command(.remove) },
+        ])
     }
 
     /// "WebKit 26.6" from "WebKit · Safari 26.6" (CARD-03).
@@ -481,29 +473,36 @@ struct SizeEditorPopover: View {
                 TextField("", text: $editor.name).focused($focused, equals: .name)
             }
             HStack(alignment: .bottom, spacing: DesignTokens.Space.s2) {
-                field("Genişlik", invalid: !ViewportSize.widthRange.contains(editor.width)) {
+                field("Genişlik", invalid: !ViewportSize.widthRange.contains(editor.width), isNumber: true) {
                     TextField("", value: $editor.width, format: .number.grouping(.never)).focused($focused, equals: .width)
                 }
+                .frame(width: 90)
                 Button {
                     (editor.width, editor.height) = (editor.height, editor.width)
                 } label: {
-                    ChromeSymbol("arrow.left.arrow.right", box: DesignTokens.Size.iconSm)
+                    // `Swap`: 13 pt icon on `surface/card`, 7 pt around.
+                    ChromeSymbol("arrow.left.arrow.right", box: 13)
                         .foregroundStyle(DesignTokens.Color.inkSecondary)
-                        .frame(width: 26, height: 28)
+                        .padding(7)
+                        .background(DesignTokens.Color.surfaceCard, in: .rect(cornerRadius: DesignTokens.Radius.badge))
                         .contentShape(.rect)
                 }
                 .buttonStyle(.plain)
                 .chromeTooltip("En ↔ boy")
-                field("Yükseklik", invalid: !ViewportSize.heightRange.contains(editor.height)) {
+                field("Yükseklik", invalid: !ViewportSize.heightRange.contains(editor.height), isNumber: true) {
                     TextField("", value: $editor.height, format: .number.grouping(.never)).focused($focused, equals: .height)
                 }
+                .frame(width: 90)
             }
             Text(verbatim: "\(ViewportSize.widthRange.lowerBound)–\(ViewportSize.widthRange.upperBound) × \(ViewportSize.heightRange.lowerBound)–\(ViewportSize.heightRange.upperBound) px")
-                .font(.system(size: DesignTokens.FontSize.caption))
+                .font(.system(size: DesignTokens.FontSize.micro, design: .monospaced))
                 .foregroundStyle(editor.isValid ? DesignTokens.Color.inkSecondary : DesignTokens.Color.statusWarning)
             HStack(spacing: DesignTokens.Space.s2) {
                 Spacer()
-                ChromeButton(icon: .system("xmark"), title: "İptal", action: cancel)
+                Button("İptal", action: cancel)
+                    .buttonStyle(.plain)
+                    .font(.system(size: DesignTokens.FontSize.label))
+                    .foregroundStyle(DesignTokens.Color.inkSecondary)
                     .keyboardShortcut(.cancelAction)
                 Button { save(editor) } label: {
                     Text("Kaydet")
@@ -520,24 +519,26 @@ struct SizeEditorPopover: View {
         }
         .padding(14)
         .frame(width: 270)
-        .chromeSurface()
+        .chromeSurface(shadowOpacity: 0.4, shadowRadius: 12)
         .onAppear { focused = .width }
         .onKeyPress(.escape) { cancel(); return .handled }
     }
 
-    private func field(_ label: String, invalid: Bool = false, @ViewBuilder content: () -> some View) -> some View {
+    /// `Field`: 10 pt label, 4 pt above a `surface/card` box (6 pt corners, 6/8 padding, 12 pt text;
+    /// numbers in mono).
+    private func field(_ label: String, invalid: Bool = false, isNumber: Bool = false, @ViewBuilder content: () -> some View) -> some View {
         VStack(alignment: .leading, spacing: DesignTokens.Space.s1) {
             Text(label)
-                .font(.system(size: DesignTokens.FontSize.caption))
+                .font(.system(size: DesignTokens.FontSize.micro))
                 .foregroundStyle(DesignTokens.Color.inkSecondary)
             content()
                 .textFieldStyle(.plain)
-                .font(.system(size: DesignTokens.FontSize.body).monospacedDigit())
+                .font(.system(size: DesignTokens.FontSize.label, design: isNumber ? .monospaced : .default))
                 .foregroundStyle(DesignTokens.Color.inkPrimary)
                 .padding(EdgeInsets(top: 6, leading: 8, bottom: 6, trailing: 8))
-                .background(DesignTokens.Color.surfaceCard, in: .rect(cornerRadius: DesignTokens.Radius.control))
+                .background(DesignTokens.Color.surfaceCard, in: .rect(cornerRadius: DesignTokens.Radius.badge))
                 .overlay {
-                    RoundedRectangle(cornerRadius: DesignTokens.Radius.control)
+                    RoundedRectangle(cornerRadius: DesignTokens.Radius.badge)
                         .strokeBorder(invalid ? DesignTokens.Color.statusWarning : DesignTokens.Color.line, lineWidth: DesignTokens.Stroke.hairline)
                 }
         }
@@ -759,10 +760,9 @@ struct GroupHeader: View {
             if isHovered || isMenuOpen {
                 ChromeIconButton(symbol: "ellipsis", label: "Grup", box: 14) {
                     isMenuOpen = true
-                    anchor.popUpBelow(menu(), gap: 4)
-                    isMenuOpen = false
+                    anchor.show(menu(), edge: .bottom, gap: 4) { isMenuOpen = false }
                 }
-                .background(alignment: .bottomLeading) { MenuAnchorView(anchor: anchor).frame(width: 0, height: 0) }
+                .background(MenuAnchorView(anchor: anchor))
             }
         }
         .padding(EdgeInsets(top: 10, leading: 14, bottom: 10, trailing: 14))
@@ -779,14 +779,13 @@ struct GroupHeader: View {
         .chromeContextMenu(isOpen: $isMenuOpen, menu: menu)
     }
 
-    private func menu() -> NSMenu {
-        let menu = NSMenu()
-        menu.addItem(ActionMenuItem(isCollapsed ? "Aç" : "Katla", action: toggle))
-        menu.addItem(ActionMenuItem("Grubu sığdır", action: fit))
-        menu.addItem(.separator())
-        let remove = ActionMenuItem("Gruptakileri kapat", action: close)
-        remove.attributedTitle = NSAttributedString(string: "Gruptakileri kapat", attributes: [.foregroundColor: NSColor(DesignTokens.Color.statusWarning)])
-        menu.addItem(remove)
-        return menu
+    /// Group menu (`Menu` beside the group header): Katla · Grubu sığdır · — · Gruptakileri kapat.
+    private func menu() -> ChromeMenu {
+        ChromeMenu(width: 200, items: [
+            .button(isCollapsed ? "Aç" : "Katla", action: toggle),
+            .button("Grubu sığdır", action: fit),
+            .separator,
+            .button("Gruptakileri kapat", role: .destructive, action: close),
+        ])
     }
 }

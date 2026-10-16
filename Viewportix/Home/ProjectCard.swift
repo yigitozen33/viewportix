@@ -10,7 +10,7 @@ struct ProjectCard: View {
     var isDraft = false
     /// Click / ⏎: opens the project, or "Bul…" when the file is missing.
     let action: () -> Void
-    let menu: () -> NSMenu
+    let menu: () -> ChromeMenu
     /// Snapshots only: draw the hover / context-target look without a pointer.
     var forcesHover = false
     var forcesMenuOpen = false
@@ -158,7 +158,7 @@ struct ProjectRow: View {
     let summary: ProjectSummary
     var isDraft = false
     let action: () -> Void
-    let menu: () -> NSMenu
+    let menu: () -> ChromeMenu
 
     @State private var isHovered = false
     @State private var isMenuOpen = false

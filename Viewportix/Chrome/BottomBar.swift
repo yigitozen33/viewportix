@@ -16,9 +16,8 @@ struct BottomBar: View {
     private enum OpenMenu { case zoom, screenshot }
 
     @State private var openMenu: OpenMenu?
-    @State private var menuAnchor = MenuAnchor()
-    @State private var zoomMinX: CGFloat = 0
-    @State private var cameraMinX: CGFloat = 0
+    @State private var zoomAnchor = MenuAnchor()
+    @State private var cameraAnchor = MenuAnchor()
 
     var body: some View {
         HStack(spacing: DesignTokens.Space.s2) {
@@ -37,13 +36,13 @@ struct BottomBar: View {
                 onScrub: { workspace.canvas?.setZoomPercent($0 * 100) },
                 onOpenMenu: { show(.zoom) }
             )
-            .onGeometryChange(for: CGFloat.self) { $0.frame(in: .named(Self.space)).minX } action: { zoomMinX = $0 }
+            .background(MenuAnchorView(anchor: zoomAnchor))
             .chromeTooltip("Yakınlaştırma")
 
             ChromeButton.iconOnly(.system("camera"), title: "Ekran görüntüsü al", isActive: openMenu == .screenshot) {
                 show(.screenshot)
             }
-            .onGeometryChange(for: CGFloat.self) { $0.frame(in: .named(Self.space)).minX } action: { cameraMinX = $0 }
+            .background(MenuAnchorView(anchor: cameraAnchor))
             .chromeTooltip("Ekran görüntüsü", shortcut: "⌥⌘S")
         }
         .padding(.vertical, DesignTokens.Space.s2)
@@ -53,59 +52,73 @@ struct BottomBar: View {
             RoundedRectangle(cornerRadius: DesignTokens.Radius.bar)
                 .strokeBorder(DesignTokens.Color.line, lineWidth: DesignTokens.Stroke.hairline)
         }
-        // Zero-size anchor at the bar's top-left: menus open above the bar's top edge.
-        .background(alignment: .topLeading) { MenuAnchorView(anchor: menuAnchor).frame(width: 0, height: 0) }
-        .coordinateSpace(.named(Self.space))
         .onChange(of: openMenu) { _, menu in isMenuOpen = menu != nil }
     }
 
-    private nonisolated static let space = "BottomBar"
-
-    /// Menus open above the bar, left-aligned with their trigger (BAR-03, BAR-06).
+    /// Menus open 8 pt above the bar (16 above the control: the bar's 8 pt padding), the zoom menu
+    /// lined up with the zoom control's left edge, the chooser with the camera's right edge
+    /// (`window-project-zoom-menu-open@2x.png`, `window-project-screenshot-menu@2x.png`; BAR-03, BAR-06).
     private func show(_ menu: OpenMenu) {
-        openMenu = menu
-        // Let the pressed look render before the menu's tracking loop takes over.
-        DispatchQueue.main.async {
-            switch menu {
-            case .zoom: menuAnchor.popUpAbove(zoomMenu(), x: zoomMinX, gap: DesignTokens.Space.s2)
-            case .screenshot: menuAnchor.popUpAbove(screenshotMenu(), x: cameraMinX, gap: DesignTokens.Space.s2)
-            }
+        if openMenu == menu {
             openMenu = nil
+            return
+        }
+        openMenu = menu
+        let gap = DesignTokens.Space.s2 * 2
+        switch menu {
+        case .zoom: zoomAnchor.show(zoomMenu(), edge: .top, gap: gap) { openMenu = nil }
+        case .screenshot: cameraAnchor.show(screenshotMenu(), edge: .top, alignment: .trailing, gap: gap) { openMenu = nil }
         }
     }
 
-    private func zoomMenu() -> NSMenu {
+    /// `Zoom Menu`: a check column, the current stop ticked.
+    private func zoomMenu() -> ChromeMenu {
         let canvas = workspace.canvas
-        let menu = NSMenu()
-        menu.autoenablesItems = false
-        menu.addItem(ActionMenuItem("Sığdır", key: "1") { canvas?.fit() })
-        menu.addItem(ActionMenuItem("Seçimi Sığdır", key: "2", isEnabled: false) {})  // no selection yet (CARD-02)
-        menu.addItem(.separator())
+        let workspace = workspace
+        var items: [ChromeMenuItem] = [
+            .button("Sığdır", shortcut: "⌘1") { canvas?.fit() },
+            .button("Seçimi sığdır", shortcut: "⌘2", isEnabled: workspace.selectedViewportID != nil) { workspace.fitSelection() },
+            .separator,
+        ]
         for percent in [25, 50, 100, 200] {
             let isCurrent = Int((workspace.zoom * 100).rounded()) == percent
-            menu.addItem(ActionMenuItem(ZoomControl.format(Double(percent) / 100), isChecked: isCurrent) {
+            items.append(.button(ZoomControl.format(Double(percent) / 100), isChecked: isCurrent) {
                 canvas?.setZoomPercent(Double(percent))
             })
         }
-        menu.addItem(.separator())
-        menu.addItem(ActionMenuItem("Gerçek Boyut", key: "0") { canvas?.actualSize() })
-        // "=" like the View menu: on a Turkish keyboard "+" shows as "⌘:".
-        menu.addItem(ActionMenuItem("Yakınlaştır", key: "=") { canvas?.zoomIn() })
-        menu.addItem(ActionMenuItem("Uzaklaştır", key: "-") { canvas?.zoomOut() })
-        return menu
+        items += [
+            .separator,
+            .button("Gerçek boyut", shortcut: "⌘0") { canvas?.actualSize() },
+            .button("Yakınlaştır", shortcut: "⌘+") { canvas?.zoomIn() },
+            .button("Uzaklaştır", shortcut: "⌘−") { canvas?.zoomOut() },
+        ]
+        return ChromeMenu(width: 240, showsChecks: true, items: items)
     }
 
-    private func screenshotMenu() -> NSMenu {
+    /// `Screenshot Chooser`: both areas for every viewport, the settings in one line underneath.
+    private func screenshotMenu() -> ChromeMenu {
         let workspace = workspace
-        let menu = NSMenu()
-        menu.addItem(.sectionHeader(title: "EKRAN GÖRÜNTÜSÜ · \(workspace.viewports.count) VIEWPORT"))
-        menu.addItem(ActionMenuItem("Görünen alan", key: "s", modifiers: [.command, .option], symbol: "viewfinder") {
-            Task { await workspace.captureAll(area: .visible) }
-        })
-        menu.addItem(ActionMenuItem("Tam sayfa", key: "s", modifiers: [.command, .option, .control], symbol: "arrow.down.document") {
-            Task { await workspace.captureAll(area: .fullPage) }
-        })
-        return menu
+        return ChromeMenu(style: .chooser, width: 300, items: [
+            .header("EKRAN GÖRÜNTÜSÜ · \(workspace.viewports.count) VIEWPORT"),
+            .button("Görünen alan", subtitle: "Her viewport'un şu an ekranda olan kısmı", symbol: "viewfinder", shortcut: "⌥⌘S") {
+                Task { await workspace.captureAll(area: .visible) }
+            },
+            .button("Tam sayfa", subtitle: "Her viewport'un sayfanın tamamı", symbol: "arrow.down.document", shortcut: "⌃⌥⌘S") {
+                Task { await workspace.captureAll(area: .fullPage) }
+            },
+            .separator,
+            .footer(Self.settingsSummary) {
+                withAnimation(.easeOut(duration: DesignTokens.Motion.panel)) { workspace.settingsTab = .general }
+            },
+        ])
+    }
+
+    /// "Panoya kopyala ✓ · 2× · ~/Pictures/Viewportix — Ayarlar'da".
+    static var settingsSummary: String {
+        let defaults = UserDefaults.standard
+        let copy = defaults.bool(forKey: AppSettings.copyScreenshot) ? "Panoya kopyala ✓" : "Panoya kopyalanmaz"
+        let folder = (AppSettings.screenshotFolderURL.path(percentEncoded: false) as NSString).abbreviatingWithTildeInPath
+        return "\(copy) · \(defaults.integer(forKey: AppSettings.screenshotScale))× · \(folder) — Ayarlar'da"
     }
 }
 

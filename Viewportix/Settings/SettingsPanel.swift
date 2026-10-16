@@ -424,10 +424,9 @@ private struct DeviceSettingsRow: View {
             if isHovered || isMenuOpen {
                 ChromeIconButton(symbol: "ellipsis", label: "Diğer") {
                     isMenuOpen = true
-                    anchor.popUpBelow(menu(), gap: 4)
-                    isMenuOpen = false
+                    anchor.show(menu(), edge: .bottom, gap: 4) { isMenuOpen = false }
                 }
-                .background(alignment: .bottomLeading) { MenuAnchorView(anchor: anchor).frame(width: 0, height: 0) }
+                .background(MenuAnchorView(anchor: anchor))
             }
             Toggle("", isOn: $isInPicker)
                 .toggleStyle(ChromeToggleStyle())
@@ -443,18 +442,15 @@ private struct DeviceSettingsRow: View {
         .transition(.opacity)
     }
 
-    private func menu() -> NSMenu {
-        let menu = NSMenu()
-        menu.autoenablesItems = false
-        menu.addItem(ActionMenuItem("Düzenle", isEnabled: isCustom, action: edit))
-        menu.addItem(ActionMenuItem("Çoğalt", action: duplicate))
+    private func menu() -> ChromeMenu {
+        var items: [ChromeMenuItem] = [
+            .button("Düzenle", isEnabled: isCustom, action: edit),
+            .button("Çoğalt", action: duplicate),
+        ]
         if isCustom {
-            menu.addItem(.separator())
-            let remove = ActionMenuItem("Sil", action: delete)
-            remove.attributedTitle = NSAttributedString(string: "Sil", attributes: [.foregroundColor: NSColor(DesignTokens.Color.statusWarning)])
-            menu.addItem(remove)
+            items += [.separator, .button("Sil", role: .destructive, action: delete)]
         }
-        return menu
+        return ChromeMenu(width: 180, items: items)
     }
 }
 
