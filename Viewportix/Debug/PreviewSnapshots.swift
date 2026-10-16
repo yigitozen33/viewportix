@@ -70,6 +70,7 @@ enum PreviewSnapshots {
             Entry("window-project-dark", size: projectSize, ProjectWindow(document: .constant(ProjectDocument(project: sampleProject)))),
             Entry("window-project-sidebar-collapsed", size: projectSize, ProjectWindow(document: .constant(ProjectDocument(project: sampleProject)), sidebarVisible: false)),
             Entry("window-project-rail-hidden", size: projectSize, ProjectWindow(document: .constant(ProjectDocument(project: sampleProject)), railVisible: false)),
+            Entry("window-project-device-picker", size: projectSize, ProjectWindow(document: .constant(ProjectDocument(project: sampleProject)), devicePickerOpen: true)),
             Entry("window-project-many-devices", size: projectSize, ProjectWindow(document: .constant(ProjectDocument(project: manyDevices)), sidebarVisible: false)),
         ]
     }

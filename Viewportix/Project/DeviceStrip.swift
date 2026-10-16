@@ -21,7 +21,8 @@ struct DeviceStrip: View {
     /// Widest the strip may get; tabs scroll beyond it.
     let maxWidth: CGFloat
     let remove: (ViewportID) -> Void
-    let addDevice: AddDeviceButton
+    let add: (DevicePreset) -> Void
+    let addCustom: (ViewportSize) -> Void
 
     @State private var tabFrames: [ViewportID: CGRect] = [:]
     @State private var scrollOffset: CGFloat = 0
@@ -61,13 +62,17 @@ struct DeviceStrip: View {
                                 close: remove,
                                 dismiss: { isMenuOpen = false }
                             )
-                            .alignmentGuide(.top) { $0[.top] - 35 }
+                            .offset(y: 27 + DesignTokens.Space.s2)
                             .transition(.opacity.combined(with: .offset(y: -4)))
                         }
                     }
                 }
             }
-            addDevice
+            ChromeButton(icon: .system("plus"), title: "Cihaz", isActive: workspace.isDevicePickerOpen) {
+                workspace.isDevicePickerOpen.toggle()
+            }
+            .chromeTooltip("Cihaz ekle", shortcut: "⌥⌘N", edge: .bottom)
+            .accessibilityLabel("Cihaz ekle")
         }
         .padding(DesignTokens.Space.s1)
         .background(DesignTokens.Color.surfaceHeader, in: .rect(cornerRadius: DesignTokens.Radius.card))
@@ -75,7 +80,25 @@ struct DeviceStrip: View {
             RoundedRectangle(cornerRadius: DesignTokens.Radius.card)
                 .strokeBorder(DesignTokens.Color.line, lineWidth: DesignTokens.Stroke.hairline)
         }
+        .overlay(alignment: .topTrailing) {
+            // STRIP-07: under "+ Cihaz", right-aligned with the strip, 8 pt below it.
+            if workspace.isDevicePickerOpen {
+                DevicePicker(
+                    viewports: workspace.viewports,
+                    add: add,
+                    addCustom: addCustom,
+                    reveal: { workspace.reveal($0) },
+                    dismiss: { workspace.isDevicePickerOpen = false }
+                )
+                .dismissOnOutsideClick(extra: EdgeInsets(top: 44, leading: 0, bottom: 0, trailing: 0)) {
+                    workspace.isDevicePickerOpen = false
+                }
+                .offset(y: Self.height + DesignTokens.Space.s2)
+                .transition(.opacity.combined(with: .offset(y: -4)))
+            }
+        }
         .animation(.easeOut(duration: DesignTokens.Motion.fast), value: isMenuOpen)
+        .animation(.easeOut(duration: DesignTokens.Motion.fast), value: workspace.isDevicePickerOpen)
         .onChange(of: hiddenIDs.isEmpty) { _, empty in if empty { isMenuOpen = false } }
     }
 
@@ -114,6 +137,8 @@ struct DeviceStrip: View {
     }
 
     private static let space = "DeviceStripTabs"
+    /// 27 pt tabs + 4 pt padding above and below.
+    static let height: CGFloat = 35
 
     /// Room for tabs: the strip's limit minus "+ Cihaz", the chip and the arrows.
     private var tabsMaxWidth: CGFloat {
@@ -308,9 +333,6 @@ private struct HiddenDevicesMenu: View {
     let close: (ViewportID) -> Void
     let dismiss: () -> Void
 
-    @State private var frame: CGRect = .zero
-    @State private var monitor: Any?
-
     var body: some View {
         VStack(alignment: .leading, spacing: 2) {
             Text("GİZLİ CİHAZLAR · tıkla: sekmeye kaydır")
@@ -332,9 +354,7 @@ private struct HiddenDevicesMenu: View {
         }
         .shadow(color: .black.opacity(0.4), radius: 12, y: 4)
         .fixedSize()
-        .onGeometryChange(for: CGRect.self) { $0.frame(in: .global) } action: { frame = $0 }
-        .onAppear(perform: watchOutsideClicks)
-        .onDisappear { if let monitor { NSEvent.removeMonitor(monitor) } }
+        .dismissOnOutsideClick(extra: EdgeInsets(top: 40, leading: 0, bottom: 0, trailing: 0), dismiss)
     }
 
     private func row(_ viewport: ViewportConfig, status: DeviceTabStatus) -> some View {
@@ -376,23 +396,6 @@ private struct HiddenDevicesMenu: View {
         case .normal: break
         }
         return parts.joined(separator: " · ")
-    }
-
-    private func watchOutsideClicks() {
-        monitor = NSEvent.addLocalMonitorForEvents(matching: [.leftMouseDown, .keyDown]) { event in
-            nonisolated(unsafe) let event = event
-            MainActor.assumeIsolated {
-                if event.type == .keyDown, event.keyCode == 53 {  // Esc
-                    dismiss()
-                } else if event.type == .leftMouseDown, let window = event.window {
-                    // Global SwiftUI frames are top-left based; AppKit's are bottom-left.
-                    let point = event.locationInWindow
-                    let flipped = CGPoint(x: point.x, y: window.contentLayoutRect.height - point.y)
-                    if !frame.insetBy(dx: -2, dy: -40).contains(flipped) { dismiss() }
-                }
-            }
-            return event
-        }
     }
 }
 

@@ -22,6 +22,8 @@ final class Workspace {
     private(set) var isLoading = false
     /// Viewports whose page is loading (tab and card spinners).
     private(set) var loadingIDs: Set<ViewportID> = []
+    /// Device picker popover under "+ Cihaz" (STRIP-07, ⌥⌘N).
+    var isDevicePickerOpen = false
     /// The selected card (CARD-02): target of tab clicks and per-viewport shortcuts.
     var selectedViewportID: ViewportID?
     /// Card under the pointer (page, header or hover strip): shows its hover strip.

@@ -264,3 +264,15 @@ Kod oturumunun arayüze dokunan her değişikliği, değişikliğin commit'inde 
   5. Hover şeridinin karta göre yatay konumu spec'te yok; PNG'den: sağ kenara 4 pt içeride.
 - Tasarım kararı gerekir mi: evet — 3 ve 5
 - Bağlantılı: DESIGN.md §3.2 (Viewport kartı, CARD-01…07), §4 (kart kararları); `KOD-OTURUMU-ISLERI.md` §8, §12 adım 5
+
+## 2026-10-16 — Cihaz seçici: STRIP-07…11 bitti
+- Ne: "+ Cihaz" ve ⌥⌘N (yeni menü maddesi Viewport › Cihaz Ekle…) `DevicePicker` popover'ını açıyor: şeridin 8 pt altında, sağ kenarına hizalı, 660 pt. Arama ("Cihaz ara ya da 1024×768 yaz", açılınca odakta; boyut yazıp ⏎ o boyutta özel cihaz ekler, tek eşleşmede ⏎ onu ekler), motor seçici (WebKit seçili; Chromium ve Firefox soluk "yakında"), SON çipleri (son eklenen 3 cihaz, uygulamaya ait), üç sütun TELEFON / TABLET / MASAÜSTÜ (başlıkta sayı, her sütun 186 pt'lik kendi penceresinde kayar, altı taşarsa solma), satır (tür ikonu, ad, boyut, "+" ya da ekliyse gök tik), alt satırda "Özel boyut" W / H + sarı "Ekle" (sınır dışında alan mercan kenar, Ekle pasif) ve "Cihazları yönet… ↗". Satıra tık cihazı ekler, popover açık kalır, canvas sığdırılır ve yeni kart seçilir; ekli satıra tık o karta kaydırır. Esc ya da dışarı tık kapatır.
+- Kalkanlar: "+ Cihaz" sistem menüsü ve "Özel Boyut…" sheet'i (`ViewportSizeSheet`) — yerlerini seçici aldı.
+- Nerede: `Viewportix/Project/DevicePicker.swift`, `DeviceStrip.swift`, `ProjectWindow.swift`, `Viewportix/Chrome/OutsideClick.swift`; paket `ProjectModel/DeviceSearch.swift` (`ViewportSize(parsing:)`, arama, son kullanılanlar + testler)
+- Durum: özel çizim (SwiftUI)
+- Eksik / sapma:
+  1. **Katalog tasarımdakinden kısa:** uygulamada 4 telefon, 3 tablet, 3 masaüstü var; çizimde Pixel 9, Galaxy S25, Galaxy Tab S10, MacBook Air, 4K gibi 19 cihaz. Kataloğa eklenecek liste tasarımdan mı gelsin? (Android cihazlar WebKit'te açılır; "gerçek cihaz" değil.)
+  2. **"Cihazları yönet…"** soluk ve pasif: Ayarlar › Cihazlar §12 adım 7 ile.
+  3. Satır hover zemini spec'te yok; `surface/card` kullanıldı.
+- Tasarım kararı gerekir mi: evet — 1 ve 3
+- Bağlantılı: DESIGN.md §3.2 (Cihaz seçici, STRIP-07…11), §4 (cihaz seçici kararı); `KOD-OTURUMU-ISLERI.md` §12 adım 6

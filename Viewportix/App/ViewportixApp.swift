@@ -80,6 +80,10 @@ struct ViewportixCommands: Commands {
         }
 
         CommandMenu("Viewport") {
+            Button("Cihaz Ekle…") { workspace?.isDevicePickerOpen = true }
+                .keyboardShortcut("n", modifiers: [.command, .option])
+                .disabled(workspace == nil)
+            Divider()
             Toggle("Senkron Açık", isOn: Binding(
                 get: { workspace?.isSyncEnabled ?? false },
                 set: { workspace?.isSyncEnabled = $0 }

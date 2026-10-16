@@ -9,19 +9,19 @@ struct ProjectWindow: View {
     @Environment(\.undoManager) private var undoManager
     @State private var workspace: Workspace
     @State private var selectedPageID: Page.ID?
-    @State private var sizeEditor: ViewportSizeEditor?
     /// CARD-06: the "Boyutu düzenle" popover under a card header.
     @State private var editingSize: ViewportSizeEditor?
     @State private var isBarMenuOpen = false
     @State private var isTooltipShown = false
     @State private var canvasWidth: CGFloat = 1000
 
-    init(document: Binding<ProjectDocument>, sidebarVisible: Bool = true, railVisible: Bool? = nil) {
+    init(document: Binding<ProjectDocument>, sidebarVisible: Bool = true, railVisible: Bool? = nil, devicePickerOpen: Bool = false) {
         _document = document
         _selectedPageID = State(initialValue: document.wrappedValue.project.selectedPageID)
         let workspace = Workspace()
         workspace.isSidebarVisible = sidebarVisible
         if let railVisible { workspace.isRailVisible = railVisible }
+        workspace.isDevicePickerOpen = devicePickerOpen
         _workspace = State(initialValue: workspace)
     }
 
@@ -48,9 +48,6 @@ struct ProjectWindow: View {
         .background(DesignTokens.Color.canvas)
         .ignoresSafeArea()
         .preferredColorScheme(.dark)
-        .sheet(item: $sizeEditor) { editor in
-            ViewportSizeSheet(editor: editor, onSave: save)
-        }
         .focusedSceneValue(\.workspace, workspace)
         .focusedSceneValue(\.projectActions, ProjectActions(addCurrentPage: addCurrentPage, selectPage: selectPage))
         .onAppear {
@@ -107,11 +104,9 @@ private extension ProjectWindow {
                 }
             }
             .overlay(alignment: .top) {
-                DeviceStrip(workspace: workspace, maxWidth: stripMaxWidth, remove: removeViewport, addDevice: AddDeviceButton { preset in
-                    document.project.viewports.append(ViewportConfig(preset: preset))
-                } onAddCustomSize: {
-                    sizeEditor = ViewportSizeEditor()
-                })
+                DeviceStrip(workspace: workspace, maxWidth: stripMaxWidth, remove: removeViewport,
+                            add: { addViewport(ViewportConfig(preset: $0)) },
+                            addCustom: { addViewport(ViewportConfig(name: "Özel", size: $0)) })
                 .padding(.top, DesignTokens.Space.s4)
             }
             .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { canvasWidth = $0 }
@@ -135,6 +130,15 @@ private extension ProjectWindow {
     var stripMaxWidth: CGFloat {
         let side: CGFloat = workspace.isSidebarVisible ? 32 : 428
         return max(canvasWidth - 2 * side, 200)
+    }
+
+    /// STRIP-08: the device joins the end of the canvas; the canvas fits (⌘1) once it is laid out.
+    func addViewport(_ config: ViewportConfig) {
+        withAnimation(.easeOut(duration: DesignTokens.Motion.panel)) { document.project.viewports.append(config) }
+        DispatchQueue.main.async {
+            workspace.canvas?.fit()
+            workspace.selectedViewportID = config.id
+        }
     }
 
     /// STRIP-02 / STRIP-06: the viewport closes; the others slide over. "iPad kapatıldı · Geri al"
@@ -202,13 +206,10 @@ private extension ProjectWindow {
     func save(_ editor: ViewportSizeEditor) {
         let size = ViewportSize(width: editor.width, height: editor.height)
         let name = editor.name.trimmingCharacters(in: .whitespaces)
-        if let id = editor.viewportID, let index = document.project.viewports.firstIndex(where: { $0.id == id }) {
-            withAnimation(.easeInOut(duration: DesignTokens.Motion.panel)) {
-                document.project.viewports[index].size = size
-                if !name.isEmpty { document.project.viewports[index].name = name }
-            }
-        } else {
-            document.project.viewports.append(ViewportConfig(name: name.isEmpty ? "Özel" : name, size: size))
+        guard let id = editor.viewportID, let index = document.project.viewports.firstIndex(where: { $0.id == id }) else { return }
+        withAnimation(.easeInOut(duration: DesignTokens.Motion.panel)) {
+            document.project.viewports[index].size = size
+            if !name.isEmpty { document.project.viewports[index].name = name }
         }
     }
 }
