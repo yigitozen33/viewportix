@@ -98,6 +98,9 @@ struct ViewportixCommands: Commands {
             Button("Cihaz Ekle…") { workspace?.isDevicePickerOpen = true }
                 .keyboardShortcut("n", modifiers: [.command, .option])
                 .disabled(workspace == nil)
+            // No shortcut: ⌥⌘D is the system's Dock shortcut (DESIGN.md §3.2.1).
+            Button("Kartları Diz") { projectActions?.arrangeCards() }
+                .disabled(projectActions == nil)
             Divider()
             Toggle("Senkron Açık", isOn: Binding(
                 get: { workspace?.isSyncEnabled ?? false },

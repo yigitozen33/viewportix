@@ -32,6 +32,9 @@ final class Workspace {
     var settingsTab: SettingsTab?
     /// The selected card (CARD-02): target of tab clicks and per-viewport shortcuts.
     var selectedViewportID: ViewportID?
+    /// The card being dragged by its header (CARD-08) and the alignment guides to draw (screen points).
+    var draggingID: ViewportID?
+    var dragGuides: [(from: CGPoint, to: CGPoint)] = []
     /// Card under the pointer (page, header or hover strip): shows its hover strip.
     private(set) var hoveredViewportID: ViewportID?
     /// Page areas of the cards on screen (canvas coordinates, top-left origin), from the canvas.

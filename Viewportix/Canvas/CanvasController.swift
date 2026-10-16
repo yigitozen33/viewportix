@@ -12,15 +12,12 @@ import SwiftUI
 /// - Space + drag pans the canvas, unless a web page has keyboard focus
 @MainActor
 final class CanvasController: NSViewController {
-    private static let margin: CGFloat = 64
-    private static let gap: CGFloat = 48
-
     private let workspace: Workspace
     private let scrollView = NSScrollView()
     private let documentView = CanvasDocumentView()
     private var cards: [ViewportID: ViewportCardView] = [:]
-    private var order: [ViewportID] = []
-    private var layoutSizes: [ViewportSize] = []
+    private var layout: [ViewportConfig] = []
+    private var drag: (id: ViewportID, start: NSPoint)?
     private var monitor: Any?
     private var spaceHeld = false
     private var panStart: (mouse: NSPoint, origin: NSPoint)?
@@ -81,7 +78,7 @@ final class CanvasController: NSViewController {
     override func viewDidLayout() {
         super.viewDidLayout()
         publishFrames()
-        if needsInitialFit, !order.isEmpty, scrollView.bounds.width > 0 {
+        if needsInitialFit, !layout.isEmpty, scrollView.bounds.width > 0 {
             needsInitialFit = false
             fit()
         }
@@ -100,11 +97,14 @@ final class CanvasController: NSViewController {
             let card = cards[config.id] ?? makeCard(id: config.id, content: session.view)
             card.configure(size: config.size)
         }
-        let sizes = viewports.map(\.size)
-        if ids != order || sizes != layoutSizes {
-            order = ids
-            layoutSizes = sizes
-            layoutCards()
+        // Relayout when order, sizes or saved positions change (not for name or sync toggles).
+        let changed = viewports.map(\.id) != layout.map(\.id)
+            || viewports.map(\.size) != layout.map(\.size)
+            || viewports.map(\.position) != layout.map(\.position)
+        if changed, drag == nil {
+            let rearranged = !layout.isEmpty && viewports.allSatisfy { $0.position == nil } && layout.contains { $0.position != nil }
+            layout = viewports
+            layoutCards(animated: rearranged)
         }
     }
 
@@ -130,19 +130,74 @@ final class CanvasController: NSViewController {
         if frames != workspace.cardFrames { workspace.cardFrames = frames }
     }
 
-    /// One row, top-aligned. Free placement and grouping come in M3.
-    private func layoutCards() {
-        var x = Self.margin
-        var maxHeight: CGFloat = 0
-        for id in order {
-            guard let card = cards[id] else { continue }
-            card.setFrameOrigin(NSPoint(x: x, y: Self.margin))
-            x += card.frame.width + Self.gap
-            maxHeight = max(maxHeight, card.frame.height)
+    /// Dragged cards keep their place, the others line up in a row (`CanvasLayout`). "Kartları Diz"
+    /// (positions cleared) animates back to the row (PW-01, 250 ms).
+    private func layoutCards(animated: Bool = false) {
+        let frames = CanvasLayout.frames(for: layout)
+        NSAnimationContext.runAnimationGroup { context in
+            context.duration = animated ? 0.25 : 0
+            context.allowsImplicitAnimation = animated
+            for (id, frame) in frames {
+                guard let card = cards[id] else { continue }
+                if animated { card.animator().setFrameOrigin(frame.origin) } else { card.setFrameOrigin(frame.origin) }
+            }
+        } completionHandler: { [weak self] in
+            MainActor.assumeIsolated { self?.publishFrames() }
         }
-        let width = order.isEmpty ? 0 : x - Self.gap + Self.margin
-        documentView.setFrameSize(NSSize(width: width, height: maxHeight + 2 * Self.margin))
+        let bounds = frames.values.reduce(CGRect.null) { $0.union($1) }
+        let size = bounds.isNull ? .zero : NSSize(width: bounds.maxX + CanvasLayout.margin, height: bounds.maxY + CanvasLayout.margin)
+        documentView.setFrameSize(size)
         publishFrames()
+    }
+
+    // MARK: Dragging (CARD-08, CARD-09)
+
+    func beginDrag(_ id: ViewportID) {
+        guard let card = cards[id] else { return }
+        drag = (id, card.frame.origin)
+    }
+
+    /// Moves the card by a screen-point translation from where the drag began; snaps to the other
+    /// cards' edges and centres within 6 screen px unless ⌥ is held. Returns guides in screen points.
+    func dragCard(by translation: CGSize, snapping: Bool) -> [CanvasLayout.Guide] {
+        guard let drag, let card = cards[drag.id] else { return [] }
+        let magnification = scrollView.magnification
+        var origin = NSPoint(x: max(drag.start.x + translation.width / magnification, 0),
+                             y: max(drag.start.y + translation.height / magnification, 0))
+        var guides: [CanvasLayout.Guide] = []
+        if snapping {
+            let others = cards.filter { $0.key != drag.id }.map(\.value.frame)
+            let snapped = CanvasLayout.snap(CGRect(origin: origin, size: card.frame.size), to: others, threshold: 6 / magnification)
+            origin = snapped.origin
+            guides = snapped.guides
+        }
+        card.setFrameOrigin(origin)
+        let maxPoint = NSPoint(x: max(documentView.frame.width, card.frame.maxX + CanvasLayout.margin),
+                               y: max(documentView.frame.height, card.frame.maxY + CanvasLayout.margin))
+        documentView.setFrameSize(NSSize(width: maxPoint.x, height: maxPoint.y))
+        publishFrames()
+        return guides
+    }
+
+    /// Ends the drag and returns every card's origin, to be saved as positions (the layout is pinned
+    /// once a card has been moved by hand).
+    func endDrag() -> [ViewportID: CanvasPoint] {
+        drag = nil
+        return cards.mapValues { CanvasPoint(x: $0.frame.minX, y: $0.frame.minY) }
+    }
+
+    /// Converts a document-space guide to screen points for the chrome layer.
+    func screenGuide(_ guide: CanvasLayout.Guide) -> (from: CGPoint, to: CGPoint) {
+        func screen(_ point: NSPoint) -> CGPoint {
+            let converted = scrollView.convert(point, from: documentView)
+            return CGPoint(x: converted.x, y: scrollView.isFlipped ? converted.y : scrollView.bounds.height - converted.y)
+        }
+        switch guide.axis {
+        case .vertical:
+            return (screen(NSPoint(x: guide.position, y: guide.start)), screen(NSPoint(x: guide.position, y: guide.end)))
+        case .horizontal:
+            return (screen(NSPoint(x: guide.start, y: guide.position)), screen(NSPoint(x: guide.end, y: guide.position)))
+        }
     }
 
     /// Pans so the card is centred horizontally and its top shows below the strip (250 ms ease-out).

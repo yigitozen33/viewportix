@@ -61,6 +61,9 @@ public struct ViewportConfig: Identifiable, Codable, Hashable, Sendable {
     public var presetID: String?
     /// When false the viewport neither leads nor follows sync (explicit page loads still reach it).
     public var isSyncEnabled: Bool
+    /// Top-left of the page area on the canvas, in CSS px, once the user dragged cards (CARD-08);
+    /// nil means automatic placement (Kartları Diz clears it).
+    public var position: CanvasPoint?
 
     public init(
         id: ViewportID = ViewportID(),
@@ -68,7 +71,8 @@ public struct ViewportConfig: Identifiable, Codable, Hashable, Sendable {
         size: ViewportSize,
         engine: EngineKind = .webKit,
         presetID: String? = nil,
-        isSyncEnabled: Bool = true
+        isSyncEnabled: Bool = true,
+        position: CanvasPoint? = nil
     ) {
         self.id = id
         self.name = name
@@ -76,10 +80,11 @@ public struct ViewportConfig: Identifiable, Codable, Hashable, Sendable {
         self.engine = engine
         self.presetID = presetID
         self.isSyncEnabled = isSyncEnabled
+        self.position = position
     }
 
     private enum CodingKeys: String, CodingKey {
-        case id, name, size, engine, presetID, isSyncEnabled
+        case id, name, size, engine, presetID, isSyncEnabled, position
     }
 
     /// Fields added after schema version 1 decode with defaults, so older files still open.
@@ -91,6 +96,7 @@ public struct ViewportConfig: Identifiable, Codable, Hashable, Sendable {
         engine = try container.decode(EngineKind.self, forKey: .engine)
         presetID = try container.decodeIfPresent(String.self, forKey: .presetID)
         isSyncEnabled = try container.decodeIfPresent(Bool.self, forKey: .isSyncEnabled) ?? true
+        position = try container.decodeIfPresent(CanvasPoint.self, forKey: .position)
     }
 
     public init(preset: DevicePreset, engine: EngineKind = .webKit) {

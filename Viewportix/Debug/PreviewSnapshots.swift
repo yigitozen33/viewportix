@@ -52,6 +52,15 @@ enum PreviewSnapshots {
         }
     }
 
+    /// Cards placed by hand: the desktop under the phone, the tablet to the right.
+    private static var positioned: Project {
+        var project = sampleProject
+        project.viewports[0].position = CanvasPoint(x: 64, y: 64)
+        project.viewports[1].position = CanvasPoint(x: 1600, y: 64)
+        project.viewports[2].position = CanvasPoint(x: 64, y: 1100)
+        return project
+    }
+
     private static var manyDevices: Project {
         var project = sampleProject
         project.viewports = ProjectTemplate.fullMatrix.viewports
@@ -93,6 +102,7 @@ enum PreviewSnapshots {
             Entry("window-project-settings-devices", size: projectSize, ProjectWindow(document: .constant(ProjectDocument(project: sampleProject)), railVisible: true, settingsTab: .devices)),
             Entry("window-project-settings-account", size: projectSize, ProjectWindow(document: .constant(ProjectDocument(project: sampleProject)), railVisible: true, settingsTab: .account)),
             Entry("card-load-errors", padded(loadErrors)),
+            Entry("window-project-positioned", size: projectSize, ProjectWindow(document: .constant(ProjectDocument(project: positioned)))),
             Entry("window-project-many-devices", size: projectSize, ProjectWindow(document: .constant(ProjectDocument(project: manyDevices)), sidebarVisible: false)),
         ]
     }

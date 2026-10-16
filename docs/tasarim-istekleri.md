@@ -312,3 +312,14 @@ Kod oturumunun arayüze dokunan her değişikliği, değişikliğin commit'inde 
   3. Ağ hatası dışındaki tanınmayan hatalar (ör. WebKit'in kendi kodları) ağ hatası görünümüyle, kendi koduyla gösteriliyor.
 - Tasarım kararı gerekir mi: evet — 1 ve 2
 - Bağlantılı: DESIGN.md §3.2 (CARD-10…12, PW-04), §4 (Sayfa yüklenemedi halleri); `KOD-OTURUMU-ISLERI.md` §13
+
+## 2026-10-16 — Kartı sürükleme ve Kartları Diz: CARD-08, CARD-09, PW-01 bitti (eşit aralık rozetleri hariç)
+- Ne: Kart başlığından tutup sürükleyince kart kalkıyor (2 pt gök kenar + #000000AA gölge, y 18, blur 40), hover şeridi gizleniyor, imleç kapalı el; başka kartların kenar ve merkezlerine 6 ekran pikselinden yakınsa yapışıyor ve 1 pt gök hizalama çizgisi çiziliyor; ⌥ basılıyken yapışma ve çizgiler kapalı. Bırakınca tüm kartların konumu projeye yazılıyor (yeniden açınca aynı yerde). Sürüklenen kart seçili oluyor. Yeni eklenen cihazlar konumlu kartların sağına diziliyor. Viewport › Kartları Diz (kısayolsuz) otomatik tek sıraya 250 ms'de döndürüyor.
+- Nerede: `Viewportix/Canvas/CardChrome.swift` (başlık sürükleme, hizalama çizgileri), `CanvasController.swift` (`beginDrag` / `dragCard` / `endDrag`, konumlu yerleşim), `Viewportix/Project/ProjectWindow.swift`, `Viewportix/App/ViewportixApp.swift`; paket `ProjectModel/CanvasLayout.swift` (`CanvasPoint`, yerleşim, yapışma), `ViewportConfig.position` (eski dosyalarda yok sayılır) + testler
+- Durum: özel çizim
+- Eksik / sapma:
+  1. **Eşit aralık rozetleri** (iki kart arasındaki boşluk diğerine eşitken gök rozet + px) yok; yalnız kenar/merkez hizalaması var.
+  2. Kartlar canvas'ın sol/üst sınırının (0) ötesine sürüklenemiyor.
+  3. Elle test gerekiyor (sürükleme etkileşimi ekran dışı çizimle doğrulanamıyor).
+- Tasarım kararı gerekir mi: hayır (1 tasarımda var, kodda eksik)
+- Bağlantılı: DESIGN.md §3.2 (CARD-08, CARD-09, PW-01), §4 (Kartı elle sürükleme); `KOD-OTURUMU-ISLERI.md` §13

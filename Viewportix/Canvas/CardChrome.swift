@@ -10,6 +10,8 @@ import SwiftUI
 struct CardChromeLayer: View {
     @Bindable var workspace: Workspace
     let command: (ViewportID, ViewportCommand) -> Void
+    /// Saves card positions after a drag (the whole layout is pinned once a card was moved).
+    let savePositions: ([ViewportID: CanvasPoint]) -> Void
     let saveSize: (ViewportSizeEditor) -> Void
     @Binding var editingSize: ViewportSizeEditor?
 
@@ -27,6 +29,7 @@ struct CardChromeLayer: View {
                         select: { workspace.selectedViewportID = config.id },
                         command: { command(config.id, $0) },
                         failureAction: { handle($0, for: config.id) },
+                        drag: { dragged(config.id, $0) },
                         editor: editorBinding(for: config.id),
                         saveSize: saveSize
                     )
@@ -34,8 +37,40 @@ struct CardChromeLayer: View {
                 }
             }
         }
+        .overlay {
+            // CARD-08: sky alignment guides while dragging.
+            Canvas { context, _ in
+                for guide in workspace.dragGuides {
+                    var path = Path()
+                    path.move(to: guide.from)
+                    path.addLine(to: guide.to)
+                    context.stroke(path, with: .color(DesignTokens.Color.statusLeader), lineWidth: 1)
+                }
+            }
+            .allowsHitTesting(false)
+        }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .clipped()
+    }
+
+    /// Drag phases from a card header; nil translation ends the drag.
+    private func dragged(_ id: ViewportID, _ translation: CGSize?) {
+        guard let canvas = workspace.canvas else { return }
+        guard let translation else {
+            let positions = canvas.endDrag()
+            workspace.draggingID = nil
+            workspace.dragGuides = []
+            savePositions(positions)
+            return
+        }
+        if workspace.draggingID != id {
+            workspace.draggingID = id
+            workspace.selectedViewportID = id
+            canvas.beginDrag(id)
+        }
+        // CARD-09: ⌥ turns alignment and snapping off.
+        let snapping = !NSEvent.modifierFlags.contains(.option)
+        workspace.dragGuides = canvas.dragCard(by: translation, snapping: snapping).map(canvas.screenGuide)
     }
 
     private func handle(_ action: ViewportCardChrome.FailureAction, for id: ViewportID) {
@@ -50,6 +85,7 @@ struct CardChromeLayer: View {
     private func state(of config: ViewportConfig) -> ViewportCardChrome.CardState {
         .init(
             failure: workspace.loadFailures[config.id],
+            isDragging: workspace.draggingID == config.id,
             isLeader: workspace.leaderID == config.id,
             isSelected: workspace.selectedViewportID == config.id,
             isMissed: workspace.missedIDs.contains(config.id),
@@ -73,6 +109,7 @@ struct CardChromeLayer: View {
 struct ViewportCardChrome: View {
     struct CardState: Equatable {
         var failure: LoadFailure?
+        var isDragging = false
         var isLeader = false
         var isSelected = false
         var isMissed = false
@@ -91,6 +128,8 @@ struct ViewportCardChrome: View {
     let select: () -> Void
     let command: (ViewportCommand) -> Void
     let failureAction: (FailureAction) -> Void
+    /// Header drag: translation in screen points while moving, nil when released.
+    let drag: (CGSize?) -> Void
     @Binding var editor: ViewportSizeEditor?
 
     enum FailureAction { case retry, trust, goBack, editAddress }
@@ -122,9 +161,18 @@ struct ViewportCardChrome: View {
         }
         .overlay {
             RoundedRectangle(cornerRadius: DesignTokens.Radius.card)
-                .strokeBorder(state.isLeader ? DesignTokens.Color.statusLeader : DesignTokens.Color.line,
-                              lineWidth: state.isLeader ? DesignTokens.Stroke.leader : DesignTokens.Stroke.hairline)
+                .strokeBorder(state.isLeader || state.isDragging ? DesignTokens.Color.statusLeader : DesignTokens.Color.line,
+                              lineWidth: state.isLeader || state.isDragging ? DesignTokens.Stroke.leader : DesignTokens.Stroke.hairline)
                 .allowsHitTesting(false)
+        }
+        .background {
+            // Lifted while dragged (`window-project-dragging@2x.png`: #000000AA, y 18, blur 40).
+            if state.isDragging {
+                RoundedRectangle(cornerRadius: DesignTokens.Radius.card)
+                    .fill(.black.opacity(0.01))
+                    .shadow(color: .black.opacity(0.67), radius: 20, y: 18)
+                    .allowsHitTesting(false)
+            }
         }
         .overlay {
             // CARD-02: 1.5 pt cream ring 3 pt outside the card, independent of the leader line.
@@ -136,7 +184,7 @@ struct ViewportCardChrome: View {
             }
         }
         .overlay(alignment: .topTrailing) {
-            if (state.isHovered || isStripHovered) && editor == nil {
+            if (state.isHovered || isStripHovered) && editor == nil && !state.isDragging {
                 ViewportHoverStrip(isSyncEnabled: state.isSyncEnabled, command: command)
                     .onHover { isStripHovered = $0; hover($0) }
                     .alignmentGuide(.top) { $0[.bottom] + DesignTokens.Space.s2 }
@@ -182,6 +230,12 @@ struct ViewportCardChrome: View {
                     in: UnevenRoundedRectangle(topLeadingRadius: DesignTokens.Radius.card, topTrailingRadius: DesignTokens.Radius.card))
         .contentShape(.rect)
         .onTapGesture(perform: select)
+        .gesture(
+            DragGesture(minimumDistance: 3, coordinateSpace: .global)
+                .onChanged { drag($0.translation) }
+                .onEnded { _ in drag(nil) }
+        )
+        .pointerStyle(state.isDragging ? .grabActive : .grabIdle)
         .onHover(perform: hover)
         .chromeContextMenu(isOpen: $isMenuOpen, menu: contextMenu)
     }

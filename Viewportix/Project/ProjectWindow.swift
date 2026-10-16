@@ -50,7 +50,7 @@ struct ProjectWindow: View {
         .ignoresSafeArea()
         .preferredColorScheme(.dark)
         .focusedSceneValue(\.workspace, workspace)
-        .focusedSceneValue(\.projectActions, ProjectActions(addCurrentPage: addCurrentPage, selectPage: selectPage))
+        .focusedSceneValue(\.projectActions, ProjectActions(addCurrentPage: addCurrentPage, selectPage: selectPage, arrangeCards: arrangeCards))
         .onAppear {
             // Opening a project from Finder or Open Recent should not leave the home window behind.
             dismissWindow(id: HomeView.windowID)
@@ -82,7 +82,7 @@ private extension ProjectWindow {
     var canvas: some View {
         CanvasView(workspace: workspace)
             .overlay {
-                CardChromeLayer(workspace: workspace, command: handle, saveSize: save, editingSize: $editingSize)
+                CardChromeLayer(workspace: workspace, command: handle, savePositions: savePositions, saveSize: save, editingSize: $editingSize)
             }
             .overlay(alignment: .bottom) {
                 // 28 pt gap measured in window-project-dark@2x.png; no spec value yet.
@@ -192,6 +192,22 @@ private extension ProjectWindow {
         selectedPageID = page.id
     }
 
+    /// CARD-08: positions are written to the project, so the layout survives reopening.
+    func savePositions(_ positions: [ViewportID: CanvasPoint]) {
+        for index in document.project.viewports.indices {
+            if let position = positions[document.project.viewports[index].id] {
+                document.project.viewports[index].position = position
+            }
+        }
+    }
+
+    /// PW-01 Viewport › Kartları Diz: back to the automatic row.
+    func arrangeCards() {
+        for index in document.project.viewports.indices {
+            document.project.viewports[index].position = nil
+        }
+    }
+
     /// ⇧⌘] / ⇧⌘[: next or previous page in the list.
     func selectPage(offset: Int) {
         let pages = document.project.pages
@@ -231,6 +247,7 @@ private extension ProjectWindow {
 struct ProjectActions {
     let addCurrentPage: () -> Void
     let selectPage: (_ offset: Int) -> Void
+    let arrangeCards: () -> Void
 }
 
 extension FocusedValues {
