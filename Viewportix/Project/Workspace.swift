@@ -32,6 +32,10 @@ final class Workspace {
     var settingsTab: SettingsTab?
     /// The selected card (CARD-02): target of tab clicks and per-viewport shortcuts.
     var selectedViewportID: ViewportID?
+    /// Groups on the canvas (Görünüm › Grupla) and their screen frames: open groups' page-area union,
+    /// folded groups' chip anchor (zero size).
+    var groups: [ViewportGroup] = []
+    var groupFrames: [String: CGRect] = [:]
     /// The card being dragged by its header (CARD-08) and the alignment guides to draw (screen points).
     var draggingID: ViewportID?
     var dragGuides: [(from: CGPoint, to: CGPoint)] = []

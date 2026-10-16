@@ -61,6 +61,15 @@ enum PreviewSnapshots {
         return project
     }
 
+    /// The design's grouping sample: iPhone SE, iPhone 16 · iPad · Masaüstü.
+    private static func grouped(collapsed: Set<String>) -> Project {
+        var project = sampleProject
+        project.viewports = ["iphone-se", "iphone-16", "ipad-air-11", "desktop"].compactMap(DeviceCatalog.preset(id:)).map { ViewportConfig(preset: $0) }
+        project.canvas.grouping = .deviceType
+        project.canvas.collapsedGroups = collapsed
+        return project
+    }
+
     private static var manyDevices: Project {
         var project = sampleProject
         project.viewports = ProjectTemplate.fullMatrix.viewports
@@ -103,6 +112,8 @@ enum PreviewSnapshots {
             Entry("window-project-settings-account", size: projectSize, ProjectWindow(document: .constant(ProjectDocument(project: sampleProject)), railVisible: true, settingsTab: .account)),
             Entry("card-load-errors", padded(loadErrors)),
             Entry("window-project-positioned", size: projectSize, ProjectWindow(document: .constant(ProjectDocument(project: positioned)))),
+            Entry("window-project-groups", size: projectSize, ProjectWindow(document: .constant(ProjectDocument(project: grouped(collapsed: []))))),
+            Entry("window-project-groups-collapsed", size: projectSize, ProjectWindow(document: .constant(ProjectDocument(project: grouped(collapsed: ["phone"]))))),
             Entry("window-project-many-devices", size: projectSize, ProjectWindow(document: .constant(ProjectDocument(project: manyDevices)), sidebarVisible: false)),
         ]
     }

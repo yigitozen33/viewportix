@@ -86,6 +86,20 @@ final class CanvasController: NSViewController {
 
     // MARK: Cards
 
+    func update(viewports: [ViewportConfig], grouping: Grouping, collapsed: Set<String>) {
+        let groupingChanged = grouping != self.grouping || collapsed != collapsedGroups
+        self.grouping = grouping
+        collapsedGroups = collapsed
+        if groupingChanged { layout = [] }  // forces a relayout below
+        update(viewports: viewports)
+    }
+
+    private var grouping = Grouping.none
+    private var collapsedGroups: Set<String> = []
+    private var groupAreas: [String: GroupAreaView] = [:]
+    /// Open groups' page-area unions and folded groups' chip anchors, in document coordinates.
+    private var groupRects: [String: CGRect] = [:]
+
     func update(viewports: [ViewportConfig]) {
         let ids = viewports.map(\.id)
         for (id, card) in cards where !ids.contains(id) {
@@ -121,19 +135,84 @@ final class CanvasController: NSViewController {
     func publishFrames() {
         let magnification = scrollView.magnification
         var frames: [ViewportID: CGRect] = [:]
-        for (id, card) in cards {
+        for (id, card) in cards where !card.isHidden {
             card.setScreenCornerRadius(DesignTokens.Radius.card, magnification: magnification)
             let rect = scrollView.convert(card.frame, from: documentView)
             let top = scrollView.isFlipped ? rect.minY : scrollView.bounds.height - rect.maxY
             frames[id] = CGRect(x: rect.minX, y: top, width: rect.width, height: rect.height)
         }
         if frames != workspace.cardFrames { workspace.cardFrames = frames }
+        layoutGroupAreas()
+        var groupFrames: [String: CGRect] = [:]
+        for (key, rect) in groupRects {
+            groupFrames[key] = screenRect(rect)
+        }
+        if groupFrames != workspace.groupFrames { workspace.groupFrames = groupFrames }
+    }
+
+    private func screenRect(_ rect: CGRect) -> CGRect {
+        let converted = scrollView.convert(rect, from: documentView)
+        let top = scrollView.isFlipped ? converted.minY : scrollView.bounds.height - converted.maxY
+        return CGRect(x: converted.minX, y: top, width: converted.width, height: converted.height)
+    }
+
+    // MARK: Group areas (PW-02)
+
+    /// Screen-point padding of a group area around its cards' page areas: the group header (32), a
+    /// card's hover strip (36) and header (36) above, the warning note below
+    /// (`window-project-groups@2x.png`: area top to card header 68).
+    static let groupPadding = NSEdgeInsets(top: 104, left: 14, bottom: 45, right: 14)
+
+    private func updateGroupAreas() {
+        let open = Set(groupRects.filter { !$0.value.isEmpty }.keys)
+        for (key, view) in groupAreas where !open.contains(key) {
+            view.removeFromSuperview()
+            groupAreas[key] = nil
+        }
+        for key in open where groupAreas[key] == nil {
+            let view = GroupAreaView()
+            documentView.addSubview(view, positioned: .below, relativeTo: nil)
+            groupAreas[key] = view
+        }
+    }
+
+    /// Areas sit under the cards in document space; padding, border and radius are converted from
+    /// screen points so they look the same at every zoom.
+    private func layoutGroupAreas() {
+        let m = max(scrollView.magnification, 0.01)
+        let pad = Self.groupPadding
+        for (key, view) in groupAreas {
+            guard let rect = groupRects[key], !rect.isEmpty else { continue }
+            view.frame = NSRect(x: rect.minX - pad.left / m, y: rect.minY - pad.top / m,
+                                width: rect.width + (pad.left + pad.right) / m, height: rect.height + (pad.top + pad.bottom) / m)
+            view.setScreenStyle(magnification: m)
+        }
+    }
+
+    /// "Grubu sığdır": fits the group's cards like ⌘1 fits all.
+    func fitGroup(_ key: String) {
+        guard let rect = groupRects[key], !rect.isEmpty else { return }
+        fit(rect: rect.insetBy(dx: -CanvasLayout.margin, dy: -CanvasLayout.margin))
     }
 
     /// Dragged cards keep their place, the others line up in a row (`CanvasLayout`). "Kartları Diz"
     /// (positions cleared) animates back to the row (PW-01, 250 ms).
     private func layoutCards(animated: Bool = false) {
-        let frames = CanvasLayout.frames(for: layout)
+        let groups = grouping.groups(of: layout)
+        let frames: [ViewportID: CGRect]
+        if groups.isEmpty {
+            frames = CanvasLayout.frames(for: layout)
+            groupRects = [:]
+        } else {
+            let grouped = CanvasLayout.grouped(layout, groups: groups, collapsed: collapsedGroups)
+            frames = grouped.frames
+            groupRects = grouped.groups
+        }
+        workspace.groups = groups
+        // Grouped: the group header row needs room under the strip too.
+        scrollView.contentInsets.top = groups.isEmpty ? Self.chromeInsets.top : Self.chromeInsets.top + 36
+        for (id, card) in cards { card.isHidden = frames[id] == nil }
+        updateGroupAreas()
         NSAnimationContext.runAnimationGroup { context in
             context.duration = animated ? 0.25 : 0
             context.allowsImplicitAnimation = animated
@@ -144,7 +223,8 @@ final class CanvasController: NSViewController {
         } completionHandler: { [weak self] in
             MainActor.assumeIsolated { self?.publishFrames() }
         }
-        let bounds = frames.values.reduce(CGRect.null) { $0.union($1) }
+        let bounds = (Array(frames.values) + groupRects.values.map { $0.insetBy(dx: 0, dy: 0) })
+            .reduce(CGRect.null) { $0.union($1) }
         let size = bounds.isNull ? .zero : NSSize(width: bounds.maxX + CanvasLayout.margin, height: bounds.maxY + CanvasLayout.margin)
         documentView.setFrameSize(size)
         publishFrames()
@@ -257,7 +337,11 @@ final class CanvasController: NSViewController {
 
     /// Fits all cards between the strip and the bottom bar, centred horizontally, top-aligned.
     func fit() {
-        let content = documentView.bounds.size
+        fit(rect: documentView.bounds)
+    }
+
+    private func fit(rect: CGRect) {
+        let content = rect.size
         guard content.width > 0, content.height > 0 else { return }
         let insets = scrollView.contentInsets
         let available = NSSize(width: scrollView.bounds.width - insets.left - insets.right,
@@ -266,8 +350,8 @@ final class CanvasController: NSViewController {
         scrollView.magnification = min(max(fitted, scrollView.minMagnification), scrollView.maxMagnification)
         let magnification = scrollView.magnification
         let clip = scrollView.contentView
-        let origin = NSPoint(x: (content.width - scrollView.bounds.width / magnification) / 2,
-                             y: -insets.top / magnification)
+        let origin = NSPoint(x: rect.minX + (content.width - scrollView.bounds.width / magnification) / 2,
+                             y: rect.minY - insets.top / magnification)
         clip.scroll(to: clip.constrainBoundsRect(NSRect(origin: origin, size: clip.bounds.size)).origin)
         scrollView.reflectScrolledClipView(clip)
         reportZoom()
@@ -404,6 +488,8 @@ final class CanvasDocumentView: NSView {
 
 struct CanvasView: NSViewControllerRepresentable {
     let workspace: Workspace
+    var grouping = Grouping.none
+    var collapsedGroups: Set<String> = []
 
     func makeNSViewController(context: Context) -> CanvasController {
         let controller = CanvasController(workspace: workspace)
@@ -412,6 +498,25 @@ struct CanvasView: NSViewControllerRepresentable {
     }
 
     func updateNSViewController(_ controller: CanvasController, context: Context) {
-        controller.update(viewports: workspace.viewports)
+        controller.update(viewports: workspace.viewports, grouping: grouping, collapsed: collapsedGroups)
     }
+}
+
+/// A group's area under its cards: `surface/group` fill, `line` border, 16 pt corners on screen.
+final class GroupAreaView: NSView {
+    override init(frame: NSRect) {
+        super.init(frame: frame)
+        wantsLayer = true
+        layer?.backgroundColor = NSColor(DesignTokens.Color.surfaceGroup).cgColor
+        layer?.borderColor = NSColor(DesignTokens.Color.line).cgColor
+    }
+
+    required init?(coder: NSCoder) { fatalError("not used") }
+
+    func setScreenStyle(magnification: CGFloat) {
+        layer?.cornerRadius = DesignTokens.Radius.window / magnification
+        layer?.borderWidth = DesignTokens.Stroke.hairline / magnification
+    }
+
+    override func hitTest(_ point: NSPoint) -> NSView? { nil }
 }

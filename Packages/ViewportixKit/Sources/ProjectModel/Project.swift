@@ -108,11 +108,29 @@ public struct CanvasState: Codable, Hashable, Sendable {
     public var zoom: Double
     public var offsetX: Double
     public var offsetY: Double
+    /// Görünüm › Grupla (PW-02) and the groups folded to a chip (PW-03).
+    public var grouping: Grouping
+    public var collapsedGroups: Set<String>
 
-    public init(zoom: Double = 1, offsetX: Double = 0, offsetY: Double = 0) {
+    public init(zoom: Double = 1, offsetX: Double = 0, offsetY: Double = 0, grouping: Grouping = .none, collapsedGroups: Set<String> = []) {
         self.zoom = zoom
         self.offsetX = offsetX
         self.offsetY = offsetY
+        self.grouping = grouping
+        self.collapsedGroups = collapsedGroups
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case zoom, offsetX, offsetY, grouping, collapsedGroups
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        zoom = try container.decode(Double.self, forKey: .zoom)
+        offsetX = try container.decode(Double.self, forKey: .offsetX)
+        offsetY = try container.decode(Double.self, forKey: .offsetY)
+        grouping = try container.decodeIfPresent(Grouping.self, forKey: .grouping) ?? .none
+        collapsedGroups = try container.decodeIfPresent(Set<String>.self, forKey: .collapsedGroups) ?? []
     }
 }
 

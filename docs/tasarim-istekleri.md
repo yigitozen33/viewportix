@@ -323,3 +323,14 @@ Kod oturumunun arayüze dokunan her değişikliği, değişikliğin commit'inde 
   3. Elle test gerekiyor (sürükleme etkileşimi ekran dışı çizimle doğrulanamıyor).
 - Tasarım kararı gerekir mi: hayır (1 tasarımda var, kodda eksik)
 - Bağlantılı: DESIGN.md §3.2 (CARD-08, CARD-09, PW-01), §4 (Kartı elle sürükleme); `KOD-OTURUMU-ISLERI.md` §13
+
+## 2026-10-16 — Gruplama: PW-02, PW-03, STRIP-12 bitti; grup menüsü (§5.20 i)
+- Ne: Görünüm › Grupla › Yok / Cihaz Türü / Motor (projeye kaydedilir). Gruplu canvas'ta gruplar yan yana, her grup kendi tek sırasında; grup alanı kartların altında (`surface/group` zemin, `line` kenar, köşe 16 — her zoom'da ekranda aynı), üst solunda "⌄ TELEFON 2" başlığı (oka tık katlar/açar). Katlı grup üst hizada "› TELEFON 2" çipine iniyor, kartları gizleniyor, sağdakiler sola kayıyor. Başlıkta hover'da ⋯ (sağ tık da açar): Katla / Aç · Grubu sığdır · — · Gruptakileri kapat (mercan). Şeritte gruplar arasında ince ayırıcı (1×18, `ink/secondary` %45); katlı grup tek çip "Telefon 2 ›" (grubun en ciddi durumu: üçgen) — tıklayınca grup açılır ve canvas gruba sığdırılır. Gruplu iken kartlar elle sürüklenmiyor (yerleşim otomatik).
+- Nerede: `Viewportix/Canvas/CanvasController.swift` (gruplu yerleşim, `GroupAreaView`, `fitGroup`), `CardChrome.swift` (`GroupHeader`), `Viewportix/Project/DeviceStrip.swift` (ayırıcı, `FoldedGroupChip`), `ProjectWindow.swift`, `Viewportix/App/ViewportixApp.swift`; paket `ProjectModel/Grouping.swift` (`Grouping`, gruplar, gruplu yerleşim), `CanvasState.grouping/collapsedGroups` (eski dosyalarda yok sayılır) + testler
+- Durum: özel çizim; grup menüsü sistem `NSMenu`
+- Eksik / sapma:
+  1. **Gruplu iken elle konum** yok sayılıyor ve sürükleme kapalı (tasarım "Kartları Diz gruplar açıksa grup içinde" diyor; grup içinde elle yerleşim tanımlı değil).
+  2. **Motor grubunda başlıkta motor glifi** ve sekme adında "· Chromium" (M4) henüz yok; tek motor (WebKit) olduğu için motor gruplaması tek grup.
+  3. Çok küçük zoom'larda (< %20) grup alanlarının ekran payı gruplar arası boşluğu aşıp üst üste binebilir.
+- Tasarım kararı gerekir mi: evet — 1
+- Bağlantılı: DESIGN.md §3.2 (PW-02, PW-03, STRIP-12), §4 (Gruplama, katlanmış grup), §5.20 i; `KOD-OTURUMU-ISLERI.md` §13

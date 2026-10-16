@@ -50,7 +50,8 @@ struct ProjectWindow: View {
         .ignoresSafeArea()
         .preferredColorScheme(.dark)
         .focusedSceneValue(\.workspace, workspace)
-        .focusedSceneValue(\.projectActions, ProjectActions(addCurrentPage: addCurrentPage, selectPage: selectPage, arrangeCards: arrangeCards))
+        .focusedSceneValue(\.projectActions, ProjectActions(addCurrentPage: addCurrentPage, selectPage: selectPage, arrangeCards: arrangeCards,
+                                                         grouping: document.project.canvas.grouping, setGrouping: setGrouping))
         .onAppear {
             // Opening a project from Finder or Open Recent should not leave the home window behind.
             dismissWindow(id: HomeView.windowID)
@@ -80,9 +81,10 @@ struct ProjectWindow: View {
 
 private extension ProjectWindow {
     var canvas: some View {
-        CanvasView(workspace: workspace)
+        CanvasView(workspace: workspace, grouping: document.project.canvas.grouping, collapsedGroups: document.project.canvas.collapsedGroups)
             .overlay {
-                CardChromeLayer(workspace: workspace, command: handle, savePositions: savePositions, saveSize: save, editingSize: $editingSize)
+                CardChromeLayer(workspace: workspace, command: handle, savePositions: savePositions,
+                                toggleGroup: toggleGroup, closeGroup: closeGroup, saveSize: save, editingSize: $editingSize)
             }
             .overlay(alignment: .bottom) {
                 // 28 pt gap measured in window-project-dark@2x.png; no spec value yet.
@@ -107,7 +109,9 @@ private extension ProjectWindow {
             .overlay(alignment: .top) {
                 DeviceStrip(workspace: workspace, maxWidth: stripMaxWidth, remove: removeViewport,
                             add: { addViewport(ViewportConfig(preset: $0)) },
-                            addCustom: { addViewport(ViewportConfig(name: "Özel", size: $0)) })
+                            addCustom: { addViewport(ViewportConfig(name: "Özel", size: $0)) },
+                            collapsedGroups: document.project.canvas.collapsedGroups,
+                            openGroup: openGroup)
                 .padding(.top, DesignTokens.Space.s4)
             }
             .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { canvasWidth = $0 }
@@ -201,6 +205,40 @@ private extension ProjectWindow {
         }
     }
 
+    /// PW-02 Görünüm › Grupla.
+    func setGrouping(_ grouping: Grouping) {
+        withAnimation(.easeInOut(duration: DesignTokens.Motion.canvasPan)) {
+            document.project.canvas.grouping = grouping
+            document.project.canvas.collapsedGroups = []
+        }
+        DispatchQueue.main.async { workspace.canvas?.fit() }
+    }
+
+    /// PW-03: fold or open a group from its header.
+    func toggleGroup(_ key: String) {
+        withAnimation(.easeInOut(duration: DesignTokens.Motion.panel)) {
+            if document.project.canvas.collapsedGroups.contains(key) {
+                document.project.canvas.collapsedGroups.remove(key)
+            } else {
+                document.project.canvas.collapsedGroups.insert(key)
+            }
+        }
+    }
+
+    /// STRIP-12: the strip's folded-group chip opens the group and pans to it.
+    func openGroup(_ key: String) {
+        document.project.canvas.collapsedGroups.remove(key)
+        DispatchQueue.main.async { workspace.canvas?.fitGroup(key) }
+    }
+
+    func closeGroup(_ key: String) {
+        guard let group = workspace.groups.first(where: { $0.key == key }) else { return }
+        withAnimation(.easeOut(duration: DesignTokens.Motion.standard)) {
+            document.project.viewports.removeAll { group.members.contains($0.id) }
+            document.project.canvas.collapsedGroups.remove(key)
+        }
+    }
+
     /// PW-01 Viewport › Kartları Diz: back to the automatic row.
     func arrangeCards() {
         for index in document.project.viewports.indices {
@@ -248,6 +286,8 @@ struct ProjectActions {
     let addCurrentPage: () -> Void
     let selectPage: (_ offset: Int) -> Void
     let arrangeCards: () -> Void
+    let grouping: Grouping
+    let setGrouping: (Grouping) -> Void
 }
 
 extension FocusedValues {

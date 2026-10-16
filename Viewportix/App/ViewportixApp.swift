@@ -1,4 +1,5 @@
 import EngineCore
+import ProjectModel
 import SwiftUI
 
 @main
@@ -86,6 +87,15 @@ struct ViewportixCommands: Commands {
             Button("Sığdır") { workspace?.canvas?.fit() }
                 .keyboardShortcut("1")
             Divider()
+            Picker("Grupla", selection: Binding(
+                get: { projectActions?.grouping ?? .none },
+                set: { projectActions?.setGrouping($0) }
+            )) {
+                Text("Yok").tag(Grouping.none)
+                Text("Cihaz Türü").tag(Grouping.deviceType)
+                Text("Motor").tag(Grouping.engine)
+            }
+            .disabled(projectActions == nil)
             Toggle("Arka Plandaki Viewport'larda Medyayı Duraklat", isOn: Binding(
                 get: { workspace?.suspendsBackgroundMedia ?? false },
                 set: { workspace?.suspendsBackgroundMedia = $0 }

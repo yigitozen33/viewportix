@@ -23,6 +23,9 @@ struct DeviceStrip: View {
     let remove: (ViewportID) -> Void
     let add: (DevicePreset) -> Void
     let addCustom: (ViewportSize) -> Void
+    var collapsedGroups: Set<String> = []
+    /// STRIP-12: opens a folded group.
+    var openGroup: (String) -> Void = { _ in }
 
     @State private var tabFrames: [ViewportID: CGRect] = [:]
     @State private var scrollOffset: CGFloat = 0
@@ -107,17 +110,29 @@ struct DeviceStrip: View {
     private var tabs: some View {
         ScrollView(.horizontal) {
             HStack(spacing: DesignTokens.Space.s1) {
-                ForEach(workspace.viewports) { viewport in
-                    DeviceTab(
-                        name: viewport.name,
-                        detail: "\(viewport.size.width)×\(viewport.size.height)",
-                        status: status(of: viewport.id),
-                        select: { workspace.reveal(viewport.id) },
-                        close: { remove(viewport.id) }
-                    )
-                    .id(viewport.id)
-                    .onGeometryChange(for: CGRect.self) { $0.frame(in: .named(Self.space)) } action: { tabFrames[viewport.id] = $0 }
-                    .transition(.opacity.combined(with: .scale(scale: 0.8, anchor: .leading)))
+                ForEach(items, id: \.id) { item in
+                    switch item {
+                    case .tab(let viewport):
+                        DeviceTab(
+                            name: viewport.name,
+                            detail: "\(viewport.size.width)×\(viewport.size.height)",
+                            status: status(of: viewport.id),
+                            select: { workspace.reveal(viewport.id) },
+                            close: { remove(viewport.id) }
+                        )
+                        .id(viewport.id)
+                        .onGeometryChange(for: CGRect.self) { $0.frame(in: .named(Self.space)) } action: { tabFrames[viewport.id] = $0 }
+                        .transition(.opacity.combined(with: .scale(scale: 0.8, anchor: .leading)))
+                    case .separator:
+                        Rectangle()
+                            .fill(DesignTokens.Color.inkSecondary.opacity(0.45))
+                            .frame(width: 1, height: 18)
+                            .padding(.horizontal, 2)
+                    case .folded(let group):
+                        FoldedGroupChip(group: group, status: group.members.map(status(of:)).max() ?? .normal) {
+                            openGroup(group.key)
+                        }
+                    }
                 }
             }
             .coordinateSpace(.named(Self.space))
@@ -134,6 +149,36 @@ struct DeviceStrip: View {
         .frame(width: min(contentWidth, tabsMaxWidth))
         .mask(fadeMask)
         .animation(.easeOut(duration: DesignTokens.Motion.standard), value: workspace.viewports.map(\.id))
+    }
+
+    /// Tabs in group order with separators between groups; a folded group is one chip.
+    private enum Item {
+        case tab(ViewportConfig)
+        case separator(String)
+        case folded(ViewportGroup)
+
+        var id: String {
+            switch self {
+            case .tab(let viewport): viewport.id.rawValue.uuidString
+            case .separator(let key): "separator-\(key)"
+            case .folded(let group): "group-\(group.key)"
+            }
+        }
+    }
+
+    private var items: [Item] {
+        guard !workspace.groups.isEmpty else { return workspace.viewports.map(Item.tab) }
+        let byID = Dictionary(uniqueKeysWithValues: workspace.viewports.map { ($0.id, $0) })
+        var items: [Item] = []
+        for (index, group) in workspace.groups.enumerated() {
+            if index > 0 { items.append(.separator(group.key)) }
+            if collapsedGroups.contains(group.key) {
+                items.append(.folded(group))
+            } else {
+                items += group.members.compactMap { byID[$0] }.map(Item.tab)
+            }
+        }
+        return items
     }
 
     private static let space = "DeviceStripTabs"
@@ -415,5 +460,37 @@ extension EngineKind {
         case .chromium: "Chromium"
         case .firefox: "Firefox"
         }
+    }
+}
+
+/// A folded group in the strip: "Telefon 2 ›", carrying the group's most serious state.
+private struct FoldedGroupChip: View {
+    let group: ViewportGroup
+    let status: DeviceTabStatus
+    let open: () -> Void
+
+    var body: some View {
+        Button(action: open) {
+            HStack(spacing: DesignTokens.Space.s2) {
+                Text(group.title)
+                    .font(.system(size: DesignTokens.FontSize.label))
+                    .foregroundStyle(DesignTokens.Color.inkPrimary)
+                Text("\(group.members.count)")
+                    .font(.system(size: DesignTokens.FontSize.label))
+                    .foregroundStyle(DesignTokens.Color.inkSecondary)
+                if status == .missed {
+                    ChromeSymbol("exclamationmark.triangle", box: 13).foregroundStyle(DesignTokens.Color.statusWarning)
+                }
+                ChromeSymbol("chevron.right", box: 12).foregroundStyle(DesignTokens.Color.inkSecondary)
+            }
+            .padding(EdgeInsets(top: 6, leading: 10, bottom: 6, trailing: 10))
+            .background(DesignTokens.Color.surfaceCard, in: .rect(cornerRadius: DesignTokens.Radius.control))
+            .contentShape(.rect)
+        }
+        .buttonStyle(.plain)
+        .chromeFocusRing(cornerRadius: DesignTokens.Radius.control)
+        .chromeTooltip("\(group.title) grubunu aç", edge: .bottom)
+        .accessibilityLabel("\(group.title) grubu")
+        .accessibilityValue("\(group.members.count) cihaz; katlı")
     }
 }

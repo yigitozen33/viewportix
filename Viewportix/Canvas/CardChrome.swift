@@ -12,12 +12,31 @@ struct CardChromeLayer: View {
     let command: (ViewportID, ViewportCommand) -> Void
     /// Saves card positions after a drag (the whole layout is pinned once a card was moved).
     let savePositions: ([ViewportID: CanvasPoint]) -> Void
+    /// Folds or opens a group (PW-03).
+    var toggleGroup: (String) -> Void = { _ in }
+    /// Closes every viewport in a group (group menu).
+    var closeGroup: (String) -> Void = { _ in }
     let saveSize: (ViewportSizeEditor) -> Void
     @Binding var editingSize: ViewportSizeEditor?
 
     var body: some View {
         ZStack(alignment: .topLeading) {
             Color.clear.allowsHitTesting(false)
+            ForEach(workspace.groups, id: \.key) { group in
+                if let frame = workspace.groupFrames[group.key] {
+                    let isCollapsed = frame.isEmpty
+                    let pad = CanvasController.groupPadding
+                    GroupHeader(
+                        group: group,
+                        isCollapsed: isCollapsed,
+                        width: isCollapsed ? nil : frame.width + pad.left + pad.right,
+                        toggle: { toggleGroup(group.key) },
+                        fit: { workspace.canvas?.fitGroup(group.key) },
+                        close: { closeGroup(group.key) }
+                    )
+                    .offset(x: frame.minX - (isCollapsed ? 0 : pad.left), y: frame.minY - pad.top)
+                }
+            }
             ForEach(workspace.viewports) { config in
                 if let frame = workspace.cardFrames[config.id] {
                     ViewportCardChrome(
@@ -53,9 +72,10 @@ struct CardChromeLayer: View {
         .clipped()
     }
 
-    /// Drag phases from a card header; nil translation ends the drag.
+    /// Drag phases from a card header; nil translation ends the drag. Grouped canvases lay out
+    /// automatically, so cards are not dragged there.
     private func dragged(_ id: ViewportID, _ translation: CGSize?) {
-        guard let canvas = workspace.canvas else { return }
+        guard let canvas = workspace.canvas, workspace.groups.isEmpty else { return }
         guard let translation else {
             let positions = canvas.endDrag()
             workspace.draggingID = nil
@@ -629,5 +649,75 @@ struct LoadFailureView: View {
         }
         .buttonStyle(.plain)
         .chromeFocusRing(cornerRadius: DesignTokens.Radius.control)
+    }
+}
+
+/// A group's header on the canvas: "⌄ TELEFON 2" at the area's top left, ⋯ on hover (and right
+/// click): Katla · Grubu sığdır · — · Gruptakileri kapat (DESIGN.md §5.20 i). Folded: a chip
+/// "› TELEFON 2" (`window-project-groups-collapsed@2x.png`).
+struct GroupHeader: View {
+    let group: ViewportGroup
+    let isCollapsed: Bool
+    /// The open area's width (header row spans it); nil for the folded chip.
+    let width: CGFloat?
+    let toggle: () -> Void
+    let fit: () -> Void
+    let close: () -> Void
+
+    @State private var isHovered = false
+    @State private var isMenuOpen = false
+    @State private var anchor = MenuAnchor()
+
+    var body: some View {
+        HStack(spacing: 6) {
+            Button(action: toggle) {
+                HStack(spacing: 6) {
+                    ChromeSymbol(isCollapsed ? "chevron.right" : "chevron.down", box: 12)
+                    Text(group.title.uppercased(with: Locale(identifier: "tr_TR")))
+                        .font(.system(size: DesignTokens.FontSize.micro, weight: .semibold))
+                        .tracking(0.8)
+                    Text("\(group.members.count)")
+                        .font(.system(size: DesignTokens.FontSize.micro))
+                }
+                .foregroundStyle(DesignTokens.Color.inkSecondary)
+                .contentShape(.rect)
+            }
+            .buttonStyle(.plain)
+            .chromeFocusRing(cornerRadius: 4)
+            .accessibilityLabel("\(group.title) grubu")
+            .accessibilityValue("\(group.members.count) cihaz; \(isCollapsed ? "katlı" : "açık")")
+            if width != nil { Spacer(minLength: 0) }
+            if isHovered || isMenuOpen {
+                ChromeIconButton(symbol: "ellipsis", label: "Grup", box: 14) {
+                    isMenuOpen = true
+                    anchor.popUpBelow(menu(), gap: 4)
+                    isMenuOpen = false
+                }
+                .background(alignment: .bottomLeading) { MenuAnchorView(anchor: anchor).frame(width: 0, height: 0) }
+            }
+        }
+        .padding(EdgeInsets(top: 10, leading: 14, bottom: 10, trailing: 14))
+        .frame(width: width, alignment: .leading)
+        .background {
+            if isCollapsed {
+                RoundedRectangle(cornerRadius: DesignTokens.Radius.window)
+                    .fill(DesignTokens.Color.surfaceGroup)
+                    .strokeBorder(DesignTokens.Color.line, lineWidth: DesignTokens.Stroke.hairline)
+            }
+        }
+        .contentShape(.rect)
+        .onHover { isHovered = $0 }
+        .chromeContextMenu(isOpen: $isMenuOpen, menu: menu)
+    }
+
+    private func menu() -> NSMenu {
+        let menu = NSMenu()
+        menu.addItem(ActionMenuItem(isCollapsed ? "Aç" : "Katla", action: toggle))
+        menu.addItem(ActionMenuItem("Grubu sığdır", action: fit))
+        menu.addItem(.separator())
+        let remove = ActionMenuItem("Gruptakileri kapat", action: close)
+        remove.attributedTitle = NSAttributedString(string: "Gruptakileri kapat", attributes: [.foregroundColor: NSColor(DesignTokens.Color.statusWarning)])
+        menu.addItem(remove)
+        return menu
     }
 }
