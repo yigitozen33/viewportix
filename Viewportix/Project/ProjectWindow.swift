@@ -15,13 +15,14 @@ struct ProjectWindow: View {
     @State private var isTooltipShown = false
     @State private var canvasWidth: CGFloat = 1000
 
-    init(document: Binding<ProjectDocument>, sidebarVisible: Bool = true, railVisible: Bool? = nil, devicePickerOpen: Bool = false) {
+    init(document: Binding<ProjectDocument>, sidebarVisible: Bool = true, railVisible: Bool? = nil, devicePickerOpen: Bool = false, settingsTab: SettingsTab? = nil) {
         _document = document
         _selectedPageID = State(initialValue: document.wrappedValue.project.selectedPageID)
         let workspace = Workspace()
         workspace.isSidebarVisible = sidebarVisible
         if let railVisible { workspace.isRailVisible = railVisible }
         workspace.isDevicePickerOpen = devicePickerOpen
+        workspace.settingsTab = settingsTab
         _workspace = State(initialValue: workspace)
     }
 
@@ -115,6 +116,18 @@ private extension ProjectWindow {
                     CollapsedSidebarHeader(workspace: workspace)
                         .padding(DesignTokens.Space.s4)
                         .transition(.opacity)
+                }
+            }
+            .overlay(alignment: .trailing) {
+                // RAIL-01: the settings panel slides over the canvas; the canvas stays put.
+                if let tab = workspace.settingsTab {
+                    SettingsPanel(
+                        tab: Binding { tab } set: { workspace.settingsTab = $0 },
+                        workspace: workspace,
+                        close: { withAnimation(.easeOut(duration: DesignTokens.Motion.panel)) { workspace.settingsTab = nil } }
+                    )
+                    .padding(DesignTokens.Space.s4)
+                    .transition(.move(edge: .trailing).combined(with: .opacity))
                 }
             }
             .overlay(alignment: .topTrailing) {

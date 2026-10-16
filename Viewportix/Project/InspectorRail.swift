@@ -1,18 +1,18 @@
 import DesignSystem
 import SwiftUI
 
-/// `Window/Rail` (specs/InspectorRail.json): 44 pt on the window's right edge. Items open panels
-/// (RAIL-01); the panels arrive with §12 step 7 (settings) and M5 (Farklar, Senkron), so until then
-/// those items are disabled. The collapse button works (RAIL-03).
+/// `Window/Rail` (specs/InspectorRail.json): 44 pt on the window's right edge. Ayarlar, Cihazlar and
+/// Hesap open the settings panel (RAIL-01); MCP (M7), Farklar and Senkron (M5) are disabled until
+/// their panels exist. The collapse button hides the rail (RAIL-03).
 struct InspectorRail: View {
     @Bindable var workspace: Workspace
 
     var body: some View {
         VStack(spacing: 6) {
-            RailItem(symbol: "gearshape", label: "Ayarlar", shortcut: "⌘,", isEnabled: false) {}
-            RailItem(symbol: "iphone", label: "Cihazlar", isEnabled: false) {}
-            RailItem(symbol: "powerplug.portrait", label: "MCP", isEnabled: false) {}
-            RailItem(symbol: "person", label: "Hesap", isEnabled: false) {}
+            panelItem(.general, label: "Ayarlar", shortcut: "⌘,")
+            panelItem(.devices, label: "Cihazlar")
+            RailItem(symbol: "powerplug.portrait", label: "MCP", isEnabled: false) {}  // M7
+            panelItem(.account, label: "Hesap")
             Rectangle().fill(DesignTokens.Color.line).frame(width: 20, height: 1)
             RailItem(symbol: "square.split.2x1", label: "Farklar", shortcut: "⌥⌘1", isEnabled: false) {}
             RailItem(symbol: "waveform.path.ecg", label: "Senkron Kaydı", shortcut: "⌥⌘2", isEnabled: false) {}
@@ -27,6 +27,17 @@ struct InspectorRail: View {
         .background(DesignTokens.Color.surfaceBar)
         .overlay(alignment: .leading) {
             Rectangle().fill(DesignTokens.Color.line).frame(width: DesignTokens.Stroke.hairline)
+        }
+    }
+}
+
+private extension InspectorRail {
+    /// RAIL-01: opens the settings panel on that tab; the same icon again closes it.
+    func panelItem(_ tab: SettingsTab, label: String, shortcut: String? = nil) -> some View {
+        RailItem(symbol: tab.symbol, label: label, shortcut: shortcut, isActive: workspace.settingsTab == tab) {
+            withAnimation(.easeOut(duration: DesignTokens.Motion.panel)) {
+                workspace.settingsTab = workspace.settingsTab == tab ? nil : tab
+            }
         }
     }
 }

@@ -21,6 +21,7 @@ struct HomeView: View {
     @State private var isAddressInvalid = false
     @State private var query = ""
     @State private var isDropTargeted = false
+    @State private var settings = HomeSettingsPresenter.shared
     @AppStorage("homeTemplate") private var template = ProjectTemplate.default
     @AppStorage("homeSection") private var section = Section.recent
     @AppStorage("homeLayout") private var layout = Layout.grid
@@ -101,6 +102,7 @@ struct HomeView: View {
     private var content: some View {
         VStack(spacing: 0) {
             topActions
+                .zIndex(1)
             URLBox(text: $address, isInvalid: isAddressInvalid, onOpen: openAddress)
                 .padding(.top, 89)
                 .onChange(of: address) { old, new in addressChanged(from: old, to: new) }
@@ -122,6 +124,23 @@ struct HomeView: View {
         }
         .padding(.horizontal, DesignTokens.Space.s8)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        .overlay(alignment: .topTrailing) {
+            // HOME-17: under the top row; the rest darkens slightly; no "Bu proje" section.
+            if let tab = settings.tab {
+                ZStack(alignment: .topTrailing) {
+                    Color.black.opacity(0.25)
+                        .onTapGesture { closeSettings() }
+                    SettingsPanel(tab: Binding { tab } set: { settings.tab = $0 }, workspace: nil, close: closeSettings)
+                        .padding(EdgeInsets(top: 0, leading: 0, bottom: DesignTokens.Space.s4, trailing: DesignTokens.Space.s4))
+                }
+                .padding(.top, 48)
+                .transition(.opacity)
+            }
+        }
+    }
+
+    private func closeSettings() {
+        withAnimation(.easeOut(duration: DesignTokens.Motion.panel)) { settings.tab = nil }
     }
 
     private var topActions: some View {
@@ -136,11 +155,12 @@ struct HomeView: View {
                 dismissWindow(id: Self.windowID)
             }
             .chromeTooltip("Yeni proje", shortcut: "⌘N", edge: .bottom)
-            // HOME-17: the settings panel arrives with the rail (§12 step 7); until then disabled.
+            // HOME-17: ⚙ stays visible and pressed while the panel is open.
             ChromeButton(icon: .system("gearshape"), title: "Ayarlar", showsTitle: false, iconBox: DesignTokens.Size.icon,
-                         insets: EdgeInsets(top: 7, leading: 7, bottom: 7, trailing: 7)) {}
-                .disabled(true)
-                .chromeTooltip("Ayarlar", shortcut: "⌘,", edge: .bottom)
+                         insets: EdgeInsets(top: 7, leading: 7, bottom: 7, trailing: 7), isActive: settings.tab != nil) {
+                withAnimation(.easeOut(duration: DesignTokens.Motion.panel)) { settings.tab = settings.tab == nil ? .general : nil }
+            }
+            .chromeTooltip("Ayarlar", shortcut: "⌘,", edge: .bottom)
         }
         .padding(.top, 9)
         .frame(height: 39, alignment: .top)

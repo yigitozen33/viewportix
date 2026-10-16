@@ -97,3 +97,19 @@ private struct ChromeFocusRing: ViewModifier {
             }
     }
 }
+
+extension View {
+    /// Floating surface (menus, popovers, panels): fill, hairline border, and a shadow cast by the
+    /// shape only — a shadow on the whole view would also darken behind translucent content.
+    func chromeSurface(_ fill: Color = DesignTokens.Color.surfaceHeader, cornerRadius: CGFloat = DesignTokens.Radius.card,
+                       shadowOpacity: Double = 0.45, shadowRadius: CGFloat = 16) -> some View {
+        background {
+            RoundedRectangle(cornerRadius: cornerRadius)
+                .fill(fill)
+                .shadow(color: .black.opacity(shadowOpacity), radius: shadowRadius, y: 8)
+        }
+        .overlay {
+            RoundedRectangle(cornerRadius: cornerRadius).strokeBorder(DesignTokens.Color.line, lineWidth: DesignTokens.Stroke.hairline)
+        }
+    }
+}

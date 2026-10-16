@@ -401,11 +401,7 @@ struct SizeEditorPopover: View {
         }
         .padding(14)
         .frame(width: 270)
-        .background(DesignTokens.Color.surfaceHeader, in: .rect(cornerRadius: DesignTokens.Radius.card))
-        .overlay {
-            RoundedRectangle(cornerRadius: DesignTokens.Radius.card).strokeBorder(DesignTokens.Color.line, lineWidth: DesignTokens.Stroke.hairline)
-        }
-        .shadow(color: .black.opacity(0.4), radius: 12, y: 8)
+        .chromeSurface()
         .onAppear { focused = .width }
         .onKeyPress(.escape) { cancel(); return .handled }
     }

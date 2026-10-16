@@ -4,6 +4,7 @@ import SwiftUI
 @main
 struct ViewportixApp: App {
     init() {
+        AppSettings.register()
         #if DEBUG
         DispatchQueue.main.async { PreviewSnapshots.runIfRequested() }
         #endif
@@ -37,6 +38,20 @@ struct ViewportixCommands: Commands {
     @Environment(\.openWindow) private var openWindow
 
     var body: some Commands {
+        CommandGroup(replacing: .appSettings) {
+            Button("Ayarlar…") {
+                withAnimation(.easeOut(duration: 0.2)) {
+                    if let workspace {
+                        workspace.settingsTab = workspace.settingsTab == nil ? .general : nil
+                    } else {
+                        let presenter = HomeSettingsPresenter.shared
+                        presenter.tab = presenter.tab == nil ? .general : nil
+                    }
+                }
+            }
+            .keyboardShortcut(",")
+        }
+
         CommandGroup(after: .newItem) {
             Button("Giriş Ekranı") { openWindow(id: HomeView.windowID) }
                 .keyboardShortcut("0", modifiers: [.command, .shift])

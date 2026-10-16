@@ -71,6 +71,9 @@ enum PreviewSnapshots {
             Entry("window-project-sidebar-collapsed", size: projectSize, ProjectWindow(document: .constant(ProjectDocument(project: sampleProject)), sidebarVisible: false)),
             Entry("window-project-rail-hidden", size: projectSize, ProjectWindow(document: .constant(ProjectDocument(project: sampleProject)), railVisible: false)),
             Entry("window-project-device-picker", size: projectSize, ProjectWindow(document: .constant(ProjectDocument(project: sampleProject)), devicePickerOpen: true)),
+            Entry("window-project-settings-panel", size: projectSize, ProjectWindow(document: .constant(ProjectDocument(project: sampleProject)), railVisible: true, settingsTab: .general)),
+            Entry("window-project-settings-devices", size: projectSize, ProjectWindow(document: .constant(ProjectDocument(project: sampleProject)), railVisible: true, settingsTab: .devices)),
+            Entry("window-project-settings-account", size: projectSize, ProjectWindow(document: .constant(ProjectDocument(project: sampleProject)), railVisible: true, settingsTab: .account)),
             Entry("window-project-many-devices", size: projectSize, ProjectWindow(document: .constant(ProjectDocument(project: manyDevices)), sidebarVisible: false)),
         ]
     }

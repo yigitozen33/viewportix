@@ -24,6 +24,8 @@ final class Workspace {
     private(set) var loadingIDs: Set<ViewportID> = []
     /// Device picker popover under "+ Cihaz" (STRIP-07, ⌥⌘N).
     var isDevicePickerOpen = false
+    /// The settings panel over the canvas and its tab; nil when closed (RAIL-01, ⌘,).
+    var settingsTab: SettingsTab?
     /// The selected card (CARD-02): target of tab clicks and per-viewport shortcuts.
     var selectedViewportID: ViewportID?
     /// Card under the pointer (page, header or hover strip): shows its hover strip.
@@ -51,16 +53,16 @@ final class Workspace {
     var isSyncEnabled = true {
         didSet { coordinator.isEnabled = isSyncEnabled }
     }
-    /// App-wide preference: media plays only in the viewport under the pointer. Off by default: on
-    /// apple.com it made no measurable CPU difference (video decoding is hardware-accelerated) while it
-    /// changes what follower viewports show (PLAN.md M2 "Performans").
+    /// App-wide preference: media plays only in the viewport under the pointer. On by default so
+    /// sounds from several viewports don't overlap (DESIGN.md §4; the CPU gain measured none,
+    /// PLAN.md M2 "Performans").
     var suspendsBackgroundMedia: Bool {
         didSet {
             UserDefaults.standard.set(suspendsBackgroundMedia, forKey: Self.suspendMediaKey)
             coordinator.suspendsFollowerMedia = suspendsBackgroundMedia
         }
     }
-    static let suspendMediaKey = "suspendBackgroundMedia"
+    nonisolated static let suspendMediaKey = "suspendBackgroundMedia"
     /// Transient status shown at the bottom of the window (screenshot progress and results).
     private(set) var notice: Notice?
 
@@ -95,8 +97,10 @@ final class Workspace {
         let width = UserDefaults.standard.object(forKey: Self.sidebarWidthKey) as? Double ?? 240
         sidebarWidth = min(max(CGFloat(width), Self.sidebarWidthRange.lowerBound), Self.sidebarWidthRange.upperBound)
         isRailVisible = UserDefaults.standard.object(forKey: Self.railVisibleKey) as? Bool ?? true
-        suspendsBackgroundMedia = UserDefaults.standard.object(forKey: Self.suspendMediaKey) as? Bool ?? false
+        suspendsBackgroundMedia = UserDefaults.standard.bool(forKey: Self.suspendMediaKey)
+        isSyncEnabled = UserDefaults.standard.bool(forKey: AppSettings.syncOnStart)
         coordinator.suspendsFollowerMedia = suspendsBackgroundMedia
+        coordinator.isEnabled = isSyncEnabled
         coordinator.onEvent = { [weak self] id, event in self?.handle(event, from: id) }
         coordinator.onResult = { [weak self] id, _, result in
             if result == .missed { self?.flagMissed(id) }
@@ -218,7 +222,8 @@ final class Workspace {
         static func == (lhs: Notice, rhs: Notice) -> Bool { lhs.id == rhs.id && lhs.text == rhs.text }
     }
 
-    static let screenshotFolder = URL.picturesDirectory.appending(path: "Viewportix")
+    /// Ayarlar › Ekran görüntüsü › Klasör.
+    static var screenshotFolder: URL { AppSettings.screenshotFolderURL }
 
     /// Captures the given viewports (canvas order), saves one PNG and copies it to the clipboard.
     /// Several viewports are laid out side by side under their names. Viewports that fail are left
@@ -255,9 +260,12 @@ final class Workspace {
         let scale = CGFloat(items[0].image.width) / CGFloat(captured[0].size.width)
         let subject = currentTitle.isEmpty ? (currentURL?.host() ?? "") : currentTitle
         let name = ScreenshotNaming.fileName(subject: subject, detail: captured.count == 1 ? captured[0].name : nil, date: .now)
+        // Ayarlar › Ölçek: 2× keeps the display density, 1× resamples to CSS pixels.
+        let outputScale = CGFloat(UserDefaults.standard.integer(forKey: AppSettings.screenshotScale))
+        let factor = outputScale >= scale ? 1 : outputScale / scale
         let png = await Task.detached {
             let image = items.count == 1 ? items[0].image : ScreenshotComposer.compose(items, scale: scale)
-            return image.flatMap(ScreenshotComposer.pngData)
+            return image.flatMap { ScreenshotComposer.scaled($0, by: factor) }.flatMap(ScreenshotComposer.pngData)
         }.value
 
         guard let png else {
@@ -268,10 +276,13 @@ final class Workspace {
             try FileManager.default.createDirectory(at: Self.screenshotFolder, withIntermediateDirectories: true)
             let url = Self.screenshotFolder.appending(path: name)
             try png.write(to: url)
-            NSPasteboard.general.clearContents()
-            NSPasteboard.general.setData(png, forType: .png)
+            let copies = UserDefaults.standard.bool(forKey: AppSettings.copyScreenshot)
+            if copies {
+                NSPasteboard.general.clearContents()
+                NSPasteboard.general.setData(png, forType: .png)
+            }
             if failed.isEmpty {
-                show(Notice(kind: .success, text: "Kaydedildi ve kopyalandı", action: .init(title: "Finder'da Göster") {
+                show(Notice(kind: .success, text: copies ? "Kaydedildi ve kopyalandı" : "Kaydedildi", action: .init(title: "Finder'da Göster") {
                     NSWorkspace.shared.activateFileViewerSelecting([url])
                 }, fileURL: url))
             } else {

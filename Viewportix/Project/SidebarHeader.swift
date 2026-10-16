@@ -247,12 +247,7 @@ private struct RecentAddressMenu: View {
             .padding(EdgeInsets(top: 8, leading: 12, bottom: 10, trailing: 12))
         }
         .frame(minWidth: 216, alignment: .leading)
-        .background(DesignTokens.Color.surfaceHeader, in: .rect(cornerRadius: DesignTokens.Radius.card))
-        .overlay {
-            RoundedRectangle(cornerRadius: DesignTokens.Radius.card)
-                .strokeBorder(DesignTokens.Color.line, lineWidth: DesignTokens.Stroke.hairline)
-        }
-        .shadow(color: .black.opacity(0.4), radius: 12, y: 4)
+        .chromeSurface()
     }
 
     private func isActive(_ index: Int, _ entry: URLHistory.Entry) -> Bool {

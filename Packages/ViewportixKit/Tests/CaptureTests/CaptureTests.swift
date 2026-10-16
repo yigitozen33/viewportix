@@ -26,6 +26,11 @@ struct CaptureTests {
         #expect(image.height == Int(1800 + ScreenshotComposer.titleHeight * scale + 2 * m))
     }
 
+    @Test func scalesToOneX() throws {
+        let image = try #require(ScreenshotComposer.scaled(solid(width: 786, height: 1704), by: 0.5))
+        #expect(image.width == 393 && image.height == 852)
+    }
+
     @Test func composingNothingGivesNothing() {
         #expect(ScreenshotComposer.compose([], scale: 2) == nil)
     }

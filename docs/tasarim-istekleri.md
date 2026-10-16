@@ -276,3 +276,22 @@ Kod oturumunun arayüze dokunan her değişikliği, değişikliğin commit'inde 
   3. Satır hover zemini spec'te yok; `surface/card` kullanıldı.
 - Tasarım kararı gerekir mi: evet — 1 ve 3
 - Bağlantılı: DESIGN.md §3.2 (Cihaz seçici, STRIP-07…11), §4 (cihaz seçici kararı); `KOD-OTURUMU-ISLERI.md` §12 adım 6
+
+## 2026-10-16 — Ayarlar paneli: RAIL-01 (Ayarlar, Cihazlar, Hesap), HOME-17, SETTINGS-01, 03, 04 bitti; medya duraklatma varsayılan açık
+- Ne: `SettingsPanel` (340 pt, `surface/header`, köşe 12, gölgeli): proje penceresinde canvas'ın üstüne sağdan kayıyor (kenarlardan 16, canvas yerinden oynamıyor); giriş ekranında üst satırın altından, arkası hafif kararıyor, ⚙ basılı kalıyor. Ray öğesi / ⌘, açar; aynı öğe, ✕ ya da Esc kapatır. Başlık "Ayarlar", sekme çipleri (Genel · Cihazlar · Hesap; MCP sekmesi M7'ye kadar gizli), arama.
+  - **Genel:** GÖRÜNÜM › Dil (Türkçe); PROJE › Varsayılan şablon (giriş ekranındaki çip seçimiyle aynı ayar), Senkron açık başlasın, Taslakları sakla (pasif), Arka plandaki viewport'larda medyayı duraklat; EKRAN GÖRÜNTÜSÜ › Klasör (seçim kutusu: geçerli klasör · Başka bir klasör… · Finder'da göster), Panoya da kopyala (kapalıyken kapsül "Kaydedildi"), Ölçek 1× / 2× (1× görüntüyü CSS pikseline küçültür); BU PROJE (yalnız proje penceresinde) › Cihazlar (n) › Cihazlar sekmesi, Motor (WebKit 26.6; Chromium ve Firefox "yakında", pasif). Arama satırları ve bölümleri süzer. Hepsi anında uygulanır.
+  - **Cihazlar:** "n cihaz · m özel", "İçe aktar…" (pasif), sarı "+ Cihaz" (satır içi form: Ad, G × Y, sınır ipucu, İptal / Kaydet), tür süzgeci Tümü · Telefon · Tablet · Masaüstü · Özel, iki satırlı liste (tür ikonu, ad + "özel" rozeti, "393×852 · Telefon"), hover'da ⋯ (Düzenle — yalnız özel · Çoğalt · Sil — yalnız özel, mercan), "Seçicide" anahtarı (kapalıyken cihaz seçicide görünmez). Alt not çizimdeki metin. Özel cihazlar ve gizlenenler uygulamaya kaydediliyor; cihaz seçici bu listeyi kullanıyor.
+  - **Hesap:** hesap sistemi yok, yalnız bu Mac'te doğru olanlar: baş harfli avatar, kullanıcının adı, "Bu Mac'teki kullanıcı", Çıkış yap (pasif); TAKIM "Yakında", LİSANS Plan "Dahili", GÜNCELLEME sürüm + Denetle (pasif), Otomatik güncelle (pasif, açık).
+  - **Denetimler:** sarı / `surface/pill` anahtar (30×18), seçim kutusu (değer + chevron, sistem menüsü açar), küçük segment.
+  - **Varsayılan değişikliği:** "Arka plandaki medyayı duraklat" artık ilk açılışta açık (`KOD-OTURUMU-ISLERI.md` §10); Görünüm menüsü maddesi ve panel aynı değeri gösteriyor.
+  - Açılır yüzeylerin gölgesi artık yalnız zeminden düşüyor (önce yarı saydam öğelerin arkasında koyu leke bırakıyordu).
+- Nerede: `Viewportix/Settings/` (`SettingsPanel.swift`, `SettingsControls.swift`, `AppSettings.swift`), `Viewportix/Project/InspectorRail.swift`, `ProjectWindow.swift`, `DevicePicker.swift`, `Viewportix/Home/HomeView.swift`, `Viewportix/App/ViewportixApp.swift`; paket `DeviceCatalog/DeviceLibrary.swift`, `Capture/ScreenshotComposer.scaled` (+ testler)
+- Durum: özel çizim (SwiftUI); seçim kutularının menüsü sistem `NSMenu`
+- Eksik / sapma:
+  1. **Hesap sekmesi** çizimdeki e-posta, takım adı ve kişi sayısını gösteremiyor (hesap yok); Çıkış yap, Denetle, Otomatik güncelle pasif.
+  2. **Cihaz satırında piksel yoğunluğu** ("2×", "3×") yok: katalogda yoğunluk bilgisi tutulmuyor.
+  3. **Özel cihazın türü** genişlikten çıkarılıyor (< 600 telefon, < 1100 tablet, üstü masaüstü); formda tür seçimi yok.
+  4. **Taslakları sakla** pasif: taslak saklama yok.
+  5. Panel köşesi PNG'de 12'den büyük görünüyor (16?); `radius/card` 12 kullanıldı.
+- Tasarım kararı gerekir mi: evet — 1, 2, 3 ve 5
+- Bağlantılı: DESIGN.md §3.3 (RAIL-01, SETTINGS-01…05), §3.1 (HOME-17), §4 (medya duraklatma); `KOD-OTURUMU-ISLERI.md` §10, §11, §12 adım 7

@@ -20,6 +20,8 @@ struct DevicePicker: View {
     @AppStorage("recentDevicePresets") private var recentStorage = ""
     @FocusState private var isSearchFocused: Bool
 
+    private var library: DeviceLibrary { DeviceLibraryStore.shared.library }
+
     var body: some View {
         VStack(alignment: .leading, spacing: DesignTokens.Space.s2) {
             HStack(spacing: DesignTokens.Space.s2) {
@@ -38,11 +40,7 @@ struct DevicePicker: View {
         }
         .padding(DesignTokens.Space.s2)
         .frame(width: 660)
-        .background(DesignTokens.Color.surfaceHeader, in: .rect(cornerRadius: DesignTokens.Radius.card))
-        .overlay {
-            RoundedRectangle(cornerRadius: DesignTokens.Radius.card).strokeBorder(DesignTokens.Color.line, lineWidth: DesignTokens.Stroke.hairline)
-        }
-        .shadow(color: .black.opacity(0.5), radius: 16, y: 8)
+        .chromeSurface()
         .onAppear { isSearchFocused = true }
     }
 
@@ -117,7 +115,7 @@ struct DevicePicker: View {
     }
 
     private func column(_ category: DevicePreset.Category) -> some View {
-        let presets = DeviceSearch.presets(matching: query).filter { $0.category == category }
+        let presets = DeviceSearch.presets(matching: query, in: library.pickerPresets).filter { $0.category == category }
         return VStack(alignment: .leading, spacing: 0) {
             HStack(spacing: 6) {
                 Text(category.title.uppercased(with: Locale(identifier: "tr_TR")))
@@ -210,7 +208,7 @@ struct DevicePicker: View {
     private var customSize: ViewportSize { ViewportSize(width: customWidth, height: customHeight) }
 
     private var recent: [DevicePreset] {
-        recentStorage.split(separator: ",").compactMap { DeviceCatalog.preset(id: String($0)) }
+        recentStorage.split(separator: ",").compactMap { library.preset(id: String($0)) }
     }
 
     private func added(_ preset: DevicePreset) -> ViewportConfig? {
@@ -233,7 +231,7 @@ struct DevicePicker: View {
             addCustom(size)
             query = ""
         } else {
-            let matches = DeviceSearch.presets(matching: query)
+            let matches = DeviceSearch.presets(matching: query, in: library.pickerPresets)
             if matches.count == 1 { choose(matches[0]) }
         }
     }

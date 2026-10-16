@@ -1,7 +1,7 @@
 import EngineCore
 
-public struct DevicePreset: Identifiable, Hashable, Sendable {
-    public enum Category: String, Hashable, Sendable, CaseIterable {
+public struct DevicePreset: Identifiable, Codable, Hashable, Sendable {
+    public enum Category: String, Codable, Hashable, Sendable, CaseIterable {
         case phone
         case tablet
         case desktop

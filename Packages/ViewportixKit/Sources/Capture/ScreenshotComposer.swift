@@ -22,6 +22,20 @@ public enum ScreenshotComposer {
     static let titleHeight: CGFloat = 32
     static let titleSize: CGFloat = 15
 
+    /// Resamples `image` by `factor` (Ayarlar › Ölçek 1×: display-density captures at 1/scale).
+    public static func scaled(_ image: CGImage, by factor: CGFloat) -> CGImage? {
+        guard factor != 1 else { return image }
+        let width = max(Int((CGFloat(image.width) * factor).rounded()), 1)
+        let height = max(Int((CGFloat(image.height) * factor).rounded()), 1)
+        guard let context = CGContext(
+            data: nil, width: width, height: height, bitsPerComponent: 8, bytesPerRow: 0,
+            space: CGColorSpace(name: CGColorSpace.sRGB)!, bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
+        ) else { return nil }
+        context.interpolationQuality = .high
+        context.draw(image, in: CGRect(x: 0, y: 0, width: width, height: height))
+        return context.makeImage()
+    }
+
     public static func compose(_ items: [Item], scale: CGFloat) -> CGImage? {
         guard !items.isEmpty else { return nil }
         let margin = margin * scale

@@ -348,11 +348,7 @@ private struct HiddenDevicesMenu: View {
         }
         .padding(6)
         .frame(width: 340)
-        .background(DesignTokens.Color.surfaceHeader, in: .rect(cornerRadius: DesignTokens.Radius.card))
-        .overlay {
-            RoundedRectangle(cornerRadius: DesignTokens.Radius.card).strokeBorder(DesignTokens.Color.line, lineWidth: DesignTokens.Stroke.hairline)
-        }
-        .shadow(color: .black.opacity(0.4), radius: 12, y: 4)
+        .chromeSurface()
         .fixedSize()
         .dismissOnOutsideClick(extra: EdgeInsets(top: 40, leading: 0, bottom: 0, trailing: 0), dismiss)
     }
