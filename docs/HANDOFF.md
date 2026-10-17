@@ -1,7 +1,7 @@
 # Kod oturumu — güncel durum
 
 > Bu dosya **üzerine yazılır**; yalnızca kod oturumu yazar. Tarihçe: `docs/oturumlar/`. Tasarım oturumu salt okur.
-> Son güncelleme: 2026-10-16 (üçüncü bölüm: canlı test)
+> Son güncelleme: 2026-10-18 (dağıtım planı, kırmızı testler)
 
 ## Şu an neredeyiz
 
@@ -14,11 +14,12 @@
 - Viewport menüsü DESIGN.md §3.2.1'e tamamlandı (seçili kartta); ⌫ ve Esc menü kısayolu değil, canvas işliyor (odak sayfada / metin alanındayken değil).
 - Canvas "yapışkan sığdırma": son işlem ⌘1 ise boyut değişince yeniden sığar (`CanvasController.fitted`).
 - Mimari not: kart başlığı ve kenarları canvas'ın üstünde ayrı SwiftUI katmanında (`CardChromeLayer`), konumları `Workspace.cardFrames`'ten; grup alanı zemini belge görünümünde (`GroupAreaView`), kartların altında.
-- Testler: 80 paket testi geçiyor (`swift test --package-path Packages/ViewportixKit`; 4'ü kapalı localhost / bilinmeyen alan adı gibi gerçek WKWebView testleri). Uygulama derleniyor.
+- Testler: **3 paket testi kırmızı** (2026-10-18, temiz `main` 70408e1, sıfırdan `swift test`): `CanvasLayoutTests.swift:22` (`draggedCardsKeepTheirPlaceAndOthersFollow`: `frames[desktop.id]?.origin.x == 1000 + 400 + 48`), `GroupingTests.swift:23` ve `:28` (`groupedLayoutLeavesWiderGapsAndFoldsGroups`: `groupGap` ve katlı grup `minX`). Kodun mu testin mi yanlış olduğu bakılmadı; 4b96728 civarındaki yerleşim değişikliklerinden şüpheleniliyor. Kalanı geçiyor (4'ü kapalı localhost / bilinmeyen alan adı gibi gerçek WKWebView testleri). Uygulama derleniyor.
 - Görüntü almak: `Scripts/snapshots.sh [klasör]` (DEBUG `--snapshots`; ekran dışı pencere, @2x, sRGB; dokunduğu tercihleri geri yükler). WKWebView orada çizilmez ve yüklemesi bitmez. Xcode önizlemesi bu makinede imza yüzünden derlenmiyor.
 
 ## Sıradaki iş
 
+0. Kırmızı 3 testi düzelt (yukarıda); dağıtım/CI yapısının önkoşulu (PLAN.md §6 M3 "Dağıtım ve güncelleme").
 1. Tasarım oturumunun yanıtları: `docs/tasarim-istekleri.md` 2026-10-16 girdilerindeki "Tasarım kararı gerekir mi: evet" maddeleri (spec: BottomBar, şablon içerikleri, katalog listesi, Hesap sekmesi, ikincil düğme, eşit aralık rozetleri…) ve iki parite turu (`design/handoff/PARITY.md`).
 2. §13'ten kalan: senkron kurulamıyor (‖ + "Neden?" kapsülü; ajanın sayfaya girip girmediğini motor bildirmeli), eşit aralık rozetleri, Tab sırası (PW-05) gözden geçirme, VoiceOver gözden geçirme.
 3. Kalan pasifler: "Taslakları sakla" ve Taslaklar listesi (taslak saklama), yerinde proje adlandırma (HOME-07), "İçe aktar…", kart küçük resmi (`thumbnail.png`), MCP sekmesi (M7), Farklar/Senkron panelleri (M5).
@@ -29,7 +30,7 @@
 - **Canlı test aracı:** `orca computer` ile sürmek çalışıyor; koordinatla tık için pencere önde olmalı, kısayollar System Events `key code` ile güvenilir (`keystroke` Türkçe klavyede ⌥ ve , için yanlış karakter gönderiyor). Tasarım kararı bekleyen sorular 3 tur girdisinin sonunda.
 - Şablon içerikleri ve cihaz kataloğu tasarımdan bekleniyor.
 - Hover taklidi CORS'suz başka alan adı stil dosyalarında çalışmıyor; gerçek sitelerde sıklığı ölçülmedi.
-- Dağıtım için Apple Developer Program (şirket hesabı) gerekecek.
+- Dağıtım: plan PLAN.md §6 M3 "Dağıtım ve güncelleme" (ad-hoc DMG + Sparkle, public `viewportix-releases`, GitHub CI); ilk dağıtımdan hemen önce kurulacak. Notarization için Apple Developer Program (tercihen şirket hesabı) hâlâ gerekli, sonraya kaldı.
 
 ## Tasarım oturumunun istekleri (`design/KOD-OTURUMU-ISLERI.md`) — durum
 
