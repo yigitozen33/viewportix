@@ -94,6 +94,9 @@ struct ViewportixCommands: Commands {
             }
             .keyboardShortcut("s", modifiers: [.command, .control])
             .disabled(workspace == nil)
+            Button("Senkron Kaydı") { workspace?.toggleDevPanel(.sync) }
+                .keyboardShortcut("2", modifiers: [.command, .option])
+                .disabled(workspace == nil)
             Button(workspace?.isRailVisible == false ? "Rayı Göster" : "Rayı Gizle") {
                 withAnimation(.easeInOut(duration: 0.2)) { workspace?.isRailVisible.toggle() }
             }

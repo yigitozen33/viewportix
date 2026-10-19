@@ -62,6 +62,12 @@ struct ProjectWindow: View {
             }
             .clipped()
             .focusSection()
+            // DESIGN.md §3.4: the developer panel pushes the canvas (320 pt), left of the rail.
+            if workspace.devPanel == .sync {
+                SyncLogPanel(workspace: workspace)
+                    .focusSection()
+                    .transition(.move(edge: .trailing))
+            }
             if workspace.isRailVisible {
                 InspectorRail(workspace: workspace)
                     .focusSection()

@@ -484,3 +484,17 @@ Kod oturumunun arayüze dokunan her değişikliği, değişikliğin commit'inde 
   - Yeniden adlandırma alanının görünümü (gök kenar, `canvas` zemin) çizilmemiş.
   - Tab ile kartın sayfasına girmenin yolu yok (tıklamak gerekiyor). Kart başlığında ⏎ ile sayfaya girmek istenir mi?
 - Bağlantılı: DESIGN.md §3.1 (HOME-07), §3.2 (CARD-08/09, PW-05), §3.3 (Cihazlar), §5.20 h; `KOD-OTURUMU-ISLERI.md` §13
+
+## 2026-10-19 — Senkron paneli (M5, §15 b)
+- Ne: Raydaki "Senkron Kaydı" (ve Görüntü › Senkron Kaydı ⌥⌘2) paneli açar; panel 320 pt, canvas'ı iter, rayın solunda (`Dev Panel · Senkron (sakin)` ölçüleri: başlık [14,16,10,16], OLAY / VIEWPORT micro + 0,6 harf aralığı, satır [7,8] 8 köşe, açık satır `surface/header`, açıklama 46 pt girinti, alt satır [12,16]). Satır: geçen süre (mm:ss, pencere açılışından), olay + argüman ("scroll 640 px", "click “Products”", "input #qty = 2", "navigate /urun"), sağda "5 / 8" (kaçıran varsa yalnız sayı mercan). Satıra tık açar (DEV-01, tek açık): "iPhone SE, iPhone 16 kaçırdı: “Products” bulunamadı" ve eylem satırı tam genişlikte: Yeniden dene R (sarı, yalnız kaçıranda) · Göster ⏎ · Teşhis et D (pasif, ipucu "Teşhis MCP ile gelecek"). R / ⏎ açık satırda çalışır (metin alanı ya da sayfa klavyedeyken değil; satıra tıklamak klavyeyi sayfadan alır); klavyeyle düğme kıpırdamaz. Yeniden dene olayı yalnız kaçıranlara gönderir (DEV-06). Göster: kaçıran viewport'u seçip öne getirir. "Canlı ⌄" (Canlı / Duraklatıldı) ve alt satırdaki Duraklat/Sürdür kaydı durdurur, senkronu değil. ⋯: Yalnız kaçıranlar (süzgeç), Temizle, Dışa aktar…. Liste en yeniden aşağı; aşağı kaydırılmışken gelen olaylar "N yeni olay ↓" ile sayılır, tıklayınca en yeniye döner (DEV-08). Ardışık scroll'lar ve hover'lar 1,5 sn içinde tek satır; imlecin sayfadan çıkması ve zaten her yerde açık adrese gitmek listelenmez.
+- Kanıt (canlı): spa.html, Full HD'de "Products" bağlantısı (telefonlarda gizli) → "click “Products” 5 / 8" mercan, şeritte telefonlarda ⚠; satır açıldı; ⏎ iPhone SE'yi seçip öne getirdi (`docs/parity/live-synclog-row@2x.png`, `live-synclog-window@2x.png`). Test `logsEachEventWithItsFollowersAndMergesScrolls`.
+- Nerede: `Viewportix/Project/SyncLogPanel.swift`, `Workspace.swift` (`devPanel`, `syncLog`), `InspectorRail.swift`, `ProjectWindow.swift`, `ViewportixApp.swift`; paket `SyncCore/SyncLog.swift`, `SyncCoordinator.swift`; ajan scroll'a `y` ekledi
+- Durum: özel çizim
+- Tasarım kararı gerekir mi: evet —
+  - Saat sütunu: çizimdeki "04:31" saatin dakika:saniyesi mi, pencere açıldığından beri geçen süre mi? Geçen süre seçildi.
+  - Liste en yeni üstte (çizimdeki sıra), ama "2 yeni olay ↓" aşağıyı gösteriyor; tıklayınca en yeniye, yani yukarı gidiyor. Ok ↑ mu olmalı?
+  - ⋯ menüsünün içeriği çizilmemiş (Yalnız kaçıranlar, Temizle, Dışa aktar… konuldu).
+  - "Tasarımcı / Geliştirici" kapsamı: geliştirici kapsamı (ağ, konsol) yok; şimdilik yalnız "Tasarımcı" yazısı (menü değil).
+  - Göster: çizimde kaçıran viewport'ta beklenen yerde mercan kutu + "bulunamadı"; eleman o viewport'ta olmadığı için konum bilinmiyor. Şimdilik viewport seçilip öne getiriliyor. Beklenen yer liderdeki konumun orantılısı olarak çizilsin mi?
+  - Teşhis et (A) kullanıcı kararıyla ertelendi (2026-10-19, PLAN.md M5); düğme pasif ve ipuçlu duruyor. Gizlensin mi?
+- Bağlantılı: DESIGN.md §3.4 (DEV-01, DEV-06, DEV-08), `KOD-OTURUMU-ISLERI.md` §15 b

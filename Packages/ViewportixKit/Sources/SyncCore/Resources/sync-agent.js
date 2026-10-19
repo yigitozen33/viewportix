@@ -143,8 +143,8 @@
     const max = maxScroll();
     const y = scroller().scrollTop;
     const percent = max > 0 ? y / max : 0;
-    if (y <= 2) return { edge: 'top', percent };
-    if (y >= max - 2) return { edge: 'bottom', percent };
+    if (y <= 2) return { edge: 'top', percent, y: Math.round(y) };
+    if (y >= max - 2) return { edge: 'bottom', percent, y: Math.round(y) };
 
     const line = topObstruction() + PROBE_GAP;
     const picked = [];
@@ -163,7 +163,7 @@
       const selector = selectorFor(el);
       return { selector, strong: isStrong(selector), ratio: (line - rect.top) / rect.height };
     });
-    return { candidates, section: captureSection(line), percent };
+    return { candidates, section: captureSection(line), percent, y: Math.round(y) };
   }
 
   function scrollToY(y) {

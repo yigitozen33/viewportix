@@ -1,10 +1,12 @@
 import AppKit
 import Capture
+import DesignSystem
 import DeviceCatalog
 import EngineCore
 import Foundation
 import Observation
 import ProjectModel
+import SwiftUI
 import SyncCore
 import WebKitEngine
 
@@ -34,6 +36,18 @@ final class Workspace {
     var isDevicePickerOpen = false
     /// The settings panel over the canvas and its tab; nil when closed (RAIL-01, ⌘,).
     var settingsTab: SettingsTab?
+    /// The developer panel docked left of the rail (DESIGN.md §3.4); it pushes the canvas.
+    var devPanel: DevPanel?
+    /// The Senkron panel's rows, mirrored from the coordinator (newest first).
+    private(set) var syncLog: [SyncLog.Entry] = []
+    /// "Canlı" / "Duraklatıldı": while paused nothing new is recorded; sync itself goes on.
+    var isSyncLogLive = true {
+        didSet { coordinator.isLogging = isSyncLogLive }
+    }
+    /// Times in the log count from here (mm:ss).
+    @ObservationIgnored let logStart = Date.now
+
+    enum DevPanel { case diffs, sync }
     /// The selected card (CARD-02): target of tab clicks and per-viewport shortcuts.
     var selectedViewportID: ViewportID?
     /// Groups on the canvas (Görünüm › Grupla) and their screen frames: open groups' page-area union,
@@ -138,6 +152,35 @@ final class Workspace {
         coordinator.onResult = { [weak self] id, _, result in
             if result == .missed { self?.flagMissed(id) }
         }
+        coordinator.onLogChange = { [weak self] in
+            guard let self else { return }
+            syncLog = coordinator.log.entries
+        }
+    }
+
+    // MARK: Senkron panel
+
+    /// The rail item or ⌥⌘1 / ⌥⌘2: opens that panel, or closes it when it is already open.
+    func toggleDevPanel(_ panel: DevPanel) {
+        withAnimation(Motion.curve(DesignTokens.Motion.panel)) { devPanel = devPanel == panel ? nil : panel }
+    }
+
+    /// DEV-06 "Yeniden dene": the event again, only where it was missed.
+    func retrySync(_ entry: SyncLog.Entry) {
+        for id in entry.missedIDs { coordinator.retry(entry.id, in: id) }
+    }
+
+    func clearSyncLog() {
+        coordinator.clearLog()
+    }
+
+    /// "Dışa aktar (JSON)".
+    func exportSyncLog() throws -> Data {
+        try coordinator.log.exportJSON(names: Dictionary(uniqueKeysWithValues: viewports.map { ($0.id, $0.name) }))
+    }
+
+    func viewportName(_ id: ViewportID) -> String {
+        viewports.first { $0.id == id }?.name ?? "Viewport"
     }
 
     func session(for id: ViewportID) -> (any EngineSession)? {

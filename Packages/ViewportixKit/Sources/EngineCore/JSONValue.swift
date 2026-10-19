@@ -60,6 +60,16 @@ public enum JSONValue: Hashable, Sendable, Codable {
         return value
     }
 
+    public var numberValue: Double? {
+        guard case .number(let value) = self else { return nil }
+        return value
+    }
+
+    public var boolValue: Bool? {
+        guard case .bool(let value) = self else { return nil }
+        return value
+    }
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         if container.decodeNil() {

@@ -29,12 +29,15 @@ final class FakeSession: EngineSession {
     func setMediaPlaybackSuspended(_ suspended: Bool) { mediaSuspended = suspended }
     func trustCertificates(forHost host: String) {}
 
+    /// What `apply` answers; `.missed` makes this viewport miss every event.
+    var result = ApplyResult.applied("fake")
+
     func apply(_ event: SyncEvent) async -> ApplyResult {
         if holdApplies {
             await withCheckedContinuation { held.append($0) }
         }
         applied.append(event)
-        return .applied("fake")
+        return result
     }
 
     func emit(_ event: EngineEvent) {
@@ -212,5 +215,33 @@ struct SyncCoordinatorTests {
         #expect(coordinator.leaderID == nil)
         #expect(coordinator.sessions.count == 2)
         #expect(a.eventHandler == nil)
+    }
+
+    @Test func logsEachEventWithItsFollowersAndMergesScrolls() async {
+        coordinator.leaderID = a.id
+        c.result = .missed
+        let click = SyncEvent.click(.object(["selector": .string(".add-to-cart"), "strong": .bool(true)]))
+        a.emit(.interaction(scroll(0.1)))
+        a.emit(.interaction(scroll(0.2)))
+        a.emit(.interaction(click))
+        await settle()
+
+        let entries = coordinator.log.entries
+        #expect(entries.map(\.kind) == ["click", "scroll"])  // two scrolls, one row; newest first
+        #expect(entries[0].detail == ".add-to-cart")
+        #expect(entries[0].reached == 2 && entries[0].total == 3 && entries[0].missedIDs == [c.id])
+        #expect(entries[1].detail == "%20")
+
+        // DEV-06: once the page has the element, "Yeniden dene" goes only to the viewport that missed.
+        c.result = .applied("selector")
+        let before = b.applied.count
+        coordinator.retry(entries[0].id, in: c.id)
+        await settle()
+        #expect(coordinator.log.entries[0].reached == 3 && b.applied.count == before)
+
+        coordinator.isLogging = false
+        a.emit(.interaction(click))
+        await settle()
+        #expect(coordinator.log.entries.count == 2)
     }
 }

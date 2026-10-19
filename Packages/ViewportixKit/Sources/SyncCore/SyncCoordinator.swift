@@ -53,8 +53,19 @@ public final class SyncCoordinator {
     /// Outcome of each mirrored event, e.g. to flag "sync missed" on a viewport.
     public var onResult: ((ViewportID, SyncEvent, ApplyResult) -> Void)?
     public var stats = SyncStats()
+    /// The Senkron panel's rows (DESIGN.md §3.4). Recording stops while `isLogging` is false
+    /// ("Duraklatıldı"); sync itself goes on.
+    public private(set) var log = SyncLog()
+    public var isLogging = true
+    public var onLogChange: (() -> Void)?
 
-    private var queues: [ViewportID: [SyncEvent]] = [:]
+    private struct Queued {
+        var event: SyncEvent
+        /// The log row this apply reports to.
+        var entry: UUID?
+    }
+
+    private var queues: [ViewportID: [Queued]] = [:]
     private var draining: Set<ViewportID> = []
 
     public init() {}
@@ -88,8 +99,10 @@ public final class SyncCoordinator {
         switch event {
         case .interaction(let sync):
             stats.mirrored += 1
-            for follower in followers(of: id) {
-                enqueue(sync, for: follower)
+            let followers = followers(of: id)
+            let entry = record(sync, leader: id, followers: followers.map(\.id))
+            for follower in followers {
+                enqueue(sync, entry: entry, for: follower)
             }
         case .urlChanged(let url):
             mirrorNavigation(to: url, from: id)
@@ -101,8 +114,12 @@ public final class SyncCoordinator {
     private func mirrorNavigation(to url: URL, from id: ViewportID) {
         Task {
             try? await Task.sleep(for: navigationGrace)
-            for follower in followers(of: id) where follower.currentURL != url {
-                enqueue(.navigate(url), for: follower)
+            let followers = followers(of: id).filter { $0.currentURL != url }
+            // Already everywhere (the address bar loads every viewport): nothing to mirror or list.
+            guard !followers.isEmpty else { return }
+            let entry = record(.navigate(url), leader: id, followers: followers.map(\.id))
+            for follower in followers {
+                enqueue(.navigate(url), entry: entry, for: follower)
             }
         }
     }
@@ -121,13 +138,34 @@ public final class SyncCoordinator {
         }
     }
 
-    private func enqueue(_ event: SyncEvent, for follower: any EngineSession) {
+    private func record(_ event: SyncEvent, leader: ViewportID, followers: [ViewportID]) -> UUID? {
+        // The pointer leaving the page (hover → nothing) is not something to list.
+        guard isLogging, event != .hover(.null) else { return nil }
+        let id = log.record(event, leader: leader, followers: followers)
+        onLogChange?()
+        return id
+    }
+
+    /// "Yeniden dene" (DEV-06): the row's event again, only in the viewport that missed it.
+    public func retry(_ entryID: UUID, in viewport: ViewportID) {
+        guard let entry = log.entries.first(where: { $0.id == entryID }), let follower = session(viewport) else { return }
+        log.markPending(entryID, follower: viewport)
+        onLogChange?()
+        enqueue(entry.event, entry: entryID, for: follower)
+    }
+
+    public func clearLog() {
+        log.clear()
+        onLogChange?()
+    }
+
+    private func enqueue(_ event: SyncEvent, entry: UUID? = nil, for follower: any EngineSession) {
         var queue = queues[follower.id, default: []]
-        if let last = queue.last, Self.supersedes(event, last) {
-            queue[queue.count - 1] = event
+        if let last = queue.last, Self.supersedes(event, last.event) {
+            queue[queue.count - 1] = Queued(event: event, entry: entry)
             stats.coalesced += 1
         } else {
-            queue.append(event)
+            queue.append(Queued(event: event, entry: entry))
         }
         queues[follower.id] = queue
 
@@ -149,8 +187,9 @@ public final class SyncCoordinator {
     }
 
     private func drain(_ follower: any EngineSession) async {
-        while let next = queues[follower.id]?.first {
+        while let queued = queues[follower.id]?.first {
             queues[follower.id]?.removeFirst()
+            let next = queued.event
             let start = ContinuousClock.now
             let result = await follower.apply(next)
             let elapsed = ContinuousClock.now - start
@@ -158,6 +197,10 @@ public final class SyncCoordinator {
             stats.totalApplyTime += elapsed
             stats.maxApplyTime = max(stats.maxApplyTime, elapsed)
             if result == .missed { stats.missed += 1 }
+            if let entry = queued.entry {
+                log.update(entry, follower: follower.id, result: result)
+                onLogChange?()
+            }
             onResult?(follower.id, next, result)
         }
         draining.remove(follower.id)

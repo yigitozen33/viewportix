@@ -2,8 +2,8 @@ import DesignSystem
 import SwiftUI
 
 /// `Window/Rail` (specs/InspectorRail.json): 44 pt on the window's right edge. Ayarlar, Cihazlar and
-/// Hesap open the settings panel (RAIL-01); MCP (M7), Farklar and Senkron (M5) are disabled until
-/// their panels exist. The collapse button hides the rail (RAIL-03).
+/// Hesap open the settings panel (RAIL-01); Senkron Kaydı docks the sync log; MCP (M7) and Farklar
+/// (M5 diff) are disabled until their panels exist. The collapse button hides the rail (RAIL-03).
 struct InspectorRail: View {
     @Bindable var workspace: Workspace
 
@@ -15,7 +15,9 @@ struct InspectorRail: View {
             panelItem(.account, label: "Hesap")
             Rectangle().fill(DesignTokens.Color.line).frame(width: 20, height: 1)
             RailItem(symbol: "square.split.2x1", label: "Farklar", shortcut: "⌥⌘1", isEnabled: false) {}
-            RailItem(symbol: "waveform.path.ecg", label: "Senkron Kaydı", shortcut: "⌥⌘2", isEnabled: false) {}
+            RailItem(symbol: "waveform.path.ecg", label: "Senkron Kaydı", shortcut: "⌥⌘2", isActive: workspace.devPanel == .sync) {
+                workspace.toggleDevPanel(.sync)
+            }
             Spacer()
             RailItem(symbol: "sidebar.right", label: "Rayı Gizle", shortcut: "⌥⌘0") {
                 withAnimation(.easeInOut(duration: DesignTokens.Motion.panel)) { workspace.isRailVisible = false }
