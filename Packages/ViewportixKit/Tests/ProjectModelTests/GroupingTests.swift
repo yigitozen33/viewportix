@@ -20,12 +20,13 @@ struct GroupingTests {
         let open = CanvasLayout.grouped(project.viewports, groups: groups, collapsed: [])
         let phones = try #require(open.groups["phone"])
         let tablets = try #require(open.groups["tablet"])
-        #expect(tablets.minX - phones.maxX == CanvasLayout.groupGap)
+        // #expect does not apply the CGFloat/Double conversion (Swift 6.4); compare as CGFloat.
+        #expect(tablets.minX - phones.maxX == CGFloat(CanvasLayout.groupGap))
 
         let folded = CanvasLayout.grouped(project.viewports, groups: groups, collapsed: ["phone"])
         #expect(folded.frames.count == 5)
         #expect(folded.groups["phone"]?.size == .zero)
-        #expect(folded.groups["tablet"]?.minX == CanvasLayout.margin + CanvasLayout.collapsedWidth)
+        #expect(folded.groups["tablet"]?.minX == CGFloat(CanvasLayout.margin + CanvasLayout.collapsedWidth))
     }
 
     @Test func groupingIsSavedAndOldFilesHaveNone() throws {

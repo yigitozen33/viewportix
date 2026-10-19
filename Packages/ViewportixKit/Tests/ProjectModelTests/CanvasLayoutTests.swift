@@ -19,7 +19,7 @@ struct CanvasLayoutTests {
         moved.position = CanvasPoint(x: 1000, y: 300)
         let frames = CanvasLayout.frames(for: [moved, desktop])
         #expect(frames[moved.id]?.origin == CGPoint(x: 1000, y: 300))
-        #expect(frames[desktop.id]?.origin.x == 1000 + 400 + 48)
+        #expect(frames[desktop.id]?.origin.x == CGFloat(1000 + 400 + 48))
     }
 
     @Test func snapsToNearbyEdgesWithinThreshold() {
