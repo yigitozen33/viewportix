@@ -1,0 +1,1068 @@
+<meta charset="utf-8">
+<title>Viewportix Animasyon Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* Layout: tool page — header with global motion controls, then a two-column grid of live experiments (one column on phones).
+     Tokens are Viewportix's own (DESIGN.md §2): dark-first, light values under prefers-color-scheme: light. */
+  :root {
+    --canvas: #161412; --bar: #1F1C19; --card: #26221F; --header: #2D2926; --pill: #3A3430;
+    --line: #3A3532; --line-strong: #4F4945; --ink: #F4EFE9; --ink-2: #9C9188;
+    --accent: #FFF36B; --accent-ink: #141210; --leader: #8EC9E6; --warn: #FF8F85;
+    --font-ui: "Inter", -apple-system, "SF Pro Text", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+    --slow: 1;
+    color-scheme: dark;
+  }
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+      --canvas: #F4F1EC; --bar: #ECE8E1; --card: #FFFFFF; --header: #E9E4DC; --pill: #E3DED5;
+      --line: #D9D3C9; --line-strong: #C7C0B4; --ink: #1D1B19; --ink-2: #6E6760;
+      --accent: #E6C800; --accent-ink: #141210; --leader: #2F8FBF; --warn: #D9534A; color-scheme: light;
+    }
+  }
+  :root[data-theme="light"] {
+    --canvas: #F4F1EC; --bar: #ECE8E1; --card: #FFFFFF; --header: #E9E4DC; --pill: #E3DED5;
+    --line: #D9D3C9; --line-strong: #C7C0B4; --ink: #1D1B19; --ink-2: #6E6760;
+    --accent: #E6C800; --accent-ink: #141210; --leader: #2F8FBF; --warn: #D9534A; color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  body { background: var(--canvas); color: var(--ink); font: 13px/1.5 var(--font-ui); }
+  .wrap { max-width: 1240px; margin: 0 auto; padding-inline: 24px; padding-block: 28px 64px; display: grid; gap: 28px; }
+  @media (max-width: 640px) { .wrap { padding-inline: 16px; } }
+  .mono { font-family: var(--font-mono); font-size: 11px; }
+  .muted { color: var(--ink-2); }
+
+  /* header */
+  header.top { display: grid; gap: 10px; }
+  .kicker { font-size: 10px; font-weight: 600; letter-spacing: 1px; color: var(--accent); text-transform: uppercase; }
+  :root[data-theme="light"] .kicker { color: var(--ink); }
+  @media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) .kicker { color: var(--ink); } }
+  h1 { font-size: 22px; font-weight: 600; margin: 0; letter-spacing: -0.01em; text-wrap: balance; }
+  .lede { color: var(--ink-2); max-width: 72ch; margin: 0; }
+  .controls { display: flex; flex-wrap: wrap; gap: 10px 20px; align-items: center; padding: 10px 12px; background: var(--bar); border: 1px solid var(--line); border-radius: 12px; }
+  .ctl { display: flex; gap: 8px; align-items: center; color: var(--ink-2); font-size: 12px; }
+  .seg { display: inline-flex; background: var(--canvas); border: 1px solid var(--line); border-radius: 8px; padding: 2px; }
+  .seg button { font: inherit; font-size: 12px; color: var(--ink-2); background: none; border: 0; border-radius: 6px; padding: 4px 10px; cursor: default; }
+  .seg button[aria-pressed="true"] { background: var(--header); color: var(--ink); }
+  .seg button:focus-visible, .btn:focus-visible, .act:focus-visible, .tab:focus-visible, [role="slider"]:focus-visible, .lab:focus-visible { outline: 2px solid var(--ink); outline-offset: 1px; }
+  label.tog { display: inline-flex; gap: 6px; align-items: center; cursor: default; }
+
+  /* grid of experiments */
+  .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+  @media (max-width: 900px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+  .lab { background: var(--bar); border: 1px solid var(--line); border-radius: 12px; padding: 16px; display: grid; gap: 12px; align-content: start; min-width: 0; }
+  .lab-head { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+  .lab-head h2 { font-size: 13px; font-weight: 600; margin: 0; }
+  .lab-head .tag { margin-left: auto; font-family: var(--font-mono); font-size: 10px; color: var(--ink-2); background: var(--header); border-radius: 4px; padding: 2px 6px; }
+  .stage { background: var(--canvas); border-radius: 8px; padding: 16px; min-height: 120px; display: grid; gap: 10px; align-content: center; position: relative; overflow: hidden; }
+  .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .vals { font-family: var(--font-mono); font-size: 10.5px; color: var(--ink-2); line-height: 1.6; overflow-wrap: anywhere; }
+  .lab-head h2 { min-width: 0; } .controls .mono { overflow-wrap: anywhere; }
+  .desc { margin: 0; color: var(--ink); max-width: 68ch; }
+  input[type="range"] { accent-color: var(--accent); width: 120px; }
+  .slider { display: inline-flex; gap: 6px; align-items: center; font-size: 12px; color: var(--ink-2); }
+  .slider output { font-family: var(--font-mono); font-size: 11px; color: var(--ink); min-width: 52px; font-variant-numeric: tabular-nums; }
+
+  .btn { font: inherit; font-size: 12px; color: var(--ink); background: var(--pill); border: 0; border-radius: 6px; height: 26px; padding: 0 10px; cursor: default; transition: transform calc(120ms * var(--slow)) var(--ease-out), background-color calc(120ms * var(--slow)) ease; }
+  .btn:active { transform: scale(0.97); transition-duration: calc(80ms * var(--slow)); }
+
+  /* K4 action buttons: word + shortcut */
+  .act { font: inherit; font-size: 11px; height: 24px; padding: 0 6px 0 10px; border: 0; border-radius: 6px; background: var(--pill); color: var(--ink);
+    display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; cursor: default; user-select: none;
+    transition: transform calc(120ms * var(--slow)) var(--ease-out), background-color calc(120ms * var(--slow)) ease, filter calc(120ms * var(--slow)) ease; }
+  .act kbd { font: inherit; font-size: 10px; color: var(--ink-2); background: var(--header); border-radius: 4px; padding: 1px 4px; }
+  .act.primary { background: var(--accent); color: var(--accent-ink); font-weight: 600; }
+  .act.primary kbd { color: var(--accent-ink); background: color-mix(in srgb, var(--accent-ink) 12%, transparent); }
+  @media (hover: hover) and (pointer: fine) { .act:hover { background: var(--line-strong); } .act.primary:hover { background: var(--accent); filter: brightness(1.06); } }
+  .act.pressing { transform: scale(0.97); transition-duration: calc(80ms * var(--slow)); filter: brightness(0.88); }
+
+  /* 1 · shimmer */
+  .shim-line { display: flex; gap: 10px; align-items: center; }
+  .shim-line .who { width: 64px; flex: none; font-size: 11px; color: var(--ink-2); }
+  .shim { font-weight: 600; font-size: 14px; background-clip: text; -webkit-background-clip: text; color: transparent; }
+  .el { color: var(--ink-2); font-size: 12px; }
+
+  /* 2 · collapse */
+  .two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  @media (max-width: 520px) { .two { grid-template-columns: minmax(0, 1fr); } }
+  .box { background: var(--bar); border: 1px solid var(--line); border-radius: 8px; padding: 10px; min-width: 0; }
+  .box-h { display: flex; gap: 6px; align-items: center; font-weight: 600; font-size: 12px; }
+  .box-h .m { margin-left: auto; font-weight: 400; color: var(--ink-2); font-size: 10px; font-family: var(--font-mono); }
+  .steps { display: grid; gap: 6px; padding-top: 8px; color: var(--ink-2); font-size: 12px; }
+  .steps span::before { content: "•"; margin-right: 6px; color: var(--line-strong); }
+  .nx-c { overflow: hidden; }
+  .ours-c { display: grid; grid-template-rows: 1fr; transition: grid-template-rows calc(200ms * var(--slow)) var(--ease-out), opacity calc(200ms * var(--slow)) var(--ease-out); }
+  .ours-c > div { min-height: 0; overflow: hidden; }
+  .ours-c.closed { grid-template-rows: 0fr; opacity: 0.4; }
+  @keyframes nx-expand { from { height: 0; } to { height: var(--h); } }
+  @keyframes nx-collapse { from { height: var(--h); } to { height: 0; } }
+
+  /* 3 · curves */
+  .track { position: relative; height: 22px; background: var(--bar); border-radius: 11px; }
+  .track .dot { position: absolute; left: 3px; top: 3px; width: 16px; height: 16px; border-radius: 50%; background: var(--ink); }
+  .track.emil .dot { background: var(--accent); }
+  .tl { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 10px; align-items: center; }
+  @media (max-width: 520px) { .tl { grid-template-columns: minmax(0, 1fr); gap: 4px; } }
+
+  /* 4 · loader */
+  .vp { display: inline-flex; align-items: flex-end; gap: 3px; height: 27px; color: var(--accent); }
+  .vp b { background: currentColor; border-radius: 2px; animation: blink var(--cyc) linear infinite; animation-delay: calc(var(--i) * var(--cyc) / 6); }
+  .vp b:nth-child(1) { width: 6px; height: 27px; } .vp b:nth-child(2) { width: 9px; height: 21px; } .vp b:nth-child(3) { width: 15px; height: 15px; }
+  @keyframes blink { 0% { opacity: 1; } 16.6% { opacity: .6; } 33.3% { opacity: .4; } 50%, 100% { opacity: .25; } }
+
+  /* 5 · hold to confirm */
+  .hold { position: relative; height: 24px; padding: 0 10px; border: 0; border-radius: 6px; background: var(--pill); color: var(--ink); font: inherit; font-size: 11px; font-weight: 600; overflow: hidden; cursor: default; user-select: none; touch-action: none;
+    transition: transform calc(160ms * var(--slow)) var(--ease-out); }
+  .hold .fill { position: absolute; inset: 0; background: var(--accent); color: var(--accent-ink); display: flex; align-items: center; padding: 0 10px;
+    clip-path: inset(0 100% 0 0); transition: clip-path calc(200ms * var(--slow)) var(--ease-out); }
+  .hold.down { transform: scale(0.97); }
+  .hold.down .fill { clip-path: inset(0 0 0 0); transition: clip-path calc(1200ms * var(--slow)) linear; }
+  .hold.done .fill { clip-path: inset(0 0 0 0); transition: none; }
+  .chip { font-size: 11px; padding: 2px 8px; border-radius: 6px; background: var(--header); color: var(--ink); }
+
+  /* 7 · stagger */
+  .sg { display: grid; gap: 6px; font-size: 12px; color: var(--ink-2); }
+  .sg span::before { content: "•"; margin-right: 6px; color: var(--line-strong); }
+
+  /* 8 · compare */
+  .cmp { position: relative; height: 170px; border-radius: 8px; overflow: hidden; user-select: none; touch-action: none; }
+  .vpage { position: absolute; inset: 0; padding: 14px 16px; display: grid; gap: 6px; align-content: start; }
+  .vpage .t { font-size: 10px; color: var(--ink-2); }
+  .vpage .img { height: 54px; border-radius: 6px; }
+  .vpage .ttl { font-size: 15px; font-weight: 600; }
+  .vpage .price { font-size: 14px; }
+  .vpage .cta { height: 22px; border-radius: 6px; width: 140px; }
+  .vpage.base { background: var(--header); } .vpage.base .img, .vpage.base .cta { background: var(--line-strong); } .vpage.base .price { font-weight: 500; }
+  .vpage.top { background: var(--card); clip-path: inset(0 50% 0 0); } .vpage.top .img, .vpage.top .cta { background: var(--line); } .vpage.top .price { font-weight: 700; }
+  .handle { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--accent); left: 50%; transform: translateX(-1px); }
+  .handle i { position: absolute; top: 50%; left: 50%; width: 18px; height: 18px; border-radius: 50%; background: var(--accent); transform: translate(-50%, -50%); box-shadow: 0 1px 3px rgba(0,0,0,.35); }
+  .handle .lbl { position: absolute; top: 8px; font-size: 10px; color: var(--ink-2); white-space: nowrap; }
+
+  /* 9 · origin-aware */
+  .canvas-mini { position: relative; height: 150px; background: var(--card); border-radius: 8px; }
+  .target { position: absolute; left: 18%; top: 58%; width: 150px; height: 28px; border: 1.5px solid var(--ink); border-radius: 6px; }
+  .cursor { position: absolute; left: calc(18% + 120px); top: calc(58% + 14px); width: 16px; height: 16px; }
+  .alabel { position: absolute; left: calc(18% + 134px); top: calc(58% + 26px); background: var(--ink); color: var(--canvas); font-size: 11px; font-weight: 600; border-radius: 6px; padding: 4px 8px; white-space: nowrap; }
+
+  /* 10 · rail tabs */
+  .rail { position: relative; width: 200px; padding: 4px; background: var(--bar); border-radius: 8px; }
+  .rail .ind { position: absolute; left: 4px; right: 4px; top: 4px; height: 28px; border-radius: 6px; background: var(--header); }
+  .rail .list { position: relative; display: grid; }
+  .rail .list.copy { position: absolute; inset: 4px; pointer-events: none; }
+  .tab { height: 28px; display: flex; align-items: center; padding: 0 10px; font: inherit; font-size: 12px; color: var(--ink-2); background: none; border: 0; text-align: left; cursor: default; border-radius: 6px; }
+  .list.copy .tab { color: var(--ink); font-weight: 600; }
+
+  /* 11 · toasts */
+  .toaster { position: relative; height: 150px; }
+  .toast { position: absolute; left: 50%; bottom: 10px; width: min(340px, 92%); height: 40px; background: var(--card); border: 1px solid var(--line); border-radius: 8px; display: flex; gap: 8px; align-items: center; padding: 0 12px; font-size: 12px;
+    transform: translateX(-50%) translateY(calc(var(--y, 0) * 1px)) scale(var(--s, 1)); opacity: var(--o, 1);
+    transition: transform calc(400ms * var(--slow)) ease, opacity calc(400ms * var(--slow)) ease; }
+  .toast .g { display: inline-flex; align-items: flex-end; gap: 1px; height: 9px; }
+  .toast .g b { background: var(--ink); border-radius: .6px; }
+  .toast .g b:nth-child(1) { width: 2px; height: 9px; } .toast .g b:nth-child(2) { width: 3px; height: 7px; } .toast .g b:nth-child(3) { width: 5px; height: 5px; }
+  .toast .a { margin-left: auto; color: var(--ink); }
+
+  .reduce *, .reduce *::before, .reduce *::after { animation-duration: 0s !important; animation-iteration-count: 1 !important; }
+  .reduce .shim { animation: none !important; background: none !important; color: var(--ink) !important; }
+  .reduce .vp b { animation: none !important; opacity: .6; }
+  .lab.wide { grid-column: 1 / -1; }
+  #nexusHost { min-height: 240px; min-width: 0; }
+  .nx-grid { display: grid; gap: 28px; }
+  .a2-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 372px)); gap: 28px; align-items: start; }
+  @media (max-width: 860px) { .a2-pair { grid-template-columns: minmax(0, 1fr); } }
+  .a2-col { min-width: 0; }
+  .a2-clock { margin-top: 8px; }
+  .a2-diff { margin: 10px 0 0; padding-left: 16px; color: var(--ink-2); font-size: 11px; display: grid; gap: 3px; }
+  .a2-panel:focus-visible, .a2-head.toggle:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+  .a2-sw { display: grid; grid-template-rows: 1fr; transition: grid-template-rows calc(300ms * var(--slow)) var(--ease-out), opacity calc(200ms * var(--slow)) var(--ease-out); }
+  .a2-sw > div { min-height: 0; overflow: hidden; }
+  .a2-sw.closed { grid-template-rows: 0fr; opacity: 0; }
+  .a2-step .d i.wait { width: 6px; height: 6px; background: var(--warn); margin-top: 2px; }
+  .a2-ask .x { color: var(--ink); }
+  .a2-asks { display: flex; gap: 6px; flex-wrap: wrap; padding-left: 20px; }
+  .vp.sm.paused b { animation-play-state: paused; }
+  .a2-chip { font-size: 11px; padding: 3px 8px; border-radius: 6px; background: var(--header); color: var(--ink); white-space: nowrap; }
+  #fullProto iframe { display: block; width: 100%; height: 760px; border: 1px solid var(--line); border-radius: 12px; background: var(--canvas); }
+  body.solo .lab.wide > .row, body.solo #fullProto { display: none; }
+  body.only-v1 #a2Col2, body.only-v2 #a2Col1, body.only-v1 .nx-col, body.only-v2 .nx-col, body.only-v1 .lab.wide .lab-head, body.only-v2 .lab.wide .lab-head { display: none; }
+  body.only-v1 .a2-pair, body.only-v2 .a2-pair { grid-template-columns: minmax(0, 372px); }
+  .nx-col-h { font-size: 11px; color: var(--ink-2); margin-bottom: 8px; display: flex; flex-wrap: wrap; gap: 2px 8px; }
+  .nx-col-h b { color: var(--ink); font-weight: 600; }
+  /* our A2 box (decisions K1 c · K2 c · K3 b · K4 f), same loop as the Nexus demo */
+  .a2-panel { background: var(--bar); border: 1px solid var(--line); border-radius: 12px; padding: 8px; font-size: 11px; line-height: 1.45; }
+  .a2-sum { display: flex; gap: 10px; align-items: center; padding: 4px 4px 8px; }
+  .a2-sum .t { color: var(--ink-2); width: 36px; } .a2-sum .ev { font-size: 12px; } .a2-sum .arg { color: var(--ink-2); }
+  .a2-sum .res { margin-left: auto; color: var(--warn); font-size: 12px; }
+  .a2-detail { padding: 0 4px 6px 50px; color: var(--ink-2); }
+  .a2-box { background: var(--canvas); border-radius: 6px; padding: 9px 10px 10px; overflow: hidden; }
+  .a2-head { display: flex; gap: 6px; align-items: center; }
+  .a2-head .ti { font-weight: 600; } .a2-head .el2 { color: var(--ink-2); display: inline-block; min-width: 26px; }
+  .a2-head .me { margin-left: auto; color: var(--ink-2); font-size: 10px; }
+  .a2-steps { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+  .a2-step { display: flex; gap: 8px; align-items: flex-start; }
+  .a2-step .d { width: 12px; flex: none; display: flex; justify-content: center; padding-top: 2px; }
+  .a2-step .d i { width: 5px; height: 5px; border-radius: 50%; background: var(--line-strong); margin-top: 3px; }
+  .a2-step .x { flex: 1; color: var(--ink-2); min-width: 0; } .a2-step.ck .x { color: var(--ink); font-weight: 600; }
+  .a2-step .tm { color: var(--ink-2); font-size: 10px; }
+  .a2-live { padding-left: 20px; color: var(--ink-2); display: flex; flex-direction: column; gap: 2px; font-family: var(--font-mono); font-size: 10px; }
+  .a2-verdict { margin-top: 8px; }
+  .a2-foot { display: flex; gap: 6px; align-items: center; margin-top: 8px; }
+  .a2-foot .me { margin-left: auto; color: var(--ink-2); white-space: nowrap; }
+  .a2-shim { background-image: linear-gradient(90deg, var(--ink-2) 38%, var(--accent) 50%, var(--ink-2) 62%); background-size: 200% auto; -webkit-background-clip: text; background-clip: text; color: transparent !important;
+    animation: a2-shim calc(1200ms * var(--slow)) ease-in-out infinite; }
+  @keyframes a2-shim { 0% { background-position: 100% 50%; } 75%, 100% { background-position: -100% 50%; } }
+  .vp.sm { height: 9px; gap: 1px; margin: 1.5px 0; --cyc: calc(900ms * var(--slow)); }
+  .vp.sm b:nth-child(1) { width: 2px; height: 9px; border-radius: .6px; } .vp.sm b:nth-child(2) { width: 3px; height: 7px; border-radius: .6px; } .vp.sm b:nth-child(3) { width: 5px; height: 5px; border-radius: .6px; }
+  .vp.done { color: var(--ink); } .vp.done b { animation: none; opacity: 1; }
+  .reduce .a2-shim { animation: none !important; background: none !important; color: var(--ink) !important; }
+  /* #solo: only section 0, for the pen.dev canvas browser node */
+  body.solo header.top, body.solo footer, body.solo main > .lab:not(#sec0), body.solo .watch, body.solo .lab.wide .vals { display: none; }
+  body.solo .wrap { padding-block: 16px; }
+  .nx-fallback { color: var(--ink-2); font-size: 12px; }
+  .watch { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px 20px; margin: 0; padding: 0; list-style: none; }
+  .watch li { font-size: 12px; color: var(--ink); min-width: 0; }
+  .watch li b { font-weight: 600; }
+  a.btn { display: inline-flex; align-items: center; text-decoration: none; }
+  /* 12 · permission options (board E, K6) */
+  .perm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+  .perm-card { position: relative; display: grid; gap: 8px; align-content: start; min-width: 0; outline: none; }
+  .perm-card:focus-visible .a2-panel { outline: 2px solid var(--ink); outline-offset: 2px; }
+  .perm-h { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; font-size: 12px; }
+  .perm-h b { font-weight: 600; }
+  .perm-h .tag { margin-left: auto; font-family: var(--font-mono); font-size: 10px; color: var(--ink-2); }
+  .rec-tag { font-size: 10px; font-weight: 600; letter-spacing: 1px; color: var(--accent); }
+  .perm-ask { display: grid; gap: 6px; }
+  .perm-cmd { padding-left: 20px; font-size: 10px; }
+  .perm-ui { display: grid; gap: 6px; padding: 2px 0 0 20px; }
+  .perm-row { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+  .perm-hint { font-size: 10px; }
+  .perm-keys { font-size: 10px; }
+  .perm-select { font: inherit; font-size: 11px; height: 24px; padding: 0 8px 0 10px; border-radius: 6px; background: var(--pill); color: var(--ink); border: 1px solid var(--line-strong); display: inline-flex; gap: 6px; align-items: center; cursor: default; }
+  .split { display: inline-flex; height: 24px; border-radius: 6px; overflow: hidden; background: var(--accent); }
+  .split .act { border-radius: 0; }
+  .split .more { width: 22px; padding: 0; justify-content: center; border-left: 1px solid color-mix(in srgb, var(--accent-ink) 20%, transparent); }
+  .perm-menu { position: absolute; z-index: 5; min-width: 230px; padding: 4px; border: 1px solid var(--line-strong); border-radius: 8px; background: var(--bar); box-shadow: 0 8px 24px rgba(0, 0, 0, .35); display: grid; gap: 1px; transform-origin: top left; }
+  .perm-menu button { font: inherit; font-size: 11px; text-align: left; display: grid; grid-template-columns: 14px 1fr auto; gap: 8px; align-items: start; padding: 5px 8px; border: 0; border-radius: 6px; background: none; color: var(--ink); cursor: default; }
+  .perm-menu button[aria-selected="true"] { background: var(--header); }
+  .perm-menu small { display: block; color: var(--ink-2); font-size: 10px; }
+  .perm-menu kbd, .plist kbd { font: inherit; font-size: 10px; color: var(--ink-2); background: var(--header); border-radius: 4px; padding: 1px 4px; }
+  .plist { display: grid; gap: 2px; }
+  .plist button { font: inherit; font-size: 11px; text-align: left; display: flex; gap: 8px; align-items: flex-start; padding: 5px 8px; border: 0; border-radius: 6px; background: var(--pill); color: var(--ink); cursor: default; line-height: 1.4; transition: background-color calc(120ms * var(--slow)) ease; }
+  .plist button[aria-selected="true"] { background: var(--accent); color: var(--accent-ink); font-weight: 600; }
+  .plist button[aria-selected="true"] kbd { background: color-mix(in srgb, var(--accent-ink) 12%, transparent); color: var(--accent-ink); }
+  .hold.wide { display: block; width: 100%; height: 26px; text-align: left; }
+  .perm-check { display: flex; gap: 8px; align-items: center; font-size: 11px; }
+  .perm-check input { accent-color: var(--accent); margin: 0; }
+  .plist button b { font-weight: 600; }
+  .plist .row-in { flex: 1; min-width: 0; }
+  .plist .sub { display: block; font-family: var(--font-mono); font-size: 10px; font-weight: 400; opacity: .8; margin-top: 2px; }
+  .plist button:not([aria-selected="true"]) .sub { display: none; }
+  .plist.asking button[aria-selected="true"] { background: var(--header); color: var(--ink); }
+  .plist.asking button[aria-selected="true"] kbd { background: var(--pill); color: var(--ink-2); }
+  .pl-deny { display: grid; gap: 6px; padding: 4px 0 2px; }
+  .pl-input { width: 100%; font: inherit; font-size: 11px; height: 26px; padding: 0 8px; border-radius: 6px; border: 1px solid var(--line-strong); background: var(--canvas); color: var(--ink); }
+  .pl-input:focus-visible { outline: 2px solid var(--ink); outline-offset: 0; }
+  .perm-cons { padding-left: 20px; font-size: 10px; color: var(--ink-2); }
+  .chips { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+  .chips .lbl { font-size: 11px; color: var(--ink-2); width: 34px; }
+  .chip-btn { font: inherit; font-size: 11px; height: 24px; padding: 0 6px 0 4px; border: 0; border-radius: 6px; background: var(--pill); color: var(--ink); display: inline-flex; gap: 5px; align-items: center; cursor: default; white-space: nowrap; transition: background-color calc(120ms * var(--slow)) ease; }
+  .chip-btn[aria-selected="true"] { background: var(--accent); color: var(--accent-ink); font-weight: 600; }
+  .chip-btn kbd { font: inherit; font-size: 10px; color: var(--ink-2); background: var(--header); border-radius: 4px; padding: 1px 4px; }
+  .chip-btn[aria-selected="true"] kbd { background: color-mix(in srgb, var(--accent-ink) 12%, transparent); color: var(--accent-ink); }
+  .perm-undo { border: 0; font: inherit; font-size: 11px; align-self: flex-start; margin-left: 20px; cursor: default; }
+  footer { color: var(--ink-2); font-size: 12px; }
+  footer code { font-family: var(--font-mono); font-size: 11px; }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="kicker">Viewportix · tasarım · 2026-10-18</div>
+    <h1>Animasyon Lab</h1>
+    <p class="lede">"İş sürüyor" hareket dilinin ve Emil Kowalski skillerinden çıkan önerilerin oynayan hâli. Her deney Nexus UI'daki karşılığıyla ya da kendi seçenekleriyle yan yana; değerler pen.dev'deki C ve D panolarıyla aynı. Yavaş çekimle kare kare izle.</p>
+    <div class="controls" role="group" aria-label="Genel hareket ayarları">
+      <div class="ctl">Yavaş çekim
+        <div class="seg" id="slow"><button type="button" data-v="1" aria-pressed="true">1×</button><button type="button" data-v="3" aria-pressed="false">3×</button><button type="button" data-v="8" aria-pressed="false">8×</button></div></div>
+      <label class="tog ctl"><input type="checkbox" id="reduce"> Hareketi azalt</label>
+      <span class="ctl mono">Emil eğrisi: cubic-bezier(0.23, 1, 0.32, 1)</span>
+    </div>
+  </header>
+
+  <main class="grid">
+    <!-- 0 real Nexus UI code -->
+    <section class="lab wide" aria-labelledby="h0x" id="sec0">
+      <div class="lab-head"><h2 id="h0x">0 · Nexus UI, gerçek kod</h2><span class="tag">@nexus-ui/reasoning · @nexus-ui/chain-of-thought · React 19</span></div>
+      <div class="stage" style="align-content:start">
+        <div class="nx-grid">
+          <div class="nx-col" style="min-width:0"><div class="nx-col-h"><b>Nexus UI</b> gerçek React bileşenleri · 9 sn döngü</div><div id="nexusHost"><p class="nx-fallback" id="nxFallback">Nexus paketi yükleniyor…</p></div></div>
+          <div class="a2-pair">
+            <div class="a2-col" id="a2Col1"><div class="nx-col-h"><b>Bizim A2 · v1</b> şimdiki spec (C panosu) · 9 sn döngü</div>
+              <div class="a2-panel" id="a2Panel1" tabindex="0"><div class="a2-sum"><span class="t">04:28</span><span class="ev">click</span><span class="arg">.add-to-cart</span><span class="res">2 / 3</span></div><div class="a2-detail">Masaüstü kaçırdı: .add-to-cart bulunamadı</div><div id="a2Slot1"></div></div>
+              <div class="mono muted a2-clock" id="a2Clock1">0,0 sn</div></div>
+            <div class="a2-col" id="a2Col2"><div class="nx-col-h"><b>Bizim A2 · v2</b> K5 önerileri + K6 c · 11 sn döngü</div>
+              <div class="a2-panel" id="a2Panel2" tabindex="0"><div class="a2-sum"><span class="t">04:28</span><span class="ev">click</span><span class="arg">.add-to-cart</span><span class="res">2 / 3</span></div><div class="a2-detail">Masaüstü kaçırdı: .add-to-cart bulunamadı</div><div id="a2Slot2"></div></div>
+              <div class="mono muted a2-clock" id="a2Clock2">0,0 sn</div>
+              <ul class="a2-diff">
+                <li>Eğri cubic-bezier(.23, 1, .32, 1); ikon döngüsü 720 ms</li>
+                <li>Onay adımı (K6 c): beklerken ikon durur, mercan nokta; üç satırlı liste, döngüde 2 seçilir</li>
+                <li>Katlanma kesilebilir; başlığa tıklayınca adımlar 40 ms arayla açılır</li>
+                <li>Kutuyu tıkla, ⌘⏎ / esc ile karar ver: düğme kıpırdamaz; fareyle %97 basma</li>
+              </ul></div>
+          </div>
+        </div>
+      </div>
+      <div class="row"><button class="btn" type="button" id="nxReplay">Tekrar oynat</button><button class="btn" type="button" id="protoToggle" aria-expanded="false" aria-controls="fullProto">Bizim tam prototip (is-suruyor)</button></div>
+      <div id="fullProto" hidden><iframe id="protoFrame" title="Bizim tam prototip: is-suruyor"></iframe></div>
+      <ul class="watch">
+        <li><b>Başlık:</b> CoT bitince de "Teşhis ediliyor" yazar; bizde "6 sn çalıştı · 3 adım".</li>
+        <li><b>Adım:</b> metin "okunuyor" kalır, kip değişmez; bizde "okundu".</li>
+        <li><b>Giriş:</b> yeni adım anında belirir; bizde 220 ms bulanıktan netleşir.</li>
+        <li><b>Bitiş:</b> her şey kapanır, sonuç da gizlenir; bizde hüküm ve eylem kalır.</li>
+        <li><b>Işık:</b> beklemesiz akar; bizde 0,3 sn dinlenir.</li>
+        <li><b>Yavaş çekim:</b> üstteki 3× / 8× bu bölüme de uygulanır.</li>
+      </ul>
+      <div class="vals">Scratchpad'deki Vite + shadcn 4.22 projesinden derlendi (text-shimmer ve tw-shimmer elle eklendi); Tailwind stilleri sayfayı bozmasın diye Shadow DOM içinde çalışır. Döngü 9 sn.</div>
+    </section>
+
+    <!-- 12 permission options -->
+    <section class="lab wide" aria-labelledby="h12x" id="permLab">
+      <div class="lab-head"><h2 id="h12x">12 · İzin verme: beş seçenek (K6 → c, 2026-10-19)</h2><span class="tag">E panosu · Cloudscape · VS Code · Claude Code · Motion · macOS</span></div>
+      <div class="perm-grid" id="permGrid"></div>
+      <div class="row"><button class="btn" type="button" id="permReset">Hepsini sıfırla</button><span class="mono muted" id="permLog">Bir kartı tıkla ya da kartı seçip klavyeyle dene.</span></div>
+      <div class="vals">Ortak kurallar: kapsam kelimeyle yazılı · kalıcı izin komut adına (location.reload) · ⏎ her zaman "bu sefer" · kalıcı izinde "Geri al" · beklerken ikon durur, mercan nokta.</div>
+    </section>
+
+    <!-- 13 option c, improved -->
+    <section class="lab wide" aria-labelledby="h13x" id="permLab2">
+      <div class="lab-head"><h2 id="h13x">13 · Açık seçenek listesi (c), geliştirilmiş</h2><span class="tag">Claude Code CLI · Cloudscape · VS Code</span></div>
+      <div class="perm-grid" id="permGrid2"></div>
+      <div class="row"><button class="btn" type="button" id="permReset2">Hepsini sıfırla</button></div>
+      <ul class="watch">
+        <li><b>Dördüncü kapsam:</b> "bu görev boyunca" (Cloudscape "for this chat"); ⏎ hâlâ "bu sefer".</li>
+        <li><b>Kapsam öne:</b> "Evet, <b>bu sefer</b>"; göz yalnız kalın sözcüğü tarar.</li>
+        <li><b>Ayrıntı seçince:</b> "bu projede hep" satırı seçilince komut adı ve geri alma yolu açılır.</li>
+        <li><b>Sonuç yazılı:</b> isteğin altında ne olacağı: Masaüstü yenilenir, form verisi kaybolur.</li>
+        <li><b>Hayır yön verir:</b> 4 ya da esc talimat alanı açar; ⏎ gönderir, ikinci esc yalnız reddeder.</li>
+        <li><b>c3:</b> aynı kararlar tek satır çiplerle; dar kutu ya da Ajanlar paneli için.</li>
+      </ul>
+    </section>
+
+    <!-- 1 shimmer -->
+    <section class="lab" aria-labelledby="h1x">
+      <div class="lab-head"><h2 id="h1x">1 · Işık geçişi: Nexus ↔ bizim</h2><span class="tag">emil · text shimmer</span></div>
+      <div class="stage">
+        <div class="shim-line"><span class="who">Nexus</span><span class="shim" id="shimNx">Teşhis ediliyor</span></div>
+        <div class="shim-line"><span class="who">Bizim</span><span class="shim" id="shimOurs">Düşünüyor</span><span class="el">4 sn</span></div>
+      </div>
+      <div class="row">
+        <label class="slider" for="shDur">Geçiş <input id="shDur" type="range" min="400" max="1800" step="50" value="900"><output id="shDurO">900 ms</output></label>
+        <label class="slider" for="shPause">Bekleme <input id="shPause" type="range" min="0" max="1000" step="50" value="300"><output id="shPauseO">300 ms</output></label>
+        <label class="slider" for="shSpread">Işın <input id="shSpread" type="range" min="6" max="30" step="1" value="12"><output id="shSpreadO">%12</output></label>
+      </div>
+      <div class="row"><span class="muted" style="font-size:12px">Renk</span><div class="seg" id="shColor"><button type="button" data-v="ink" aria-pressed="false">Mürekkep</button><button type="button" data-v="leader" aria-pressed="false">Gök</button><button type="button" data-v="accent" aria-pressed="true">Sarı</button></div></div>
+      <p class="desc">Nexus beklemesiz akar (1 sn doğrusal, ışın %40–60). Bizimki geçer ve 0,3 sn dinlenir; "şu an burası" der, gürültü yapmaz.</p>
+      <div class="vals">Nexus: 1000ms linear · repeatDelay 0 · spread 10 — Bizim: 900ms ease-in-out + 300ms bekleme · sarı (K1 c)</div>
+    </section>
+
+    <!-- 2 collapse -->
+    <section class="lab" aria-labelledby="h2x">
+      <div class="lab-head"><h2 id="h2x">2 · Katlanma: kesilince ne oluyor?</h2><span class="tag">emil · interruptible</span></div>
+      <div class="stage">
+        <div class="two">
+          <div class="box"><div class="box-h">Nexus <span class="m">height keyframe</span></div><div class="nx-c" id="nxC"><div class="steps"><span>Masaüstü DOM'u okundu</span><span>.add-to-cart iPad'de var</span><span>Betikler tarandı</span></div></div></div>
+          <div class="box"><div class="box-h">Bizim <span class="m">grid-rows transition</span></div><div class="ours-c" id="oursC"><div><div class="steps"><span>Masaüstü DOM'u okundu</span><span>.add-to-cart iPad'de var</span><span>Betikler tarandı</span></div></div></div></div>
+        </div>
+      </div>
+      <div class="row"><button class="btn" type="button" id="colToggle">Aç / katla</button><button class="btn" type="button" id="colInterrupt">Yarıda geri al</button></div>
+      <p class="desc">"Yarıda geri al" katlamayı başlatıp 90 ms sonra geri açar. Keyframe baştan başladığı için Nexus sıçrar; transition kaldığı yerden döner.</p>
+      <div class="vals">Nexus: @keyframes height 200ms ease-out · Bizim: grid-template-rows 0fr↔1fr 200ms cubic-bezier(.23,1,.32,1)</div>
+    </section>
+
+    <!-- 3 curves -->
+    <section class="lab" aria-labelledby="h3x">
+      <div class="lab-head"><h2 id="h3x">3 · Eğri yarışı</h2><span class="tag">animate · easing</span></div>
+      <div class="stage" id="race">
+        <div class="tl"><span class="mono muted">ease-in</span><div class="track"><span class="dot"></span></div></div>
+        <div class="tl"><span class="mono muted">ease-out (yerleşik)</span><div class="track"><span class="dot"></span></div></div>
+        <div class="tl"><span class="mono" style="color:var(--ink)">.23, 1, .32, 1</span><div class="track emil"><span class="dot"></span></div></div>
+      </div>
+      <div class="row"><button class="btn" type="button" id="raceGo">Oynat</button>
+        <div class="seg" id="raceDur"><button type="button" data-v="200" aria-pressed="false">200 ms</button><button type="button" data-v="300" aria-pressed="true">300 ms</button><button type="button" data-v="500" aria-pressed="false">500 ms</button></div></div>
+      <p class="desc">Aynı süre, farklı his. Güçlü ease-out ilk karede yolun çoğunu alır; ease-in aynı sürede daha yavaş hissettirir. Bizim tablodaki "easeOut / smooth" yerine bu eğri.</p>
+      <div class="vals">Tek sabit: --ease-out: cubic-bezier(0.23, 1, 0.32, 1) · ekranda hareket: cubic-bezier(0.77, 0, 0.175, 1)</div>
+    </section>
+
+    <!-- 4 loader speed -->
+    <section class="lab" aria-labelledby="h4x">
+      <div class="lab-head"><h2 id="h4x">4 · Üç viewport: 900 ↔ 720 ms</h2><span class="tag">emil · perceived speed</span></div>
+      <div class="stage"><div class="row" style="gap:40px;justify-content:center">
+        <div style="display:grid;gap:8px;justify-items:center"><span class="vp" style="--cyc:calc(900ms * var(--slow))"><b style="--i:0"></b><b style="--i:1"></b><b style="--i:2"></b></span><span class="mono muted">900 ms · şimdiki</span></div>
+        <div style="display:grid;gap:8px;justify-items:center"><span class="vp" style="--cyc:calc(720ms * var(--slow))"><b style="--i:0"></b><b style="--i:1"></b><b style="--i:2"></b></span><span class="mono muted">720 ms · öneri</span></div>
+      </div></div>
+      <p class="desc">Hızlı dönen gösterge aynı beklemeyi daha kısa hissettirir. 720 ms hâlâ sakin; 600'ün altı telaşlı.</p>
+      <div class="vals">6 adım × 120 ms · opaklık 1 / .6 / .4 / .25 · doğrusal</div>
+    </section>
+
+    <!-- 5 hold to confirm -->
+    <section class="lab" aria-labelledby="h5x">
+      <div class="lab-head"><h2 id="h5x">5 · Basılı tut: Hep izin ver</h2><span class="tag">animate · hold to confirm</span></div>
+      <div class="stage">
+        <span style="font-size:12px">Claude Code sayfayı yeniden yüklemek istiyor</span>
+        <div class="row">
+          <button class="act primary" type="button">İzin ver <kbd>⏎</kbd></button>
+          <button class="act" type="button">Reddet <kbd>esc</kbd></button>
+          <button class="hold" type="button" id="hold" aria-describedby="holdHint">Hep izin ver<span class="fill" aria-hidden="true">Hep izin ver</span></button>
+          <span class="chip" id="holdState" hidden>Bu proje için hep izinli · Geri al</span>
+        </div>
+        <span class="mono muted" id="holdHint">Basılı tut (fare ya da boşluk tuşu) · 1,2 sn</span>
+      </div>
+      <p class="desc">Kalıcı yetki tek tıkla verilmez. Basarken sarı soldan doğrusal dolar; erken bırakırsan 200 ms'de geri çekilir. Bitince bırakmayı beklemeden verilir.</p>
+      <div class="vals">press: clip-path inset(0 100% 0 0) → inset(0) 1200ms linear · release: 200ms ease-out · scale(.97)</div>
+    </section>
+
+    <!-- 6 keyboard vs pointer -->
+    <section class="lab" aria-labelledby="h6x" tabindex="-1" id="kbLab">
+      <div class="lab-head"><h2 id="h6x">6 · Fareyle bas, klavyeyle anında</h2><span class="tag">emil · frequency</span></div>
+      <div class="stage">
+        <div class="row" style="justify-content:space-between"><span><b style="font-weight:500">.price</b> <span class="muted">font-weight</span></span><span style="color:var(--warn)">500 → 600</span></div>
+        <div class="row" id="kbRow">
+          <button class="act primary" type="button" data-k="a">Kabul <kbd>A</kbd></button>
+          <button class="act" type="button" data-k="i">Yoksay <kbd>I</kbd></button>
+          <button class="act" type="button" data-k="t">Takip et <kbd>T</kbd></button>
+        </div>
+        <span class="mono muted" id="kbLog">Kartı tıkla, sonra A / I / T ile dene.</span>
+      </div>
+      <p class="desc">Fareyle basınca %97'ye küçülür (80 ms). Kısayolla verilen kararda düğme kıpırdamaz; yalnız satır sonucu yazar. Günde yüzlerce kez yapılan şey canlandırılmaz.</p>
+      <div class="vals">pointerdown: scale(.97) + brightness(.88) 80ms · keydown: 0ms, satır 150ms opaklık</div>
+    </section>
+
+    <!-- 7 stagger -->
+    <section class="lab" aria-labelledby="h7x">
+      <div class="lab-head"><h2 id="h7x">7 · Kademeli açılım</h2><span class="tag">animate · stagger</span></div>
+      <div class="stage"><div class="sg" id="sg"><span>Masaüstü DOM'u okundu · 1.284 eleman</span><span>.add-to-cart iPad ve iPhone'da var</span><span>Masaüstü'nde yok</span><span>Sayfa betikleri tarandı · satır 121–124</span><span>Teşhis bitti</span></div></div>
+      <div class="row"><button class="btn" type="button" id="sgGo">⌄ ile aç</button>
+        <label class="slider" for="sgGap">Aralık <input id="sgGap" type="range" min="0" max="120" step="10" value="40"><output id="sgGapO">40 ms</output></label></div>
+      <p class="desc">Katlanmış kutu açılınca adımlar yukarıdan aşağı 40 ms arayla gelir. 0'da blok gibi çarpar, 120'de yavaşlar.</p>
+      <div class="vals">opacity 0→1 · translateY(4px)→0 · blur(3px)→0 · 200ms ease-out · delay i × aralık (en fazla 6)</div>
+    </section>
+
+    <!-- 8 compare -->
+    <section class="lab" aria-labelledby="h8x">
+      <div class="lab-head"><h2 id="h8x">8 · Göster = karşılaştırma perdesi</h2><span class="tag">emil · clip-path compare</span></div>
+      <div class="cmp" id="cmp">
+        <div class="vpage base"><span class="t">iPhone 16 · Chromium</span><div class="img"></div><span class="ttl">Keten Gömlek</span><span class="price">₺1.290 · weight 600</span><div class="cta"></div></div>
+        <div class="vpage top" id="cmpTop"><span class="t">iPad · baseline · WebKit</span><div class="img"></div><span class="ttl">Keten Gömlek</span><span class="price">₺1.290 · weight 500</span><div class="cta"></div></div>
+        <div class="handle" id="cmpHandle" role="slider" tabindex="0" aria-label="Karşılaştırma perdesi" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"><i></i></div>
+      </div>
+      <p class="desc">Farklar'da "Göster" iki viewport'u üst üste açar; perdeyi sürükle ya da ← → ile kaydır. Fark aynı yerde görünür, gözün iki kart arasında gidip gelmez.</p>
+      <div class="vals">üst katman clip-path: inset(0 X% 0 0) · sürükleme 1:1 (pointer capture) · klavye %5</div>
+    </section>
+
+    <!-- 9 origin -->
+    <section class="lab" aria-labelledby="h9x">
+      <div class="lab-head"><h2 id="h9x">9 · Ajan etiketi imleçten açılır</h2><span class="tag">emil · origin-aware</span></div>
+      <div class="canvas-mini">
+        <div class="target"></div>
+        <svg class="cursor" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 2 L4 20 L9 15 L12 22 L15 21 L12 14 L19 14 Z" fill="var(--canvas)" stroke="var(--ink)" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <div class="alabel" id="alabel">Claude Code · tıklamak istiyor</div>
+      </div>
+      <div class="row"><button class="btn" type="button" id="orCursor">İmleçten oynat</button><button class="btn" type="button" id="orCenter">Merkezden oynat</button>
+        <label class="tog ctl"><input type="checkbox" id="orBig"> Abart (%80'den)</label></div>
+      <p class="desc">Etiket imlecin ucundan büyüyünce göz ikisini tek şey olarak okur. Merkezden açılınca boşlukta belirmiş gibi durur. Farkı görmek için 3× ya da "Abart".</p>
+      <div class="vals">transform-origin: sol üst (imleç ucu) · scale(.96)+opacity 0 → 1 · 150ms ease-out · kapanış 100ms</div>
+    </section>
+
+    <!-- 10 rail tabs -->
+    <section class="lab" aria-labelledby="h10x" id="tabLab" tabindex="-1">
+      <div class="lab-head"><h2 id="h10x">10 · Ray sekme göstergesi</h2><span class="tag">animate · tab indicator</span></div>
+      <div class="stage" style="justify-items:center">
+        <div class="rail" id="rail">
+          <div class="ind" id="ind"></div>
+          <div class="list" role="tablist" aria-label="Panel"><button class="tab" role="tab" type="button" data-i="0">Farklar</button><button class="tab" role="tab" type="button" data-i="1" aria-selected="true">Senkron</button><button class="tab" role="tab" type="button" data-i="2">Ajanlar</button></div>
+          <div class="list copy" id="railCopy" aria-hidden="true"><span class="tab">Farklar</span><span class="tab">Senkron</span><span class="tab">Ajanlar</span></div>
+        </div>
+      </div>
+      <p class="desc">Tıklayınca zemin kayar, koyu yazı aynı kesitle gelir; renk ve zemin hiç ayrışmaz. Kartı tıklayıp 1 / 2 / 3'e basınca anında (klavye canlandırılmaz).</p>
+      <div class="vals">zemin: transform 200ms cubic-bezier(.77,0,.175,1) · yazı: kopya liste + clip-path inset · klavye 0ms</div>
+    </section>
+
+    <!-- 11 toasts -->
+    <section class="lab" aria-labelledby="h11x">
+      <div class="lab-head"><h2 id="h11x">11 · Ajan bildirim yığını</h2><span class="tag">ask-sonner</span></div>
+      <div class="stage" style="padding:0"><div class="toaster" id="toaster" aria-live="polite"></div></div>
+      <div class="row"><button class="btn" type="button" id="toastAdd">Bildirim ekle</button><button class="btn" type="button" id="toastBurst">Art arda 3</button></div>
+      <p class="desc">Biten ajanlar alttan yığılır, en fazla 3 görünür. Üzerine gelince açılır ve süre durur; sekme gizliyken de durur. Art arda gelince transition olduğu için zıplamaz.</p>
+      <div class="vals">yığın: translateY(-10px × i) scale(1 − .05 × i) · açık: −46px × i · 400ms ease · 4 sn, hover / hidden'da durur</div>
+    </section>
+  </main>
+
+  <footer>Kaynak: <code>design/prototypes/animasyon-lab.html</code> · pen.dev <code>Test · AI · C · Hareket dili</code> ve <code>Test · AI · D · Nexus UI + Emil</code> · Emil Kowalski skilleri: emil-design-eng, animate, review-animations, animation-performance, find-animation-opportunities, ask-sonner.</footer>
+</div>
+
+<script src="nexus-demo.js" defer onerror="this.remove(); var s = document.createElement('script'); s.src = 'vendor/nexus-demo.js'; s.onload = function () { window.dispatchEvent(new Event('nexus-ready')); }; s.onerror = function () { window.dispatchEvent(new Event('nexus-ready')); }; document.head.append(s);"></script>
+<script>
+(() => {
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const root = document.documentElement;
+  let slow = 1;
+  const reduced = () => document.body.classList.contains("reduce");
+  const ms = x => reduced() ? Math.min(x, 150) : x * slow;
+  const EASE = "cubic-bezier(0.23, 1, 0.32, 1)";
+
+  function seg(el, onPick) {
+    el.addEventListener("click", e => {
+      const b = e.target.closest("button"); if (!b) return;
+      $$("button", el).forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+      onPick(b.dataset.v);
+    });
+    return () => $("button[aria-pressed='true']", el).dataset.v;
+  }
+
+  if (["#solo", "#a2v1", "#a2v2"].includes(location.hash)) document.body.classList.add("solo");
+  if (location.hash === "#a2v1") document.body.classList.add("only-v1");
+  if (location.hash === "#a2v2") document.body.classList.add("only-v2");
+
+  // 0 · real Nexus UI (bundle next to the page in the artifact; design/prototypes/vendor/ locally, git-ignored)
+  let nxMounted = false;
+  const tryMount = final => {
+    const host = $("#nexusHost");
+    if (nxMounted) return;
+    if (typeof window.mountNexusDemo !== "function") { if (final) $("#nxFallback").textContent = "Nexus paketi bu kopyada yok (design/prototypes/vendor/nexus-demo.js); yayınlanan artifact'te çalışır."; return; }
+    nxMounted = true; host.innerHTML = ""; window.mountNexusDemo(host);
+  };
+  window.addEventListener("load", () => tryMount(false));
+  window.addEventListener("nexus-ready", () => tryMount(true));
+  setTimeout(() => tryMount(true), 4000);
+  $("#nxReplay").addEventListener("click", () => { $("#nexusHost").dispatchEvent(new Event("nexus-replay")); a2All(); });
+
+  // full prototype inside the page (a new-tab link to a published file opens blank outside the viewer frame)
+  const protoToggle = $("#protoToggle"), fullProto = $("#fullProto"), protoFrame = $("#protoFrame");
+  protoToggle.addEventListener("click", () => {
+    const open = fullProto.hidden; fullProto.hidden = !open; protoToggle.setAttribute("aria-expanded", String(open));
+    if (open && !protoFrame.dataset.loaded) {
+      protoFrame.dataset.loaded = "1";
+      fetch("is-suruyor.html").then(r => r.ok ? r.text() : Promise.reject(r.status)).then(t => { protoFrame.srcdoc = t; }).catch(() => { protoFrame.src = "is-suruyor.html"; });
+    }
+  });
+
+  // 0 · our A2 box: v1 = current spec (board C, 2026-10-18), v2 = with the K5 proposals (board D)
+  const mk = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
+  const CHECK = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>';
+  function createA2(o) {
+    const curve = o.v2 ? EASE : "ease-out", cyc = o.v2 ? 720 : 900;
+    let run = 0, t0 = 0, commit = null;
+    const loader = () => { const e = mk("span", "vp sm"); e.style.setProperty("--cyc", `calc(${cyc}ms * var(--slow))`); for (let i = 0; i < 3; i++) { const b = mk("b"); b.style.setProperty("--i", i); e.append(b); } return e; };
+    const act = (label, key, primary) => mk("button", "act" + (primary ? " primary" : ""), `${label} <kbd>${key}</kbd>`);
+    const fade = (e, frames, d) => e.animate(reduced() ? [{ opacity: frames[0].opacity ?? 1 }, { opacity: 1 }] : frames, { duration: ms(d), easing: curve }).finished;
+    const blurSwap = async (e, html, d = 130) => {
+      if (reduced()) { e.innerHTML = html; return; }
+      await e.animate([{ filter: "blur(0)", opacity: 1 }, { filter: "blur(4px)", opacity: 0 }], { duration: ms(d), easing: "ease-in-out" }).finished;
+      e.innerHTML = html;
+      return e.animate([{ filter: "blur(4px)", opacity: 0 }, { filter: "blur(0)", opacity: 1 }], { duration: ms(d), easing: "ease-in-out" }).finished;
+    };
+    const appear = (e, delay = 0) => reduced() ? fade(e, [{ opacity: 0 }, { opacity: 1 }], 150)
+      : e.animate([{ opacity: 0, transform: "translateY(-4px)", filter: "blur(4px)" }, { opacity: 1, transform: "none", filter: "blur(0)" }], { duration: ms(220), delay, easing: curve, fill: "backwards" }).finished;
+    const shrink = async (e, d = 300) => { if (reduced()) { e.remove(); return; } const h = e.offsetHeight; await e.animate([{ height: h + "px", opacity: 1 }, { height: "0px", opacity: 0, marginTop: "0px" }], { duration: ms(d), easing: curve }).finished; e.remove(); };
+    const at = (t, id) => new Promise((res, rej) => setTimeout(() => id === run ? res() : rej("stale"), Math.max(0, t0 + t * slow - performance.now())));
+    const addStep = (steps, text, active) => { const s = mk("div", "a2-step"); const d = mk("span", "d"); d.append(active ? loader() : mk("i")); s.append(d, mk("span", "x" + (active ? " a2-shim" : ""), text), mk("span", "tm", "şimdi")); steps.append(s); appear(s); return s; };
+    const settle = (s, text, tm) => { const x = $(".x", s); x.classList.remove("a2-shim"); const d = $(".d", s); d.innerHTML = ""; d.append(mk("i")); $(".tm", s).textContent = tm; return blurSwap(x, text, 100); };
+    o.panel.addEventListener("keydown", e => {
+      if (!o.v2 || !commit) return;
+      if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) { e.preventDefault(); commit("add", "kb"); }
+      else if (e.key === "Escape") { e.preventDefault(); commit("close", "kb"); }
+    });
+    async function seq(id) {
+      t0 = performance.now(); commit = null;
+      o.slot.innerHTML = "";
+      const box = mk("div", "a2-box"), head = mk("div", "a2-head"), ld = loader();
+      const ti = mk("span", "ti a2-shim", "Düşünüyor"), el2 = mk("span", "el2", "0 sn");
+      head.append(ld, ti, el2, mk("span", "me", "Sonnet 5.5"));
+      const wrap = mk("div", o.v2 ? "a2-sw" : ""), inner = mk("div"), steps = mk("div", "a2-steps");
+      inner.append(steps); wrap.append(inner);
+      const foot = mk("div", "a2-foot"), meta = mk("span", "me", "0 araç");
+      foot.append(act("Durdur", "⌘.", false), meta); box.append(head, wrap, foot); o.slot.append(box);
+      fade(box, [{ opacity: 0, transform: "translateY(-4px)" }, { opacity: 1, transform: "none" }], 220);
+      let sec = 0, stop = false;
+      const tick = setInterval(() => { if (id !== run || stop) return clearInterval(tick); sec++; el2.textContent = sec + " sn"; fade(el2, [{ opacity: .3, transform: "translateY(4px)" }, { opacity: 1, transform: "none" }], 200); }, 1000 * slow);
+      await at(300, id); ti.classList.remove("a2-shim");
+      const s1 = addStep(steps, "Masaüstü DOM'u okunuyor", true); meta.textContent = "1 araç";
+      await at(1500, id); await settle(s1, "Masaüstü DOM'u okundu · 1.284 eleman", "0:01");
+      const s2 = addStep(steps, "Kaçan eleman aranıyor", true); meta.textContent = "2 araç · 0,8K token";
+      await at(2700, id); await settle(s2, ".add-to-cart iPad ve iPhone'da var, Masaüstü'nde yok", "0:02");
+      let off = 0, n = 3;
+      if (o.v2) {
+        // approval step (A3, K6 c): loader pauses, coral dot, three-line choice list; the loop "presses" 2
+        ld.classList.add("paused"); off = 1800; n = 4; ti.textContent = "Seni bekliyor";
+        const ap = mk("div", "a2-step a2-ask"), d = mk("span", "d", '<i class="wait"></i>'), x = mk("span", "x", "Sayfayı yeniden yüklemek istiyor");
+        ap.append(d, x, mk("span", "tm", "bekliyor"));
+        const list = mk("div", "plist a2-plist");
+        const rows = [["Evet, bu sefer", "⏎"], ["Evet, bu projede location.reload için bir daha sorma", ""], ["Hayır, ne yapacağını söyle", "esc"]].map(([t, k], i) => {
+          const b = mk("button", "", `<kbd>${i + 1}</kbd><span class="row-in">${t}</span>${k ? `<kbd>${k}</kbd>` : ""}`); b.type = "button"; b.setAttribute("aria-selected", String(i === 0)); list.append(b); return b;
+        });
+        steps.append(ap, list); appear(ap); appear(list, 40 * slow);
+        await at(3700, id); rows.forEach((b, i) => b.setAttribute("aria-selected", String(i === 1)));
+        await at(4200, id);
+        shrink(list, 200);
+        d.innerHTML = ""; d.append(mk("i")); ap.lastChild.textContent = "0:03"; ap.classList.remove("a2-ask");
+        await Promise.all([blurSwap(x, "Yeniden yükleme · bu projede hep izinli", 100), blurSwap(ti, "Düşünüyor", 100)]);
+        ld.classList.remove("paused");
+      }
+      const s3 = addStep(steps, "Sayfa betikleri taranıyor", true); meta.textContent = `${n} araç · 2,1K token`;
+      const live = mk("div", "a2-live", '<span>inline &lt;script&gt; · satır 121–124</span><span>matchMedia("(min-width: 1024px)")▍</span>'); steps.append(live); appear(live);
+      await at(off + 4200, id); stop = true; clearInterval(tick);
+      const secs = o.v2 ? 6 : 4;
+      shrink(live, 160); settle(s3, "Sayfa betikleri tarandı · satır 121–124", o.v2 ? "0:06" : "0:04"); meta.textContent = `${n} araç · 2,4K token`;
+      await Promise.all([blurSwap(ti, `${secs} sn çalıştı`), blurSwap(el2, "")]);
+      ld.classList.add("done");
+      const ck = mk("div", "a2-step ck"); ck.append(mk("span", "d", CHECK), mk("span", "x", "Teşhis bitti"), mk("span", "tm", ""));
+      steps.append(ck); appear(ck);
+      await at(off + 4600, id);
+      const v = mk("div", "a2-verdict", "Satır 121'deki betik 1024 px ve üstünde .add-to-cart'ı kaldırıyor."); box.insertBefore(v, foot); appear(v);
+      const add = act("Farklara ekle", "⌘⏎", true), close = act("Kapat", "esc", false);
+      foot.firstChild.replaceWith(add); foot.insertBefore(close, meta);
+      if (o.v2) {
+        commit = (what, how) => {
+          if (!foot.isConnected) return;
+          o.clock.dataset.note = how === "kb" ? " · klavye: düğme kıpırdamadı" : " · fare: %97 basma";
+          if (what === "add") { add.replaceWith(mk("span", "a2-chip", "Farklara eklendi · Geri al")); close.remove(); }
+          else if (how === "kb" || reduced()) box.remove();
+          else fade(box, [{ opacity: 1 }, { opacity: 0 }], 150).then(() => box.remove());
+          commit = null;
+        };
+        add.addEventListener("click", e => commit && commit("add", e.detail ? "mouse" : "kb"));
+        close.addEventListener("click", e => commit && commit("close", e.detail ? "mouse" : "kb"));
+      }
+      await at(off + 6600, id);
+      while (box.isConnected && box.matches(":hover")) await new Promise(r => setTimeout(r, 250));
+      if (o.v2) {
+        // interruptible collapse (grid-rows transition); ⌄ re-opens with a 40 ms stagger
+        wrap.classList.add("closed");
+        await blurSwap(ti, `${secs} sn çalıştı · ${n} adım ⌄`, 100);
+        head.classList.add("toggle"); head.tabIndex = 0;
+        const toggle = () => {
+          const opening = wrap.classList.contains("closed");
+          wrap.classList.toggle("closed");
+          ti.textContent = `${secs} sn çalıştı · ${n} adım ${opening ? "⌃" : "⌄"}`;
+          if (opening) [...steps.children].forEach((c, i) => appear(c, Math.min(i, 6) * 40 * slow));
+        };
+        head.addEventListener("click", toggle);
+        head.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); } });
+      } else {
+        await Promise.all([shrink(steps), blurSwap(ti, `${secs} sn çalıştı · ${n} adım ⌄`, 100)]);
+      }
+      await at(o.v2 ? 11000 : 9000, id); start();
+    }
+    setInterval(() => { if (t0) o.clock.textContent = ((performance.now() - t0) / 1000 / slow).toFixed(1).replace(".", ",") + " sn" + (o.clock.dataset.note || ""); }, 100);
+    function start() { const id = ++run; o.clock.dataset.note = ""; seq(id).catch(e => { if (e !== "stale") console.error(e); }); }
+    return { start };
+  }
+  const a2v1 = createA2({ slot: $("#a2Slot1"), clock: $("#a2Clock1"), panel: $("#a2Panel1"), v2: false });
+  const a2v2 = createA2({ slot: $("#a2Slot2"), clock: $("#a2Clock2"), panel: $("#a2Panel2"), v2: true });
+  function a2All() { a2v1.start(); a2v2.start(); }
+  a2All();
+
+  // 12 · permission options, live (board E, K6)
+  const SC = { once: "bu sefer", task: "bu görev boyunca", always: "bu projede hep" };
+  const cap = t => t[0].toUpperCase() + t.slice(1);
+  const permLog = $("#permLog");
+  const permOpts = [
+    ["a", "Kapsam seçici + İzin ver", "Cloudscape (AWS)", "⏎ izin ver · esc reddet · seçiciyi tıkla", false],
+    ["b", "Bölünmüş düğme", "VS Code Copilot", "⏎ bu sefer · ⌥⏎ bu görev · ⌄ menü · esc", false],
+    ["c", "Açık seçenek listesi", "Claude Code CLI", "1 / 2 / 3 · ↑ ↓ + ⏎ · esc = 3", "SEÇİLDİ"],
+    ["d", "Basılı tut, ama söyleyerek", "Motion HoldToConfirm", "⏎ bu sefer · esc · boşluğu basılı tut = hep", false],
+    ["e", "İzin ver + bir daha sorma", "macOS / tarayıcı", "boşluk kutuyu işaretler · ⏎ izin ver · esc", false],
+  ];
+  let openMenu = null;
+  const closeMenu = () => { if (openMenu) { openMenu.remove(); openMenu = null; } };
+  document.addEventListener("pointerdown", e => { if (openMenu && !openMenu.contains(e.target) && !e.target.closest("[data-menu-trigger]")) closeMenu(); });
+  function showMenu(card, anchor, items, onPick) {
+    closeMenu();
+    const m = mk("div", "perm-menu"); m.setAttribute("role", "menu");
+    let idx = Math.max(0, items.findIndex(i => i.sel));
+    const btns = items.map(it => {
+      const b = mk("button", "", `<span>${it.sel ? "✓" : ""}</span><span>${it.label}${it.sub ? `<small>${it.sub}</small>` : ""}</span>${it.key ? `<kbd>${it.key}</kbd>` : "<span></span>"}`);
+      b.type = "button"; b.setAttribute("role", "menuitem");
+      b.addEventListener("click", () => { closeMenu(); onPick(it); });
+      m.append(b); return b;
+    });
+    const sync = () => btns.forEach((b, i) => b.setAttribute("aria-selected", String(i === idx)));
+    sync();
+    m.addEventListener("keydown", e => {
+      if (e.key === "ArrowDown" || e.key === "ArrowUp") { idx = (idx + (e.key === "ArrowDown" ? 1 : btns.length - 1)) % btns.length; sync(); btns[idx].focus(); e.preventDefault(); e.stopPropagation(); }
+      else if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); closeMenu(); anchor.focus(); }
+      else if (e.key === "Enter") e.stopPropagation();
+    });
+    const cr = card.getBoundingClientRect(), ar = anchor.getBoundingClientRect();
+    m.style.left = (ar.left - cr.left) + "px"; m.style.top = (ar.bottom - cr.top + 4) + "px";
+    card.append(m); openMenu = m;
+    m.animate(reduced() ? [{ opacity: 0 }, { opacity: 1 }] : [{ opacity: 0, transform: "scale(.97)" }, { opacity: 1, transform: "scale(1)" }], { duration: ms(150), easing: EASE });
+    btns[idx].focus();
+  }
+  const pAct = (label, key, primary) => { const b = mk("button", "act" + (primary ? " primary" : ""), `${label}${key ? ` <kbd>${key}</kbd>` : ""}`); b.type = "button"; return b; };
+  const via = e => (e && e.detail === 0) ? "kb" : "mouse";
+  const onButton = e => e.target !== e.currentTarget && e.target.tagName === "BUTTON";
+  function permDecide(st, scope, how, note) {
+    if (st.decided) return;
+    st.decided = true; closeMenu();
+    const done = mk("div", "a2-step"), d = mk("span", "d"); d.append(mk("i"));
+    done.append(d, mk("span", "x", scope === "deny" ? (note ? `Yeniden yükleme · reddedildi · talimat: "${note}"` : "Yeniden yükleme · reddedildi, ajan başka yol arıyor") : `Yeniden yükleme · izin verildi (${SC[scope]})`), mk("span", "tm", "0:03"));
+    st.ask.replaceWith(done);
+    done.animate(reduced() ? [{ opacity: 0 }, { opacity: 1 }] : [{ opacity: 0, filter: "blur(4px)" }, { opacity: 1, filter: "blur(0)" }], { duration: ms(200), easing: EASE });
+    if (scope === "always") {
+      const undo = mk("button", "a2-chip perm-undo", "Bu projede hep izinli · Geri al"); undo.type = "button";
+      undo.addEventListener("click", () => { undo.textContent = "Kalıcı izin geri alındı"; undo.disabled = true; });
+      st.steps.append(undo);
+    }
+    st.ti.textContent = "Düşünüyor"; st.ld.classList.remove("paused");
+    (st.log || permLog).textContent = `${st.k}: ${scope === "deny" ? (note ? "reddedildi + talimat" : "reddedildi") : SC[scope]} · ${how === "kb" ? "klavyeyle" : "fareyle"}`;
+  }
+  const UI = {
+    a(st) {
+      let scope = "once";
+      const row = mk("div", "perm-row");
+      const sel = mk("button", "perm-select", `<span>Bu sefer</span><span aria-hidden="true">⌄</span>`); sel.type = "button"; sel.dataset.menuTrigger = "1"; sel.setAttribute("aria-haspopup", "menu");
+      const ok = pAct("İzin ver", "⏎", true), no = pAct("Reddet", "esc");
+      row.append(sel, ok, no); st.ui.append(row);
+      const items = () => [["once", "yalnız bu çağrı"], ["task", "bu teşhis bitene kadar"], ["always", "location.reload · Ayarlar › İzinler'den geri alınır"]].map(([v, sub]) => ({ v, label: cap(SC[v]), sub, sel: v === scope }));
+      sel.addEventListener("click", () => showMenu(st.card, sel, items(), it => { scope = it.v; sel.firstChild.textContent = it.label; sel.focus(); }));
+      ok.addEventListener("click", e => permDecide(st, scope, via(e)));
+      no.addEventListener("click", e => permDecide(st, "deny", via(e)));
+      st.key = e => { if (e.key === "Enter" && !onButton(e)) { e.preventDefault(); permDecide(st, scope, "kb"); } else if (e.key === "Escape") { e.preventDefault(); permDecide(st, "deny", "kb"); } };
+    },
+    b(st) {
+      const row = mk("div", "perm-row"), split = mk("div", "split");
+      const main = pAct("İzin ver", "⏎", true), more = mk("button", "act primary more", "⌄"); more.type = "button"; more.dataset.menuTrigger = "1"; more.setAttribute("aria-label", "Diğer izin seçenekleri");
+      const no = pAct("Reddet", "esc");
+      split.append(main, more); row.append(split, no); st.ui.append(row);
+      main.addEventListener("click", e => permDecide(st, "once", via(e)));
+      no.addEventListener("click", e => permDecide(st, "deny", via(e)));
+      more.addEventListener("click", () => showMenu(st.card, split, [{ v: "once", label: "Bu sefer", key: "⏎", sel: true }, { v: "task", label: "Bu görev boyunca", key: "⌥⏎" }, { v: "always", label: "Bu projede hep", sub: "location.reload" }, { v: "edit", label: "İzinleri düzenle…" }],
+        it => { if (it.v === "edit") { permLog.textContent = "b: Ayarlar › Ajanlar › İzinler açılır (lab'de yok)"; return; } permDecide(st, it.v, "mouse"); }));
+      st.key = e => { if (e.key === "Enter" && !onButton(e)) { e.preventDefault(); permDecide(st, e.altKey ? "task" : "once", "kb"); } else if (e.key === "Escape") { e.preventDefault(); permDecide(st, "deny", "kb"); } };
+    },
+    c(st) {
+      const opts = [["once", "Evet, bu sefer", "⏎"], ["always", "Evet, bu projede location.reload için bir daha sorma", ""], ["deny", "Hayır, ne yapacağını söyle", "esc"]];
+      let idx = 0;
+      const list = mk("div", "plist"); list.setAttribute("role", "listbox");
+      const sync = () => btns.forEach((b, i) => b.setAttribute("aria-selected", String(i === idx)));
+      const btns = opts.map(([v, t, k], i) => {
+        const b = mk("button", "", `<kbd>${i + 1}</kbd><span style="flex:1">${t}</span>${k ? `<kbd>${k}</kbd>` : ""}`); b.type = "button"; b.setAttribute("role", "option");
+        b.addEventListener("click", e => permDecide(st, v, via(e)));
+        b.addEventListener("pointerenter", () => { idx = i; sync(); });
+        list.append(b); return b;
+      });
+      sync(); st.ui.append(list, mk("span", "mono muted perm-hint", "↑ ↓ seç · 1 2 3 doğrudan · ⏎ onayla"));
+      st.key = e => {
+        if (["1", "2", "3"].includes(e.key)) { e.preventDefault(); permDecide(st, opts[+e.key - 1][0], "kb"); }
+        else if (e.key === "ArrowDown" || e.key === "ArrowUp") { e.preventDefault(); idx = (idx + (e.key === "ArrowDown" ? 1 : 2)) % 3; sync(); }
+        else if (e.key === "Enter") { e.preventDefault(); permDecide(st, opts[idx][0], "kb"); }
+        else if (e.key === "Escape") { e.preventDefault(); permDecide(st, "deny", "kb"); }
+      };
+    },
+    d(st) {
+      const row = mk("div", "perm-row"), ok = pAct("İzin ver", "⏎", true), no = pAct("Reddet", "esc"); row.append(ok, no);
+      const hold = mk("button", "hold wide", 'Basılı tut · bu projede hep izin ver<span class="fill" aria-hidden="true">Basılı tut · bu projede hep izin ver</span>'); hold.type = "button";
+      const prog = mk("span", "mono muted perm-hint", "1,2 sn basılı tut · bırakırsan iptal");
+      st.ui.append(row, hold, prog);
+      ok.addEventListener("click", e => permDecide(st, "once", via(e)));
+      no.addEventListener("click", e => permDecide(st, "deny", via(e)));
+      let t0 = 0, raf = 0, timer = 0;
+      const total = () => reduced() ? 1200 : 1200 * slow;
+      const tick = () => { const el = Math.min(total(), performance.now() - t0) / total() * 1.2; prog.textContent = `${el.toFixed(1).replace(".", ",")} / 1,2 sn · bırakırsan iptal`; raf = requestAnimationFrame(tick); };
+      const start = how => { if (st.decided || hold.classList.contains("down")) return; hold.classList.add("down"); t0 = performance.now(); tick(); timer = setTimeout(() => { cancelAnimationFrame(raf); hold.classList.remove("down"); hold.classList.add("done"); permDecide(st, "always", how); }, total()); };
+      const end = () => { if (st.decided || !hold.classList.contains("down")) return; clearTimeout(timer); cancelAnimationFrame(raf); hold.classList.remove("down"); prog.textContent = "Erken bıraktın · 1,2 sn basılı tut"; };
+      hold.addEventListener("pointerdown", e => { hold.setPointerCapture(e.pointerId); start("mouse"); });
+      hold.addEventListener("pointerup", end); hold.addEventListener("pointercancel", end);
+      hold.addEventListener("keydown", e => { if (e.key === " ") { e.preventDefault(); e.stopPropagation(); if (!e.repeat) start("kb"); } });
+      hold.addEventListener("keyup", e => { if (e.key === " ") end(); });
+      hold.addEventListener("click", e => e.preventDefault());
+      st.key = e => {
+        if (e.key === "Enter" && !onButton(e)) { e.preventDefault(); permDecide(st, "once", "kb"); }
+        else if (e.key === "Escape") { e.preventDefault(); permDecide(st, "deny", "kb"); }
+        else if (e.key === " " && !onButton(e) && !e.repeat) { e.preventDefault(); hold.focus(); start("kb"); }
+      };
+    },
+    c2(st) {
+      const opts = [["once", "bu sefer", "⏎", ""], ["task", "bu görev boyunca", "", ""], ["always", "bu projede hep", "", "location.reload · Ayarlar › Ajanlar › İzinler'den geri alınır"], ["deny", "ne yapacağını söyle", "esc", ""]];
+      let idx = 0, asking = false;
+      const list = mk("div", "plist"); list.setAttribute("role", "listbox");
+      const sync = () => btns.forEach((b, i) => b.setAttribute("aria-selected", String(i === idx)));
+      const choose = (v, how) => v === "deny" ? ask() : permDecide(st, v, how);
+      const ask = () => {
+        if (asking) return;
+        asking = true; idx = 3; sync(); list.classList.add("asking");
+        const wrap = mk("div", "pl-deny"), inp = mk("input", "pl-input"); inp.type = "text"; inp.id = "denyNote-" + st.k;
+        inp.placeholder = "Ajan ne yapsın? ör. önce sepeti boşalt"; inp.setAttribute("aria-label", "Ajana talimat");
+        const send = pAct("Gönder", "⏎", true), row = mk("div", "perm-row"); row.append(send, mk("span", "mono muted perm-hint", "esc: yalnız reddet"));
+        wrap.append(inp, row); btns[3].after(wrap);
+        wrap.animate(reduced() ? [{ opacity: 0 }, { opacity: 1 }] : [{ opacity: 0, transform: "translateY(-4px)" }, { opacity: 1, transform: "none" }], { duration: ms(180), easing: EASE });
+        inp.focus();
+        inp.addEventListener("keydown", e => {
+          e.stopPropagation();
+          if (e.key === "Enter") { e.preventDefault(); permDecide(st, "deny", "kb", inp.value.trim()); }
+          else if (e.key === "Escape") { e.preventDefault(); permDecide(st, "deny", "kb"); }
+        });
+        send.addEventListener("click", e => permDecide(st, "deny", via(e), inp.value.trim()));
+      };
+      const btns = opts.map(([v, scope, key, sub], i) => {
+        const b = mk("button", "", `<kbd>${i + 1}</kbd><span class="row-in">${v === "deny" ? "Hayır, " : "Evet, "}<b>${scope}</b>${sub ? `<span class="sub">${sub}</span>` : ""}</span>${key ? `<kbd>${key}</kbd>` : ""}`);
+        b.type = "button"; b.setAttribute("role", "option");
+        b.addEventListener("click", e => choose(v, via(e)));
+        b.addEventListener("pointerenter", () => { if (!asking) { idx = i; sync(); } });
+        list.append(b); return b;
+      });
+      sync(); st.ui.append(list, mk("span", "mono muted perm-hint", "1–4 seç · ↑ ↓ + ⏎ · esc = Hayır · izinler: Ayarlar › Ajanlar"));
+      st.key = e => {
+        if (asking) return;
+        if (["1", "2", "3", "4"].includes(e.key)) { e.preventDefault(); choose(opts[+e.key - 1][0], "kb"); }
+        else if (e.key === "ArrowDown" || e.key === "ArrowUp") { e.preventDefault(); idx = (idx + (e.key === "ArrowDown" ? 1 : 3)) % 4; sync(); }
+        else if (e.key === "Enter") { e.preventDefault(); choose(opts[idx][0], "kb"); }
+        else if (e.key === "Escape") { e.preventDefault(); ask(); }
+      };
+    },
+    c3(st) {
+      const scopes = [["once", "bu sefer", "⏎"], ["task", "bu görev", ""], ["always", "bu projede hep", ""]];
+      let idx = 0;
+      const yes = mk("div", "chips"); yes.append(mk("span", "lbl", "Evet"));
+      const sync = () => chips.forEach((c, i) => c.setAttribute("aria-selected", String(i === idx)));
+      const chips = scopes.map(([v, t, k], i) => {
+        const c = mk("button", "chip-btn", `<kbd>${i + 1}</kbd>${t}${k ? ` <kbd>${k}</kbd>` : ""}`); c.type = "button";
+        c.addEventListener("click", e => permDecide(st, v, via(e)));
+        c.addEventListener("pointerenter", () => { idx = i; sync(); });
+        yes.append(c); return c;
+      });
+      const no = mk("div", "chips"), nb = mk("button", "chip-btn", "ne yapacağını söyle <kbd>esc</kbd>"); nb.type = "button";
+      no.append(mk("span", "lbl", "Hayır"), nb);
+      nb.addEventListener("click", e => permDecide(st, "deny", via(e)));
+      sync(); st.ui.append(yes, no, mk("span", "mono muted perm-hint", "3 = location.reload için kalıcı · Ayarlar › Ajanlar › İzinler"));
+      st.key = e => {
+        if (["1", "2", "3"].includes(e.key)) { e.preventDefault(); permDecide(st, scopes[+e.key - 1][0], "kb"); }
+        else if (e.key === "ArrowRight" || e.key === "ArrowLeft") { e.preventDefault(); idx = (idx + (e.key === "ArrowRight" ? 1 : 2)) % 3; sync(); }
+        else if (e.key === "Enter" && !onButton(e)) { e.preventDefault(); permDecide(st, scopes[idx][0], "kb"); }
+        else if (e.key === "Escape") { e.preventDefault(); permDecide(st, "deny", "kb"); }
+      };
+    },
+    e(st) {
+      const lab = mk("label", "perm-check"), cb = mk("input"); cb.type = "checkbox";
+      lab.append(cb, mk("span", "", "Bu projede bir daha sorma"), mk("span", "mono muted", "location.reload"));
+      const row = mk("div", "perm-row"), ok = pAct("İzin ver", "⏎", true), no = pAct("Reddet", "esc"); row.append(ok, no);
+      st.ui.append(lab, row);
+      ok.addEventListener("click", e => permDecide(st, cb.checked ? "always" : "once", via(e)));
+      no.addEventListener("click", e => permDecide(st, "deny", via(e)));
+      st.key = e => {
+        if (e.key === "Enter" && !onButton(e)) { e.preventDefault(); permDecide(st, cb.checked ? "always" : "once", "kb"); }
+        else if (e.key === "Escape") { e.preventDefault(); permDecide(st, "deny", "kb"); }
+        else if (e.key === " " && e.target === e.currentTarget) { e.preventDefault(); cb.checked = !cb.checked; }
+      };
+    },
+  };
+  function buildCard([k, title, src, hint, rec, cons, uiKey = k], log) {
+    const card = mk("div", "perm-card"); card.tabIndex = 0;
+    card.innerHTML = `<div class="perm-h"><b>${k} · ${title}</b>${rec ? `<span class="rec-tag">${rec === true ? "ÖNERİM" : rec}</span>` : ""}<span class="tag">${src}</span></div>`;
+    const panel = mk("div", "a2-panel", '<div class="a2-sum"><span class="t">04:28</span><span class="ev">click</span><span class="arg">.add-to-cart</span><span class="res">2 / 3</span></div>');
+    const box = mk("div", "a2-box"), head = mk("div", "a2-head"), ld = mk("span", "vp sm paused");
+    for (let i = 0; i < 3; i++) { const b = mk("b"); b.style.setProperty("--i", i); ld.append(b); }
+    const ti = mk("span", "ti", "Seni bekliyor");
+    head.append(ld, ti, mk("span", "el2", "3 sn"), mk("span", "me", "Sonnet 5.5"));
+    const steps = mk("div", "a2-steps");
+    [["Masaüstü DOM'u okundu · 1.284 eleman", "0:01"], [".add-to-cart iPad'de var, Masaüstü'nde yok", "0:02"]].forEach(([t, tm]) => { const s = mk("div", "a2-step"), d = mk("span", "d"); d.append(mk("i")); s.append(d, mk("span", "x", t), mk("span", "tm", tm)); steps.append(s); });
+    const ask = mk("div", "perm-ask"), line = mk("div", "a2-step a2-ask");
+    line.append(mk("span", "d", '<i class="wait"></i>'), mk("span", "x", "Sayfayı yeniden yüklemek istiyor"), mk("span", "tm", "bekliyor"));
+    const ui = mk("div", "perm-ui");
+    ask.append(line, mk("div", "perm-cmd mono muted", "location.reload() · Masaüstü · localhost:3000"));
+    if (cons) ask.append(mk("div", "perm-cons", "Sonuç: Masaüstü viewport'u yenilenir · doldurulmuş form verisi kaybolur"));
+    ask.append(ui);
+    steps.append(ask); box.append(head, steps); panel.append(box);
+    card.append(panel, mk("div", "perm-keys mono muted", hint));
+    const st = { card, ask, ui, ti, ld, steps, k, log, decided: false };
+    UI[uiKey](st);
+    card.addEventListener("keydown", e => { if (!st.decided && st.key) st.key(e); });
+    return card;
+  }
+  const permGrid = $("#permGrid");
+  const permBuild = () => { closeMenu(); permGrid.innerHTML = ""; permOpts.forEach(o => permGrid.append(buildCard(o))); };
+  $("#permReset").addEventListener("click", () => { permBuild(); permLog.textContent = "Sıfırlandı."; });
+  permBuild();
+  const permGrid2 = $("#permGrid2"), permLog2 = mk("span", "mono muted"); $("#permReset2").after(permLog2); permLog2.textContent = "Kartı seçip klavyeyle de dene.";
+  const permOpts2 = [
+    ["c1", "Şimdiki: üç satır", "E panosu c · K6", "1 / 2 / 3 · ↑ ↓ + ⏎ · esc = 3", "SEÇİLDİ", false, "c"],
+    ["c2", "Dört satır + sonuç + talimat", "Claude Code CLI + Cloudscape", "1–4 · ↑ ↓ + ⏎ · esc = Hayır, sonra yaz", false, true, "c2"],
+    ["c3", "Kompakt: kapsam çipleri", "VS Code · segmented", "1 2 3 · ← → + ⏎ · esc = Hayır", false, true, "c3"],
+  ];
+  const permBuild2 = () => { closeMenu(); permGrid2.innerHTML = ""; permOpts2.forEach(o => permGrid2.append(buildCard(o, permLog2))); };
+  $("#permReset2").addEventListener("click", () => { permBuild2(); permLog2.textContent = "Sıfırlandı."; });
+  permBuild2();
+
+  // global controls
+  seg($("#slow"), v => { slow = Number(v); root.style.setProperty("--slow", v); buildShimmer(); a2All(); });
+  const rm = $("#reduce");
+  try { rm.checked = matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
+  const applyRM = () => document.body.classList.toggle("reduce", rm.checked);
+  rm.addEventListener("change", applyRM); applyRM();
+
+  // 1 · shimmer (keyframes rebuilt from the sliders, like Nexus's TextShimmer)
+  const shStyle = document.createElement("style"); document.head.append(shStyle);
+  const shColor = seg($("#shColor"), () => buildShimmer());
+  const cssVar = { ink: "var(--ink)", leader: "var(--leader)", accent: "var(--accent)" };
+  function buildShimmer() {
+    const dur = +$("#shDur").value, pause = +$("#shPause").value, spread = +$("#shSpread").value;
+    $("#shDurO").textContent = dur + " ms"; $("#shPauseO").textContent = pause + " ms"; $("#shSpreadO").textContent = "%" + spread;
+    const total = (dur + pause) * slow, movePct = (dur / (dur + pause) * 100).toFixed(1);
+    const beam = cssVar[shColor()];
+    shStyle.textContent = `
+      @keyframes nx-shim { 0% { background-position: 100% 50%; } 100% { background-position: -100% 50%; } }
+      @keyframes ours-shim { 0% { background-position: 100% 50%; } ${movePct}%, 100% { background-position: -100% 50%; } }
+      #shimNx { background-image: linear-gradient(90deg, var(--ink-2) 40%, var(--ink) 50%, var(--ink-2) 60%); background-size: 200% auto; animation: nx-shim ${1000 * slow}ms linear infinite; }
+      #shimOurs { background-image: linear-gradient(90deg, var(--ink-2) ${50 - spread}%, ${beam} 50%, var(--ink-2) ${50 + spread}%); background-size: 200% auto; animation: ours-shim ${total}ms ease-in-out infinite; }`;
+  }
+  ["#shDur", "#shPause", "#shSpread"].forEach(s => $(s).addEventListener("input", buildShimmer));
+  buildShimmer();
+
+  // 2 · collapse: Nexus height keyframes (restart on interrupt) vs grid-rows transition (retargets)
+  const nxC = $("#nxC"), oursC = $("#oursC");
+  let nxOpen = true;
+  function nxToggle() {
+    nxOpen = !nxOpen;
+    nxC.style.setProperty("--h", nxC.firstElementChild.scrollHeight + "px");
+    nxC.style.animation = "none"; void nxC.offsetWidth;
+    nxC.style.animation = `${nxOpen ? "nx-expand" : "nx-collapse"} ${ms(200)}ms ease-out forwards`;
+  }
+  const oursToggle = () => oursC.classList.toggle("closed");
+  $("#colToggle").addEventListener("click", () => { nxToggle(); oursToggle(); });
+  $("#colInterrupt").addEventListener("click", () => {
+    if (!nxOpen) { nxToggle(); oursToggle(); }
+    setTimeout(() => { nxToggle(); oursToggle(); setTimeout(() => { nxToggle(); oursToggle(); }, 90 * slow); }, 350 * slow);
+  });
+
+  // 3 · curve race
+  const raceDur = seg($("#raceDur"), () => {});
+  const curves = ["ease-in", "ease-out", EASE];
+  $("#raceGo").addEventListener("click", () => {
+    $$("#race .track").forEach((t, i) => {
+      const d = $(".dot", t), dist = t.clientWidth - 22;
+      d.animate([{ transform: "translateX(0)" }, { transform: `translateX(${dist}px)` }], { duration: ms(+raceDur()), easing: curves[i], fill: "forwards" });
+    });
+  });
+
+  // 5 · hold to confirm
+  const hold = $("#hold"), holdState = $("#holdState");
+  let holdTimer = null;
+  const holdStart = () => {
+    if (hold.classList.contains("done")) return;
+    hold.classList.add("down");
+    holdTimer = setTimeout(() => { hold.classList.remove("down"); hold.classList.add("done"); holdState.hidden = false; }, reduced() ? 1200 : 1200 * slow);
+  };
+  const holdEnd = () => { clearTimeout(holdTimer); hold.classList.remove("down"); };
+  hold.addEventListener("pointerdown", e => { hold.setPointerCapture(e.pointerId); holdStart(); });
+  ["pointerup", "pointercancel"].forEach(t => hold.addEventListener(t, holdEnd));
+  hold.addEventListener("keydown", e => { if ((e.key === " " || e.key === "Enter") && !e.repeat) { e.preventDefault(); holdStart(); } });
+  hold.addEventListener("keyup", e => { if (e.key === " " || e.key === "Enter") holdEnd(); });
+  holdState.addEventListener("click", () => { holdState.hidden = true; hold.classList.remove("done"); });
+
+  // press feedback for every .act: pointer only
+  document.addEventListener("pointerdown", e => { const a = e.target.closest(".act"); if (a) a.classList.add("pressing"); });
+  document.addEventListener("pointerup", () => $$(".act.pressing").forEach(a => a.classList.remove("pressing")));
+  document.addEventListener("pointercancel", () => $$(".act.pressing").forEach(a => a.classList.remove("pressing")));
+
+  // 6 · keyboard vs pointer
+  const kbLab = $("#kbLab"), kbLog = $("#kbLog");
+  const verdict = { a: "Kabul edildi · baseline güncellendi", i: "Yoksayıldı · seçici kaydedildi", t: "Takipte" };
+  const decide = (k, how) => {
+    kbLog.textContent = `${how === "kb" ? "Klavye (animasyonsuz)" : "Fare (%97 basma)"} → ${verdict[k]}`;
+    kbLog.animate([{ opacity: 0 }, { opacity: 1 }], { duration: ms(150) });
+  };
+  $$("#kbRow .act").forEach(b => b.addEventListener("click", e => { if (e.detail) decide(b.dataset.k, "mouse"); }));
+  kbLab.addEventListener("pointerdown", () => kbLab.focus({ preventScroll: true }));
+  kbLab.addEventListener("keydown", e => { const k = e.key.toLowerCase(); if (verdict[k] && !e.metaKey && !e.ctrlKey) { e.preventDefault(); decide(k, "kb"); } });
+
+  // 7 · stagger
+  const sgGap = $("#sgGap");
+  sgGap.addEventListener("input", () => $("#sgGapO").textContent = sgGap.value + " ms");
+  $("#sgGo").addEventListener("click", () => {
+    $$("#sg span").forEach((s, i) => {
+      const frames = reduced() ? [{ opacity: 0 }, { opacity: 1 }] : [{ opacity: 0, transform: "translateY(4px)", filter: "blur(3px)" }, { opacity: 1, transform: "none", filter: "blur(0)" }];
+      s.animate(frames, { duration: ms(200), delay: reduced() ? 0 : Math.min(i, 6) * +sgGap.value * slow, easing: EASE, fill: "backwards" });
+    });
+  });
+
+  // 8 · comparison curtain
+  const cmp = $("#cmp"), cmpTop = $("#cmpTop"), handle = $("#cmpHandle");
+  const setCmp = pct => {
+    pct = Math.max(0, Math.min(100, pct));
+    cmpTop.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
+    handle.style.left = pct + "%"; handle.setAttribute("aria-valuenow", Math.round(pct));
+  };
+  const fromEvent = e => { const r = cmp.getBoundingClientRect(); return (e.clientX - r.left) / r.width * 100; };
+  cmp.addEventListener("pointerdown", e => { cmp.setPointerCapture(e.pointerId); setCmp(fromEvent(e)); cmp.onpointermove = ev => setCmp(fromEvent(ev)); });
+  cmp.addEventListener("pointerup", () => cmp.onpointermove = null);
+  handle.addEventListener("keydown", e => { const v = +handle.getAttribute("aria-valuenow"); if (e.key === "ArrowLeft") { setCmp(v - 5); e.preventDefault(); } if (e.key === "ArrowRight") { setCmp(v + 5); e.preventDefault(); } });
+  setCmp(50);
+
+  // 9 · origin-aware label
+  const alabel = $("#alabel");
+  const playLabel = origin => {
+    const from = $("#orBig").checked ? 0.8 : 0.96;
+    alabel.style.transformOrigin = origin;
+    alabel.animate(reduced() ? [{ opacity: 0 }, { opacity: 1 }] : [{ opacity: 0, transform: `scale(${from})` }, { opacity: 1, transform: "scale(1)" }], { duration: ms(150), easing: EASE });
+  };
+  $("#orCursor").addEventListener("click", () => playLabel("0% 0%"));
+  $("#orCenter").addEventListener("click", () => playLabel("50% 50%"));
+
+  // 10 · rail tab indicator
+  const ind = $("#ind"), copy = $("#railCopy"), tabs = $$("#rail .list:not(.copy) .tab"), tabLab = $("#tabLab");
+  let cur = 1;
+  const moveTo = (i, animate) => {
+    const h = 28, top = i * h, bottom = (tabs.length - i - 1) * h;
+    const dur = animate && !reduced() ? 200 * slow : 0;
+    const ease = "cubic-bezier(0.77, 0, 0.175, 1)";
+    ind.style.transition = copy.style.transition = dur ? `transform ${dur}ms ${ease}, clip-path ${dur}ms ${ease}` : "none";
+    ind.style.transform = `translateY(${top}px)`;
+    copy.style.clipPath = `inset(${top}px 0 ${bottom}px 0 round 6px)`;
+    tabs.forEach((t, k) => t.setAttribute("aria-selected", String(k === i)));
+    cur = i;
+  };
+  tabs.forEach((t, i) => t.addEventListener("click", () => moveTo(i, true)));
+  tabLab.addEventListener("pointerdown", () => tabLab.focus({ preventScroll: true }));
+  tabLab.addEventListener("keydown", e => { if (["1", "2", "3"].includes(e.key)) { moveTo(+e.key - 1, false); e.preventDefault(); } });
+  moveTo(1, false);
+
+  // 11 · toast stack (Sonner-like)
+  const toaster = $("#toaster");
+  const msgs = [["Claude Code bitirdi · 3 fark", "Göster"], ["Cursor onay bekliyor", "Aç"], ["Görsel fark taraması bitti", "Göster"], ["Claude Code sepet akışını denedi", "Kayıt"]];
+  let n = 0, expanded = false;
+  const toasts = [];
+  const layout = () => {
+    toasts.forEach((t, i) => {
+      const y = expanded ? -46 * i : -10 * i;
+      t.el.style.setProperty("--y", y); t.el.style.setProperty("--s", expanded ? 1 : 1 - 0.05 * i);
+      t.el.style.setProperty("--o", i < 3 ? 1 : 0); t.el.style.zIndex = 10 - i;
+    });
+  };
+  const paused = () => expanded || document.hidden;
+  const remove = t => {
+    const i = toasts.indexOf(t); if (i < 0) return;
+    toasts.splice(i, 1);
+    t.el.style.setProperty("--o", 0); t.el.style.setProperty("--y", 40);
+    setTimeout(() => t.el.remove(), 400 * slow); layout();
+  };
+  const addToast = () => {
+    const [m, a] = msgs[n++ % msgs.length];
+    const el = document.createElement("div");
+    el.className = "toast"; el.innerHTML = `<span class="g"><b></b><b></b><b></b></span><span>${m}</span><span class="a">${a}</span>`;
+    el.style.setProperty("--y", 60); el.style.setProperty("--o", 0);
+    toaster.append(el); void el.offsetWidth;
+    const t = { el, left: 4000 };
+    toasts.unshift(t); layout();
+  };
+  setInterval(() => { if (paused()) return; toasts.slice().forEach(t => { t.left -= 100; if (t.left <= 0) remove(t); }); }, 100);
+  toaster.addEventListener("pointerenter", () => { expanded = true; layout(); });
+  toaster.addEventListener("pointerleave", () => { expanded = false; layout(); });
+  $("#toastAdd").addEventListener("click", addToast);
+  $("#toastBurst").addEventListener("click", () => { addToast(); setTimeout(addToast, 120); setTimeout(addToast, 240); });
+  addToast(); setTimeout(addToast, 300);
+})();
+</script>

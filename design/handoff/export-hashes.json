@@ -42,8 +42,8 @@
       "accepted": "2026-10-13"
     },
     "Home Window": {
-      "hash": 4108405384,
-      "accepted": "2026-10-13"
+      "hash": 1958046174,
+      "accepted": "2026-10-18"
     },
     "Home Window · Liste": {
       "hash": 307726158,
@@ -54,24 +54,24 @@
       "accepted": "2026-10-13"
     },
     "Home Window · Bağlam menüsü": {
-      "hash": 372641169,
-      "accepted": "2026-10-13"
+      "hash": 2197384097,
+      "accepted": "2026-10-18"
     },
     "Home Window · Kaldır alt menüsü": {
-      "hash": 1599386100,
-      "accepted": "2026-10-13"
+      "hash": 1387860744,
+      "accepted": "2026-10-18"
     },
     "Project Window · Cihaz seçici (birleşik)": {
       "hash": 922181171,
       "accepted": "2026-10-13"
     },
     "Dev Panel · Farklar (sakin)": {
-      "hash": 3766139787,
-      "accepted": "2026-10-13"
+      "hash": 1282943668,
+      "accepted": "2026-10-19"
     },
     "Dev Panel · Senkron (sakin)": {
-      "hash": 1701025861,
-      "accepted": "2026-10-13"
+      "hash": 1656331622,
+      "accepted": "2026-10-19"
     },
     "Dev Panel · Fark yok (sakin)": {
       "hash": 412981222,
@@ -110,8 +110,8 @@
       "accepted": "2026-10-13"
     },
     "Home Window · Ayarlar paneli": {
-      "hash": 2893297260,
-      "accepted": "2026-10-13"
+      "hash": 2544714890,
+      "accepted": "2026-10-18"
     },
     "Project Window · Canvas boş": {
       "hash": 1967960660,
@@ -196,6 +196,66 @@
     "Home States": {
       "hash": 2504142828,
       "accepted": "2026-10-13"
+    },
+    "Test · AI · A · Satır içi teşhis": {
+      "hash": 3050860420,
+      "accepted": "2026-10-18"
+    },
+    "Test · AI · B · Ajanlar paneli": {
+      "hash": 1516283098,
+      "accepted": "2026-10-18"
+    },
+    "Test · AI · C · Hareket dili": {
+      "hash": 486122008,
+      "accepted": "2026-10-18"
+    },
+    "Test · AI · D · Nexus UI + Emil": {
+      "hash": 1467815859,
+      "accepted": "2026-10-18"
+    },
+    "Test · AI · E · İzin verme": {
+      "hash": 3418401800,
+      "accepted": "2026-10-19"
+    },
+    "Test · AI · Kararlar": {
+      "hash": 1813802738,
+      "accepted": "2026-10-19"
+    },
+    "Dev Panel · Senkron · AI düşünüyor": {
+      "hash": 1125777669,
+      "accepted": "2026-10-19"
+    },
+    "Dev Panel · Senkron · AI seni bekliyor": {
+      "hash": 2572804302,
+      "accepted": "2026-10-19"
+    },
+    "Dev Panel · Senkron · AI sonuç": {
+      "hash": 3224785329,
+      "accepted": "2026-10-19"
+    },
+    "Dev Panel · Farklar · AI açıkla": {
+      "hash": 2413368037,
+      "accepted": "2026-10-19"
+    },
+    "Project Window · Ajanlar paneli": {
+      "hash": 4137339047,
+      "accepted": "2026-10-19"
+    },
+    "Project Window · Ajan sürüyor": {
+      "hash": 432567789,
+      "accepted": "2026-10-19"
+    },
+    "Motion Spec": {
+      "hash": 2300358747,
+      "accepted": "2026-10-19"
+    },
+    "Test · Kaydet ve uyarılar": {
+      "hash": 3828421806,
+      "accepted": "2026-10-19"
+    },
+    "Dialogs · Kaydet ve uyarılar": {
+      "hash": 2795047300,
+      "accepted": "2026-10-19"
     }
   }
 }

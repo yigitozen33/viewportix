@@ -1,19 +1,19 @@
 # Tasarım oturumu — güncel durum
 
 > Bu dosya **üzerine yazılır**; yalnızca tasarım oturumu yazar. Tarihçe: `notlar/`. Kod oturumu salt okur.
-> Son güncelleme: 2026-10-16
+> Son güncelleme: 2026-10-19
 
 ## Kod oturumu için: nereden başla
 
 Tasarım M3 uygulamasına hazır. Okuma sırası:
 
-1. `design/KOD-OTURUMU-ISLERI.md` — sana düşen işler; **§12 uygulama sırası**, sonra **§13 yeni haller**.
+1. `design/KOD-OTURUMU-ISLERI.md` — sana düşen işler; **§12 uygulama sırası**, sonra **§13 yeni haller**, **§15 eylem düğmeleri, hareket dili, uygulama içi AI, kaydetme ve uyarılar (2026-10-19)**.
 2. `DESIGN.md` §3 (ekranlar + etkileşim tabloları), §4 (kararlar), §6 (token'lar, bileşen → SwiftUI tablosu, pencere chrome'u yerleşimi).
 3. `design/tokens/` — `DesignTokens.swift` (kopyala, elle düzenleme), `viewportix.tokens.json`.
 4. `design/exports/*.png` — her frame'in 2x görüntüsü. Ölçü ve durumlar: `chrome-spec@2x.png`, `card-states@2x.png`, `tab-states-overflow-menu@2x.png`, `sidebar-states@2x.png`, `toast-states@2x.png`, `card-actions@2x.png`, `design-system-tokens@2x.png`.
 5. `design/viewportix.pen` yalnızca pen.dev MCP ile; ana kopyalar 00b bölümünde.
 
-Dışa aktarım adları: `window-project-*` (proje penceresi halleri), `window-home-*` (giriş), `devpanel-*-calm` (M5 paneller), `settings-*`, `layout-*`, `*-options` ve `*-pro` dosyaları **arşiv/keşif** (uygulama için değil).
+Dışa aktarım adları: `window-project-*` (proje penceresi halleri), `window-home-*` (giriş), `devpanel-*-calm` (M5 paneller), `devpanel-*-ai-*` ve `window-project-agent*` (uygulama içi AI), `motion-spec` (hareket değerleri), `dialogs-save-alerts` (kaydetme penceresi ve uyarılar), `test-ai-*` ve `test-save-alerts` (**keşif, uygulama için değil**; silinecek), `settings-*`, `layout-*`, `*-options` ve `*-pro` dosyaları **arşiv/keşif** (uygulama için değil).
 
 ## Şu an neredeyiz
 
@@ -21,8 +21,12 @@ Dışa aktarım adları: `window-project-*` (proje penceresi halleri), `window-h
 - Bileşenler (00b): `Viewport/Card`, `Viewport/HoverStrip`, `Window/Toast`, `Sidebar/Row`, `Toolbar/Button`, `Toolbar/DeviceTab`, `Toolbar/ZoomControl`, `Home/ProjectCard`, `Home/TemplateChip`, `Home/URLBox`, `Device/Picker`, chrome: `Sidebar/Header`, `Window/CollapsedHeader`, `Window/DeviceStrip`, `Window/BottomBar`, `Window/Rail`, `Window/RailHandle`, `Window/Tooltip` (2026-10-13). Tüm pencere frame'leri instance kullanır.
 - Token'lar: renk (koyu; açık değerler ileride), köşe, aralık, yazı, çizgi, boyut (sidebar 240, ray 44, panel 340 / 320).
 - Son kararlar (2026-10-11): Cihazlar sekmesi iki satırlı liste, ray gizliyken tutamaç, sidebar 240, boş URL ipucu, medya duraklatma varsayılan açık (10-10).
+- **Uygulama içi AI (2026-10-18 / 19, DESIGN.md §3.4 + §4):** A satır içi teşhis önce, B Ajanlar paneli MCP ile. Hareket dili K1 sarı · K2 üç viewport (`AI/Glyph`, 720 ms) · K3 bitince 2 sn sonra katlanır; K4 eylem düğmeleri kelime + kısayol (`Action/Primary`, `Action/Secondary`; eski "kelime düğmeler" superseded, Farklar / Senkron panelleri güncellendi, eylem satırı açılımın tam genişliğinde); K5 hareket önerileri (klavye canlanmaz, DEV-02 J / K anında; 40 ms kademe; bildirim yığını; tek eğri cubic-bezier(.23, 1, .32, 1)); K6 izin isteği üç satırlı liste. Temiz panolar 04 sırasında (`Dev Panel · Senkron · AI düşünüyor / seni bekliyor / sonuç`, `Dev Panel · Farklar · AI açıkla`, `Project Window · Ajanlar paneli`, `Project Window · Ajan sürüyor`) ve 05'te `Motion Spec`. Yeni kısayollar: Teşhis et D, Açıkla E, Farklara ekle ⌘⏎, Kapat esc, Durdur ⌘., izin 1 / 2 / 3 — çakışma görürsen `docs/tasarim-istekleri.md`'ye yaz. **Kaydetme ve uyarılar (2026-10-19):** K7 S2 bizim kaydet sayfası (aynı gün S1'den değişti); K8 karma: önce sorma (geri al, yerinde durum), dosya işleri NSAlert (+ hata kodu satırı), MCP onayı ve ajanlı çıkış bizim sayfa. HOME-08 taslak silme onayı kalktı; yeni PW-06…09. Temiz pano `Dialogs · Kaydet ve uyarılar` (05 sonu). Oynayan hâli `design/prototypes/animasyon-lab.html` (artifact https://claude.ai/artifact/AtcD2CbesE2taUdEqFKYHU; Nexus paketi yerelde `design/prototypes/vendor/`, git dışı). Mimari (MCP, model çağrısı, araç katmanı) kod oturumunun, PLAN.md'ye.
 
 ## Açık tasarım işleri
+
+- `Test · AI ·` ve `Test · Kaydet ve uyarılar` panoları (y 11800): kullanıcı temiz panolarla karşılaştıracak, sonra silinecek. Kanvastaki canlı önizlemeler (`browser` düğümleri, C ve D) `file://` yolları; başka makinede boş.
+- Logo: `icon.json` koyu görünüm dolgusu (`extended-gray 0`) bilinçli mi, kullanıcıya soruldu.
 
 Yok (2026-10-13). MVP ve M3 kapsamı çizildi, onaylandı ve koda aktarıldı (`KOD-OTURUMU-ISLERI.md` §12 iskelet, §13 yeni haller).
 

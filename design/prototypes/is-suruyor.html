@@ -1,0 +1,408 @@
+<!doctype html>
+<!--
+  Viewportix "iş sürüyor" motion prototype — the playable version of design/viewportix.pen ›
+  "Test · AI · C · Hareket dili". Toggles: K1 color, K2 loader, K3 after-done, K4 action buttons (filled / tonal / outline / word / icon + word / word + shortcut / main word + icons), Reduce Motion.
+  Timings mirror the board's Section 6 table; colors are the dark-theme token values (DESIGN.md §2).
+  Open directly in a browser; no build step.
+-->
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>İş sürüyor · hareket</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --canvas: #161412; --surface-bar: #1F1C19; --surface-header: #2D2926; --surface-pill: #3A3430;
+    --line: #3A3532; --line-strong: #4F4945; --ink: #F4EFE9; --ink-2: #9C9188;
+    --accent: #FFF36B; --accent-ink: #141210; --leader: #8EC9E6; --warning: #FF8F85;
+    --motion: var(--ink);
+    --r-card: 12px; --r-control: 8px; --r-badge: 6px;
+    --caption: 11px; --label: 12px; --micro: 10px;
+  }
+  body[data-k1="sky"] { --motion: var(--leader); }
+  body[data-k1="yellow"] { --motion: var(--accent); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--canvas); color: var(--ink); }
+  body { font: var(--caption)/1.45 Inter, -apple-system, system-ui, sans-serif; padding: 32px 40px 64px; }
+  .mono { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: var(--micro); }
+  h1 { font-size: 15px; font-weight: 600; margin: 6px 0 4px; }
+  .kicker { color: var(--accent); font-size: var(--micro); font-weight: 600; letter-spacing: 1px; }
+  .sub { color: var(--ink-2); max-width: 900px; margin: 0 0 24px; }
+  .sec { color: var(--ink-2); font-size: var(--micro); font-weight: 600; letter-spacing: 1px; margin: 0 0 10px; text-transform: uppercase; }
+
+  /* controls */
+  .controls { display: flex; flex-wrap: wrap; gap: 20px 28px; align-items: center; margin-bottom: 32px; }
+  .ctl { display: flex; gap: 8px; align-items: center; }
+  .ctl > span { color: var(--ink-2); font-size: var(--label); }
+  .seg { display: flex; background: var(--surface-bar); border: 1px solid var(--line); border-radius: var(--r-control); padding: 2px; }
+  .seg button, .btn { font: inherit; font-size: var(--label); color: var(--ink-2); background: none; border: 0; border-radius: 6px; padding: 5px 10px; cursor: pointer; }
+  .seg button[aria-pressed="true"] { background: var(--surface-header); color: var(--ink); }
+  .seg button .rec { color: var(--accent); font-size: 9px; font-weight: 600; margin-left: 4px; }
+  .btn { border: 1px solid var(--line); color: var(--ink); background: var(--surface-bar); }
+  label.tog { display: flex; gap: 6px; align-items: center; color: var(--ink-2); font-size: var(--label); cursor: pointer; }
+
+  .layout { display: grid; grid-template-columns: 340px 1fr; gap: 48px; align-items: start; }
+  @media (max-width: 860px) { .layout { grid-template-columns: 1fr; } body { padding: 24px 16px 48px; } }
+  .uses { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 32px; }
+
+  /* panel row (A2 context) */
+  .panel { background: var(--surface-bar); border: 1px solid var(--line); border-radius: var(--r-card); padding: 8px; }
+  .sum { display: flex; gap: 10px; align-items: center; padding: 4px 4px 8px; }
+  .sum .t { color: var(--ink-2); width: 36px; }
+  .sum .ev { font-size: var(--label); }
+  .sum .arg { color: var(--ink-2); }
+  .sum .res { margin-left: auto; color: var(--warning); font-size: var(--label); }
+  .detail { padding: 0 4px 6px 50px; color: var(--ink-2); }
+  .acts-row { display: flex; gap: 6px; padding: 0 4px 6px 50px; }
+
+  /* K4 action buttons — 24 px, radius/badge, caption; press = 97 % + one tone darker (80 ms), release 120 ms */
+  .act { font: inherit; font-size: var(--caption); color: var(--ink); height: 24px; padding: 0 10px; border: 1px solid transparent;
+    border-radius: var(--r-badge); background: none; cursor: default; user-select: none; display: inline-flex; align-items: center; white-space: nowrap; flex: none;
+    transition: background-color 120ms, filter 120ms, transform 120ms, box-shadow 120ms; }
+  .act.primary { color: var(--accent); font-weight: 600; }
+  .act:active { transform: scale(.97); transition-duration: 80ms; }
+  .act:focus-visible { outline: 2px solid var(--ink); outline-offset: 0; }
+  body:is([data-k4="filled"], [data-k4="icon"], [data-k4="keys"], [data-k4="iconly"]) .act { background: var(--surface-pill); }
+  body:is([data-k4="filled"], [data-k4="icon"], [data-k4="keys"], [data-k4="iconly"]) .act:hover { background: var(--line-strong); }
+  body:is([data-k4="filled"], [data-k4="icon"], [data-k4="keys"], [data-k4="iconly"]) .act:active { background: var(--surface-header); box-shadow: inset 0 1px 2px rgba(0,0,0,.35); }
+  body:is([data-k4="filled"], [data-k4="icon"], [data-k4="keys"], [data-k4="iconly"]) .act.primary { background: var(--accent); color: var(--accent-ink); }
+  body:is([data-k4="filled"], [data-k4="icon"], [data-k4="keys"], [data-k4="iconly"]) .act.primary:hover { filter: brightness(1.06); }
+  body:is([data-k4="filled"], [data-k4="icon"], [data-k4="keys"], [data-k4="iconly"]) .act.primary:active { filter: brightness(.88); }
+  body[data-k4="tonal"] .act { background: var(--surface-pill); }
+  body[data-k4="tonal"] .act:hover { background: var(--line-strong); }
+  body[data-k4="tonal"] .act:active { background: var(--surface-header); box-shadow: inset 0 1px 2px rgba(0,0,0,.35); }
+  body[data-k4="outline"] .act { border-color: var(--line-strong); }
+  body[data-k4="outline"] .act.primary { border-color: var(--accent); }
+  body[data-k4="outline"] .act:hover { background: var(--surface-pill); }
+  body[data-k4="outline"] .act:active { background: var(--surface-header); }
+  body[data-k4="word"] .act:hover { background: var(--surface-pill); }
+  body[data-k4="word"] .act:active { background: var(--surface-header); }
+  .act .ic, .act kbd { display: none; }
+  .act .ic { width: 12px; height: 12px; margin: 0 5px 0 -2px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .act kbd { font: inherit; font-size: var(--micro); color: var(--ink-2); background: var(--surface-header); border-radius: 4px; padding: 1px 4px; margin: 0 -4px 0 5px; }
+  .act.primary kbd { color: var(--accent-ink); background: rgba(20,18,16,.12); }
+  body[data-k4="icon"] .act .ic { display: block; }
+  body[data-k4="keys"] .act kbd { display: inline; }
+  body[data-k4="iconly"] .act:not(.primary) { width: 24px; padding: 0; justify-content: center; background: none; color: var(--ink-2); }
+  body[data-k4="iconly"] .act:not(.primary):hover { background: var(--line-strong); color: var(--ink); }
+  body[data-k4="iconly"] .act:not(.primary) .lb { display: none; }
+  body[data-k4="iconly"] .act:not(.primary) .ic { display: block; margin: 0; }
+  .farklar-row .sum { padding: 4px; }
+  .farklar-row .acts-row { padding: 2px 4px 2px; flex-wrap: wrap; row-gap: 6px; }
+
+  /* AI box */
+  .box { background: var(--canvas); border-radius: var(--r-badge); padding: 9px 10px 10px; overflow: hidden; }
+  .head { display: flex; gap: 6px; align-items: center; cursor: default; }
+  .head .title { font-weight: 600; }
+  .head .el { color: var(--ink-2); display: inline-block; min-width: 26px; }
+  .head .meta { margin-left: auto; color: var(--ink-2); font-size: var(--micro); }
+  .steps { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+  .step { display: flex; gap: 8px; align-items: flex-start; }
+  .step .dot { width: 12px; flex: none; display: flex; justify-content: center; padding-top: 2px; }
+  .step .dot i { width: 5px; height: 5px; border-radius: 50%; background: var(--line-strong); margin-top: 3px; }
+  .step .txt { flex: 1; color: var(--ink-2); }
+  .step.check .txt { color: var(--ink); font-weight: 600; }
+  .step .tm { color: var(--ink-2); font-size: var(--micro); }
+  .live { padding-left: 20px; color: var(--ink-2); display: flex; flex-direction: column; gap: 2px; }
+  .verdict { margin-top: 8px; }
+  .foot { display: flex; gap: 6px; align-items: center; margin-top: 8px; }
+  .foot .meta { margin-left: auto; color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+  .inline-verdict { display: flex; gap: 6px; align-items: flex-start; color: var(--ink); padding: 0 4px 6px 50px; }
+
+  /* shimmer */
+  .shimmer { background: linear-gradient(90deg, var(--ink-2) 0%, var(--ink-2) 38%, var(--motion) 50%, var(--ink-2) 62%, var(--ink-2) 100%);
+    background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; color: transparent !important;
+    animation: shimmer 1.2s ease-in-out infinite; }
+  @keyframes shimmer { 0% { background-position: 100% 0; } 75%, 100% { background-position: 0% 0; } }
+
+  /* loaders — 12 px */
+  .ld { width: 12px; height: 12px; flex: none; display: inline-flex; color: var(--motion); }
+  .ld.matrix { display: inline-grid; grid-template-columns: repeat(3, 3px); gap: 1.5px; }
+  .ld.matrix b { width: 3px; height: 3px; border-radius: 50%; background: currentColor; }
+  .ld.vp { align-items: flex-end; gap: 1px; height: 9px; margin: 1.5px 0; }
+  .ld.vp b { background: currentColor; border-radius: 0.6px; }
+  .ld.vp b:nth-child(1) { width: 2px; height: 9px; } .ld.vp b:nth-child(2) { width: 3px; height: 7px; } .ld.vp b:nth-child(3) { width: 5px; height: 5px; }
+  .ld b { animation: blink 900ms linear infinite; animation-delay: calc(var(--i) * 150ms - var(--phase, 0ms)); }
+  .ld.ring svg { animation: spin 900ms linear infinite; }
+  @keyframes blink { 0% { opacity: 1; } 16.6% { opacity: .6; } 33.3% { opacity: .4; } 50%, 100% { opacity: .25; } }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .ld.done b, .ld.done svg { animation: none; opacity: 1; }
+  .ld.done { color: var(--ink); }
+
+  /* elsewhere */
+  .ph { display: flex; gap: 8px; align-items: center; background: var(--surface-bar); border: 1px solid var(--line); border-radius: var(--r-card); padding: 11px 12px; }
+  .ph .name { font-size: var(--label); font-weight: 600; }
+  .ph .right { margin-left: auto; display: flex; gap: 6px; align-items: center; color: var(--ink-2); }
+  .badge { background: var(--surface-pill); border-radius: var(--r-badge); padding: 1px 6px; color: var(--ink); }
+  .ch { display: flex; gap: 8px; align-items: center; background: var(--surface-header); border-radius: var(--r-control); height: 36px; padding: 0 10px; }
+  .ch .name { font-size: var(--label); font-weight: 600; }
+  .ch .right { margin-left: auto; display: flex; gap: 6px; align-items: center; color: var(--ink-2); }
+  .agents { background: var(--surface-bar); border: 1px solid var(--line); border-radius: var(--r-card); padding: 8px; }
+  .agents .g { color: var(--ink-2); font-size: var(--micro); font-weight: 600; letter-spacing: 1px; padding: 0 0 4px; }
+  .ar { display: flex; gap: 8px; align-items: center; padding: 7px 8px; border-radius: var(--r-control); font-size: var(--label); }
+  .ar.sel { background: var(--surface-header); }
+  .ar .m { margin-left: auto; color: var(--ink-2); font-size: var(--micro); }
+  .drv { display: flex; gap: 8px; align-items: center; background: var(--surface-header); border-radius: var(--r-control); padding: 8px 10px; }
+  .drv .who { font-size: var(--label); font-weight: 600; white-space: nowrap; }
+  .drv > span { white-space: nowrap; }
+  .drv .shimmer, .drv > span:nth-child(3) { overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+  .drv .a { color: var(--ink); } .drv .a:first-of-type { margin-left: auto; }
+  .use h3 { font-size: var(--label); font-weight: 600; margin: 0 0 8px; }
+  .use p { color: var(--ink-2); margin: 8px 0 0; }
+
+  /* #solo: only the A2 row, for the pen.dev canvas browser node */
+  body.solo { padding: 16px; }
+  body.solo > .kicker, body.solo > h1, body.solo > .sub, body.solo .controls, body.solo .layout > div:nth-child(2), body.solo .sec, body.solo #clock { display: none; }
+  body.solo .layout { grid-template-columns: minmax(0, 340px); }
+  body.reduce .shimmer { animation: none; background: none; color: var(--ink) !important; }
+  body.reduce .ld b, body.reduce .ld svg { animation: none; opacity: .6; }
+  body.reduce .ld.done b, body.reduce .ld.done svg { opacity: 1; }
+</style>
+</head>
+<body data-k1="yellow" data-k2="vp" data-k3="collapse" data-k4="keys">
+  <div class="kicker">TEST · HAREKET DİLİ · C · OYNAYAN PROTOTİP</div>
+  <h1>"İş sürüyor" hareket dili</h1>
+  <p class="sub">viewportix.pen › "Test · AI · C · Hareket dili" panosunun oynayan hâli. Anahtarları değiştir, "Tekrar oynat"a bas. Süreler panodaki 6. bölümdeki tabloyla aynı.</p>
+
+  <div class="controls">
+    <div class="ctl"><span>K1 renk</span><div class="seg" data-key="k1">
+      <button data-v="ink">Mürekkep</button><button data-v="sky">Gök</button><button data-v="yellow">Sarı<span class="rec">SEÇİLDİ</span></button></div></div>
+    <div class="ctl"><span>K2 ikon</span><div class="seg" data-key="k2">
+      <button data-v="matrix">3×3 matris</button><button data-v="ring">Halka</button><button data-v="vp">Üç viewport<span class="rec">SEÇİLDİ</span></button></div></div>
+    <div class="ctl"><span>K3 bitince</span><div class="seg" data-key="k3">
+      <button data-v="open">Açık kalır</button><button data-v="collapse">Katlanır<span class="rec">SEÇİLDİ</span></button><button data-v="inline">Satıra iner</button></div></div>
+    <div class="ctl"><span>K4 düğme</span><div class="seg" data-key="k4">
+      <button data-v="filled">Dolu sarı</button><button data-v="tonal">Gri dolgu</button><button data-v="outline">Çerçeveli</button><button data-v="word">Kelime</button><button data-v="icon">İkon + kelime</button><button data-v="keys">Kelime + kısayol<span class="rec">SEÇİLDİ</span></button><button data-v="iconly">Ana kelime + ikonlar</button></div></div>
+    <label class="tog"><input type="checkbox" id="reduce"> Hareketi azalt</label>
+    <button class="btn" id="replay">Tekrar oynat</button>
+  </div>
+
+  <div class="layout">
+    <div>
+      <div class="sec">3 · Bir iş, baştan sona (A2 · Teşhis et)</div>
+      <div class="panel" id="row">
+        <div class="sum"><span class="t">04:28</span><span class="ev">click</span><span class="arg">.add-to-cart</span><span class="res">2 / 3</span></div>
+        <div class="detail">Masaüstü kaçırdı: .add-to-cart bulunamadı</div>
+        <div id="slot"></div>
+      </div>
+      <p class="sub" style="margin-top:10px" id="clock">0,0 sn</p>
+    </div>
+    <div>
+      <div class="sec">5 · Aynı dil başka yerlerde</div>
+      <div class="uses">
+        <div class="use"><h3>Farklar · açılan satır (K4 dene)</h3><div class="panel farklar-row">
+          <div class="sum"><span class="ev">.price</span><span class="arg">font-weight</span><span class="res">500 → 600</span></div>
+          <div class="acts-row"><button class="act primary" data-ic="check" data-k="A">Kabul</button><button class="act" data-ic="eye-off" data-k="I">Yoksay</button><button class="act" data-ic="pin" data-k="T">Takip et</button><button class="act" data-ic="scan-eye" data-k="⏎">Göster</button></div></div>
+          <p>Bas ve bırak: %97 küçülür, bir ton koyulaşır. Tab ile odak halkası.</p></div>
+        <div class="use"><h3>Farklar · tarama</h3><div class="ph" id="diff"></div><p>Bitince ikon sayıya dönüşür.</p></div>
+        <div class="use"><h3>Motor bağlanıyor</h3><div class="ch" id="engine"></div><p>Bağlanınca yerine motor adı geçer.</p></div>
+        <div class="use"><h3>Ajanlar · Çalışıyor</h3><div class="agents" id="agents"></div><p>Kapalı satırda yalnız ikon; ışık yalnız seçili satırda.</p></div>
+        <div class="use"><h3>Senkron · ajan sürerken</h3><div class="drv" id="driver"></div><p>Her araç çağrısında fiil kip değiştirir.</p></div>
+      </div>
+    </div>
+  </div>
+
+<script>
+const $ = (s, r = document) => r.querySelector(s);
+const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
+const body = document.body;
+if (location.hash === "#solo") body.classList.add("solo");
+const reduced = () => body.classList.contains("reduce");
+const RING = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>';
+const CHECK = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>';
+
+// K4 action button: label + optional Lucide icon and shortcut; style comes from body[data-k4]
+const ICONS = {
+  check: '<path d="M20 6 9 17l-5-5"/>', x: '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>', plus: '<path d="M5 12h14"/><path d="M12 5v14"/>',
+  square: '<rect width="14" height="14" x="5" y="5" rx="2"/>', list: '<path d="M3 6h.01"/><path d="M3 12h.01"/><path d="M3 18h.01"/><path d="M8 6h13"/><path d="M8 12h13"/><path d="M8 18h13"/>',
+  "rotate-ccw": '<path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/>',
+  "eye-off": '<path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/>',
+  pin: '<path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/>',
+  "scan-eye": '<path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="1"/><path d="M18.944 12.33a1 1 0 0 0 0-.66 7.5 7.5 0 0 0-13.888 0 1 1 0 0 0 0 .66 7.5 7.5 0 0 0 13.888 0"/>' };
+function dress(b) {
+  const label = b.textContent;
+  b.title = label;
+  b.innerHTML = `<svg class="ic" viewBox="0 0 24 24">${ICONS[b.dataset.ic] || ""}</svg><span class="lb">${label}</span>` + (b.dataset.k ? `<kbd>${b.dataset.k}</kbd>` : "");
+  return b;
+}
+function act(label, ic, key, primary) { const b = el("button", "act" + (primary ? " primary" : ""), label); b.dataset.ic = ic; if (key) b.dataset.k = key; return dress(b); }
+document.querySelectorAll(".act[data-ic]").forEach(dress);
+
+function loader(phase = 0) {
+  const k = body.dataset.k2, e = el("span", "ld " + k);
+  e.style.setProperty("--phase", phase + "ms");
+  if (k === "ring") e.innerHTML = RING;
+  else if (k === "matrix") for (let r = 0; r < 3; r++) for (let c = 0; c < 3; c++) { const b = el("b"); b.style.setProperty("--i", r + c); e.append(b); }
+  else for (let i = 0; i < 3; i++) { const b = el("b"); b.style.setProperty("--i", i); e.append(b); }
+  return e;
+}
+function finishLoader(e) { if (body.dataset.k2 === "ring") e.innerHTML = CHECK; e.classList.add("done"); }
+
+// motion primitives (Section 6 timings)
+const anim = (e, frames, ms, easing = "ease-out") => reduced()
+  ? e.animate([{ opacity: frames[0].opacity ?? 1 }, { opacity: frames[1].opacity ?? 1 }], { duration: Math.min(ms, 150) }).finished
+  : e.animate(frames, { duration: ms, easing }).finished;
+async function blurSwap(e, html, ms = 130) {
+  if (reduced()) { e.innerHTML = html; return anim(e, [{ opacity: 0 }, { opacity: 1 }], 150); }
+  await e.animate([{ filter: "blur(0)", opacity: 1 }, { filter: "blur(4px)", opacity: 0 }], { duration: ms, easing: "ease-in-out" }).finished;
+  e.innerHTML = html;
+  return e.animate([{ filter: "blur(4px)", opacity: 0 }, { filter: "blur(0)", opacity: 1 }], { duration: ms, easing: "ease-in-out" }).finished;
+}
+const appear = e => anim(e, [{ opacity: 0, transform: "translateY(-4px)", filter: "blur(4px)" }, { opacity: 1, transform: "none", filter: "blur(0)" }], 220);
+async function growIn(e) {
+  if (reduced()) return anim(e, [{ opacity: 0 }, { opacity: 1 }], 150);
+  const h = e.scrollHeight;
+  return e.animate([{ height: "0px", opacity: 0 }, { height: h + "px", opacity: 1 }], { duration: 220, easing: "ease-out" }).finished;
+}
+async function collapse(e, ms = 300) {
+  if (reduced()) { e.remove(); return; }
+  const h = e.offsetHeight;
+  await e.animate([{ height: h + "px", opacity: 1 }, { height: "0px", opacity: 0, marginTop: "0px" }], { duration: ms, easing: "cubic-bezier(.3,0,0,1)" }).finished;
+  e.remove();
+}
+
+// timeline runner — cancelled by bumping `run`
+let run = 0, t0 = 0;
+const wait = (ms, id) => new Promise((res, rej) => setTimeout(() => id === run ? res() : rej("stale"), ms));
+const at = async (ms, id) => { const d = t0 + ms - performance.now(); if (d > 0) await wait(d, id); else if (id !== run) throw "stale"; };
+
+function addStep(steps, text, tm, active) {
+  const s = el("div", "step");
+  const dot = el("span", "dot"); dot.append(active ? loader() : el("i"));
+  const txt = el("span", "txt" + (active ? " shimmer" : ""), text);
+  s.append(dot, txt, el("span", "tm", tm));
+  steps.append(s); appear(s);
+  return s;
+}
+async function settleStep(s, text, tm) {
+  const dot = $(".dot", s), txt = $(".txt", s);
+  txt.classList.remove("shimmer");
+  dot.innerHTML = ""; dot.append(el("i"));
+  $(".tm", s).textContent = tm;
+  await blurSwap(txt, text, 100);
+}
+
+async function sequence(id) {
+  t0 = performance.now();
+  const slot = $("#slot"); slot.innerHTML = "";
+  const box = el("div", "box");
+  const head = el("div", "head");
+  const ld = loader();
+  const title = el("span", "title shimmer", "Düşünüyor"), elapsed = el("span", "el", "0 sn");
+  head.append(ld, title, elapsed, el("span", "meta", "Sonnet 5.5"));
+  const steps = el("div", "steps");
+  const foot = el("div", "foot"); const meta = el("span", "meta", "0 araç");
+  foot.append(act("Durdur", "square", "⌘."), meta);
+  box.append(head, steps, foot); slot.append(box);
+  await growIn(box);
+
+  let sec = 0;
+  const tick = setInterval(() => { if (id !== run || sec >= 6) return clearInterval(tick); sec++; elapsed.textContent = sec + " sn"; anim(elapsed, [{ opacity: .3, transform: "translateY(4px)" }, { opacity: 1, transform: "none" }], 200); }, 1000);
+
+  await at(300, id);
+  title.classList.remove("shimmer");
+  const s1 = addStep(steps, "Masaüstü DOM'u okunuyor", "şimdi", true); meta.textContent = "1 araç";
+  await at(1200, id);
+  await settleStep(s1, "Masaüstü DOM'u okundu · 1.284 eleman", "0:01");
+  const s2 = addStep(steps, "Kaçan eleman aranıyor", "şimdi", true); meta.textContent = "2 araç · 0,8K token";
+  await at(2400, id);
+  await settleStep(s2, ".add-to-cart iPad ve iPhone'da var, Masaüstü'nde yok", "0:02");
+  const s3 = addStep(steps, "Sayfa betikleri taranıyor", "şimdi", true); meta.textContent = "3 araç · 2,1K token";
+  const live = el("div", "live mono", '<span>inline &lt;script&gt; · satır 121–124</span><span>matchMedia("(min-width: 1024px)")▍</span>');
+  steps.append(live); appear(live);
+
+  await at(6000, id);
+  clearInterval(tick);
+  collapse(live, 160);
+  settleStep(s3, "Sayfa betikleri tarandı · satır 121–124", "0:05");
+  meta.textContent = "3 araç · 2,4K token";
+  await Promise.all([blurSwap(title, "6 sn çalıştı"), blurSwap(elapsed, "")]);
+  finishLoader(ld);
+  await at(6150, id);
+  const done = el("div", "step check"); const dd = el("span", "dot", CHECK); dd.style.color = "var(--ink)";
+  done.append(dd, el("span", "txt", "Teşhis bitti"), el("span", "tm", ""));
+  steps.append(done); appear(done);
+  await at(6400, id);
+  const verdict = el("div", "verdict", "Satır 121'deki betik 1024 px ve üstünde .add-to-cart'ı kaldırıyor.");
+  box.insertBefore(verdict, foot); appear(verdict);
+  foot.firstChild.replaceWith(act("Farklara ekle", "plus", "⌘⏎", true));
+  foot.insertBefore(act("Kapat", "x", "esc"), meta);
+
+  await at(8400, id);
+  const k3 = body.dataset.k3;
+  if (k3 === "collapse") {
+    while (box.matches(":hover")) await wait(250, id);
+    await Promise.all([collapse(steps), blurSwap(title, "6 sn çalıştı · 3 adım ⌄", 100)]);
+    head.style.cursor = "pointer";
+    head.onclick = () => { box.insertBefore(steps, verdict); title.textContent = "6 sn çalıştı ⌃"; growIn(steps); head.onclick = null; };
+  } else if (k3 === "inline") {
+    await collapse(box, 260);
+    const iv = el("div", "inline-verdict"); const l = loader(); finishLoader(l); l.style.color = "var(--ink-2)"; l.style.marginTop = "2px";
+    iv.append(l, el("span", "", "Satır 121'deki betik 1024 px ve üstünde .add-to-cart'ı kaldırıyor."));
+    const acts = el("div", "acts-row"); acts.append(act("Farklara ekle", "plus", "⌘⏎", true), act("Adımlar 3", "list", "S"), act("Yeniden dene", "rotate-ccw", "R"));
+    slot.append(iv, acts); appear(iv); appear(acts);
+  }
+  await at(12500, id);
+  start();
+}
+
+// elsewhere loops
+async function diffLoop(id) {
+  const e = $("#diff");
+  while (id === run) {
+    e.innerHTML = ""; const r = el("span", "right"); const l = loader(); const s = el("span", "shimmer", "Taranıyor 1/5");
+    r.append(l, s); e.append(el("span", "name", "Farklar"), r);
+    for (let i = 2; i <= 5; i++) { await wait(700, id); s.textContent = `Taranıyor ${i}/5`; }
+    await wait(700, id); s.classList.remove("shimmer"); finishLoader(l); await blurSwap(s, "Tarandı · 4 fark");
+    await wait(2000, id); r.innerHTML = '<span class="badge">4</span><span>fark</span>'; appear(r);
+    await wait(2500, id);
+  }
+}
+async function engineLoop(id) {
+  const e = $("#engine");
+  while (id === run) {
+    e.innerHTML = '<span class="name">iPhone 15</span><span style="color:var(--ink-2)">393</span>';
+    const r = el("span", "right"); const l = loader(); const s = el("span", "shimmer", "Chromium bağlanıyor"); r.append(l, s); e.append(r);
+    await wait(2600, id); s.classList.remove("shimmer"); finishLoader(l); await blurSwap(s, "Bağlandı");
+    await wait(1500, id); r.innerHTML = "<span>Chromium</span>"; appear(r);
+    await wait(3000, id);
+  }
+}
+function agents() {
+  const e = $("#agents"); e.innerHTML = '<div class="g">ÇALIŞIYOR 3</div>';
+  [["Fiyat farkını açıkla", "Cursor · 0:12", 0, false], ["Sepet akışını dene", "Claude Code · 0:42", 300, true], ["Görsel fark taraması", "Claude Code · 1:05", 600, false]]
+    .forEach(([t, m, ph, sel]) => { const r = el("div", "ar" + (sel ? " sel" : "")); r.append(loader(ph), el("span", sel ? "shimmer" : "", t), el("span", "m", m)); e.append(r); });
+}
+async function driverLoop(id) {
+  const e = $("#driver"); e.innerHTML = "";
+  const s = el("span", "shimmer", ".price okunuyor");
+  e.append(loader(), el("span", "who", "Claude Code"), s, el("span", "a", "Devral"), el("span", "a", "Durdur"));
+  const verbs = [".price okundu", ".size-m tıklanıyor", ".size-m tıklandı", ".add-to-cart kaydırılıyor", ".add-to-cart kaydırıldı", ".price okunuyor"];
+  while (id === run) for (const v of verbs) { await wait(1400, id); await blurSwap(s, v, 100); }
+}
+
+function start() {
+  const id = ++run;
+  const swallow = p => p.catch(e => { if (e !== "stale") console.error(e); });
+  swallow(sequence(id)); swallow(diffLoop(id)); swallow(engineLoop(id)); swallow(driverLoop(id)); agents();
+}
+setInterval(() => { if (t0) $("#clock").textContent = ((performance.now() - t0) / 1000).toFixed(1).replace(".", ",") + " sn"; }, 100);
+
+// controls
+document.querySelectorAll(".seg").forEach(seg => {
+  const key = seg.dataset.key;
+  const sync = () => seg.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", b.dataset.v === body.dataset[key]));
+  seg.addEventListener("click", ev => { const b = ev.target.closest("button"); if (!b) return; body.dataset[key] = b.dataset.v; sync(); start(); });
+  sync();
+});
+const rm = $("#reduce");
+rm.checked = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const applyRM = () => body.classList.toggle("reduce", rm.checked);
+rm.addEventListener("change", () => { applyRM(); start(); }); applyRM();
+$("#replay").addEventListener("click", start);
+start();
+</script>
+</body>
+</html>

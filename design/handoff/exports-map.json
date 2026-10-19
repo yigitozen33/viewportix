@@ -48,5 +48,20 @@
   "App Icon · B variants": "app-icon-B-variants",
   "Design System · Tokens": "design-system-tokens",
   "Shortcut Map · Menü çubuğu": "shortcut-map",
-  "Home States": "home-states"
+  "Home States": "home-states",
+  "Test · AI · A · Satır içi teşhis": "test-ai-a-inline-diagnosis",
+  "Test · AI · B · Ajanlar paneli": "test-ai-b-agents-panel",
+  "Test · AI · C · Hareket dili": "test-ai-c-motion-language",
+  "Test · AI · D · Nexus UI + Emil": "test-ai-d-nexus-emil",
+  "Test · AI · E · İzin verme": "test-ai-e-permissions",
+  "Test · AI · Kararlar": "test-ai-decisions",
+  "Dev Panel · Senkron · AI düşünüyor": "devpanel-synclog-ai-thinking",
+  "Dev Panel · Senkron · AI seni bekliyor": "devpanel-synclog-ai-waiting",
+  "Dev Panel · Senkron · AI sonuç": "devpanel-synclog-ai-result",
+  "Dev Panel · Farklar · AI açıkla": "devpanel-diff-ai-explain",
+  "Project Window · Ajanlar paneli": "window-project-agents-panel",
+  "Project Window · Ajan sürüyor": "window-project-agent-driving",
+  "Motion Spec": "motion-spec",
+  "Test · Kaydet ve uyarılar": "test-save-alerts",
+  "Dialogs · Kaydet ve uyarılar": "dialogs-save-alerts"
 }
