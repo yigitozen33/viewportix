@@ -36,6 +36,8 @@ targets:
         product: Capture
       - package: ViewportixKit
         product: DesignSystem
+      - package: ViewportixKit
+        product: DiffCore
     info:
       path: Viewportix/Info.plist
       properties:

@@ -361,8 +361,8 @@ Cihaz çerçeveleri, screenshot, form girişi senkronu, gruplama, elle sürükle
 ### M5 — Motor diff'i
 
 - [ ] ~~Aynı genişlikte iki motorda element kutularını selector ile eşleştirme~~ — superseded (2026-10-19, kullanıcı): Farklar **iki viewport'u** karşılaştırır: lider (baseline) ↔ panel menüsünde seçilen viewport (DESIGN.md §3.4). Aynı seçiciyle eşleşen elemanlarda yazı tipi, satır yüksekliği, renk, görünürlük; iki viewport aynı genişlikteyse kutu (konum/boyut) farkı da. Kabul / Yoksay / Takip et projeye kaydedilir. Bugün WebKit ↔ WebKit (farklı genişlikler); Chromium (M4) gelince aynı panel, aynı genişlikteki iki motorun farkını gösterir.
-- [ ] Eşik üstü farkları overlay ile işaretleme (Göster ⏎: canvas'ta gök kutu + "+12 px")
-- [ ] Fark listesi paneli ("Safari'de 12px aşağıda")
+- [x] Eşik üstü farkları overlay ile işaretleme (Göster ⏎: canvas'ta gök kutu + "+12 px") — 2026-10-19
+- [x] Fark listesi paneli (2026-10-19): paket `DiffCore` (`ElementSnapshot.collectScript` sayfada ölçer, `DiffEngine.compare`), kararlar `Project.diffReview`. Bekleyen: Üst üste / Yanıp sönme modları, Chromium ile motor farkı (M4)
 - [x] Senkron paneli (2026-10-19): `SyncLog` (paket `SyncCore`) liderin her olayını ve her takipçinin sonucunu tutar; ardışık scroll/hover tek satır; "Yeniden dene" yalnız kaçırana; Canlı/Duraklatıldı kaydı durdurur, senkronu değil; JSON dışa aktarım. Panel ray'dan ya da ⌥⌘2 ile, canvas'ı iterek açılır.
 - **Uygulama içi AI (A · satır içi teşhis):** 2026-10-19 kullanıcı kararı "şimdilik yapma"; "Teşhis et D" pasif, M7 ile ele alınacak. Uygulanmayan taslak mimari (o zaman yeniden değerlendirilecek): model çağrısı uygulamadan, kullanıcının anahtarıyla (Keychain); araç katmanı M7'deki MCP araçlarıyla aynı (`EngineSession` üzerinden `read_dom`, `screenshot`, `evaluate`; sayfaya dokunanlar izin ister); izinler komut adına, proje dosyasında değil uygulamada saklanır (Ayarlar › Ajanlar › İzinler), K6 üç satırlı liste.
 

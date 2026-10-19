@@ -13,13 +13,16 @@ public struct Project: Codable, Hashable, Sendable {
     public var canvas: CanvasState
     /// "Küçük resmi dosyaya ekle" (PW-06): when false the package has no `thumbnail.png`.
     public var includesThumbnail: Bool
+    /// Farklar decisions (Kabul, Yoksay, Takip et).
+    public var diffReview: DiffReview
 
     public init(
         pages: [Page] = [],
         selectedPageID: Page.ID? = nil,
         viewports: [ViewportConfig] = [],
         canvas: CanvasState = CanvasState(),
-        includesThumbnail: Bool = true
+        includesThumbnail: Bool = true,
+        diffReview: DiffReview = DiffReview()
     ) {
         self.schemaVersion = Self.currentSchemaVersion
         self.pages = pages
@@ -27,10 +30,11 @@ public struct Project: Codable, Hashable, Sendable {
         self.viewports = viewports
         self.canvas = canvas
         self.includesThumbnail = includesThumbnail
+        self.diffReview = diffReview
     }
 
     private enum CodingKeys: String, CodingKey {
-        case schemaVersion, pages, selectedPageID, viewports, canvas, includesThumbnail
+        case schemaVersion, pages, selectedPageID, viewports, canvas, includesThumbnail, diffReview
     }
 
     /// Fields added after schema version 1 decode with defaults, so older files still open.
@@ -42,6 +46,7 @@ public struct Project: Codable, Hashable, Sendable {
         viewports = try container.decode([ViewportConfig].self, forKey: .viewports)
         canvas = try container.decode(CanvasState.self, forKey: .canvas)
         includesThumbnail = try container.decodeIfPresent(Bool.self, forKey: .includesThumbnail) ?? true
+        diffReview = try container.decodeIfPresent(DiffReview.self, forKey: .diffReview) ?? DiffReview()
     }
 
     /// A new project with the default device set, starting at `url` when given (home screen URL box)

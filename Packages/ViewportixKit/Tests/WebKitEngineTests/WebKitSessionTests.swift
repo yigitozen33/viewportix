@@ -1,3 +1,4 @@
+import DiffCore
 import EngineCore
 import Foundation
 import Testing
@@ -86,6 +87,18 @@ struct WebKitSessionTests {
         context.closePDF()
         defer { try? FileManager.default.removeItem(at: pdf) }
         #expect(try await syncAvailability(loading: pdf) == false)
+    }
+
+    /// Farklar on the product fixture: the phone layout's own type rules show up, nothing else.
+    @Test func collectsElementsAndFindsTheMediaQueryDifferences() async throws {
+        let tablet = try await loadedSession("sample-product.html", size: ViewportSize(width: 820, height: 1180))
+        let phone = try await loadedSession("sample-product.html", size: Self.phone, mobile: true)
+        let a = try #require(try await tablet.evaluate(ElementSnapshot.collectScript).flatMap(ElementSnapshot.init(json:)))
+        let b = try #require(try await phone.evaluate(ElementSnapshot.collectScript).flatMap(ElementSnapshot.init(json:)))
+        #expect(a.viewportWidth == 820 && b.viewportWidth == 393)
+        #expect(a.elements.contains { $0.selector == ".add-to-cart" })
+        let found = Set(DiffEngine.compare(baseline: a, compared: b).map(\.id))
+        #expect(found.isSuperset(of: [".price|font-weight", ".product-title|line-height"]))
     }
 
     @Test func reportsAClosedLocalServer() async throws {

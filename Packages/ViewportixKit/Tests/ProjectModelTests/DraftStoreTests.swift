@@ -45,5 +45,11 @@ struct DraftStoreTests {
         // Files from before the field open with thumbnails on.
         let old = try Project(data: Data(#"{"schemaVersion":1,"pages":[],"viewports":[],"canvas":{"zoom":1,"offsetX":0,"offsetY":0}}"#.utf8))
         #expect(old.includesThumbnail)
+        #expect(old.diffReview == DiffReview())
+
+        var reviewed = Project.new()
+        reviewed.diffReview.ignoredSelectors = [".promo"]
+        reviewed.diffReview.accepted["v|.price|font-weight"] = "500 → 600"
+        #expect(try Project(data: reviewed.encoded()).diffReview == reviewed.diffReview)
     }
 }

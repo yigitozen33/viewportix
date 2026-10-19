@@ -40,6 +40,10 @@ struct CardChromeLayer: View {
             .overlay(alignment: .topLeading) {
                 ZStack(alignment: .topLeading) {
                     ForEach(workspace.dragGaps, id: \.self) { SpacingBadge(gap: $0) }
+                    if let highlight = workspace.diffCenter.highlight, let frame = workspace.cardFrames[highlight.viewport],
+                       let config = workspace.viewports.first(where: { $0.id == highlight.viewport }) {
+                        DiffHighlightBox(highlight: highlight, page: frame, scale: frame.width / CGFloat(config.size.width))
+                    }
                     if let pointer = workspace.dragPointer {
                         DragHint().offset(x: pointer.x + 16, y: pointer.y + 12)
                     }
@@ -183,6 +187,33 @@ private struct SpacingBadge: View {
                 .alignmentGuide(.leading) { $0.width / 2 - (isHorizontal ? gap.from.x + length / 2 : gap.from.x + 6 + $0.width / 2) }
                 .alignmentGuide(.top) { isHorizontal ? $0.height + 3 - gap.from.y : $0.height / 2 - (gap.from.y + length / 2) }
         }
+        .accessibilityHidden(true)
+    }
+}
+
+/// Farklar › Göster (DEV-01, `devpanel-diff-calm@2x.png`): a thin sky box around the element on its
+/// card and the difference on a sky badge at its top right.
+private struct DiffHighlightBox: View {
+    let highlight: DiffCenter.Highlight
+    let page: CGRect
+    let scale: CGFloat
+
+    var body: some View {
+        let rect = CGRect(x: page.minX + highlight.rect.minX * scale, y: page.minY + highlight.rect.minY * scale,
+                          width: highlight.rect.width * scale, height: highlight.rect.height * scale)
+        ZStack(alignment: .topTrailing) {
+            RoundedRectangle(cornerRadius: 4)
+                .strokeBorder(DesignTokens.Color.statusLeader, lineWidth: 1)
+                .frame(width: max(rect.width, 4), height: max(rect.height, 4))
+            Text(highlight.label)
+                .font(.system(size: DesignTokens.FontSize.micro, weight: .semibold))
+                .foregroundStyle(DesignTokens.Color.accentInk)
+                .padding(EdgeInsets(top: 1, leading: 5, bottom: 1, trailing: 5))
+                .background(DesignTokens.Color.statusLeader, in: .rect(cornerRadius: 4))
+                .fixedSize()
+                .alignmentGuide(.top) { $0.height + 3 }
+        }
+        .offset(x: rect.minX, y: rect.minY)
         .accessibilityHidden(true)
     }
 }

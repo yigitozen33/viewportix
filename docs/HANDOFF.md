@@ -15,14 +15,15 @@
 - Canvas "yapışkan sığdırma": son işlem ⌘1 ise boyut değişince yeniden sığar (`CanvasController.fitted`).
 - Mimari not: kart başlığı ve kenarları canvas'ın üstünde ayrı SwiftUI katmanında (`CardChromeLayer`), konumları `Workspace.cardFrames`'ten; grup alanı zemini belge görünümünde (`GroupAreaView`), kartların altında.
 - Testler: **85 paket testi yeşil** (2026-10-19). Önceki 3 kırmızı test yanlıştı (Swift 6.4 `#expect` CGFloat/Double karşılaştırması), kod doğruydu; 1e733ca.
+- **M5 panelleri (2026-10-19):** Senkron (`SyncLog`, Yeniden dene, Göster, JSON) ve Farklar (`DiffCore`, iki viewport, Kabul/Yoksay/Takip et projeye, Göster kutusu) canlıda denendi. Raydan ya da ⌥⌘1 / ⌥⌘2.
 - **§15 a (2026-10-19):** `ActionButton(.primary/.secondary)`, `AIActivityGlyph`, `Motion` (paket `DesignSystem`, tek eğri), bizim sayfa `chromeSheet` (anahtar olabilen alt pencere) — b66a176. Taslak saklama (`Application Support/Viewportix/Drafts`, PLAN.md §3.5), Taslaklar listesi, `thumbnail.png`, PW-06 kaydet sayfası, HOME-08 onaysız sil + Geri al kapsülü, HOME-13 kod satırı + `docs/hata-kodlari.md`, PW-07 şerit, PW-09 uyarıları — canlıda denendi (`docs/parity/live-*`).
 - Görüntü almak: `Scripts/snapshots.sh [klasör]` (DEBUG `--snapshots`; ekran dışı pencere, @2x, sRGB; dokunduğu tercihleri geri yükler). WKWebView orada çizilmez ve yüklemesi bitmez. Xcode önizlemesi bu makinede imza yüzünden derlenmiyor.
 
 ## Sıradaki iş
 
-Kullanıcının 2026-10-19 sırası (0–3 bitti; 3: senkron kurulamıyor, eşit aralık rozetleri, HOME-07, İçe aktar…, PW-05, VoiceOver):
-4. M5: Farklar/Senkron panelleri (§15 b; eylem satırı tam genişlik, DEV-02 anında), sonra A satır içi teşhis. Model çağrısı, araç katmanı, izin saklama önce PLAN.md'ye.
-5. M7 gelince §15 c: Ajanlar paneli, sürüş şeridi, bildirim yığını, MCP onayı, PW-08.
+Kullanıcının 2026-10-19 sırası: 0–4 bitti (4: Senkron ve Farklar panelleri; A satır içi teşhis kullanıcı kararıyla ertelendi, PLAN.md M5).
+5. M7 gelince §15 c: Ajanlar paneli, sürüş şeridi, bildirim yığını, MCP onayı, PW-08 — ve ertelenen A (Teşhis et D, Açıkla E).
+- Farklar'da kalan: Üst üste / Yanıp sönme modları; Chromium gelince motor farkı (M4).
 - Bekleyen tasarım soruları: `docs/tasarim-istekleri.md` 2026-10-19 girdileri (sayfa başlık alanı, "Untitled" adı, Geri al kapsülünün iki görünümü, onay kutusu kapalı hali…).
 
 ## Açık sorular
@@ -47,6 +48,7 @@ Kullanıcının 2026-10-19 sırası (0–3 bitti; 3: senkron kurulamıyor, eşit
 - §13: sayfa yüklenemedi ✅, kart sürükleme ✅ (eşit aralık rozetleri yok), gruplama ✅, sidebar V1 (PLAN.md) ✅, genişlik tutamacı ✅, odak halkası ✅ (kendi denetimlerimizde), giriş ekranı ✅, küçük ayrıntılar a b c d e f g ✅ / h yok / i ✅ / j MVP dışı, VoiceOver etiketleri ✅ (gözden geçirilmeli), menü (Grupla, Kartları Diz) ✅.
 - §14: hepsi ✅ (ilk bölüm); aşama 9 için ⛔ önerildi.
 - §13: ✅ kalanlar da bitti (2026-10-19: h senkron kurulamıyor, eşit aralık rozetleri, Tab sırası, VoiceOver); j çoklu seçim MVP dışı.
+- §15 b: ✅ paneller (Farklar, Senkron; eylem satırı tam genişlik, DEV-02 anında); A satır içi teşhis ⏸ (kullanıcı: şimdilik yapma, M7 ile).
 - §15 a: ✅ hepsi (ActionButton, AIActivityGlyph, Motion, bizim sayfa, HOME-08, HOME-13, PW-06, PW-07, PW-09). §15 b (M5), §15 c (M7) bekliyor.
 - Uygulama ikonu (`design/logo/Viewportix.icon`) alınmadı: logo kararı açık.
 

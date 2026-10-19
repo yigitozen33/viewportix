@@ -12,6 +12,7 @@ let package = Package(
         .library(name: "WebKitEngine", targets: ["WebKitEngine"]),
         .library(name: "Capture", targets: ["Capture"]),
         .library(name: "DesignSystem", targets: ["DesignSystem"]),
+        .library(name: "DiffCore", targets: ["DiffCore"]),
     ],
     targets: [
         .target(name: "EngineCore"),
@@ -22,10 +23,13 @@ let package = Package(
         .target(name: "Capture"),
         // DesignTokens.swift is copied from design/tokens/ unchanged; regenerate there, never edit here.
         .target(name: "DesignSystem"),
+        // Farklar (M5): which elements differ between two viewports.
+        .target(name: "DiffCore", dependencies: ["EngineCore"]),
         .testTarget(name: "DeviceCatalogTests", dependencies: ["DeviceCatalog"]),
         .testTarget(name: "ProjectModelTests", dependencies: ["ProjectModel"]),
         .testTarget(name: "SyncCoreTests", dependencies: ["SyncCore", "EngineCore"]),
-        .testTarget(name: "WebKitEngineTests", dependencies: ["WebKitEngine", "SyncCore"]),
+        .testTarget(name: "WebKitEngineTests", dependencies: ["WebKitEngine", "SyncCore", "DiffCore"]),
         .testTarget(name: "CaptureTests", dependencies: ["Capture"]),
+        .testTarget(name: "DiffCoreTests", dependencies: ["DiffCore", "EngineCore"]),
     ]
 )

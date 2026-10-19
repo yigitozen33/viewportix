@@ -46,6 +46,8 @@ final class Workspace {
     }
     /// Times in the log count from here (mm:ss).
     @ObservationIgnored let logStart = Date.now
+    /// Farklar: measurements, the compared pair, the element shown on the canvas.
+    let diffCenter = DiffCenter()
 
     enum DevPanel { case diffs, sync }
     /// The selected card (CARD-02): target of tab clicks and per-viewport shortcuts.
@@ -156,6 +158,36 @@ final class Workspace {
             guard let self else { return }
             syncLog = coordinator.log.entries
         }
+    }
+
+    // MARK: Farklar
+
+    /// Runs a script in one viewport's page (Farklar's collector, Göster).
+    func evaluate(_ script: String, in id: ViewportID) async -> JSONValue? {
+        guard let session = sessions[id] else { return nil }
+        return try? await session.evaluate(script)
+    }
+
+    func refreshDiffs(review: DiffReview) async {
+        await diffCenter.refresh(viewports: viewports, leader: leaderID, isPanelOpen: devPanel == .diffs, review: review) { id, script in
+            await self.evaluate(script, in: id)
+        }
+    }
+
+    /// Göster ⏎: the element comes to the middle of its viewport, which comes into view, with a sky
+    /// box and the difference on the canvas.
+    func showDifference(_ row: DiffCenter.Row) async {
+        let target = row.difference.property == .presence ? diffCenter.baselineID : diffCenter.comparedID
+        guard let target else { return }
+        reveal(target)
+        guard let json = await evaluate(DiffCenter.locateScript(row.difference.selector), in: target),
+              let x = json["x"]?.numberValue, let y = json["y"]?.numberValue,
+              let width = json["w"]?.numberValue, let height = json["h"]?.numberValue else {
+            diffCenter.highlight = nil
+            return
+        }
+        diffCenter.highlight = .init(viewport: target, rect: CGRect(x: x, y: y, width: width, height: height),
+                                     label: row.difference.summary)
     }
 
     // MARK: Senkron panel

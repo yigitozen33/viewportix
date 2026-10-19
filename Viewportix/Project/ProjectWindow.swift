@@ -22,6 +22,7 @@ struct ProjectWindow: View {
     @State private var saveRequest: SaveRequest?
     @State private var windowAnchor = WindowAnchor()
     @State private var thumbnailTask: Task<Void, Never>?
+    @State private var diffTask: Task<Void, Never>?
     @State private var thumbnailDate = Date.distantPast
     /// PW-07: the file changed elsewhere while this window has unsaved changes.
     @State private var isDiskConflict = false
@@ -67,6 +68,10 @@ struct ProjectWindow: View {
                 SyncLogPanel(workspace: workspace)
                     .focusSection()
                     .transition(.move(edge: .trailing))
+            } else if workspace.devPanel == .diffs {
+                DiffPanel(workspace: workspace, review: $document.project.diffReview)
+                    .focusSection()
+                    .transition(.move(edge: .trailing))
             }
             if workspace.isRailVisible {
                 InspectorRail(workspace: workspace)
@@ -100,9 +105,18 @@ struct ProjectWindow: View {
             ProjectFiles.discardIfDraftsAreNotKept(fileURL)
         }
         .onChange(of: workspace.isLoading) { _, loading in
-            if !loading { scheduleThumbnail() }
+            if !loading {
+                scheduleThumbnail()
+                scheduleDiffs()
+            }
         }
-        .onChange(of: document.project.viewports) { scheduleThumbnail() }
+        .onChange(of: document.project.viewports) {
+            scheduleThumbnail()
+            scheduleDiffs()
+        }
+        .onChange(of: workspace.devPanel) { _, panel in
+            if panel == .diffs { scheduleDiffs(after: 0) }
+        }
         .onAppear {
             // Opening a project from Finder or Open Recent should not leave the home window behind.
             dismissWindow(id: HomeView.windowID)
@@ -458,6 +472,19 @@ private extension ProjectWindow {
             } catch {
                 showSaveError(error, name: url.deletingPathExtension().lastPathComponent)
             }
+        }
+    }
+
+    // MARK: Farklar
+
+    /// Viewports are measured again once pages settle (and when the panel opens); the rail's dot
+    /// tells about new differences while the panel is closed (DEV-07).
+    func scheduleDiffs(after delay: Double = 1) {
+        diffTask?.cancel()
+        diffTask = Task {
+            if delay > 0 { try? await Task.sleep(for: .seconds(delay)) }
+            guard !Task.isCancelled, !workspace.isLoading else { return }
+            await workspace.refreshDiffs(review: document.project.diffReview)
         }
     }
 
