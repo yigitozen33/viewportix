@@ -523,3 +523,11 @@ Kod oturumunun arayüze dokunan her değişikliği, değişikliğin commit'inde 
 - Durum: sistem uyarısı (metin ve kod satırı bizim), şerit özel çizim
 - Tasarım kararı gerekir mi: evet — şerit açıkken pencere kapatılırsa ne olsun? Şimdi sorusuz kapanıyor, diskteki sürüm kalıyor (penceredeki değişiklikler gidiyor). Kapatmayı engelleyip şeride mi yönlendirelim?
 - Bağlantılı: DESIGN.md §3.2 (PW-07, PW-09), §4 K8
+
+## 2026-10-19 — Proje penceresinde Geri al kapsülü yeni görünümde
+- Ne: Proje penceresindeki geri alınabilir işlerin kapsülü ("Full HD kapatıldı") giriş ekranındaki `Undo Capsule` görünümüne geçti: `surface/tooltip`, `line/strong`, "Geri al ⌘Z" sarı `ActionButton`, kalan saniye; üzerine gelince sayaç durur. ⌘Z geri alınca kapsül de kapanır. Diğer kapsül türleri (ilerleme, başarı, hata, bilgi) `Window/Toast` olarak kaldı.
+- Kanıt (canlı): sekmede ✕ → "Full HD kapatıldı · Geri al ⌘Z · 4 sn", ⌘Z → sekme geri geldi, kapsül kapandı (`docs/parity/live-undo-capsule-project@2x.png`).
+- Nerede: `Viewportix/Project/ProjectWindow.swift`, `Workspace.swift` (`show`: geri alma kapsülünü kendi sayacı kapatır)
+- Durum: özel çizim
+- Tasarım kararı gerekir mi: evet — `toast-states` panosundaki "iPad kapatıldı · Geri al" eski görünümde; pano yeni kapsüle göre güncellenmeli mi, yoksa proje penceresinde eski görünüm mü kalmalı?
+- Bağlantılı: DESIGN.md §4 K8 (U3), §5.20 e-f

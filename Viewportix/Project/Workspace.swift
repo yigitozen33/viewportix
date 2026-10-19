@@ -548,7 +548,8 @@ final class Workspace {
             return
         }
         self.notice = notice
-        guard !notice.isError, !notice.isProgress else { return }
+        // Undo capsules count down themselves and wait while the pointer is on them.
+        guard !notice.isError, !notice.isProgress, notice.kind != .undo else { return }
         Task {
             try? await Task.sleep(for: .seconds(5))
             if self.notice?.id == notice.id { self.notice = nil }

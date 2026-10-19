@@ -177,9 +177,19 @@ private extension ProjectWindow {
                 VStack(spacing: 28) {
                     // The notice sits above the bottom bar and hides while a bar menu or tooltip is open.
                     if let notice = workspace.notice, !isBarMenuOpen, !isTooltipShown {
-                        ToastCapsule(notice: notice, dismiss: workspace.dismissNotice)
+                        if notice.kind == .undo, let action = notice.action {
+                            // K8 U3: the same undo capsule as the home screen's (⌘Z chip, seconds left).
+                            UndoCapsule(text: notice.text, undo: {
+                                action.perform()
+                                workspace.dismissNotice()
+                            }, expire: workspace.dismissNotice)
                             .transition(.opacity)
                             .id(notice.id)
+                        } else {
+                            ToastCapsule(notice: notice, dismiss: workspace.dismissNotice)
+                                .transition(.opacity)
+                                .id(notice.id)
+                        }
                     }
                     BottomBar(workspace: workspace, isMenuOpen: $isBarMenuOpen)
                         .onPreferenceChange(ChromeTooltipVisibleKey.self) { isTooltipShown = $0 }
@@ -296,7 +306,12 @@ private extension ProjectWindow {
                 binding.wrappedValue.project.viewports.insert(removed, at: position)
             }
         }
-        undoManager?.registerUndo(withTarget: workspace) { _ in MainActor.assumeIsolated { restore() } }
+        undoManager?.registerUndo(withTarget: workspace) { workspace in
+            MainActor.assumeIsolated {
+                restore()
+                if workspace.notice?.kind == .undo { workspace.dismissNotice() }
+            }
+        }
         undoManager?.setActionName("\(removed.name) Kapat")
         workspace.show(Workspace.Notice(kind: .undo, text: "\(removed.name) kapatıldı", action: .init(title: "Geri al") {
             restore()
