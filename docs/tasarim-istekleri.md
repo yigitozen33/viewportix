@@ -610,3 +610,10 @@ Kod oturumunun arayüze dokunan her değişikliği, değişikliğin commit'inde 
 - Yeni pano `Kod kararları · 2026-10-19 (10 · 13 · 16)` (e8ztJS, 00b bileşenlerinin sağında): kapatınca saklanan sürüm kapsülü, "2 cihaz eklendi", odaklı kart başlığı + "Sayfaya gir ⏎" ipucu.
 - "Teşhis et" Senkron panolarında bırakıldı (M7 hedefi); kodda M7'ye kadar gizli.
 - Dışa aktarımlar yenilendi: `dialogs-save-alerts`, `toast-states`, `devpanel-synclog-calm`, `devpanel-synclog-ai-thinking/-waiting/-result`, `window-home-list`; yeni `code-decisions-2026-10-19@2x.png`. `exports-map.json` ve CHK güncellenmedi (tasarım oturumu).
+
+## 2026-10-19 — Düzeltme: bildirim kapsülündeki düğmeler fareyle çalışmıyordu
+- Ne: `Window/Toast` kapsülünün eylem düğmeleri (Finder'da Göster, Yeniden dene, Ayrıntılar, Neden?, Aç) fareyle tıklanınca çalışmıyordu: kenar çizgisi katmanı (`Capsule().strokeBorder`) tıklamaları yutuyordu. Çizgi artık tıklamaya kapalı, düğme metnin tamamında tıklanıyor. Erişilebilirlik ve klavye ile basmak zaten çalışıyordu; önceki canlı testler o yolla yapıldığı için görülmemişti. Görünüm değişmedi.
+- Kanıt (canlı): PW-07 kapatma senaryosunda giriş ekranındaki "Senin sürümün taslak olarak saklandı · Aç" kapsülünde gerçek fare tıklaması → taslak açıldı (AXDocument "Keten Gömlek (senin sürümün) 3"). Test için kapsül süresi geçici 60 sn yapıldı, sonra 5 sn'ye geri alındı (kullanıcı: "5 sn kalsın").
+- Nerede: `Viewportix/Project/ToastCapsule.swift`
+- Durum: özel çizim
+- Tasarım kararı gerekir mi: hayır

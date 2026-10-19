@@ -21752,7 +21752,7 @@
                           "id": "rDH6M",
                           "name": "Name",
                           "fill": "$ink/primary",
-                          "content": "Untitled",
+                          "content": "Adsız",
                           "fontFamily": "$font/ui",
                           "fontSize": "$font/body",
                           "fontWeight": "600"
@@ -47359,7 +47359,7 @@
                       "id": "yi9lJ",
                       "name": "NewText",
                       "fill": "$ink/primary",
-                      "content": "2 yeni olay ↓",
+                      "content": "2 yeni olay ↑",
                       "fontFamily": "$font/ui",
                       "fontSize": "$font/caption",
                       "fontWeight": "normal"
@@ -61684,6 +61684,79 @@
                   "content": "Ayrıntılar"
                 }
               }
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "GPK8p",
+          "name": "State Geri al",
+          "layout": "vertical",
+          "gap": "$space/2",
+          "children": [
+            {
+              "type": "text",
+              "id": "T0MSR",
+              "name": "Label",
+              "fill": "$ink/secondary",
+              "content": "Geri al (U3, 2026-10-19)",
+              "fontFamily": "$font/ui",
+              "fontSize": "$font/micro",
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "wu1KP",
+              "name": "Undo Capsule iPad",
+              "height": 36,
+              "fill": "$surface/tooltip",
+              "cornerRadius": 18,
+              "stroke": "$line/strong",
+              "strokeWidth": 1,
+              "gap": 10,
+              "padding": [
+                0,
+                8,
+                0,
+                14
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "SRGEJ",
+                  "name": "T",
+                  "fill": "$ink/primary",
+                  "content": "iPad kapatıldı",
+                  "fontFamily": "$font/ui",
+                  "fontSize": "$font/caption",
+                  "fontWeight": "normal"
+                },
+                {
+                  "id": "Dnlnq",
+                  "type": "ref",
+                  "ref": "w0utu",
+                  "name": "Action Geri al",
+                  "descendants": {
+                    "Jp0XR": {
+                      "content": "Geri al"
+                    },
+                    "vEkms": {
+                      "content": "⌘Z"
+                    }
+                  }
+                },
+                {
+                  "type": "text",
+                  "id": "Gf0IO",
+                  "name": "Timer",
+                  "fill": "$ink/secondary",
+                  "content": "5 sn",
+                  "fontFamily": "$font/ui",
+                  "fontSize": "$font/micro",
+                  "fontWeight": "normal"
+                }
+              ]
             }
           ]
         },
@@ -126170,7 +126243,7 @@
                       "id": "F7uHY",
                       "name": "NewText",
                       "fill": "$ink/primary",
-                      "content": "2 yeni olay ↓",
+                      "content": "2 yeni olay ↑",
                       "fontFamily": "$font/ui",
                       "fontSize": "$font/caption",
                       "fontWeight": "normal"
@@ -127938,7 +128011,7 @@
                       "id": "G2yC0l",
                       "name": "NewText",
                       "fill": "$ink/primary",
-                      "content": "2 yeni olay ↓",
+                      "content": "2 yeni olay ↑",
                       "fontFamily": "$font/ui",
                       "fontSize": "$font/caption",
                       "fontWeight": "normal"
@@ -129316,7 +129389,7 @@
                       "id": "vRU3Z",
                       "name": "NewText",
                       "fill": "$ink/primary",
-                      "content": "2 yeni olay ↓",
+                      "content": "2 yeni olay ↑",
                       "fontFamily": "$font/ui",
                       "fontSize": "$font/caption",
                       "fontWeight": "normal"
@@ -140681,7 +140754,7 @@
                           "y": 10,
                           "name": "Win Title",
                           "fill": "$ink/secondary",
-                          "content": "Untitled 3 — Taslak",
+                          "content": "Adsız 3 — Taslak",
                           "fontFamily": "$font/ui",
                           "fontSize": "$font/label",
                           "fontWeight": "normal"
@@ -141134,7 +141207,7 @@
                           "y": 10,
                           "name": "Win Title",
                           "fill": "$ink/secondary",
-                          "content": "Untitled 3 — Taslak",
+                          "content": "Adsız 3 — Taslak",
                           "fontFamily": "$font/ui",
                           "fontSize": "$font/label",
                           "fontWeight": "normal"
@@ -141834,7 +141907,7 @@
                           "y": 10,
                           "name": "Win Title",
                           "fill": "$ink/secondary",
-                          "content": "Untitled 3 — Taslak",
+                          "content": "Adsız 3 — Taslak",
                           "fontFamily": "$font/ui",
                           "fontSize": "$font/label",
                           "fontWeight": "normal"
@@ -143892,7 +143965,7 @@
                               "id": "te4fl",
                               "name": "T",
                               "fill": "$ink/primary",
-                              "content": "“Untitled 3” silindi",
+                              "content": "“Adsız 3” silindi",
                               "fontFamily": "$font/ui",
                               "fontSize": "$font/caption",
                               "fontWeight": "normal"
@@ -144143,7 +144216,7 @@
                               "id": "G10ila",
                               "name": "T",
                               "fill": "$ink/primary",
-                              "content": "“Untitled 3” silindi",
+                              "content": "“Adsız 3” silindi",
                               "fontFamily": "$font/ui",
                               "fontSize": "$font/caption",
                               "fontWeight": "normal"
@@ -144560,6 +144633,231 @@
           "fontFamily": "$font/ui",
           "fontSize": "$font/caption",
           "fontWeight": "normal"
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "e8ztJS",
+      "x": 7032,
+      "y": -640,
+      "name": "Kod kararları · 2026-10-19 (10 · 13 · 16)",
+      "fill": "$canvas",
+      "cornerRadius": "$radius/card",
+      "layout": "vertical",
+      "gap": 14,
+      "padding": 20,
+      "children": [
+        {
+          "type": "text",
+          "id": "JoAyl",
+          "name": "Title",
+          "fill": "$ink/secondary",
+          "content": "KOD KARARLARI · 2026-10-19 · 10 · 13 · 16",
+          "fontFamily": "$font/ui",
+          "fontSize": "$font/micro",
+          "fontWeight": "600",
+          "letterSpacing": 1
+        },
+        {
+          "type": "frame",
+          "id": "A7dnB",
+          "name": "Row",
+          "gap": 32,
+          "children": [
+            {
+              "type": "frame",
+              "id": "KX9Yq",
+              "name": "10 · Şerit açıkken kapatmak",
+              "width": 300,
+              "layout": "vertical",
+              "gap": 10,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "DdqQk",
+                  "name": "Label",
+                  "fill": "$ink/primary",
+                  "content": "10 · Şerit açıkken kapatmak (PW-07)",
+                  "fontFamily": "$font/ui",
+                  "fontSize": "$font/label",
+                  "fontWeight": "600"
+                },
+                {
+                  "id": "IqZB0",
+                  "type": "ref",
+                  "ref": "t3Hr4",
+                  "name": "Toast Senin sürümün",
+                  "descendants": {
+                    "FtsiU": {
+                      "icon": "info",
+                      "fill": "$ink/secondary"
+                    },
+                    "U5GFa": {
+                      "content": "Senin sürümün taslak olarak saklandı"
+                    },
+                    "DoC9Q": {
+                      "content": "Aç"
+                    }
+                  }
+                },
+                {
+                  "type": "text",
+                  "id": "x2PX1",
+                  "name": "Note",
+                  "fill": "$ink/secondary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Diskteki dosya olduğu gibi kalır; penceredeki sürüm \"<ad> (senin sürümün)\" taslağı olur. Giriş ekranı açılır, kapsül alttan 36 pt; Aç taslağı açar.",
+                  "lineHeight": 1.5,
+                  "fontFamily": "$font/ui",
+                  "fontSize": "$font/caption",
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "h4hsd",
+              "name": "13 · İçe aktar",
+              "width": 300,
+              "layout": "vertical",
+              "gap": 10,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "T9NmA",
+                  "name": "Label",
+                  "fill": "$ink/primary",
+                  "content": "13 · İçe aktar… sonrası",
+                  "fontFamily": "$font/ui",
+                  "fontSize": "$font/label",
+                  "fontWeight": "600"
+                },
+                {
+                  "id": "F86DO",
+                  "type": "ref",
+                  "ref": "t3Hr4",
+                  "name": "Toast 2 cihaz eklendi",
+                  "descendants": {
+                    "U5GFa": {
+                      "content": "2 cihaz eklendi"
+                    },
+                    "DoC9Q": {
+                      "enabled": false
+                    }
+                  }
+                },
+                {
+                  "type": "text",
+                  "id": "tCvIV",
+                  "name": "Note",
+                  "fill": "$ink/secondary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Başarı kapsülü; süzgeç \"Özel\"e geçer. Dosya biçimi JSON (ad, genişlik, yükseklik).",
+                  "lineHeight": 1.5,
+                  "fontFamily": "$font/ui",
+                  "fontSize": "$font/caption",
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "MB5TK",
+              "name": "16 · Klavyeyle sayfaya girmek",
+              "width": 300,
+              "layout": "vertical",
+              "gap": 10,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "cvbnC",
+                  "name": "Label",
+                  "fill": "$ink/primary",
+                  "content": "16 · Klavyeyle kartın sayfasına girmek",
+                  "fontFamily": "$font/ui",
+                  "fontSize": "$font/label",
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "frame",
+                  "id": "JYS59",
+                  "name": "Card Header focused",
+                  "width": 260,
+                  "height": 36,
+                  "fill": "$surface/header",
+                  "cornerRadius": [
+                    12,
+                    12,
+                    0,
+                    0
+                  ],
+                  "stroke": "$status/leader",
+                  "strokeWidth": 2,
+                  "gap": 6,
+                  "padding": [
+                    0,
+                    12
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "PrBDH",
+                      "name": "Name",
+                      "fill": "$ink/primary",
+                      "content": "iPhone 16",
+                      "fontFamily": "$font/ui",
+                      "fontSize": "$font/label",
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "veZ2D",
+                      "name": "Size",
+                      "fill": "$ink/secondary",
+                      "content": "393×852",
+                      "fontFamily": "$font/ui",
+                      "fontSize": "$font/caption",
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "id": "y0yJvc",
+                  "type": "ref",
+                  "ref": "boSko",
+                  "name": "Hint Sayfaya gir",
+                  "descendants": {
+                    "OPL33": {
+                      "content": "Sayfaya gir"
+                    },
+                    "gATZf": {
+                      "content": "⏎"
+                    },
+                    "Qesyp": {
+                      "enabled": false
+                    }
+                  }
+                },
+                {
+                  "type": "text",
+                  "id": "Js6NR",
+                  "name": "Note",
+                  "fill": "$ink/secondary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Klavyeyle gezinme açıkken Tab başlığa da gelir: 2 pt gök halka, 6 pt altında ipucu, kart öne gelir. ⏎ klavyeyi sayfaya verir; ⏎ ile girilen sayfada Esc başlığa döner.",
+                  "lineHeight": 1.5,
+                  "fontFamily": "$font/ui",
+                  "fontSize": "$font/caption",
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
         }
       ]
     }

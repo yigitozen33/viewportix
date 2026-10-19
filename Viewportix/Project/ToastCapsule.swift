@@ -24,6 +24,7 @@ struct ToastCapsule: View {
                     Text(action.title)
                         .font(.system(size: DesignTokens.FontSize.label, weight: .semibold))
                         .foregroundStyle(DesignTokens.Color.accent)
+                        .contentShape(.rect)
                 }
                 .buttonStyle(.plain)
                 .chromeFocusRing(cornerRadius: 4)
@@ -38,6 +39,7 @@ struct ToastCapsule: View {
         .overlay {
             Capsule().strokeBorder(notice.kind == .partialFailure ? DesignTokens.Color.statusWarning : DesignTokens.Color.line,
                                    lineWidth: DesignTokens.Stroke.hairline)
+                .allowsHitTesting(false)
         }
         .accessibilityElement(children: .contain)
     }
