@@ -1,4 +1,5 @@
 import AppKit
+import ChromiumEngine
 import DesignSystem
 import DeviceCatalog
 import EngineCore
@@ -21,8 +22,8 @@ struct DeviceStrip: View {
     /// Widest the strip may get; tabs scroll beyond it.
     let maxWidth: CGFloat
     let remove: (ViewportID) -> Void
-    let add: (DevicePreset) -> Void
-    let addCustom: (ViewportSize) -> Void
+    let add: (DevicePreset, EngineKind) -> Void
+    let addCustom: (ViewportSize, EngineKind) -> Void
     var collapsedGroups: Set<String> = []
     /// STRIP-12: opens a folded group.
     var openGroup: (String) -> Void = { _ in }
@@ -114,7 +115,7 @@ struct DeviceStrip: View {
                     switch item {
                     case .tab(let viewport):
                         DeviceTab(
-                            name: viewport.name,
+                            name: viewport.tabName(among: workspace.viewports),
                             detail: "\(viewport.size.width)×\(viewport.size.height)",
                             status: status(of: viewport.id),
                             select: { workspace.reveal(viewport.id) },
@@ -456,6 +457,15 @@ extension ViewportConfig {
     }
 }
 
+extension ViewportConfig {
+    /// Tabs don't show engines, except when the same device is open in two: "iPad · Chromium"
+    /// (DESIGN.md §3.2 Viewport kartı). The WebKit one keeps the plain name.
+    func tabName(among viewports: [ViewportConfig]) -> String {
+        let twin = viewports.contains { $0.id != id && $0.name == name && $0.engine != engine }
+        return twin && engine != .webKit ? "\(name) · \(engine.displayName)" : name
+    }
+}
+
 extension EngineKind {
     var displayName: String {
         switch self {
@@ -464,6 +474,17 @@ extension EngineKind {
         case .firefox: "Firefox"
         }
     }
+
+    /// Why this engine can't be picked yet (nil when it can).
+    var unavailableReason: String? {
+        switch self {
+        case .webKit: nil
+        case .chromium: ChromeBrowser.isAvailable ? nil : "Chrome bulunamadı"
+        case .firefox: "yakında"
+        }
+    }
+
+    var isAvailable: Bool { unavailableReason == nil }
 }
 
 /// A folded group in the strip: "Telefon 2 ›", carrying the group's most serious state.

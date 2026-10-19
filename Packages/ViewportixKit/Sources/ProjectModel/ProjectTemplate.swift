@@ -18,14 +18,12 @@ public enum ProjectTemplate: String, CaseIterable, Codable, Sendable {
         case .fullMatrix:
             Self.configs(["iphone-se", "iphone-16", "iphone-17-pro-max", "ipad-mini", "ipad-pro-13", "laptop", "desktop", "desktop-full-hd"])
         case .engineComparison:
-            EngineKind.allCases.flatMap { Self.configs(["iphone-16", "desktop"], engine: $0) }
+            Self.shippedEngines.flatMap { Self.configs(["iphone-16", "desktop"], engine: $0) }
         }
     }
 
-    /// Engine comparison needs Chromium (M4) and Firefox (M6); until then it would show WebKit three times.
-    public var isAvailable: Bool {
-        self != .engineComparison
-    }
+    /// Engines with their own session; Firefox joins with M6.
+    public static let shippedEngines: [EngineKind] = [.webKit, .chromium]
 
     private static func configs(_ ids: [String], engine: EngineKind = .webKit) -> [ViewportConfig] {
         ids.compactMap(DeviceCatalog.preset(id:)).map { ViewportConfig(preset: $0, engine: engine) }

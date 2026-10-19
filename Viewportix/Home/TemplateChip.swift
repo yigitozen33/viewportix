@@ -1,3 +1,4 @@
+import ChromiumEngine
 import DesignSystem
 import ProjectModel
 import SwiftUI
@@ -38,6 +39,11 @@ struct TemplateChip: View {
 }
 
 extension ProjectTemplate {
+    /// Engine comparison needs a Chrome to run Chromium in.
+    var isAvailable: Bool {
+        self != .engineComparison || ChromeBrowser.isAvailable
+    }
+
     var title: String {
         switch self {
         case .mobileFocused: "Mobil odaklı"

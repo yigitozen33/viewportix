@@ -115,6 +115,7 @@ final class CanvasController: NSViewController {
         for config in viewports {
             guard let session = workspace.session(for: config.id) else { continue }
             let card = cards[config.id] ?? makeCard(id: config.id, content: session.view)
+            if card.content !== session.view { card.replaceContent(session.view) }
             card.configure(size: config.size)
         }
         // Relayout when order, sizes or saved positions change (not for name or sync toggles).

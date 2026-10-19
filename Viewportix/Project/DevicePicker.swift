@@ -5,12 +5,12 @@ import ProjectModel
 import SwiftUI
 
 /// `Device/Picker` (specs/DevicePicker.json): 660 pt popover under the strip's "+ Cihaz".
-/// Search (or type "1024×768"), engine choice (WebKit; Chromium and Firefox "yakında"), SON chips,
+/// Search (or type "1024×768"), engine choice (WebKit, Chromium; Firefox "yakında"), SON chips,
 /// three independently scrolling columns, custom size, "Cihazları yönet…". STRIP-07…11.
 struct DevicePicker: View {
     let viewports: [ViewportConfig]
-    let add: (DevicePreset) -> Void
-    let addCustom: (ViewportSize) -> Void
+    let add: (DevicePreset, EngineKind) -> Void
+    let addCustom: (ViewportSize, EngineKind) -> Void
     let reveal: (ViewportID) -> Void
     let dismiss: () -> Void
 
@@ -18,6 +18,8 @@ struct DevicePicker: View {
     @State private var customWidth = 1024
     @State private var customHeight = 768
     @AppStorage("recentDevicePresets") private var recentStorage = ""
+    /// The engine new viewports get; remembered between pickers.
+    @AppStorage("devicePickerEngine") private var engine = EngineKind.webKit
     @FocusState private var isSearchFocused: Bool
 
     private var library: DeviceLibrary { DeviceLibraryStore.shared.library }
@@ -62,26 +64,33 @@ struct DevicePicker: View {
         .background(DesignTokens.Color.surfaceCard, in: .rect(cornerRadius: DesignTokens.Radius.control))
     }
 
-    /// WebKit only until Chromium (M4) and Firefox (M6).
+    /// WebKit and Chromium (M4); Firefox arrives with M6.
     private var enginePicker: some View {
         HStack(spacing: 1) {
-            ForEach(EngineKind.allCases, id: \.self) { engine in
-                let isAvailable = engine == .webKit
-                HStack(spacing: DesignTokens.Space.s1) {
-                    ChromeSymbol(asset: engine.glyph, box: 13)
-                        .foregroundStyle(isAvailable ? DesignTokens.Color.inkPrimary : DesignTokens.Color.inkSecondary)
-                    if !isAvailable {
-                        Text("yakında")
-                            .font(.system(size: DesignTokens.FontSize.micro))
-                            .foregroundStyle(DesignTokens.Color.inkSecondary)
+            ForEach(EngineKind.allCases, id: \.self) { option in
+                let isAvailable = option.isAvailable
+                let isSelected = option == engine
+                Button { engine = option } label: {
+                    HStack(spacing: DesignTokens.Space.s1) {
+                        ChromeSymbol(asset: option.glyph, box: 13)
+                            .foregroundStyle(isSelected ? DesignTokens.Color.inkPrimary : DesignTokens.Color.inkSecondary)
+                        if !isAvailable {
+                            Text("yakında")
+                                .font(.system(size: DesignTokens.FontSize.micro))
+                                .foregroundStyle(DesignTokens.Color.inkSecondary)
+                        }
                     }
+                    .padding(EdgeInsets(top: 6, leading: 8, bottom: 6, trailing: 8))
+                    .background(isSelected ? DesignTokens.Color.surfaceHeaderLeader : DesignTokens.Color.surfaceCard)
+                    .opacity(isAvailable ? 1 : 0.5)
+                    .contentShape(.rect)
                 }
-                .padding(EdgeInsets(top: 6, leading: 8, bottom: 6, trailing: 8))
-                .background(isAvailable ? DesignTokens.Color.surfaceHeaderLeader : DesignTokens.Color.surfaceCard)
-                .opacity(isAvailable ? 1 : 0.5)
-                .chromeTooltip(engine.displayName, shortcut: isAvailable ? nil : "yakında", edge: .bottom)
-                .accessibilityLabel(engine.displayName)
-                .accessibilityValue(isAvailable ? "seçili" : "yakında")
+                .buttonStyle(.plain)
+                .disabled(!isAvailable)
+                .chromeTooltip(option.unavailableReason.map { "\(option.displayName) · \($0)" } ?? option.displayName, edge: .bottom)
+                .accessibilityLabel(option.displayName)
+                .accessibilityValue(isSelected ? "seçili" : option.unavailableReason ?? "")
+                .accessibilityAddTraits(isSelected ? .isSelected : [])
             }
         }
         .background(DesignTokens.Color.line)
@@ -156,7 +165,7 @@ struct DevicePicker: View {
                 .foregroundStyle(DesignTokens.Color.inkPrimary)
             sizeField("W", value: $customWidth, valid: ViewportSize.widthRange.contains(customWidth))
             sizeField("H", value: $customHeight, valid: ViewportSize.heightRange.contains(customHeight))
-            Button { addCustom(customSize) } label: {
+            Button { addCustom(customSize, engine) } label: {
                 Text("Ekle")
                     .font(.system(size: DesignTokens.FontSize.label, weight: .semibold))
                     .foregroundStyle(DesignTokens.Color.accentInk)
@@ -191,7 +200,7 @@ struct DevicePicker: View {
                 .textFieldStyle(.plain)
                 .font(.system(size: DesignTokens.FontSize.label).monospacedDigit())
                 .foregroundStyle(DesignTokens.Color.inkPrimary)
-                .onSubmit { if customSize.isWithinLimits { addCustom(customSize) } }
+                .onSubmit { if customSize.isWithinLimits { addCustom(customSize, engine) } }
         }
         .padding(EdgeInsets(top: 5, leading: 8, bottom: 5, trailing: 8))
         .frame(width: 64)
@@ -212,7 +221,7 @@ struct DevicePicker: View {
     }
 
     private func added(_ preset: DevicePreset) -> ViewportConfig? {
-        viewports.first { $0.presetID == preset.id }
+        viewports.first { $0.presetID == preset.id && $0.engine == engine }
     }
 
     /// STRIP-08: adds and stays open; STRIP-09: an added device is revealed, not added again.
@@ -222,13 +231,13 @@ struct DevicePicker: View {
             return
         }
         recentStorage = DeviceSearch.recordRecent(preset.id, in: recent.map(\.id)).joined(separator: ",")
-        add(preset)
+        add(preset, engine)
     }
 
     /// STRIP-10: "W×H" + ⏎ adds that size; a single match + ⏎ adds it.
     private func submitSearch() {
         if let size = ViewportSize(parsing: query), size.isWithinLimits {
-            addCustom(size)
+            addCustom(size, engine)
             query = ""
         } else {
             let matches = DeviceSearch.presets(matching: query, in: library.pickerPresets)

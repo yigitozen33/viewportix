@@ -140,7 +140,7 @@ struct HomeView: View {
             HStack(spacing: DesignTokens.Space.s2) {
                 ForEach(ProjectTemplate.allCases, id: \.self) { item in
                     TemplateChip(template: item, isSelected: template == item) { template = item }
-                        .chromeTooltip(item.isAvailable ? item.title : "Chromium ve Firefox ile gelecek")
+                        .chromeTooltip(item.isAvailable ? item.title : "Chrome bulunamadı")
                 }
             }
             .padding(.top, DesignTokens.Space.s4)

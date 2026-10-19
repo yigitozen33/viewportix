@@ -210,8 +210,8 @@ private extension ProjectWindow {
                 HStack(spacing: 0) {
                     Spacer(minLength: stripLeadingRoom)
                     DeviceStrip(workspace: workspace, maxWidth: stripMaxWidth, remove: removeViewport,
-                                add: { addViewport(ViewportConfig(preset: $0)) },
-                                addCustom: { addViewport(ViewportConfig(name: "Özel", size: $0)) },
+                                add: { addViewport(ViewportConfig(preset: $0, engine: $1)) },
+                                addCustom: { addViewport(ViewportConfig(name: "Özel", size: $0, engine: $1)) },
                                 collapsedGroups: document.project.canvas.collapsedGroups,
                                 openGroup: openGroup)
                     Spacer(minLength: Self.stripTrailingRoom)
@@ -590,6 +590,8 @@ private extension ProjectWindow {
             document.project.viewports[index].isSyncEnabled.toggle()
         case .capture(let area):
             Task { await workspace.capture([id], area: area) }
+        case .setEngine(let engine):
+            document.project.viewports[index].engine = engine
         }
     }
 

@@ -180,7 +180,7 @@ struct DiffPanel: View {
         let viewports = workspace.viewports
         var items: [ChromeMenuItem] = [.header("BASELINE")]
         items += viewports.map { viewport in
-            .button(viewport.name, shortcut: viewport.id == center.baselineID ? "✓" : nil) {
+            .button(workspace.viewportName(viewport.id), shortcut: viewport.id == center.baselineID ? "✓" : nil) {
                 center.baselineID = viewport.id
                 if center.comparedID == viewport.id { center.comparedID = viewports.first { $0.id != viewport.id }?.id }
                 openID = nil
@@ -188,7 +188,7 @@ struct DiffPanel: View {
         }
         items += [.separator, .header("KARŞILAŞTIRILAN")]
         items += viewports.filter { $0.id != center.baselineID }.map { viewport in
-            .button(viewport.name, shortcut: viewport.id == center.comparedID ? "✓" : nil) {
+            .button(workspace.viewportName(viewport.id), shortcut: viewport.id == center.comparedID ? "✓" : nil) {
                 center.comparedID = viewport.id
                 openID = nil
             }

@@ -10,6 +10,7 @@ let package = Package(
         .library(name: "ProjectModel", targets: ["ProjectModel"]),
         .library(name: "SyncCore", targets: ["SyncCore"]),
         .library(name: "WebKitEngine", targets: ["WebKitEngine"]),
+        .library(name: "ChromiumEngine", targets: ["ChromiumEngine"]),
         .library(name: "Capture", targets: ["Capture"]),
         .library(name: "DesignSystem", targets: ["DesignSystem"]),
         .library(name: "DiffCore", targets: ["DiffCore"]),
@@ -20,6 +21,8 @@ let package = Package(
         .target(name: "ProjectModel", dependencies: ["EngineCore", "DeviceCatalog"]),
         .target(name: "SyncCore", dependencies: ["EngineCore"], resources: [.copy("Resources/sync-agent.js")]),
         .target(name: "WebKitEngine", dependencies: ["EngineCore", "SyncCore"]),
+        // M4: Chromium over CDP, frames by screencast (PLAN.md §5.2).
+        .target(name: "ChromiumEngine", dependencies: ["EngineCore", "SyncCore"]),
         .target(name: "Capture"),
         // DesignTokens.swift is copied from design/tokens/ unchanged; regenerate there, never edit here.
         .target(name: "DesignSystem"),
@@ -29,6 +32,7 @@ let package = Package(
         .testTarget(name: "ProjectModelTests", dependencies: ["ProjectModel"]),
         .testTarget(name: "SyncCoreTests", dependencies: ["SyncCore", "EngineCore"]),
         .testTarget(name: "WebKitEngineTests", dependencies: ["WebKitEngine", "SyncCore", "DiffCore"]),
+        .testTarget(name: "ChromiumEngineTests", dependencies: ["ChromiumEngine", "SyncCore", "EngineCore", "DiffCore"]),
         .testTarget(name: "CaptureTests", dependencies: ["Capture"]),
         .testTarget(name: "DiffCoreTests", dependencies: ["DiffCore", "EngineCore"]),
     ]

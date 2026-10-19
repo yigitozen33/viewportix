@@ -1,5 +1,6 @@
 import AppKit
 import Capture
+import ChromiumEngine
 import DesignSystem
 import DeviceCatalog
 import EngineCore
@@ -283,7 +284,7 @@ final class Workspace {
 
     /// "Dışa aktar (JSON)".
     func exportSyncLog() throws -> Data {
-        let names = Dictionary(uniqueKeysWithValues: viewports.map { ($0.id, $0.name) })
+        let names = Dictionary(uniqueKeysWithValues: viewports.map { ($0.id, $0.tabName(among: viewports)) })
         let sync = try coordinator.log.exportJSON(names: names)
         guard isDeveloperScope, var rows = try JSONSerialization.jsonObject(with: sync) as? [[String: Any]] else { return sync }
         let formatter = ISO8601DateFormatter()
@@ -297,8 +298,9 @@ final class Workspace {
         return try JSONSerialization.data(withJSONObject: rows, options: [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes])
     }
 
+    /// The name lists use: "iPad · Chromium" when the same device is open in two engines.
     func viewportName(_ id: ViewportID) -> String {
-        viewports.first { $0.id == id }?.name ?? "Viewport"
+        viewports.first { $0.id == id }?.tabName(among: viewports) ?? "Viewport"
     }
 
     func session(for id: ViewportID) -> (any EngineSession)? {
@@ -383,6 +385,12 @@ final class Workspace {
             retryTasks.removeValue(forKey: id)?.cancel()
         }
         for config in configs {
+            if let session = sessions[config.id], session.kind != EngineFactory.kind(for: config) {
+                // Motor ›: a new engine for this viewport; it reopens the current page.
+                coordinator.remove(config.id)
+                sessions[config.id] = nil
+                loadFailures[config.id] = nil
+            }
             if let session = sessions[config.id] {
                 session.resize(to: config.size)
                 continue
@@ -692,9 +700,46 @@ final class Workspace {
 enum EngineFactory {
     static func makeSession(for config: ViewportConfig) -> any EngineSession {
         switch config.engine {
-        case .webKit, .chromium, .firefox:  // Chromium (M4) and Firefox (M6) fall back to WebKit for now.
+        case .chromium:
+            // Chromium ships on Android phones and tablets: both get touch and a mobile viewport.
+            chromiumSession(for: config)
+        case .webKit, .firefox:  // Firefox (M6) falls back to WebKit for now.
             WebKitSession(id: config.id, size: config.size, mobileUserAgent: usesMobileUserAgent(config))
         }
+    }
+
+    private static func chromiumSession(for config: ViewportConfig) -> ChromiumSession {
+        let session = ChromiumSession(id: config.id, size: config.size, mobile: config.category != .desktop,
+                                      tablet: config.category == .tablet)
+        session.onSelectMenu = { [weak session] menu in
+            guard let session else { return }
+            showSelectMenu(menu, for: session)
+        }
+        return session
+    }
+
+    /// A `<select>` in a Chromium page opens our menu under it (headless Chrome draws none).
+    private static func showSelectMenu(_ menu: ChromiumSession.SelectMenu, for session: ChromiumSession) {
+        guard let window = session.view.window else { return }
+        let anchor = session.view.convert(menu.rect, to: nil)
+        var items: [ChromeMenuItem] = []
+        var group: String?
+        for (index, option) in menu.options.enumerated() {
+            if option.group != group, let title = option.group {
+                items.append(.header(title))
+            }
+            group = option.group
+            items.append(.button(option.label, isChecked: index == menu.selectedIndex, isEnabled: option.isEnabled) {
+                session.chooseSelectOption(index)
+            })
+        }
+        ChromeMenuPresenter.show(ChromeMenu(width: max(anchor.width, 160), showsChecks: true, items: items), in: window,
+                                 placement: .below(anchor, .leading, gap: 2))
+    }
+
+    /// The engine a viewport's session really runs.
+    static func kind(for config: ViewportConfig) -> EngineKind {
+        config.engine == .chromium ? .chromium : .webKit
     }
 
     /// Phones get an iPhone user agent; iPadOS Safari sends a desktop one, so tablets do too.

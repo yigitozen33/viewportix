@@ -69,4 +69,24 @@ public struct LoadFailure: Hashable, Sendable {
             self.init(kind: .network, url: url, code: "NSURLError \(code)")
         }
     }
+
+    /// Chromium's net error ("net::ERR_NAME_NOT_RESOLVED"), mapped onto the same kinds as WebKit's.
+    /// Nil for aborted loads (a newer navigation took over).
+    public init?(chromiumError error: String, url: URL) {
+        let name = error.replacingOccurrences(of: "net::", with: "")
+        switch name {
+        case "ERR_ABORTED", "ERR_BLOCKED_BY_CLIENT":
+            return nil
+        case "ERR_NAME_NOT_RESOLVED", "ERR_NAME_RESOLUTION_FAILED":
+            self.init(kind: .notFound, url: url, code: "DNS · \(name)")
+        case "ERR_CONNECTION_REFUSED" where Self.isLocalHost(url.host()):
+            self.init(kind: .serverDown, url: url, code: "ECONNREFUSED")
+        case let cert where cert.hasPrefix("ERR_CERT_") || cert.hasPrefix("ERR_SSL_"):
+            let detail = cert == "ERR_CERT_DATE_INVALID" ? "süresi dolmuş"
+                : cert == "ERR_CERT_AUTHORITY_INVALID" ? "güvenilmeyen sertifika" : cert
+            self.init(kind: .certificate, url: url, code: "SSL · \(detail)")
+        default:
+            self.init(kind: .network, url: url, code: name)
+        }
+    }
 }

@@ -562,25 +562,27 @@ struct ViewportCardChrome: View {
     }
 
     /// CARD-05 (`Card Context Menu`): Döndür ⌥⌘R · Boyutu düzenle… · Senkrondan çıkar · — · Motor ·
-    /// — · Kaldır ⌫. Motor only shows the engine until switching arrives with Chromium (M4).
+    /// — · Kaldır ⌫. Motor › switches this viewport's engine (M4); the page reopens in the new one.
     private func contextMenu() -> ChromeMenu {
         ChromeMenu(width: 240, items: [
             .button("Döndür", shortcut: "⌥⌘R") { command(.rotate) },
             .button("Boyutu düzenle…") { command(.editSize) },
             .button(config.isSyncEnabled ? "Senkrondan çıkar" : "Senkrona kat") { command(.toggleSync) },
             .separator,
-            .info("Motor", value: "\(engineTitle) ›"),
+            .submenu("Motor", ChromeMenu(width: 220, showsChecks: true, items: EngineKind.allCases.map { engine in
+                .button(engine == config.engine ? engineTitle : engine.displayName,
+                        shortcut: engine.unavailableReason, isChecked: engine == config.engine, isEnabled: engine.isAvailable) {
+                    if engine != config.engine { command(.setEngine(engine)) }
+                }
+            })),
             .separator,
             .button("Kaldır", shortcut: "⌫", role: .destructive) { command(.remove) },
         ])
     }
 
-    /// "WebKit 26.6" from "WebKit · Safari 26.6" (CARD-03).
+    /// "WebKit 26.6" from "WebKit · Safari 26.6", "Chromium 141" from "Chrome 141.0.7390.65" (CARD-03).
     private var engineTitle: String {
-        guard let version = engineVersion.split(separator: " ").last, version.first?.isNumber == true else {
-            return config.engine.displayName
-        }
-        return "\(config.engine.displayName) \(version)"
+        config.engine.title(version: engineVersion)
     }
 
     private var osTitle: String {
@@ -746,6 +748,13 @@ struct SizeEditorPopover: View {
 }
 
 extension EngineKind {
+    /// "WebKit 26.6" / "Chromium 141": the name and the version's last word (Chromium: major only).
+    func title(version: String) -> String {
+        guard var number = version.split(separator: " ").last.map(String.init), number.first?.isNumber == true else { return displayName }
+        if self == .chromium, let major = number.split(separator: ".").first { number = String(major) }
+        return "\(displayName) \(number)"
+    }
+
     /// Custom symbols in Assets.xcassets (design/handoff/symbols/).
     var glyph: String {
         switch self {

@@ -247,10 +247,17 @@ private struct GeneralSettings: View {
                         }
                         if matches("Motor") {
                             SettingsRow(label: "Motor") {
-                                ChromeSelect(value: engineTitle(workspace)) {
+                                // Every viewport of the project to one engine; "Karışık" when they differ.
+                                let engines = Set(workspace.viewports.map(\.engine))
+                                ChromeSelect(value: engines.count > 1 ? "Karışık" : engineTitle(workspace)) {
                                     EngineKind.allCases.map { engine in
-                                        .init(title: engine == .webKit ? engineTitle(workspace) : "\(engine.displayName) · yakında",
-                                              isSelected: engine == .webKit, isEnabled: engine == .webKit) {}
+                                        .init(title: engines == [engine] ? engineTitle(workspace)
+                                                : engine.unavailableReason.map { "\(engine.displayName) · \($0)" } ?? engine.displayName,
+                                              isSelected: engines == [engine], isEnabled: engine.isAvailable) {
+                                            for viewport in workspace.viewports where viewport.engine != engine {
+                                                workspace.performCommand?(viewport.id, .setEngine(engine))
+                                            }
+                                        }
                                     }
                                 }
                                 .accessibilityLabel("Motor")
@@ -295,9 +302,8 @@ private struct GeneralSettings: View {
     }
 
     private func engineTitle(_ workspace: Workspace) -> String {
-        let version = workspace.viewports.first.flatMap { workspace.session(for: $0.id)?.engineVersion } ?? "WebKit"
-        guard let number = version.split(separator: " ").last, number.first?.isNumber == true else { return "WebKit" }
-        return "WebKit \(number)"
+        guard let viewport = workspace.viewports.first else { return "WebKit" }
+        return viewport.engine.title(version: workspace.session(for: viewport.id)?.engineVersion ?? "")
     }
 }
 

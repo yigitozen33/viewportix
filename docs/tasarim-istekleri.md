@@ -624,3 +624,26 @@ Kod oturumunun arayüze dokunan her değişikliği, değişikliğin commit'inde 
 - Nerede: `Packages/ViewportixKit/Sources/SyncCore/Resources/sync-agent.js` (`selectorFor`), `SyncCore/SyncLog.swift` (`name(of:)`, `structuralName`)
 - Durum: özel çizim
 - Tasarım kararı gerekir mi: evet — sıra eki biçimi ("li 3.") ve "sayfa" kelimesi uygun mu?
+
+## 2026-10-19 — M4: Chromium viewport'ları (motor seçimi, Motor ›, `<select>` menüsü)
+- Ne:
+  - **Cihaz seçici, motor düğmeleri** (STRIP-07…11): WebKit ve Chromium seçilebilir, Firefox soluk "yakında". Seçili motor `surface/header-leader` zeminde, glif `ink/primary`; diğerleri `ink/secondary`. Seçim hatırlanır ve eklenen cihaz o motorda açılır. Aynı cihaz başka motorda zaten açıksa "+" (eklenebilir) görünür; tik yalnız aynı motorda. Chrome kurulu değilse Chromium soluk, ipucu "Chromium · Chrome bulunamadı".
+  - **Kart sağ tık › Motor ›** (CARD-05): pasif bilgi satırı alt menü oldu: "WebKit" / "Chromium 155" (seçili olan sürümüyle ve tikli) / "Firefox · yakında" (soluk). Seçince viewport o motorda yeniden açılır: kart yerinde kalır, sayfa yeni motorda baştan yüklenir (kaydırma liderin bir sonraki kaydırmasında eşitlenir).
+  - **Kart motor ipucu** (CARD-03): "Chromium 155 · macOS 26.6" (Chromium'da yalnız ana sürüm; WebKit'te "WebKit 26.6").
+  - **Sekme adı:** aynı ad iki motorda açıksa WebKit olmayanın adına motor eklenir: "Masaüstü · Chromium" (DESIGN.md §3.2 kuralı). Aynı ad Farklar'ın çift menüsünde ve başlığında, Senkron JSON'unda da kullanılıyor (önce iki "Masaüstü" ayırt edilemiyordu).
+  - **Ayarlar › Bu proje › Motor** (SETTINGS-01): seçim projedeki bütün viewport'ları o motora geçirir; motorlar karışıksa değer "Karışık". Önce "· yakında" pasif satırdı.
+  - **Şablon "Motor karşılaştırma"** (HOME-03): açıldı; iPhone 16 + Masaüstü × WebKit, Chromium (4 cihaz; Firefox M6'da eklenecek). Chrome yoksa soluk, ipucu "Chrome bulunamadı" (önce "Chromium ve Firefox ile gelecek").
+  - **`<select>` açılır listesi (Chromium):** headless Chrome listeyi kareye çizmiyor; tıklayınca `ChromeMenu` (standart stil, tikli, `<optgroup>` başlık satırı) seçin altında 2 pt, genişliği seç kutusunun ekrandaki genişliği (en az 160). Seçim sayfaya yazılır ve diğer viewport'lara senkronlanır. WebKit'te sistemin kendi listesi kalır.
+  - **JS uyarıları (Chromium):** `alert/confirm/prompt` sessizce kabul ediliyor (headless pencerede görünmez, sayfayı kilitlerdi); geliştirici kapsamı açıksa Senkron'da uyarı satırı ("confirm: …").
+  - **"Chrome bulunamadı" / "Chromium başlatılamadı":** sayfa alanı koyu (`#1F1F1F`), ortada 15 pt orta kalın `secondaryLabel` metin. Geçici; tasarımda karşılığı yok.
+- Kanıt (canlı, form.html / long-page.html / sample-product.html, 4–5 viewport): Chromium iPhone'da onay kutusu ve Chromium Masaüstü'nde e-posta yazısı dört viewport'a geçti; Chromium lider ↔ WebKit lider kaydırma iki yönde (`docs/parity/m4-chromium-scroll-sync@2x.png`); `<select>` → "United States" hepsinde (`m4-chromium-select-menu@2x.png`); Motor › WebKit ile sekme "iPhone 16 · Chr…" → "iPhone 16"; Motor alt menüsü (`m4-chromium-card-engine-menu@2x.png`); cihaz seçicide Chromium + iPad mini → Chromium kartı (`m4-chromium-device-picker@2x.png`); Farklar Masaüstü ↔ Masaüstü · Chromium 10 fark (`m4-chromium-farklar-engines@2x.png`); giriş ekranında şablon açık (`m4-home-engine-comparison@2x.png`). %50 zoom'da Chromium karesi keskin (akış yeniden boyutlanıyor). Boşta CPU %0. Testler: `ChromiumSessionTests` (9, gerçek Chrome), `KeyMappingTests`, `ProjectTemplateTests`.
+- Nerede: paket `ChromiumEngine` (yeni); `Viewportix/Project/DevicePicker.swift`, `DeviceStrip.swift` (`tabName`, `EngineKind.unavailableReason`), `Workspace.swift` (`EngineFactory`, motor değişince oturum), `ProjectWindow.swift`, `DiffPanel.swift`; `Viewportix/Canvas/CardChrome.swift`, `ViewportCardView.swift`, `CanvasController.swift`; `Viewportix/Settings/SettingsPanel.swift`; `Viewportix/Home/TemplateChip.swift`, `HomeView.swift`; paket `ProjectModel/ProjectTemplate.swift`
+- Durum: özel çizim
+- Tasarım kararı gerekir mi: evet —
+  1. "Chrome bulunamadı" kart hali (sayfa alanı) tasarlanmadı; WebKit'in "sayfa yüklenemedi" kartına benzer bir hal ve "Chrome'u indir" bağlantısı gerekir mi?
+  2. `<select>` menüsünün ölçüleri (konum, genişlik, uzun listelerde yükseklik sınırı) spec'te yok.
+  3. Chromium'da JS uyarılarını sessizce kabul etmek mi, kartın üstünde bir kapsül/diyalog göstermek mi?
+  4. Ayarlar › Bu proje › Motor'un anlamı (hepsini tek motora geçirmek, "Karışık") doğru mu?
+  5. Sekme adına motor yalnız WebKit olmayana mı eklensin, ikisine mi ("Masaüstü · WebKit")?
+  6. Cihaz seçicide motor seçiminin hatırlanması (bir sonraki açılışta Chromium seçili kalır) beklenen mi?
+- Bağlantılı: DESIGN.md §3.2 (Viewport kartı, cihaz seçici, CARD-03/05), §3.3, §3.1 (şablonlar), §3.4

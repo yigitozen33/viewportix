@@ -208,25 +208,8 @@ public final class WebKitSession: NSObject, EngineSession {
     }
 
     func receive(_ body: Any) {
-        guard let message = JSONValue(any: body) else { return }
-        switch message["kind"]?.stringValue {
-        case "scroll":
-            if let anchor = message["anchor"] { eventHandler?(.interaction(.scroll(anchor))) }
-        case "click":
-            if let target = message["target"] { eventHandler?(.interaction(.click(target))) }
-        case "input":
-            if let field = message["field"] {
-                eventHandler?(.interaction(.input(.object([
-                    "field": field,
-                    "value": message["value"] ?? .string(""),
-                    "checked": message["checked"] ?? .bool(false),
-                ]))))
-            }
-        case "hover":
-            eventHandler?(.interaction(.hover(message["target"] ?? .null)))
-        default:
-            break
-        }
+        guard let message = JSONValue(any: body), let event = SyncAgent.event(from: message) else { return }
+        eventHandler?(.interaction(event))
     }
 
     // MARK: Page state

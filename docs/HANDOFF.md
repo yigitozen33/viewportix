@@ -1,7 +1,7 @@
 # Kod oturumu — güncel durum
 
 > Bu dosya **üzerine yazılır**; yalnızca kod oturumu yazar. Tarihçe: `docs/oturumlar/`. Tasarım oturumu salt okur.
-> Son güncelleme: 2026-10-19 akşam (M5 panelleri, toplu kararlar 1–27)
+> Son güncelleme: 2026-10-19 gece (M4 Chromium)
 
 ## Şu an neredeyiz
 
@@ -14,7 +14,7 @@
 - Viewport menüsü DESIGN.md §3.2.1'e tamamlandı (seçili kartta); ⌫ ve Esc menü kısayolu değil, canvas işliyor (odak sayfada / metin alanındayken değil).
 - Canvas "yapışkan sığdırma": son işlem ⌘1 ise boyut değişince yeniden sığar (`CanvasController.fitted`).
 - Mimari not: kart başlığı ve kenarları canvas'ın üstünde ayrı SwiftUI katmanında (`CardChromeLayer`), konumları `Workspace.cardFrames`'ten; grup alanı zemini belge görünümünde (`GroupAreaView`), kartların altında.
-- Testler: **85 paket testi yeşil** (2026-10-19). Önceki 3 kırmızı test yanlıştı (Swift 6.4 `#expect` CGFloat/Double karşılaştırması), kod doğruydu; 1e733ca.
+- Testler: **106 paket testi yeşil** (2026-10-19 gece; 9'u kurulu Chrome'a karşı, Chrome yoksa atlanır). Önceki 3 kırmızı test yanlıştı (Swift 6.4 `#expect` CGFloat/Double karşılaştırması), kod doğruydu; 1e733ca.
 - **M5 panelleri (2026-10-19):** Senkron (`SyncLog`, Yeniden dene, Göster, JSON) ve Farklar (`DiffCore`, iki viewport, Kabul/Yoksay/Takip et projeye, Göster kutusu) canlıda denendi. Raydan ya da ⌥⌘1 / ⌥⌘2.
 - **§15 a (2026-10-19):** `ActionButton(.primary/.secondary)`, `AIActivityGlyph`, `Motion` (paket `DesignSystem`, tek eğri), bizim sayfa `chromeSheet` (anahtar olabilen alt pencere) — b66a176. Taslak saklama (`Application Support/Viewportix/Drafts`, PLAN.md §3.5), Taslaklar listesi, `thumbnail.png`, PW-06 kaydet sayfası, HOME-08 onaysız sil + Geri al kapsülü, HOME-13 kod satırı + `docs/hata-kodlari.md`, PW-07 şerit, PW-09 uyarıları — canlıda denendi (`docs/parity/live-*`).
 - Görüntü almak: `Scripts/snapshots.sh [klasör]` (DEBUG `--snapshots`; ekran dışı pencere, @2x, sRGB; dokunduğu tercihleri geri yükler). WKWebView orada çizilmez ve yüklemesi bitmez. Xcode önizlemesi bu makinede imza yüzünden derlenmiyor.
@@ -24,8 +24,9 @@
 Kullanıcının 2026-10-19 sırası 0–4 bitti; toplu tasarım kararları 1–27 kodda ve kanvasta işlendi (223dc65, 3688851).
 - Kullanıcıda: pen.dev'de ⌘S → `design/viewportix.pen` commit'i (son kanvas düzenlemeleri diske yazılmadı).
 - Açık soru: PW-07 kapatınca çıkan "Senin sürümün taslak olarak saklandı" kapsülü 5 sn'de kayboluyor; kapatılana kadar kalsın mı?
-- M4 başladı: S5 spike bitti (canlı yeterli, `Spikes/S5-CDPScreencast/README.md`, PLAN.md §5.1). Sırada `ChromiumEngine` (paket hedefi, `EngineSession`): Chrome bulma/başlatma, kart başına headless pencere, ekran boyutuna sınırlı screencast, giriş + tuş çevirisi, sync-agent'ın CDP köprüsü (`Runtime.addBinding` + izole dünya), `<select>`/diyalog yönetimi, cihaz eklerken motor seçimi.
-- Önerilen sıra: M4 Chromium → Farklar'da motor farkı → M6 Firefox → M7 MCP + §15 c (Ajanlar paneli, sürüş şeridi, bildirim yığını, MCP onayı, PW-08) + ertelenen A (Teşhis et D, Açıkla E). Dağıtım/CI ilk dağıtımdan hemen önce.
+- **M4 Chromium bitti (2026-10-19 gece):** paket `ChromiumEngine` (PLAN.md §5.2 "Uygulanan hali"), cihaz seçicide motor, kart › Motor ›, Ayarlar › Bu proje › Motor, "Motor karşılaştırma" şablonu (WebKit + Chromium), `<select>` için ChromeMenu, Farklar'da WebKit ↔ Chromium. Canlıda senkron iki yönde denendi (`docs/parity/m4-*`). Chrome kendi sorumlu süreci olarak başlıyor (App Management bildirimi buydu, PLAN.md §5.2).
+- Chromium'da eksik / bilinmeyen: dosya seçme (`<input type=file>`), sürükle-bırak sayfa içinde, IME (Türkçe dışı bileşik giriş), sağ tık menüsü (sayfanın kendi menüsü çizilmez), imleç şekli (el/metin imleci gelmiyor), gerçek sitelerde (giriş, çerez) deneme yapılmadı.
+- Önerilen sıra: M6 Firefox → M7 MCP + §15 c (Ajanlar paneli, sürüş şeridi, bildirim yığını, MCP onayı, PW-08) + ertelenen A (Teşhis et D, Açıkla E). Dağıtım/CI ilk dağıtımdan hemen önce.
 - Canlıda denenmeyen: Hareketi azalt, gerçek VoiceOver.
 
 ## Açık sorular

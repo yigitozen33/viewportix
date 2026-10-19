@@ -9,6 +9,7 @@ enum ViewportCommand {
     case editSize
     case toggleSync
     case capture(SnapshotArea)
+    case setEngine(EngineKind)
 }
 
 /// The scaled part of a viewport card on the canvas: the engine's live view, sized in CSS pixels.
@@ -19,7 +20,7 @@ final class ViewportCardView: NSView {
     /// Pointer entered (true) or left (false) the page area.
     var onHover: ((ViewportID, Bool) -> Void)?
 
-    private let content: NSView
+    private(set) var content: NSView
 
     override var isFlipped: Bool { true }
 
@@ -51,6 +52,14 @@ final class ViewportCardView: NSView {
     override func layout() {
         super.layout()
         content.frame = bounds
+    }
+
+    /// Motor ›: the viewport's new engine view takes the old one's place.
+    func replaceContent(_ view: NSView) {
+        content.removeFromSuperview()
+        content = view
+        addSubview(view)
+        view.frame = bounds
     }
 
     /// A scroll the page hands back (already at its edge) must not pan the canvas under it.

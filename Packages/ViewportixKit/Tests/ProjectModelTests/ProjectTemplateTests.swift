@@ -9,13 +9,12 @@ struct ProjectTemplateTests {
     @Test func everyTemplateResolvesAllItsDevices() {
         #expect(ProjectTemplate.mobileFocused.viewports.count == 4)
         #expect(ProjectTemplate.fullMatrix.viewports.count == 8)
-        #expect(ProjectTemplate.engineComparison.viewports.count == 6)
+        #expect(ProjectTemplate.engineComparison.viewports.count == 4)
     }
 
     @Test func engineComparisonPairsEachDeviceWithEveryEngine() {
         let engines = ProjectTemplate.engineComparison.viewports.map(\.engine)
-        #expect(Set(engines) == Set(EngineKind.allCases))
-        #expect(!ProjectTemplate.engineComparison.isAvailable)
+        #expect(Set(engines) == [.webKit, .chromium])
     }
 
     @Test func newProjectFromTemplateStartsAtTheURL() {
