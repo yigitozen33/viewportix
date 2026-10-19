@@ -63,5 +63,16 @@
   "Project Window · Ajan sürüyor": "window-project-agent-driving",
   "Motion Spec": "motion-spec",
   "Test · Kaydet ve uyarılar": "test-save-alerts",
-  "Dialogs · Kaydet ve uyarılar": "dialogs-save-alerts"
+  "Dialogs · Kaydet ve uyarılar": "dialogs-save-alerts",
+  "Action/Secondary · Haller (2026-10-19)": "action-secondary-states",
+  "Kod kararları · 2026-10-19 (10 · 13 · 16)": "code-decisions-2026-10-19",
+  "Project Window · Ayarlar › Motorlar": "window-project-settings-engines",
+  "Onboarding · Motorlar": "onboarding-engines",
+  "Card · Motor halleri": "card-engine-states",
+  "Select Menu · Chromium": "select-menu-chromium",
+  "Page Dialogs · alert confirm prompt": "page-dialogs",
+  "Home Window · Kuruluma devam et": "window-home-setup-reminder",
+  "Project Window · Başlarken kartı": "window-project-setup-card",
+  "Setup Reminder · Kuruluma devam et": "setup-reminder-states",
+  "Resource Monitor · Kaynaklar": "resource-monitor"
 }

@@ -1,13 +1,13 @@
 # Tasarım oturumu — güncel durum
 
 > Bu dosya **üzerine yazılır**; yalnızca tasarım oturumu yazar. Tarihçe: `notlar/`. Kod oturumu salt okur.
-> Son güncelleme: 2026-10-19
+> Son güncelleme: 2026-10-19 (M4 sonrası)
 
 ## Kod oturumu için: nereden başla
 
 Tasarım M3 uygulamasına hazır. Okuma sırası:
 
-1. `design/KOD-OTURUMU-ISLERI.md` — sana düşen işler; **§12 uygulama sırası**, sonra **§13 yeni haller**, **§15 eylem düğmeleri, hareket dili, uygulama içi AI, kaydetme ve uyarılar (2026-10-19)**.
+1. `design/KOD-OTURUMU-ISLERI.md` — sana düşen işler; **§12 uygulama sırası**, sonra **§13 yeni haller**, **§15 eylem düğmeleri, hareket dili, uygulama içi AI, kaydetme ve uyarılar (2026-10-19)**, **§16 M4 sonrası: onboarding, motorlar, Chromium kart halleri, `<select>`, sayfa uyarıları, başlıkta motor adı**.
 2. `DESIGN.md` §3 (ekranlar + etkileşim tabloları), §4 (kararlar), §6 (token'lar, bileşen → SwiftUI tablosu, pencere chrome'u yerleşimi).
 3. `design/tokens/` — `DesignTokens.swift` (kopyala, elle düzenleme), `viewportix.tokens.json`.
 4. `design/exports/*.png` — her frame'in 2x görüntüsü. Ölçü ve durumlar: `chrome-spec@2x.png`, `card-states@2x.png`, `tab-states-overflow-menu@2x.png`, `sidebar-states@2x.png`, `toast-states@2x.png`, `card-actions@2x.png`, `design-system-tokens@2x.png`.
@@ -25,6 +25,7 @@ Dışa aktarım adları: `window-project-*` (proje penceresi halleri), `window-h
 
 ## Açık tasarım işleri
 
+- **M4 sonrası (2026-10-19, `07 · MOTORLAR (M4)` sırası, y 8100):** `Project Window · Ayarlar › Motorlar`, `Onboarding · Motorlar` (K9 A, K10 uygulama indirir), `Card · Motor halleri` (Chrome bulunamadı ailesi; K12 a başlıkta gri motor adı; `Viewport/Card` › `EngineName`), `Select Menu · Chromium`, `Page Dialogs · alert confirm prompt` (K11 canvas altında kapsül + az sorma), `Setup Reminder · Kuruluma devam et` + iki pencere karesi (onboarding menüden değil, eksik kurulum oldukça şerit / sidebar kartıyla açılır; Flowventory mantığı). Kod işleri `KOD-OTURUMU-ISLERI.md` §16. **Kaynak paneli (2026-10-19):** `Resource Monitor · Kaynaklar` — alt çubuğun sağ kenarında çentik, tıkta Morph ile yüzen panel, kartlarda yük şeridi; kod işleri §17. Kod oturumunun yazdığı iki kare (`Action/Secondary · Haller`, `Kod kararları · 2026-10-19`) exports-map'e ve CHK'ye alındı; `Viewport/Card` değişince 42 PNG yeniden dışa aktarıldı.
 - `Test · AI ·` ve `Test · Kaydet ve uyarılar` panoları (y 11800): kullanıcı temiz panolarla karşılaştıracak, sonra silinecek. Kanvastaki canlı önizlemeler (`browser` düğümleri, C ve D) `file://` yolları; başka makinede boş.
 - Logo: `icon.json` koyu görünüm dolgusu (`extended-gray 0`) bilinçli mi, kullanıcıya soruldu.
 

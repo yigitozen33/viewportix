@@ -4,7 +4,7 @@ Son çalıştırma 2026-10-19. Yöntem: `checks.js` + `checks-hash.js` pen.dev `
 
 | CHK | Kontrol | Sonuç | n | Ayrıntı |
 |---|---|---|---|---|
-| 1 | Token dışı renk / yazı değeri | ✅ PASS | 0 | · izinli: gradyan durağı 46, gölge rengi 47, token + alfa 53 |
+| 1 | Token dışı renk / yazı değeri | ✅ PASS | 0 | · izinli: gradyan durağı 46, gölge rengi 53, token + alfa 67 |
 | 2 | Bileşen yerine elle çizilmiş kopya | ✅ PASS | 0 | — |
 | 3 | §6 tablosu ↔ bileşenler | ✅ PASS | 0 | — |
 | 4 | PNG'si eksik ya da frame'den eski ekran | ✅ PASS | 0 | — |
