@@ -28,8 +28,18 @@ struct ProjectCard: View {
                 DesignTokens.Color.canvas
                     .frame(height: 140)
                     .overlay(alignment: .topLeading) {
-                        ProjectThumbnail(viewports: summary.project?.viewports ?? [])
-                            .opacity(summary.isMissing ? 0.3 : 1)
+                        Group {
+                            if let image = summary.thumbnail.flatMap(NSImage.init(contentsOf:)) {
+                                // thumbnail.png: the canvas's last state, drawn for this 140 pt band.
+                                Image(nsImage: image)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(height: 140, alignment: .topLeading)
+                            } else {
+                                ProjectThumbnail(viewports: summary.project?.viewports ?? [])
+                            }
+                        }
+                        .opacity(summary.isMissing ? 0.3 : 1)
                     }
                     .clipped()
                 details
@@ -112,8 +122,8 @@ struct DraftPill: View {
     }
 }
 
-/// Until the canvas writes `thumbnail.png` (M3), the thumbnail draws the project's viewports as the
-/// spec's mini cards: page-coloured rectangles in a row, scaled together, top-aligned.
+/// Without a `thumbnail.png` (turned off, or a file from before thumbnails) the card draws the
+/// project's viewports as the spec's mini cards: page-coloured rectangles in a row, scaled together, top-aligned.
 struct ProjectThumbnail: View {
     let viewports: [ViewportConfig]
 

@@ -10,6 +10,10 @@ public struct ProjectSummary: Hashable, Sendable {
     public var isMissing: Bool
     /// Why an existing file can't be opened (HOME-13); nil when it reads fine or is missing.
     public var problem: ReadProblem?
+    /// The `VPX-NNNN` reason behind `problem` (HOME-13's code line).
+    public var errorCode: ErrorCode?
+    /// `thumbnail.png` inside the package, when there is one.
+    public var thumbnail: URL?
 
     public enum ReadProblem: Hashable, Sendable {
         /// Damaged or incomplete package.
@@ -18,7 +22,8 @@ public struct ProjectSummary: Hashable, Sendable {
         case newerVersion(Int)
     }
 
-    public init(url: URL, name: String, modified: Date?, project: Project?, isMissing: Bool, problem: ReadProblem? = nil) {
+    public init(url: URL, name: String, modified: Date?, project: Project?, isMissing: Bool, problem: ReadProblem? = nil, thumbnail: URL? = nil) {
+        self.thumbnail = thumbnail
         self.url = url
         self.name = name
         self.modified = modified
@@ -27,7 +32,7 @@ public struct ProjectSummary: Hashable, Sendable {
         self.problem = problem
     }
 
-    /// Reads `project.json` from a `.viewportix` package.
+    /// Reads `project.json` (and notes `thumbnail.png`) from a `.viewportix` package.
     public static func read(_ url: URL, fileManager: FileManager = .default) -> ProjectSummary {
         let name = url.deletingPathExtension().lastPathComponent
         guard fileManager.fileExists(atPath: url.path(percentEncoded: false)) else {
@@ -35,12 +40,20 @@ public struct ProjectSummary: Hashable, Sendable {
         }
         let modified = (try? url.resourceValues(forKeys: [.contentModificationDateKey]))?.contentModificationDate
         do {
-            let project = try Project(data: Data(contentsOf: url.appending(path: "project.json")))
-            return ProjectSummary(url: url, name: name, modified: modified, project: project, isMissing: false)
+            let project = try Project(data: Data(contentsOf: url.appending(path: ProjectPackage.projectFileName)))
+            let thumbnail = ProjectPackage.thumbnailURL(in: url)
+            return ProjectSummary(url: url, name: name, modified: modified, project: project, isMissing: false,
+                                  thumbnail: fileManager.fileExists(atPath: thumbnail.path(percentEncoded: false)) ? thumbnail : nil)
         } catch ProjectCodingError.unsupportedSchemaVersion(let version) {
-            return ProjectSummary(url: url, name: name, modified: modified, project: nil, isMissing: false, problem: .newerVersion(version))
+            var summary = ProjectSummary(url: url, name: name, modified: modified, project: nil, isMissing: false, problem: .newerVersion(version))
+            summary.errorCode = .newerSchema
+            return summary
         } catch {
-            return ProjectSummary(url: url, name: name, modified: modified, project: nil, isMissing: false, problem: .unreadable)
+            var summary = ProjectSummary(url: url, name: name, modified: modified, project: nil, isMissing: false, problem: .unreadable)
+            // A missing project.json reads as "no such file" here; the package itself exists.
+            let code = ErrorCode.reading(error)
+            summary.errorCode = code == .fileMissing ? .projectFileMissing : code
+            return summary
         }
     }
 

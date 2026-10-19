@@ -3,7 +3,7 @@ import Observation
 import ProjectModel
 
 /// The home screen's project list: the system's recent documents, minus the ones removed from the
-/// list (HOME-08), plus relocated files (HOME-12). Drafts are not stored yet, so `drafts` is empty.
+/// list (HOME-08), plus relocated files (HOME-12); drafts from the app's drafts folder (PLAN.md §3.5).
 @MainActor
 @Observable
 final class RecentProjects {
@@ -21,12 +21,33 @@ final class RecentProjects {
     func reload() {
         if let fixed {
             projects = fixed
+            drafts = fixed.filter { isDraft($0.url) }
             return
         }
         let hidden = Set(UserDefaults.standard.stringArray(forKey: Self.hiddenKey) ?? [])
+        let drafts = ProjectFiles.drafts
         projects = NSDocumentController.shared.recentDocumentURLs
             .filter { !hidden.contains($0.path(percentEncoded: false)) }
+            // A saved or deleted draft leaves its old path in the recent list (or, through the
+            // list's bookmarks, its place in the app's trash): neither is a project to show.
+            .filter { !drafts.isTrashed($0) }
+            .filter { !drafts.isDraft($0) || FileManager.default.fileExists(atPath: $0.path(percentEncoded: false)) }
             .map { ProjectSummary.read($0) }
+        self.drafts = drafts.list().map { ProjectSummary.read($0) }
+    }
+
+    func isDraft(_ url: URL) -> Bool {
+        ProjectFiles.drafts.isDraft(url)
+    }
+
+    /// HOME-08 "Taslağı sil": no question; the draft waits 30 days in the app's trash. Returns the undo.
+    func deleteDraft(_ url: URL) throws -> () -> Void {
+        let restore = try ProjectFiles.trashDraft(url)
+        reload()
+        return { [weak self] in
+            restore()
+            self?.reload()
+        }
     }
 
     /// Listeden kaldır: the file stays on disk.

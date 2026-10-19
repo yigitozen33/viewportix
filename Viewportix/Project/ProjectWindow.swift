@@ -2,9 +2,12 @@ import DesignSystem
 import EngineCore
 import ProjectModel
 import SwiftUI
+import UniformTypeIdentifiers
 
 struct ProjectWindow: View {
     @Binding var document: ProjectDocument
+    /// The package on disk; in the drafts folder until the project is saved (PLAN.md §3.5).
+    var fileURL: URL?
     @Environment(\.dismissWindow) private var dismissWindow
     @Environment(\.undoManager) private var undoManager
     @Environment(\.openDocument) private var openDocument
@@ -15,9 +18,17 @@ struct ProjectWindow: View {
     @State private var isBarMenuOpen = false
     @State private var isTooltipShown = false
     @State private var canvasWidth: CGFloat = 1000
+    /// PW-06: our save sheet (⌘S on a draft, ⇧⌘S Çoğalt).
+    @State private var saveRequest: SaveRequest?
+    @State private var windowAnchor = WindowAnchor()
+    @State private var thumbnailTask: Task<Void, Never>?
+    @State private var thumbnailDate = Date.distantPast
+    /// PW-07: the file changed elsewhere while this window has unsaved changes.
+    @State private var isDiskConflict = false
 
-    init(document: Binding<ProjectDocument>, sidebarVisible: Bool = true, railVisible: Bool? = nil, devicePickerOpen: Bool = false, settingsTab: SettingsTab? = nil) {
+    init(document: Binding<ProjectDocument>, fileURL: URL? = nil, sidebarVisible: Bool = true, railVisible: Bool? = nil, devicePickerOpen: Bool = false, settingsTab: SettingsTab? = nil) {
         _document = document
+        self.fileURL = fileURL
         _selectedPageID = State(initialValue: document.wrappedValue.project.selectedPageID)
         let workspace = Workspace()
         workspace.isSidebarVisible = sidebarVisible
@@ -40,7 +51,14 @@ struct ProjectWindow: View {
                 )
                 .transition(.move(edge: .leading))
             }
-            canvas
+            VStack(spacing: 0) {
+                if isDiskConflict {
+                    DiskChangeStrip(openDisk: revertToDisk, keepMine: keepMine)
+                        .transition(.move(edge: .top))
+                }
+                canvas
+            }
+            .clipped()
             if workspace.isRailVisible {
                 InspectorRail(workspace: workspace)
                     .transition(.move(edge: .trailing))
@@ -53,7 +71,28 @@ struct ProjectWindow: View {
         .preferredColorScheme(.dark)
         .focusedSceneValue(\.workspace, workspace)
         .focusedSceneValue(\.projectActions, ProjectActions(addCurrentPage: addCurrentPage, selectPage: selectPage, arrangeCards: arrangeCards,
-                                                         grouping: document.project.canvas.grouping, setGrouping: setGrouping))
+                                                         grouping: document.project.canvas.grouping, setGrouping: setGrouping,
+                                                         save: requestSave, duplicate: requestDuplicate))
+        .background(WindowAnchorView(anchor: windowAnchor))
+        .chromeSheet(item: $saveRequest, width: SaveProjectSheet.width) { request in
+            SaveProjectSheet(request: request) { try await performSave(request, $0) }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: NSWindow.didBecomeKeyNotification)) { note in
+            guard let window = note.object as? NSWindow, window === windowAnchor.window else { return }
+            checkDisk()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
+            // Coming back to the app leaves the key window key: no notification above.
+            if windowAnchor.window?.isKeyWindow == true { checkDisk() }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: NSWindow.willCloseNotification)) { note in
+            guard let window = note.object as? NSWindow, window === windowAnchor.window else { return }
+            ProjectFiles.discardIfDraftsAreNotKept(fileURL)
+        }
+        .onChange(of: workspace.isLoading) { _, loading in
+            if !loading { scheduleThumbnail() }
+        }
+        .onChange(of: document.project.viewports) { scheduleThumbnail() }
         .onAppear {
             // Opening a project from Finder or Open Recent should not leave the home window behind.
             dismissWindow(id: HomeView.windowID)
@@ -294,6 +333,146 @@ private extension ProjectWindow {
         selectedPageID = pages[min(max(current + offset, 0), pages.count - 1)].id
     }
 
+    // MARK: Saving (PW-06, PW-09)
+
+    var isDraft: Bool { fileURL.map(ProjectFiles.drafts.isDraft) ?? true }
+
+    /// The page title ("Keten Gömlek"), else the host; what the save sheet suggests.
+    var suggestedName: String {
+        let title = workspace.currentTitle.trimmingCharacters(in: .whitespacesAndNewlines)
+        let name = title.isEmpty ? (workspace.currentURL?.host() ?? document.project.selectedPage?.name ?? "Adsız") : title
+        return String(name.replacingOccurrences(of: "/", with: "-").replacingOccurrences(of: ":", with: "-").prefix(80))
+    }
+
+    /// ⌘S: a draft gets our save sheet; a saved project just saves.
+    func requestSave() {
+        if isDraft {
+            saveRequest = SaveRequest(mode: .save, name: suggestedName)
+            return
+        }
+        guard let nsDocument = ProjectFiles.document(for: windowAnchor.window), let url = nsDocument.fileURL else { return }
+        Task {
+            await refreshThumbnail()
+            do {
+                try await nsDocument.save(to: url, ofType: nsDocument.fileType ?? UTType.viewportixProject.identifier, for: .saveOperation)
+            } catch {
+                showSaveError(error, name: url.deletingPathExtension().lastPathComponent)
+            }
+        }
+    }
+
+    /// ⇧⌘S Çoğalt: "<ad> kopya" in our sheet, written next to nothing yet, opened in its own window.
+    func requestDuplicate() {
+        let name = isDraft ? suggestedName : (fileURL?.deletingPathExtension().lastPathComponent ?? suggestedName)
+        saveRequest = SaveRequest(mode: .duplicate, isDraft: isDraft, name: "\(name) kopya")
+    }
+
+    func performSave(_ request: SaveRequest, _ options: ProjectFiles.SaveOptions) async throws {
+        await refreshThumbnail()
+        do {
+            switch request.mode {
+            case .duplicate:
+                try ProjectFiles.duplicate(document.project, thumbnail: document.thumbnail, options: options)
+            case .save:
+                guard let nsDocument = ProjectFiles.document(for: windowAnchor.window) else { return }
+                document.project.includesThumbnail = options.includesThumbnail
+                // The binding reaches the system document on the next turn of the run loop.
+                try await Task.sleep(for: .milliseconds(50))
+                try await ProjectFiles.save(nsDocument, options: options)
+            }
+        } catch {
+            showSaveError(error, name: options.name, duplicating: request.mode == .duplicate)
+            throw error
+        }
+    }
+
+    /// PW-09: "“<ad>” kaydedilemedi" with our texts; disk full → Yeniden Dene, no permission →
+    /// Farklı Yere Kaydet….
+    func showSaveError(_ error: Error, name: String, duplicating: Bool = false) {
+        let code = duplicating && ErrorCode.writing(error) == .writeFailed ? .duplicateFailed : ErrorCode.writing(error)
+        let kept = isDraft ? "değişiklikler taslakta duruyor" : "değişiklikler pencerede duruyor"
+        let window = windowAnchor.window
+        switch code {
+        case .diskFull:
+            ErrorAlert.show(code, title: "“\(name)” kaydedilemedi", message: "Diskte yer kalmadı. Yer açıp yeniden deneyin; \(kept).",
+                            buttons: [.init(title: "Yeniden Dene") { duplicating ? requestDuplicate() : requestSave() }, .init(title: "Vazgeç")],
+                            in: window)
+        case .writePermission:
+            ErrorAlert.show(code, title: "“\(name)” kaydedilemedi", message: "Bu klasöre yazma izni yok; \(kept).",
+                            buttons: [.init(title: "Farklı Yere Kaydet…") {
+                                saveRequest = SaveRequest(mode: duplicating ? .duplicate : .save, isDraft: isDraft, name: name)
+                            }, .init(title: "Vazgeç")], in: window)
+        default:
+            ErrorAlert.show(code, title: "“\(name)” kaydedilemedi", message: "\(error.localizedDescription) Değişiklikler kaybolmadı; \(kept).",
+                            buttons: [.init(title: "Tamam")], in: window)
+        }
+    }
+
+    // MARK: File changed on disk (PW-07)
+
+    /// When the window comes forward: a newer file on disk reloads quietly, unless this window has
+    /// changes of its own; then the strip asks which one stays.
+    func checkDisk() {
+        guard let nsDocument = ProjectFiles.document(for: windowAnchor.window), let url = nsDocument.fileURL,
+              let known = nsDocument.fileModificationDate,
+              let onDisk = ProjectFiles.lastModified(url), onDisk.timeIntervalSince(known) > 1 else { return }
+        // Leaving the app autosaves, so changes not yet written are the only ones the disk can beat.
+        if nsDocument.hasUnautosavedChanges {
+            withAnimation(Motion.curve(Motion.strip)) { isDiskConflict = true }
+        } else {
+            revertToDisk()
+        }
+    }
+
+    /// "Diskteki sürümü aç": this window's changes go, the file's version comes in.
+    func revertToDisk() {
+        guard let nsDocument = ProjectFiles.document(for: windowAnchor.window), let url = nsDocument.fileURL else { return }
+        do {
+            try nsDocument.revert(toContentsOf: url, ofType: nsDocument.fileType ?? UTType.viewportixProject.identifier)
+            withAnimation(Motion.curve(Motion.strip)) { isDiskConflict = false }
+        } catch {
+            ErrorAlert.show(ErrorCode.reading(error), title: "“\(url.deletingPathExtension().lastPathComponent)” yeniden yüklenemedi",
+                            error: error, in: windowAnchor.window)
+        }
+    }
+
+    /// "Benimkini tut": this window's version is written over the file.
+    func keepMine() {
+        guard let nsDocument = ProjectFiles.document(for: windowAnchor.window), let url = nsDocument.fileURL else { return }
+        // The system refuses to save over a file changed elsewhere; take the package's date as seen.
+        nsDocument.fileModificationDate = (try? url.resourceValues(forKeys: [.contentModificationDateKey]))?.contentModificationDate
+        withAnimation(Motion.curve(Motion.strip)) { isDiskConflict = false }
+        Task {
+            do {
+                try await nsDocument.save(to: url, ofType: nsDocument.fileType ?? UTType.viewportixProject.identifier, for: .saveOperation)
+            } catch {
+                showSaveError(error, name: url.deletingPathExtension().lastPathComponent)
+            }
+        }
+    }
+
+    // MARK: Thumbnail
+
+    /// After pages finish loading or the device set changes, at most every 20 s.
+    func scheduleThumbnail() {
+        thumbnailTask?.cancel()
+        thumbnailTask = Task {
+            try? await Task.sleep(for: .seconds(1.5))
+            guard !Task.isCancelled, !workspace.isLoading, Date.now.timeIntervalSince(thumbnailDate) > 20 else { return }
+            await refreshThumbnail()
+        }
+    }
+
+    func refreshThumbnail() async {
+        guard !document.project.viewports.isEmpty, let png = await workspace.thumbnail(for: document.project) else { return }
+        thumbnailDate = .now
+        guard png != document.thumbnail else { return }
+        document.thumbnail = png
+        // A thumbnail-only change doesn't count as an edit for SwiftUI's document; without this the
+        // draft would keep its old picture until the next real change.
+        ProjectFiles.document(for: windowAnchor.window)?.updateChangeCount(.changeDone)
+    }
+
     func handle(_ id: ViewportID, _ command: ViewportCommand) {
         guard let index = document.project.viewports.firstIndex(where: { $0.id == id }) else { return }
         switch command {
@@ -321,6 +500,33 @@ private extension ProjectWindow {
     }
 }
 
+/// PW-07 (`dialogs-save-alerts@2x.png` 4. bölüm, pen `Disk Change Strip`): 40 pt over the canvas,
+/// `surface/header` with a bottom hairline, caption 500, both choices grey and without keys (which
+/// is right isn't known); drops in 200 ms.
+struct DiskChangeStrip: View {
+    let openDisk: () -> Void
+    let keepMine: () -> Void
+
+    var body: some View {
+        HStack(spacing: 8) {
+            Text("Dosya başka yerde değişti")
+                .font(.system(size: DesignTokens.FontSize.caption, weight: .medium))
+                .foregroundStyle(DesignTokens.Color.inkPrimary)
+            Spacer(minLength: 0)
+            ActionButton("Diskteki sürümü aç", action: openDisk)
+            ActionButton("Benimkini tut", action: keepMine)
+        }
+        .padding(EdgeInsets(top: 0, leading: 14, bottom: 0, trailing: 10))
+        .frame(height: 40)
+        .background(DesignTokens.Color.surfaceHeader)
+        .overlay(alignment: .bottom) {
+            Rectangle().fill(DesignTokens.Color.line).frame(height: DesignTokens.Stroke.hairline)
+        }
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel("Dosya başka yerde değişti")
+    }
+}
+
 /// Project window actions the menu bar needs that change the document.
 struct ProjectActions {
     let addCurrentPage: () -> Void
@@ -328,6 +534,9 @@ struct ProjectActions {
     let arrangeCards: () -> Void
     let grouping: Grouping
     let setGrouping: (Grouping) -> Void
+    /// Dosya › Kaydet (⌘S), Çoğalt (⇧⌘S).
+    let save: () -> Void
+    let duplicate: () -> Void
 }
 
 extension FocusedValues {

@@ -406,6 +406,23 @@ final class Workspace {
         }
     }
 
+    /// `thumbnail.png` (PLAN.md §3.5): the cards where the canvas lays them out, each page from what
+    /// its viewport shows now.
+    func thumbnail(for project: Project) async -> Data? {
+        let groups = project.canvas.grouping.groups(of: project.viewports)
+        let frames = groups.isEmpty ? CanvasLayout.frames(for: project.viewports)
+            : CanvasLayout.grouped(project.viewports, groups: groups, collapsed: project.canvas.collapsedGroups).frames
+        var cards: [ThumbnailComposer.Card] = []
+        for viewport in project.viewports {
+            guard let frame = frames[viewport.id] else { continue }
+            let image = try? await sessions[viewport.id]?.snapshot(.visible)
+            cards.append(ThumbnailComposer.Card(frame: frame, image: image))
+        }
+        return await Task.detached {
+            ThumbnailComposer.compose(cards).flatMap(ScreenshotComposer.pngData)
+        }.value
+    }
+
     func captureAll(area: SnapshotArea) async {
         await capture(viewports.map(\.id), area: area)
     }

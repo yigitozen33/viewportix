@@ -110,6 +110,7 @@ enum PreviewSnapshots {
             Entry("BottomBar-tooltip", padded(ChromeTooltip(title: "Sığdır", shortcut: "⌘1"))),
             Entry("toast-states", padded(toastStates)),
             Entry("action-buttons", padded(actionButtons)),
+            Entry("dialogs-save-alerts", padded(dialogs)),
             Entry("window-home-dark", size: homeSize, defaults: ["homeLayout": "grid"], HomeView(store: RecentProjects(fixed: samples))),
             Entry("window-home-list", size: homeSize, defaults: ["homeLayout": "list"], HomeView(store: RecentProjects(fixed: samples + [missing]))),
             Entry("window-home-empty", size: homeSize, defaults: ["homeLayout": "grid"], HomeView(store: RecentProjects(fixed: []))),
@@ -251,6 +252,32 @@ enum PreviewSnapshots {
                 }
             }
         }
+    }
+
+    /// Our parts of `dialogs-save-alerts@2x.png`: the save sheet (default, same name, Çoğalt), the
+    /// undo capsule and the disk change strip. The system alerts are in docs/parity/live-*.
+    private static var dialogs: some View {
+        let folder = FileManager.default.temporaryDirectory.appending(path: "Belgeler/Viewportix", directoryHint: .isDirectory)
+        try? FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+        try? FileManager.default.createDirectory(at: folder.appending(path: "Keten Gömlek kopya.viewportix"), withIntermediateDirectories: true)
+        func sheet(_ request: SaveRequest) -> some View {
+            ChromeSheetSurface(width: SaveProjectSheet.width) {
+                SaveProjectSheet(request: request, folder: folder) { _ in }
+            }
+            .frame(width: 460, alignment: .top)
+        }
+        return VStack(alignment: .leading, spacing: 32) {
+            HStack(alignment: .top, spacing: 32) {
+                sheet(SaveRequest(mode: .save, name: "Keten Gömlek"))
+                sheet(SaveRequest(mode: .save, name: "Keten Gömlek kopya"))
+                sheet(SaveRequest(mode: .duplicate, name: "Keten Gömlek kopya 2"))
+            }
+            HStack(alignment: .center, spacing: 32) {
+                UndoCapsule(text: "“Untitled 3” silindi", undo: {}, expire: {})
+                DiskChangeStrip(openDisk: {}, keepMine: {}).frame(width: 600)
+            }
+        }
+        .defaultAppStorage(UserDefaults(suiteName: "com.viewportix.snapshots")!)
     }
 
     // MARK: Home samples (names and metas as in the design frames)

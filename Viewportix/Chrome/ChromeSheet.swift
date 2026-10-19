@@ -117,7 +117,17 @@ private final class ChromeSheetPresenter {
             center.addObserver(forName: NSWindow.willCloseNotification, object: parent, queue: .main) { [weak self] _ in
                 MainActor.assumeIsolated { self?.remove() }
             },
+            // A system alert on the window (PW-09) or a click on the title area hands the keyboard to
+            // the window; while the sheet is up it belongs to the sheet.
+            center.addObserver(forName: NSWindow.didBecomeKeyNotification, object: parent, queue: .main) { [weak self] _ in
+                MainActor.assumeIsolated { self?.takeKeyboard() }
+            },
         ]
+    }
+
+    private func takeKeyboard() {
+        guard !isDismissing, parent?.attachedSheet == nil else { return }
+        panel.makeKey()
     }
 
     private func followParent() {
@@ -191,7 +201,8 @@ private struct ChromeSheetContainer: View {
                     .opacity(model.isShown ? 1 : 0)
                     .contentShape(.rect)
                 if model.isShown {
-                    card
+                    ChromeSheetSurface(width: width) { content }
+                        .padding(.bottom, 44)  // room for the shadow while it slides
                         .transition(reduceMotion ? .opacity : .move(edge: .top))
                 }
             }
@@ -200,8 +211,14 @@ private struct ChromeSheetContainer: View {
         .ignoresSafeArea()
         .preferredColorScheme(.dark)
     }
+}
 
-    private var card: some View {
+/// The sheet itself, also drawn by the snapshots.
+struct ChromeSheetSurface<Content: View>: View {
+    let width: CGFloat
+    @ViewBuilder let content: Content
+
+    var body: some View {
         content
             .padding(ChromeSheet.padding)
             .frame(width: width, alignment: .leading)
@@ -214,7 +231,6 @@ private struct ChromeSheetContainer: View {
                 RoundedRectangle(cornerRadius: DesignTokens.Radius.card)
                     .strokeBorder(DesignTokens.Color.line, lineWidth: DesignTokens.Stroke.hairline)
             }
-            .padding(.bottom, 44)  // room for the shadow while it slides
             .accessibilityElement(children: .contain)
             .accessibilityAddTraits(.isModal)
     }

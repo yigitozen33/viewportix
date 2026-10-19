@@ -49,3 +49,15 @@ struct CaptureTests {
                 == "Viewportix — 2026-10-10 17.03.12.png")
     }
 }
+
+struct ThumbnailComposerTests {
+    @Test func cardsKeepTheirLayoutInsideTheThumbnail() throws {
+        let cards = [
+            ThumbnailComposer.Card(frame: CGRect(x: 64, y: 64, width: 400, height: 800), image: nil),
+            ThumbnailComposer.Card(frame: CGRect(x: 512, y: 64, width: 1400, height: 900), image: nil),
+        ]
+        let image = try #require(ThumbnailComposer.compose(cards))
+        #expect(image.width == 640 && image.height == 280)
+        #expect(ThumbnailComposer.compose([]) != nil)
+    }
+}

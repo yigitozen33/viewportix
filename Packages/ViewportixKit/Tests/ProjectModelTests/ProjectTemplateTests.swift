@@ -52,8 +52,24 @@ struct ProjectTemplateTests {
         try? FileManager.default.removeItem(at: folder)
         try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
         #expect(ProjectSummary.read(folder).problem == .unreadable)
+        #expect(ProjectSummary.read(folder).errorCode == .projectFileMissing)
+
+        try Data("{bozuk".utf8).write(to: folder.appending(path: "project.json"))
+        #expect(ProjectSummary.read(folder).errorCode == .jsonUnreadable)
 
         try Data(#"{"schemaVersion": 99}"#.utf8).write(to: folder.appending(path: "project.json"))
         #expect(ProjectSummary.read(folder).problem == .newerVersion(99))
+        #expect(ProjectSummary.read(folder).errorCode == .newerSchema)
+    }
+}
+
+struct ErrorCodeTests {
+    @Test func codesReadAsInTheCatalogue() {
+        #expect(ErrorCode.jsonUnreadable.line() == "VPX-0042 · JSON çözümlenemedi")
+        #expect(ErrorCode.writing(CocoaError(.fileWriteOutOfSpace)) == .diskFull)
+        #expect(ErrorCode.writing(CocoaError(.fileWriteNoPermission)) == .writePermission)
+        #expect(ErrorCode.writing(NSError(domain: NSPOSIXErrorDomain, code: Int(ENOSPC))) == .diskFull)
+        #expect(ErrorCode.reading(ProjectCodingError.unsupportedSchemaVersion(9)) == .newerSchema)
+        #expect(Set(ErrorCode.allCases.map(\.code)).count == ErrorCode.allCases.count)
     }
 }

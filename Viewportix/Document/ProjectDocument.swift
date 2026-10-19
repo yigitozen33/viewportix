@@ -6,28 +6,24 @@ extension UTType {
     static let viewportixProject = UTType(exportedAs: "com.viewportix.project")
 }
 
-/// A `.viewportix` package: `project.json` now, a canvas thumbnail later (M3).
+/// A `.viewportix` package: `project.json` and `thumbnail.png` (`ProjectPackage`).
 struct ProjectDocument: FileDocument {
     static let readableContentTypes: [UTType] = [.viewportixProject]
 
-    private static let projectFileName = "project.json"
-
     var project: Project
+    /// PNG of the canvas's last state (`ThumbnailComposer`); kept as read until the window makes a new one.
+    var thumbnail: Data?
 
-    init(project: Project = .new()) {
+    init(project: Project = .new(), thumbnail: Data? = nil) {
         self.project = project
+        self.thumbnail = thumbnail
     }
 
     init(configuration: ReadConfiguration) throws {
-        guard let data = configuration.file.fileWrappers?[Self.projectFileName]?.regularFileContents else {
-            throw CocoaError(.fileReadCorruptFile)
-        }
-        project = try Project(data: data)
+        (project, thumbnail) = try ProjectPackage.read(configuration.file)
     }
 
     func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
-        FileWrapper(directoryWithFileWrappers: [
-            Self.projectFileName: FileWrapper(regularFileWithContents: try project.encoded()),
-        ])
+        try ProjectPackage.fileWrapper(project: project, thumbnail: thumbnail)
     }
 }

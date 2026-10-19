@@ -11,18 +11,37 @@ public struct Project: Codable, Hashable, Sendable {
     public var selectedPageID: Page.ID?
     public var viewports: [ViewportConfig]
     public var canvas: CanvasState
+    /// "Küçük resmi dosyaya ekle" (PW-06): when false the package has no `thumbnail.png`.
+    public var includesThumbnail: Bool
 
     public init(
         pages: [Page] = [],
         selectedPageID: Page.ID? = nil,
         viewports: [ViewportConfig] = [],
-        canvas: CanvasState = CanvasState()
+        canvas: CanvasState = CanvasState(),
+        includesThumbnail: Bool = true
     ) {
         self.schemaVersion = Self.currentSchemaVersion
         self.pages = pages
         self.selectedPageID = selectedPageID ?? pages.first?.id
         self.viewports = viewports
         self.canvas = canvas
+        self.includesThumbnail = includesThumbnail
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case schemaVersion, pages, selectedPageID, viewports, canvas, includesThumbnail
+    }
+
+    /// Fields added after schema version 1 decode with defaults, so older files still open.
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        schemaVersion = try container.decode(Int.self, forKey: .schemaVersion)
+        pages = try container.decode([Page].self, forKey: .pages)
+        selectedPageID = try container.decodeIfPresent(Page.ID.self, forKey: .selectedPageID)
+        viewports = try container.decode([ViewportConfig].self, forKey: .viewports)
+        canvas = try container.decode(CanvasState.self, forKey: .canvas)
+        includesThumbnail = try container.decodeIfPresent(Bool.self, forKey: .includesThumbnail) ?? true
     }
 
     /// A new project with the default device set, starting at `url` when given (home screen URL box)

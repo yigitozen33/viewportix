@@ -12,7 +12,6 @@ struct HomeView: View {
     enum Section: String { case recent, drafts }
     enum Layout: String { case grid, list }
 
-    @Environment(\.newDocument) private var newDocument
     @Environment(\.openDocument) private var openDocument
     @Environment(\.dismissWindow) private var dismissWindow
 
@@ -22,6 +21,9 @@ struct HomeView: View {
     @State private var query = ""
     @State private var isDropTargeted = false
     @State private var settings = HomeSettingsPresenter.shared
+    /// HOME-08: the draft just deleted, until its capsule leaves.
+    @State private var deleted: DeletedDraft?
+    @Environment(\.undoManager) private var undoManager
     @AppStorage("homeTemplate") private var template = ProjectTemplate.default
     @AppStorage("homeSection") private var section = Section.recent
     @AppStorage("homeLayout") private var layout = Layout.grid
@@ -51,9 +53,27 @@ struct HomeView: View {
             projects.forEach(openProject)
             return !projects.isEmpty
         } isTargeted: { isDropTargeted = $0 }
+        .overlay(alignment: .bottom) {
+            if let deleted {
+                UndoCapsule(text: "“\(deleted.name)” silindi", undo: { restore(deleted) }) {
+                    withAnimation(Motion.curve(Motion.cardRemove)) { self.deleted = nil }
+                }
+                .id(deleted.id)
+                .padding(.bottom, 36)
+                .padding(.leading, 200)  // centred on the content, right of the sidebar
+                .transition(.opacity)
+            }
+        }
         .ignoresSafeArea()
         .preferredColorScheme(.dark)
         .onAppear { store.reload() }
+        .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in store.reload() }
+    }
+
+    struct DeletedDraft: Identifiable {
+        let id = UUID()
+        let name: String
+        let restore: () -> Void
     }
 
     // MARK: Sidebar
@@ -152,7 +172,7 @@ struct HomeView: View {
             }
             .chromeTooltip("Aç…", shortcut: "⌘O", edge: .bottom)
             ChromeButton(icon: .system("plus"), title: "Yeni") {
-                newDocument(ProjectDocument(project: Project(viewports: template.viewports)))
+                ProjectFiles.newDraft(Project(viewports: template.viewports))
                 dismissWindow(id: Self.windowID)
             }
             .chromeTooltip("Yeni proje", shortcut: "⌘N", edge: .bottom)
@@ -222,7 +242,9 @@ struct HomeView: View {
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 236), spacing: DesignTokens.Space.s4)],
                       spacing: DesignTokens.Space.s4) {
                 ForEach(listed, id: \.url) { summary in
-                    ProjectCard(summary: summary, isDraft: section == .drafts, action: { open(summary) }, menu: { menu(for: summary) })
+                    ProjectCard(summary: summary, isDraft: store.isDraft(summary.url), action: { open(summary) }, menu: { menu(for: summary) })
+                        // HOME-08: a deleted draft's card narrows in 150 ms; the grid closes up.
+                        .transition(.scale(scale: 0.6, anchor: .center).combined(with: .opacity))
                 }
             }
             .transition(.opacity)
@@ -230,7 +252,8 @@ struct HomeView: View {
             VStack(spacing: 2) {
                 ProjectListHeader().padding(.bottom, DesignTokens.Space.s2)
                 ForEach(listed, id: \.url) { summary in
-                    ProjectRow(summary: summary, isDraft: section == .drafts, action: { open(summary) }, menu: { menu(for: summary) })
+                    ProjectRow(summary: summary, isDraft: store.isDraft(summary.url), action: { open(summary) }, menu: { menu(for: summary) })
+                        .transition(.opacity)
                 }
             }
             .transition(.opacity)
@@ -254,7 +277,7 @@ struct HomeView: View {
             isAddressInvalid = true
             return
         }
-        newDocument(ProjectDocument(project: .new(url: url, template: template)))
+        ProjectFiles.newDraft(.new(url: url, template: template))
         dismissWindow(id: Self.windowID)
     }
 
@@ -263,7 +286,7 @@ struct HomeView: View {
         if summary.isMissing {
             locate(summary)
         } else if let problem = summary.problem {
-            FileProblemAlert.show(problem, for: summary.url)
+            FileProblemAlert.show(problem, code: summary.errorCode, for: summary.url)
         } else {
             openProject(summary.url)
         }
@@ -275,9 +298,34 @@ struct HomeView: View {
                 try await openDocument(at: url)
                 dismissWindow(id: Self.windowID)
             } catch {
-                FileProblemAlert.show(ProjectSummary.read(url).problem ?? .unreadable, for: url)
+                let summary = ProjectSummary.read(url)
+                FileProblemAlert.show(summary.problem ?? .unreadable, code: summary.errorCode ?? ErrorCode.reading(error), for: url)
             }
         }
+    }
+
+    /// HOME-08: the card goes at once; "“<ad>” silindi · Geri al ⌘Z" for 5 s; ⌘Z (Düzen › Geri Al) too.
+    private func deleteDraft(_ summary: ProjectSummary) {
+        do {
+            var restore: () -> Void = {}
+            try withAnimation(Motion.curve(Motion.cardRemove)) {
+                restore = try store.deleteDraft(summary.url)
+            }
+            let deleted = DeletedDraft(name: summary.name, restore: restore)
+            undoManager?.registerUndo(withTarget: store) { _ in
+                MainActor.assumeIsolated { self.restore(deleted) }
+            }
+            undoManager?.setActionName("Taslağı Sil")
+            withAnimation(Motion.curve(Motion.cardRemove)) { self.deleted = deleted }
+        } catch {
+            ErrorAlert.show(.draftTrashFailed, title: "“\(summary.name)” silinemedi", error: error)
+        }
+    }
+
+    private func restore(_ draft: DeletedDraft) {
+        guard deleted?.id == draft.id || deleted == nil else { return }
+        withAnimation(.easeInOut(duration: DesignTokens.Motion.canvasPan)) { draft.restore() }
+        withAnimation(Motion.curve(Motion.cardRemove)) { deleted = nil }
     }
 
     /// HOME-12: "Bul…" picks the moved file; its new place replaces the old one in the list.
@@ -295,6 +343,15 @@ struct HomeView: View {
     /// its submenu with a line under each choice, so there is no confirmation dialog.
     private func menu(for summary: ProjectSummary) -> ChromeMenu {
         let url = summary.url
+        if store.isDraft(url) {
+            // Drafts: no submenu; "Taslağı sil" without asking, undone from the capsule or ⌘Z (K8).
+            return ChromeMenu(width: 220, items: [
+                .button("Aç", symbol: "folder", shortcut: "↩") { open(summary) },
+                .button("Yeniden adlandır", symbol: "pencil", shortcut: "⏎", isEnabled: false) {},
+                .separator,
+                .button("Taslağı sil", symbol: "trash", role: .destructive) { deleteDraft(summary) },
+            ])
+        }
         var items: [ChromeMenuItem] = []
         if summary.isMissing {
             items += [.button("Bul…", symbol: "magnifyingglass") { locate(summary) }, .separator]
@@ -408,28 +465,30 @@ private struct NoSearchResults: View {
     }
 }
 
-/// HOME-13: system alert; only the text and buttons are ours (`home-file-errors@2x.png`).
+/// HOME-13: system alert; only the text, buttons and the code line are ours (`home-file-errors@2x.png`,
+/// `dialogs-save-alerts@2x.png` 2. bölüm).
 @MainActor
 enum FileProblemAlert {
-    static func show(_ problem: ProjectSummary.ReadProblem, for url: URL) {
-        let alert = NSAlert()
+    static func show(_ problem: ProjectSummary.ReadProblem, code: ErrorCode?, for url: URL) {
         let file = url.lastPathComponent
         switch problem {
         case .unreadable:
-            alert.messageText = "“\(file)” açılamadı"
-            // No drafts yet, so "Son taslağı aç" is not offered and "Tamam" is the default.
-            alert.informativeText = "Dosya bozuk ya da eksik. Taslaklar açıksa son taslak kurtarılabilir."
-            alert.addButton(withTitle: "Tamam")
-            alert.addButton(withTitle: "Finder'da Göster")
-            if alert.runModal() == .alertSecondButtonReturn {
-                NSWorkspace.shared.activateFileViewerSelecting([url])
+            var buttons: [ErrorAlert.Button] = []
+            // "Son taslağı aç" when the project was saved from a draft that was kept.
+            if let draft = DraftOrigins.draft(for: url) {
+                buttons.append(.init(title: "Son taslağı aç") { ProjectFiles.open(draft) })
             }
+            buttons += [
+                .init(title: "Finder'da Göster") { NSWorkspace.shared.activateFileViewerSelecting([url]) },
+                .init(title: "Vazgeç"),
+            ]
+            ErrorAlert.show(code ?? .readFailed, title: "“\(file)” açılamadı",
+                            message: "Dosya bozuk ya da eksik. Taslaklar açıksa son taslak kurtarılabilir.", buttons: buttons)
         case .newerVersion(let version):
-            alert.messageText = "“\(file)” bu sürümde açılamıyor"
-            alert.informativeText = "Proje Viewportix'in daha yeni bir sürümüyle kaydedilmiş (dosya sürümü \(version)). Güncelleyip tekrar dene."
             // "Güncellemeleri Denetle" waits for the updater (distribution).
-            alert.addButton(withTitle: "Tamam")
-            alert.runModal()
+            ErrorAlert.show(code ?? .newerSchema, title: "“\(file)” bu sürümde açılamıyor",
+                            message: "Proje Viewportix'in daha yeni bir sürümüyle kaydedilmiş (dosya sürümü \(version)). Güncelleyip tekrar dene.",
+                            buttons: [.init(title: "Tamam")])
         }
     }
 }

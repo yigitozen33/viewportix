@@ -193,8 +193,8 @@ private struct GeneralSettings: View {
                             SettingsRow(label: "Senkron açık başlasın") { Toggle("", isOn: $syncOnStart).toggleStyle(ChromeToggleStyle()).accessibilityLabel("Senkron açık başlasın") }
                         }
                         if matches("Taslakları sakla") {
-                            // Drafts are not stored yet; the switch shows the intended default.
-                            SettingsRow(label: "Taslakları sakla") { Toggle("", isOn: $keepDrafts).toggleStyle(ChromeToggleStyle()).disabled(true).accessibilityLabel("Taslakları sakla") }
+                            // Off: a draft goes to the app's trash (30 days) when its window closes.
+                            SettingsRow(label: "Taslakları sakla") { Toggle("", isOn: $keepDrafts).toggleStyle(ChromeToggleStyle()).accessibilityLabel("Taslakları sakla") }
                         }
                         if matches("Arka plandaki viewport'larda medyayı duraklat") {
                             SettingsRow(label: "Arka plandaki viewport'larda medyayı duraklat") {

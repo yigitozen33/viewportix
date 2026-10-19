@@ -9,6 +9,8 @@ struct ViewportixApp: App {
         AppSettings.register()
         // One project per window; window tabs (Show Tab Bar…) have no place here.
         NSWindow.allowsAutomaticWindowTabbing = false
+        // HOME-08: drafts deleted more than 30 days ago go for good.
+        ProjectFiles.drafts.purgeTrash()
         #if DEBUG
         DispatchQueue.main.async { PreviewSnapshots.runIfRequested() }
         #endif
@@ -25,7 +27,7 @@ struct ViewportixApp: App {
         .defaultLaunchBehavior(.presented)
 
         DocumentGroup(newDocument: ProjectDocument()) { file in
-            ProjectWindow(document: file.$document)
+            ProjectWindow(document: file.$document, fileURL: file.fileURL)
         }
         .windowStyle(.hiddenTitleBar)
         .defaultLaunchBehavior(.suppressed)
@@ -56,12 +58,29 @@ struct ViewportixCommands: Commands {
             .keyboardShortcut(",")
         }
 
-        CommandGroup(after: .newItem) {
+        // New projects open as drafts on disk, not as in-memory "Untitled" documents (PLAN.md §3.5).
+        CommandGroup(replacing: .newItem) {
+            Button("Yeni") {
+                let template = UserDefaults.standard.string(forKey: "homeTemplate").flatMap(ProjectTemplate.init(rawValue:)) ?? .default
+                ProjectFiles.newDraft(Project(viewports: template.viewports))
+            }
+            .keyboardShortcut("n")
+            Button("Aç…") { NSDocumentController.shared.openDocument(nil) }
+                .keyboardShortcut("o")
             Button("Giriş Ekranı") { openWindow(id: HomeView.windowID) }
                 .keyboardShortcut("0", modifiers: [.command, .shift])
         }
 
-        CommandGroup(after: .saveItem) {
+        // PW-06: ⌘S on a draft and ⇧⌘S Çoğalt go through our save sheet; no "Kaydedilsin mi?".
+        CommandGroup(replacing: .saveItem) {
+            Button("Kapat") { NSApp.keyWindow?.performClose(nil) }
+                .keyboardShortcut("w")
+            Button("Kaydet") { projectActions?.save() }
+                .keyboardShortcut("s")
+                .disabled(projectActions == nil)
+            Button("Çoğalt") { projectActions?.duplicate() }
+                .keyboardShortcut("s", modifiers: [.command, .shift])
+                .disabled(projectActions == nil)
             Divider()
             Button("Ekran Görüntüsü Al") { capture(.visible) }
                 .keyboardShortcut("s", modifiers: [.command, .option])
