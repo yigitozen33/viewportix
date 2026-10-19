@@ -109,6 +109,7 @@ enum PreviewSnapshots {
             Entry("BottomBar-zoom25", padded(bottomBar(syncOn: true, zoom: 0.25))),
             Entry("BottomBar-tooltip", padded(ChromeTooltip(title: "Sığdır", shortcut: "⌘1"))),
             Entry("toast-states", padded(toastStates)),
+            Entry("action-buttons", padded(actionButtons)),
             Entry("window-home-dark", size: homeSize, defaults: ["homeLayout": "grid"], HomeView(store: RecentProjects(fixed: samples))),
             Entry("window-home-list", size: homeSize, defaults: ["homeLayout": "list"], HomeView(store: RecentProjects(fixed: samples + [missing]))),
             Entry("window-home-empty", size: homeSize, defaults: ["homeLayout": "grid"], HomeView(store: RecentProjects(fixed: []))),
@@ -215,6 +216,40 @@ enum PreviewSnapshots {
         ]
         return VStack(alignment: .leading, spacing: 16) {
             ForEach(notices) { ToastCapsule(notice: $0, dismiss: {}) }
+        }
+    }
+
+    /// `Action/Primary`, `Action/Secondary` in their five states and `AI/Glyph` (motion-spec 1. bölüm).
+    private static var actionButtons: some View {
+        let states: [(String, ActionButtonPreviewState?, Bool)] = [
+            ("normal", nil, true), ("üzerinde", .hovered, true), ("basılı", .pressed, true), ("odak", .focused, true), ("pasif", nil, false),
+        ]
+        func label(_ text: String) -> some View {
+            Text(text).font(.system(size: DesignTokens.FontSize.micro)).foregroundStyle(DesignTokens.Color.inkSecondary)
+        }
+        return VStack(alignment: .leading, spacing: 16) {
+            ForEach(states, id: \.0) { name, state, enabled in
+                HStack(spacing: 6) {
+                    label(name).frame(width: 60, alignment: .leading)
+                    ActionButton("Kabul", kind: .primary, key: "A") {}
+                    ActionButton("Yoksay", key: "I") {}
+                    ActionButton("Takip et", key: "T") {}
+                    ActionButton("Göster", key: "⏎") {}
+                    ActionButton("Kaydet", kind: .primary, key: "⏎", showsKey: false) {}
+                    ActionButton("Diskteki sürümü aç") {}
+                }
+                .environment(\.actionButtonPreviewState, state)
+                .disabled(!enabled)
+            }
+            HStack(spacing: 24) {
+                ForEach([("çalışıyor", AIActivityGlyph.Phase.running), ("onay bekliyor", .paused), ("bitti", .done)], id: \.0) { name, phase in
+                    VStack(spacing: 6) {
+                        AIActivityGlyph(phase: phase).scaleEffect(3).frame(width: 36, height: 36)
+                        AIActivityGlyph(phase: phase)
+                        label(name)
+                    }
+                }
+            }
         }
     }
 

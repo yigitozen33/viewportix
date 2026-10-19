@@ -427,3 +427,18 @@ Kod oturumunun arayüze dokunan her değişikliği, değişikliğin commit'inde 
   - Ayarlar seçicilerinin ve Ayarlar › Cihazlar satır menüsünün çizimi yok; zoom menüsünün (✓ sütunu) ve standart menünün ölçüleri kullanıldı.
   - Giriş ekranı kartındaki ⋯ hâlâ yalnız görüntü (tıklayınca kart açılıyor); menüyü ⋯'dan da açalım mı?
 - Bağlantılı: DESIGN.md §3.1 (HOME-06), §3.2 (BAR-03, BAR-06, CARD-04/05/06), §4 (Liquid Glass yok)
+
+## 2026-10-19 — Eylem düğmeleri, AI glifi, hareket değerleri, bizim sayfa (§15 a)
+- Ne:
+  1. **`ActionButton(.primary / .secondary)`** (`Action/Primary` w0utu, `Action/Secondary` YHwr8 ölçüleri pen'den): 24 pt, `radius/badge`, caption (ana 600, ikincil normal), boşluk 4, iç boşluk 8 / 5 (çipsizde 8 / 8); çip micro normal, 4 pt köşe, 1/3 dolgu, sarıda `accent/ink` %12, grilerde `surface/header` + `ink/secondary`. Üzerinde: ikincil `line/strong`, ana sarı beyaza %6 (sarının parlaklığı zaten %100, "+%6 parlaklık" uygulanamıyor). Basılı (yalnız fare): %97 + ikincil `surface/header` / ana parlaklık −%12 + 1 pt iç gölge, 80 / 120 ms tek eğri; klavyeyle (kısayol, boşluk) basma görünmez. Odak 2 pt `ink/primary`. Pasif `surface/group` + `ink/secondary`.
+  2. **`AIActivityGlyph`** (`AI/Glyph` zwcbc): 12 × 12, çubuklar 2×9 · 3×7 · 5×5, 1 pt aralık, 0,6 köşe, alta hizalı. Çalışırken her çubuk kendi adımında yanar ve 1 → .6 → .4 → .25 söner (Motion Spec 1. bölüm kareleri), 120 ms adım, 720 ms döngü; satırlar arası faz kaydırma parametresi. Onay bekliyor `ink/secondary` %60 durgun; bitti `ink/primary`; Hareketi azalt durgun %60. Mercan nokta glifin değil, yanındaki başlığın parçası olarak bırakıldı.
+  3. **`Motion`** (paket `DesignSystem`): tek eğri `timingCurve(0.23, 1, 0.32, 1)` ve Motion Spec tablosundaki bütün değerler tek yerde; Hareketi azalt için 150 ms solma. Eski `DesignTokens.Motion` süreleri (hover, panel…) yerinde kaldı; token gerekmedi.
+  4. **Bizim sayfa (`chromeSheet`)**: pencerenin üstünden iner (240 ms tek eğri; kalkış 160 ms; Hareketi azalt 150 ms solma), 360 (kaydet 420) genişlik, `surface/card`, `radius/card`, 20 iç boşluk, `line` kenar, gölge 0 12 32 %50, arka plan `canvas` %60. Klavye sayfada kalır (sayfa ayrı bir anahtar alt pencere), kapanınca pencere ve önceki odak geri gelir; VoiceOver rolü sheet. İlk kullanımı PW-06.
+- Kanıt: `docs/parity/action-buttons@2x.png` (beş hal × iki tür + glifin üç hali). Paket testleri 80/80.
+- Nerede: `Viewportix/Chrome/ActionButton.swift`, `AIActivityGlyph.swift`, `ChromeSheet.swift`, `Packages/ViewportixKit/Sources/DesignSystem/Motion.swift`
+- Durum: özel çizim
+- Tasarım kararı gerekir mi: evet —
+  - Pencerelerimizde başlık çubuğu yok; "sayfa pencerenin başlığından iner" için çizimdeki 36 pt başlık alanı kullanıldı: sayfa üstten 36 pt aşağıda başlıyor, üstteki 36 pt karartılmıyor ama tıklanmıyor. Sayfa pencerenin üst kenarından mı insin, karartma tüm pencereyi mi kaplasın?
+  - Ana düğmenin "üzerinde +%6" hali sarıda görünmüyordu; beyaza %6 karıştırıldı. Uygun mu?
+  - İkincil düğme basılıyken çip zemini (`surface/header`) düğme zeminiyle aynı oluyor, çip kayboluyor.
+- Bağlantılı: DESIGN.md §4 (K4 f, K5, K7, K8), §6 (`Action/Primary`, `Action/Secondary`, `AI/Glyph`); `design/KOD-OTURUMU-ISLERI.md` §15 a
