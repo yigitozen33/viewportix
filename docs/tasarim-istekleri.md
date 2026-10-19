@@ -602,3 +602,11 @@ Kod oturumunun arayüze dokunan her değişikliği, değişikliğin commit'inde 
 - Durum: özel çizim
 - Tasarım kararı gerekir mi: evet — 10'daki kapsül önemli bir bilgi ama 5 sn'de kayboluyor (bilgi kapsülü kuralı); hata gibi kapatılana kadar kalsın mı?
 - Bağlantılı: DESIGN.md §3.1, §3.2 (PW-05, PW-06, PW-07), §3.3, §3.4
+
+## 2026-10-19 — Kanvas: kararlar 1–27 işlendi (kod oturumu, kullanıcının isteğiyle)
+- `Home Window · Liste` ve `Dialogs · Kaydet ve uyarılar`: "Untitled 3" → "Adsız 3" (pencere başlıkları, "“Adsız 3” silindi"). `Test ·` panolarına dokunulmadı.
+- `Dev Panel · Senkron (sakin)` ve üç `· AI` panosu: "2 yeni olay ↓" → "↑".
+- `Toast States`: "Geri al (U3, 2026-10-19)" satırı, yeni kapsülle ("iPad kapatıldı · Geri al ⌘Z · 5 sn").
+- Yeni pano `Kod kararları · 2026-10-19 (10 · 13 · 16)` (e8ztJS, 00b bileşenlerinin sağında): kapatınca saklanan sürüm kapsülü, "2 cihaz eklendi", odaklı kart başlığı + "Sayfaya gir ⏎" ipucu.
+- "Teşhis et" Senkron panolarında bırakıldı (M7 hedefi); kodda M7'ye kadar gizli.
+- Dışa aktarımlar yenilendi: `dialogs-save-alerts`, `toast-states`, `devpanel-synclog-calm`, `devpanel-synclog-ai-thinking/-waiting/-result`, `window-home-list`; yeni `code-decisions-2026-10-19@2x.png`. `exports-map.json` ve CHK güncellenmedi (tasarım oturumu).

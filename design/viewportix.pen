@@ -140688,13 +140688,14 @@
                         },
                         {
                           "type": "rectangle",
+                          "cornerRadius": "$radius/window",
                           "id": "AD2Up",
                           "x": 0,
-                          "y": 36,
+                          "y": 0,
                           "name": "Dim",
                           "fill": "#16141299",
                           "width": 600,
-                          "height": 434
+                          "height": 470
                         },
                         {
                           "type": "frame",
@@ -141140,13 +141141,14 @@
                         },
                         {
                           "type": "rectangle",
+                          "cornerRadius": "$radius/window",
                           "id": "fp5cN",
                           "x": 0,
-                          "y": 36,
+                          "y": 0,
                           "name": "Dim",
                           "fill": "#16141299",
                           "width": 600,
-                          "height": 434
+                          "height": 470
                         },
                         {
                           "type": "frame",
@@ -141839,13 +141841,14 @@
                         },
                         {
                           "type": "rectangle",
+                          "cornerRadius": "$radius/window",
                           "id": "n207A6",
                           "x": 0,
-                          "y": 36,
+                          "y": 0,
                           "name": "Dim",
                           "fill": "#16141299",
                           "width": 600,
-                          "height": 434
+                          "height": 470
                         },
                         {
                           "type": "frame",
@@ -142934,13 +142937,14 @@
                         },
                         {
                           "type": "rectangle",
+                          "cornerRadius": "$radius/window",
                           "id": "M7aiyr",
                           "x": 0,
-                          "y": 36,
+                          "y": 0,
                           "name": "Dim",
                           "fill": "#16141299",
                           "width": 480,
-                          "height": 304
+                          "height": 340
                         },
                         {
                           "type": "frame",
@@ -143396,13 +143400,14 @@
                         },
                         {
                           "type": "rectangle",
+                          "cornerRadius": "$radius/window",
                           "id": "l1v8w",
                           "x": 0,
-                          "y": 36,
+                          "y": 0,
                           "name": "Dim",
                           "fill": "#16141299",
                           "width": 480,
-                          "height": 304
+                          "height": 340
                         },
                         {
                           "type": "frame",
@@ -144353,7 +144358,7 @@
               "fill": "$ink/secondary",
               "textGrowth": "fixed-width",
               "width": 1500,
-              "content": "2. Bizim sayfa: pencerenin başlığından aşağı iner; kaydet 420, diğerleri 360 genişlik; surface/card, radius/card, 20 iç boşluk, 10 aralık (kaydette alanlar arası 14), line çizgi, gölge 0 12 32 %50. Arka plan canvas %60 karartma. Alan: 28 yükseklik, canvas zemin, odakta 2 px ink/primary; hata mercan kenar + altında mercan açıklama.",
+              "content": "2. Bizim sayfa: pencerenin başlığından aşağı iner (36 pt); kaydet 420, diğerleri 360 genişlik; surface/card, radius/card, 20 iç boşluk, 10 aralık (kaydette alanlar arası 14), line çizgi, gölge 0 12 32 %50. Arka plan: bütün pencere, başlık alanı dahil, canvas %60 karartılır (2026-10-19; karartılmayan 36 pt bant cihaz şeridini ikiye bölüyordu). Alan: 28 yükseklik, canvas zemin, odakta 2 px ink/primary; hata mercan kenar + altında mercan açıklama.",
               "lineHeight": 1.5,
               "fontFamily": "$font/ui",
               "fontSize": "$font/caption",
@@ -144438,6 +144443,123 @@
               "fontWeight": "normal"
             }
           ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "G7h17",
+      "x": 6472,
+      "y": -640,
+      "name": "Action/Secondary · Haller (2026-10-19)",
+      "fill": "$canvas",
+      "cornerRadius": "$radius/card",
+      "layout": "vertical",
+      "gap": 10,
+      "padding": 16,
+      "children": [
+        {
+          "type": "text",
+          "id": "GGR8Y",
+          "name": "Title",
+          "fill": "$ink/secondary",
+          "content": "İKİNCİL DÜĞME · BASILIYKEN KISAYOL ÇİPİ",
+          "fontFamily": "$font/ui",
+          "fontSize": "$font/micro",
+          "fontWeight": "600",
+          "letterSpacing": 1
+        },
+        {
+          "type": "frame",
+          "id": "HHNz5",
+          "name": "Row",
+          "gap": 16,
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "JMQeJ",
+              "name": "State Normal",
+              "layout": "vertical",
+              "gap": 6,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "ld5w6",
+                  "name": "Label",
+                  "fill": "$ink/secondary",
+                  "content": "Normal",
+                  "fontFamily": "$font/ui",
+                  "fontSize": "$font/micro",
+                  "fontWeight": "normal"
+                },
+                {
+                  "id": "g5vLh",
+                  "type": "ref",
+                  "ref": "YHwr8",
+                  "name": "Action Kapat normal",
+                  "descendants": {
+                    "liDTq": {
+                      "content": "Kapat"
+                    },
+                    "Ko0wA": {
+                      "content": "esc"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "miIOP",
+              "name": "State Basılı (fare)",
+              "layout": "vertical",
+              "gap": 6,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "HjeSe",
+                  "name": "Label",
+                  "fill": "$ink/secondary",
+                  "content": "Basılı (fare)",
+                  "fontFamily": "$font/ui",
+                  "fontSize": "$font/micro",
+                  "fontWeight": "normal"
+                },
+                {
+                  "id": "j1DZc",
+                  "type": "ref",
+                  "ref": "YHwr8",
+                  "name": "Action Kapat basılı",
+                  "fill": "$surface/header",
+                  "descendants": {
+                    "liDTq": {
+                      "content": "Kapat"
+                    },
+                    "P27cij": {
+                      "fill": "$surface/pill"
+                    },
+                    "Ko0wA": {
+                      "content": "esc"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "DHX7P",
+          "name": "Note",
+          "fill": "$ink/secondary",
+          "textGrowth": "fixed-width",
+          "width": 488,
+          "content": "Basılıyken düğme surface/header'a koyulaşır (%97, 1 px iç gölge); çipin zemini o zaman surface/pill olur, yoksa çip zemine karışıp kaybolur. Sarı düğmede çip değişmez (accent/ink %12). Karar 2026-10-19.",
+          "lineHeight": 1.5,
+          "fontFamily": "$font/ui",
+          "fontSize": "$font/caption",
+          "fontWeight": "normal"
         }
       ]
     }
