@@ -22,7 +22,8 @@ enum ChromeSheet {
     static let width: CGFloat = 360
     /// Inner padding; content spaces its rows itself (10, or 14 in the save sheet).
     static let padding: CGFloat = 20
-    /// Where the sheet hangs: under the 36 pt title area drawn in the design frames.
+    /// Where the sheet hangs: under the 36 pt title area drawn in the design frames. The darkening
+    /// covers the whole window, that band included.
     static let top: CGFloat = 36
 }
 
@@ -196,22 +197,22 @@ private struct ChromeSheetContainer: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
-        VStack(spacing: 0) {
-            // The title area stays undimmed but takes clicks, as under a system sheet.
-            Color.clear
-                .frame(height: ChromeSheet.top)
+        // The whole window darkens (2026-10-19 decision: an undimmed 36 pt band cut the device strip
+        // in two); the sheet still hangs 36 pt down, where the design's title bar ends.
+        ZStack(alignment: .top) {
+            DesignTokens.Color.canvas.opacity(0.6)
+                .opacity(model.isShown ? 1 : 0)
                 .contentShape(.rect)
             ZStack(alignment: .top) {
-                DesignTokens.Color.canvas.opacity(0.6)
-                    .opacity(model.isShown ? 1 : 0)
-                    .contentShape(.rect)
                 if model.isShown {
                     ChromeSheetSurface(width: width) { content }
                         .padding(.bottom, 44)  // room for the shadow while it slides
                         .transition(reduceMotion ? .opacity : .move(edge: .top))
                 }
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .clipped()
+            .padding(.top, ChromeSheet.top)
         }
         .ignoresSafeArea()
         .preferredColorScheme(.dark)

@@ -30,12 +30,7 @@ struct ActionButton: View {
                     .font(.system(size: DesignTokens.FontSize.caption, weight: kind == .primary ? .semibold : .regular))
                     .lineLimit(1)
                 if let key, showsKey {
-                    Text(key)
-                        .font(.system(size: DesignTokens.FontSize.micro))
-                        .padding(EdgeInsets(top: 1, leading: 3, bottom: 1, trailing: 3))
-                        .background(chipFill, in: .rect(cornerRadius: 4))
-                        .foregroundStyle(kind == .primary ? DesignTokens.Color.accentInk : DesignTokens.Color.inkSecondary)
-                        .accessibilityHidden(true)
+                    KeyChip(key: key, kind: kind)
                 }
             }
         }
@@ -43,8 +38,30 @@ struct ActionButton: View {
         .accessibilityLabel(title)
     }
 
-    private var chipFill: Color {
-        kind == .primary ? DesignTokens.Color.accentInk.opacity(0.12) : DesignTokens.Color.surfaceHeader
+}
+
+/// The key chip: micro, 4 pt corners, 1/3 padding; on yellow `accent/ink` 12 %, on grey
+/// `surface/header` — and `surface/pill` while a grey button is pressed, whose own fill is then
+/// `surface/header` (2026-10-19 decision; the chip disappeared).
+private struct KeyChip: View {
+    let key: String
+    let kind: ActionButton.Kind
+    @Environment(\.actionButtonIsPressed) private var isPressed
+
+    var body: some View {
+        Text(key)
+            .font(.system(size: DesignTokens.FontSize.micro))
+            .padding(EdgeInsets(top: 1, leading: 3, bottom: 1, trailing: 3))
+            .background(fill, in: .rect(cornerRadius: 4))
+            .foregroundStyle(kind == .primary ? DesignTokens.Color.accentInk : DesignTokens.Color.inkSecondary)
+            .accessibilityHidden(true)
+    }
+
+    private var fill: Color {
+        switch kind {
+        case .primary: DesignTokens.Color.accentInk.opacity(0.12)
+        case .secondary: isPressed ? DesignTokens.Color.surfacePill : DesignTokens.Color.surfaceHeader
+        }
     }
 }
 
@@ -77,6 +94,7 @@ struct ActionButtonStyle: ButtonStyle {
 
         var body: some View {
             configuration.label
+                .environment(\.actionButtonIsPressed, isPressed)
                 .foregroundStyle(ink)
                 .padding(EdgeInsets(top: 0, leading: 8, bottom: 0, trailing: hasKey ? 5 : 8))
                 .frame(height: 24)
@@ -132,6 +150,8 @@ enum ActionButtonPreviewState { case hovered, pressed, focused }
 
 extension EnvironmentValues {
     @Entry var actionButtonPreviewState: ActionButtonPreviewState?
+    /// Set by the style for the label, so the key chip can follow the press.
+    @Entry var actionButtonIsPressed = false
 }
 
 extension Color {

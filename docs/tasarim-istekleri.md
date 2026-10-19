@@ -573,3 +573,15 @@ Kod oturumunun arayüze dokunan her değişikliği, değişikliğin commit'inde 
 - Durum: özel çizim / sistem uyarısı
 - Tasarım kararı gerekir mi: hayır
 - Bağlantılı: DESIGN.md §3.1 (HOME-13), §3.2 (PW-06, PW-09), §3.4 (DEV-07)
+
+## 2026-10-19 — Karar 1 ve 3 uygulandı (kullanıcı: "önerilenleri yap ve canvası da güncelle")
+- Ne:
+  1. **Bizim sayfa:** artık bütün pencere (üstteki 36 pt bant dahil) `canvas` %60 karartılıyor; sayfa yine 36 pt'den iniyor. Önce bant karartılmıyordu ve cihaz şeridini ikiye bölüyordu (karşılaştırma panosu, scratchpad `karar-1-3@2x.png`).
+  2. **Sarı düğmenin üzerinde hali:** değişiklik yok (beyaza %6).
+  3. **İkincil düğme basılıyken:** kısayol çipinin zemini `surface/pill` (düğme `surface/header`'a koyulaşınca çip kaybolmuyor). Sarı düğmede çip değişmedi.
+- Kanvas (kullanıcının isteğiyle bu kez kod oturumu `design/`'a yazdı): `Dialogs · Kaydet ve uyarılar` panosunda kaydet sayfası (3 hal) ve bizim sayfa (2 hal) sahte pencerelerinde `Dim` katmanı başlık alanını da kaplıyor; 5. bölümdeki 2. kural metni güncellendi. 00b bileşenlerin yanına `Action/Secondary · Haller (2026-10-19)` (G7h17): Normal / Basılı (fare) örneği + not. Dışa aktarımlar: `design/exports/dialogs-save-alerts@2x.png` (yenilendi), `design/exports/action-secondary-states@2x.png` (yeni). `exports-map.json` ve CHK güncellenmedi; tasarım oturumu bakmalı.
+- Kanıt: canlı `docs/parity/live-sheet-full-dim@2x.png` (şerit bütünüyle karartılmış); `docs/parity/action-buttons@2x.png` (basılı satırda çipler görünür).
+- Nerede: `Viewportix/Chrome/ChromeSheet.swift`, `Viewportix/Chrome/ActionButton.swift` (`KeyChip`)
+- Durum: özel çizim
+- Tasarım kararı gerekir mi: hayır (verildi 2026-10-19)
+- Bağlantılı: DESIGN.md §4 K7/K8 (bizim sayfa), K4 f (eylem düğmeleri), §6 `Action/Secondary`
