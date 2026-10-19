@@ -9,6 +9,8 @@ import SwiftUI
 /// three independently scrolling columns, custom size, "Cihazları yönet…". STRIP-07…11.
 struct DevicePicker: View {
     let viewports: [ViewportConfig]
+    /// The engine new viewports get; remembered per project window, WebKit in a new one (user, 2026-10-19).
+    @Binding var engine: EngineKind
     let add: (DevicePreset, EngineKind) -> Void
     let addCustom: (ViewportSize, EngineKind) -> Void
     let reveal: (ViewportID) -> Void
@@ -18,8 +20,6 @@ struct DevicePicker: View {
     @State private var customWidth = 1024
     @State private var customHeight = 768
     @AppStorage("recentDevicePresets") private var recentStorage = ""
-    /// The engine new viewports get; remembered between pickers.
-    @AppStorage("devicePickerEngine") private var engine = EngineKind.webKit
     @FocusState private var isSearchFocused: Bool
 
     private var library: DeviceLibrary { DeviceLibraryStore.shared.library }

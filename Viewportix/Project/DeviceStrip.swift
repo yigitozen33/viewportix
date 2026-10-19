@@ -89,6 +89,7 @@ struct DeviceStrip: View {
             if workspace.isDevicePickerOpen {
                 DevicePicker(
                     viewports: workspace.viewports,
+                    engine: Binding { workspace.pickerEngine } set: { workspace.pickerEngine = $0 },
                     add: add,
                     addCustom: addCustom,
                     reveal: { workspace.reveal($0) },
@@ -458,11 +459,15 @@ extension ViewportConfig {
 }
 
 extension ViewportConfig {
-    /// Tabs don't show engines, except when the same device is open in two: "iPad · Chromium"
-    /// (DESIGN.md §3.2 Viewport kartı). The WebKit one keeps the plain name.
+    /// Names don't show engines, except when the same size is open in another engine: then both
+    /// say theirs, "Masaüstü · WebKit" / "Masaüstü · Chromium" (user, 2026-10-19; DESIGN.md §3.2
+    /// had only the non-WebKit one).
+    func hasEngineTwin(among viewports: [ViewportConfig]) -> Bool {
+        viewports.contains { $0.id != id && $0.size == size && $0.engine != engine }
+    }
+
     func tabName(among viewports: [ViewportConfig]) -> String {
-        let twin = viewports.contains { $0.id != id && $0.name == name && $0.engine != engine }
-        return twin && engine != .webKit ? "\(name) · \(engine.displayName)" : name
+        hasEngineTwin(among: viewports) ? "\(name) · \(engine.displayName)" : name
     }
 }
 

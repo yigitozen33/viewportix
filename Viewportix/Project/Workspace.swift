@@ -35,6 +35,8 @@ final class Workspace {
     @ObservationIgnored private var allFailedNoticeID: UUID?
     /// Device picker popover under "+ Cihaz" (STRIP-07, ⌥⌘N).
     var isDevicePickerOpen = false
+    /// The device picker's engine for this window.
+    var pickerEngine = EngineKind.webKit
     /// The settings panel over the canvas and its tab; nil when closed (RAIL-01, ⌘,).
     var settingsTab: SettingsTab?
     /// The developer panel docked left of the rail (DESIGN.md §3.4); it pushes the canvas.

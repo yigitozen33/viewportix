@@ -83,6 +83,7 @@ struct CardChromeLayer: View {
                         config: config,
                         pageSize: frame.size,
                         engineVersion: workspace.session(for: config.id)?.engineVersion ?? "WebKit",
+                        showsEngineName: config.hasEngineTwin(among: workspace.viewports),
                         state: state(of: config),
                         hover: { workspace.cardHovered(config.id, $0) },
                         select: { workspace.selectedViewportID = config.id },
@@ -300,6 +301,8 @@ struct ViewportCardChrome: View {
     let config: ViewportConfig
     let pageSize: CGSize
     let engineVersion: String
+    /// The same size is open in another engine: the header names the engine after the device.
+    var showsEngineName = false
     let state: CardState
     let hover: (Bool) -> Void
     let select: () -> Void
@@ -371,7 +374,7 @@ struct ViewportCardChrome: View {
         // VoiceOver: one group per card, named after it, so its buttons ("Ekran görüntüsü al"…)
         // are heard in the card's context.
         .accessibilityElement(children: .contain)
-        .accessibilityLabel(Text(verbatim: "\(config.name), \(config.size.width) × \(config.size.height)"))
+        .accessibilityLabel(Text(verbatim: "\(config.name)\(showsEngineName ? ", \(config.engine.displayName)" : ""), \(config.size.width) × \(config.size.height)"))
         .accessibilityAddTraits(state.isSelected ? .isSelected : [])
         .outside(.top, alignment: .trailing, gap: DesignTokens.Space.s2) {
             if (state.isHovered || isStripHovered) && editor == nil && !state.isDragging {
@@ -406,7 +409,11 @@ struct ViewportCardChrome: View {
     private var header: some View {
         ViewThatFits(in: .horizontal) {
             headerRow(showsSize: true, showsEngine: true, showsCamera: true)
-            headerRow(showsSize: false, showsEngine: true, showsCamera: true, minimumName: 56)
+            // The engine's name (same size in two engines) goes after the size, before the name shrinks.
+            if showsEngineName {
+                headerRow(showsSize: false, showsEngine: true, showsCamera: true, showsEngineName: true)
+            }
+            headerRow(showsSize: false, showsEngine: true, showsCamera: true, showsEngineName: false, minimumName: 56)
             headerRow(showsSize: false, showsEngine: false, showsCamera: true, minimumName: 40)
             headerRow(showsSize: false, showsEngine: false, showsCamera: false)
         }
@@ -460,12 +467,13 @@ struct ViewportCardChrome: View {
         .accessibilityAction(named: "Sayfaya gir", enterPage)
     }
 
-    private func headerRow(showsSize: Bool, showsEngine: Bool, showsCamera: Bool, minimumName: CGFloat = 0) -> some View {
+    private func headerRow(showsSize: Bool, showsEngine: Bool, showsCamera: Bool, showsEngineName: Bool? = nil,
+                           minimumName: CGFloat = 0) -> some View {
         let padding = showsCamera ? DesignTokens.Space.s3 : DesignTokens.Space.s2
         return HStack(spacing: DesignTokens.Space.s2) {
             // ViewThatFits measures ideal widths: a row fits when at least `minimumName` of the name
             // shows next to its icons (0: the whole name).
-            title(showsSize: showsSize)
+            title(showsSize: showsSize, showsEngineName: showsEngineName ?? (showsSize && self.showsEngineName))
                 .frame(idealWidth: minimumName > 0 ? minimumName : nil, maxWidth: .infinity, alignment: .leading)
             if showsEngine {
                 ChromeSymbol(asset: config.engine.glyph, box: DesignTokens.Size.iconSm)
@@ -479,13 +487,20 @@ struct ViewportCardChrome: View {
         .padding(.horizontal, padding)
     }
 
-    private func title(showsSize: Bool) -> some View {
+    private func title(showsSize: Bool, showsEngineName: Bool) -> some View {
         HStack(spacing: 6) {
             Text(config.name)
                 .font(.system(size: DesignTokens.FontSize.label, weight: .semibold))
                 .foregroundStyle(DesignTokens.Color.inkPrimary)
                 .lineLimit(1)
                 .truncationMode(.middle)
+            if showsEngineName {
+                Text(config.engine.displayName)
+                    .font(.system(size: DesignTokens.FontSize.label))
+                    .foregroundStyle(DesignTokens.Color.inkSecondary)
+                    .lineLimit(1)
+                    .fixedSize()
+            }
             if showsSize {
                 Text(verbatim: "\(config.size.width)×\(config.size.height)")
                     .font(.system(size: DesignTokens.FontSize.caption).monospacedDigit())

@@ -647,3 +647,12 @@ Kod oturumunun arayüze dokunan her değişikliği, değişikliğin commit'inde 
   5. Sekme adına motor yalnız WebKit olmayana mı eklensin, ikisine mi ("Masaüstü · WebKit")?
   6. Cihaz seçicide motor seçiminin hatırlanması (bir sonraki açılışta Chromium seçili kalır) beklenen mi?
 - Bağlantılı: DESIGN.md §3.2 (Viewport kartı, cihaz seçici, CARD-03/05), §3.3, §3.1 (şablonlar), §3.4
+
+## 2026-10-19 — M4 kararları (kullanıcı): motor adı aynı boyutta, motor seçimi pencereye özel
+- Ne:
+  - **Motor adı kartta ve sekmede (kullanıcı: "farklı motorlar varsa canvasta aynı size cihazlarda motor adı da yazsın"):** aynı boyut başka bir motorda da açıksa **ikisi de** motorunu söyler. Kart başlığı: ad · motor adı (`ink/secondary`, label 13) · boyut, ör. "Masaüstü WebKit 1440×900" / "Masaüstü Chromium 1440×900". Sekme, Farklar menüsü, Senkron JSON: "Masaüstü · WebKit" / "Masaüstü · Chromium". Önceki kural (yalnız WebKit olmayana, aynı ada göre) superseded. Dar kartta gizlenme sırası: boyut → motor adı → ad kısalır (motor glifi kalır).
+  - **Cihaz seçicide motor pencereye özel (kullanıcı: "canvasa özel olmalı"):** her proje penceresi WebKit'le başlar, o pencerede son seçilen motoru hatırlar; uygulama genelinde hatırlanmıyor. Dosyaya yazılmıyor (proje yeniden açılınca WebKit).
+- Kanıt (canlı): `docs/parity/m4-card-engine-names@2x.png` (geniş kartlarda "Masaüstü WebKit" / "Masaüstü Chromium", dar iPhone kartlarında "iP…16" + glif; sekmeler "iPhone 16 · Web…"); yeniden açılan pencerede seçici WebKit'te (önceki genel tercih Chromium'du).
+- Nerede: `Viewportix/Project/DeviceStrip.swift` (`hasEngineTwin`, `tabName`), `Viewportix/Canvas/CardChrome.swift` (`showsEngineName`, yeni başlık satırı), `Viewportix/Project/DevicePicker.swift`, `Workspace.swift` (`pickerEngine`)
+- Durum: özel çizim
+- Tasarım kararı gerekir mi: evet — kart başlığında motor adının biçimi (ayrı gri kelime mi, "·" ile mi) ve kanvastaki `Viewport/Card` örneği; motor seçiminin projeye yazılması (Ayarlar › Bu proje › Motor ile birleşmesi) kullanıcıya soruldu.
