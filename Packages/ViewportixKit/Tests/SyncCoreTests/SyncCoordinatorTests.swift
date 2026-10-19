@@ -28,6 +28,7 @@ final class FakeSession: EngineSession {
     private(set) var mediaSuspended = false
     func setMediaPlaybackSuspended(_ suspended: Bool) { mediaSuspended = suspended }
     func trustCertificates(forHost host: String) {}
+    func setDeveloperLogging(_ enabled: Bool) {}
 
     /// What `apply` answers; `.missed` makes this viewport miss every event.
     var result = ApplyResult.applied("fake")

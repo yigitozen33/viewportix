@@ -44,6 +44,27 @@ final class Workspace {
     var isSyncLogLive = true {
         didSet { coordinator.isLogging = isSyncLogLive }
     }
+    /// Senkron › Geliştirici: console and network lines too (§3.4); remembered.
+    var isDeveloperScope = UserDefaults.standard.bool(forKey: Workspace.developerScopeKey) {
+        didSet {
+            UserDefaults.standard.set(isDeveloperScope, forKey: Self.developerScopeKey)
+            for session in sessions.values { session.setDeveloperLogging(isDeveloperScope) }
+            awaitsDeveloperReload = isDeveloperScope
+        }
+    }
+    /// The developer script goes in on the next load: the panel offers "Yenile" until then.
+    var awaitsDeveloperReload = false
+    private(set) var developerLog: [DeveloperEntry] = []
+    nonisolated static let developerScopeKey = "syncLogDeveloperScope"
+
+    /// A console or network line; the same line from several viewports within 3 s is one row.
+    struct DeveloperEntry: Identifiable, Hashable {
+        let id = UUID()
+        var time: Date
+        let message: DeveloperMessage
+        var viewports: [ViewportID]
+    }
+
     /// Times in the log count from here (mm:ss).
     @ObservationIgnored let logStart = Date.now
     /// Farklar: measurements, the compared pair, the element shown on the canvas.
@@ -222,11 +243,34 @@ final class Workspace {
 
     func clearSyncLog() {
         coordinator.clearLog()
+        developerLog = []
+    }
+
+    private func recordDeveloper(_ message: DeveloperMessage, from id: ViewportID) {
+        guard isDeveloperScope, isSyncLogLive else { return }
+        let now = Date.now
+        if let index = developerLog.prefix(20).firstIndex(where: { $0.message == message && now.timeIntervalSince($0.time) < 3 }) {
+            if !developerLog[index].viewports.contains(id) { developerLog[index].viewports.append(id) }
+            return
+        }
+        developerLog.insert(DeveloperEntry(time: now, message: message, viewports: [id]), at: 0)
+        if developerLog.count > 500 { developerLog.removeLast(developerLog.count - 500) }
     }
 
     /// "Dışa aktar (JSON)".
     func exportSyncLog() throws -> Data {
-        try coordinator.log.exportJSON(names: Dictionary(uniqueKeysWithValues: viewports.map { ($0.id, $0.name) }))
+        let names = Dictionary(uniqueKeysWithValues: viewports.map { ($0.id, $0.name) })
+        let sync = try coordinator.log.exportJSON(names: names)
+        guard isDeveloperScope, var rows = try JSONSerialization.jsonObject(with: sync) as? [[String: Any]] else { return sync }
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        rows += developerLog.reversed().map { entry in
+            ["time": formatter.string(from: entry.time), "event": entry.message.kind == .console ? "konsol" : "ağ",
+             "level": entry.message.level.rawValue, "detail": entry.message.text, "url": entry.message.url ?? "",
+             "viewports": entry.viewports.map { names[$0] ?? "" }]
+        }
+        rows.sort { ($0["time"] as? String ?? "") < ($1["time"] as? String ?? "") }
+        return try JSONSerialization.data(withJSONObject: rows, options: [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes])
     }
 
     func viewportName(_ id: ViewportID) -> String {
@@ -293,6 +337,7 @@ final class Workspace {
                 continue
             }
             let session = EngineFactory.makeSession(for: config)
+            session.setDeveloperLogging(isDeveloperScope)
             sessions[config.id] = session
             coordinator.add(session)
             if let currentURL { session.load(currentURL) }
@@ -344,10 +389,13 @@ final class Workspace {
         case .titleChanged(let title):
             if speaksForWindow { currentTitle = title }
         case .loadingChanged(let loading):
+            if loading { awaitsDeveloperReload = false }
             if loading { loadingIDs.insert(id) } else { loadingIDs.remove(id) }
             isLoading = !loadingIDs.isEmpty
         case .loadFailure(let failure):
             setLoadFailure(failure, for: id)
+        case .developer(let message):
+            recordDeveloper(message, from: id)
         case .syncAvailable(let available):
             if available {
                 syncBlockedIDs.remove(id)

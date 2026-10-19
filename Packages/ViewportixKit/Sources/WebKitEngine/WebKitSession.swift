@@ -41,14 +41,10 @@ public final class WebKitSession: NSObject, EngineSession {
         }
         webView.navigationDelegate = self
         let controller = configuration.userContentController
-        controller.addUserScript(WKUserScript(
-            source: SyncAgent.source,
-            injectionTime: .atDocumentEnd,
-            forMainFrameOnly: true,
-            in: Self.world
-        ))
+        installScripts()
         // The proxy breaks the content controller → session retain cycle.
         controller.add(MessageProxy(session: self), contentWorld: Self.world, name: SyncAgent.messageName)
+        controller.add(DeveloperProxy(session: self), contentWorld: .page, name: DeveloperLog.messageName)
         observe()
     }
 
@@ -84,6 +80,29 @@ public final class WebKitSession: NSObject, EngineSession {
         case .hover(let target):
             return await callAgent("applyHover(value)", value: target)
         }
+    }
+
+    /// The sync agent always; the developer script while Senkron's developer scope is on.
+    private func installScripts() {
+        let controller = webView.configuration.userContentController
+        controller.removeAllUserScripts()
+        controller.addUserScript(WKUserScript(source: SyncAgent.source, injectionTime: .atDocumentEnd, forMainFrameOnly: true, in: Self.world))
+        if logsDeveloperMessages {
+            controller.addUserScript(WKUserScript(source: DeveloperLog.source, injectionTime: .atDocumentStart, forMainFrameOnly: true, in: .page))
+        }
+    }
+
+    private var logsDeveloperMessages = false
+
+    public func setDeveloperLogging(_ enabled: Bool) {
+        guard enabled != logsDeveloperMessages else { return }
+        logsDeveloperMessages = enabled
+        installScripts()
+    }
+
+    func receiveDeveloperMessage(_ body: Any) {
+        guard logsDeveloperMessages, let message = DeveloperLog.message(from: body) else { return }
+        eventHandler?(.developer(message))
     }
 
     public func setMediaPlaybackSuspended(_ suspended: Bool) {
@@ -258,6 +277,16 @@ extension WebKitSession: WKNavigationDelegate {
         }
     }
 
+    /// The page itself answered with an error status (a 404 page still loads): developer scope.
+    public func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse) async -> WKNavigationResponsePolicy {
+        if logsDeveloperMessages, navigationResponse.isForMainFrame, let response = navigationResponse.response as? HTTPURLResponse,
+           response.statusCode >= 400 {
+            eventHandler?(.developer(DeveloperMessage(kind: .network, level: response.statusCode >= 500 ? .error : .warning,
+                                                      text: "\(response.statusCode)", url: response.url?.absoluteString)))
+        }
+        return .allow
+    }
+
     public func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: any Error) {
         report(error)
     }
@@ -299,6 +328,18 @@ private final class MessageProxy: NSObject, WKScriptMessageHandler {
 
     func userContentController(_ controller: WKUserContentController, didReceive message: WKScriptMessage) {
         session?.receive(message.body)
+    }
+}
+
+private final class DeveloperProxy: NSObject, WKScriptMessageHandler {
+    weak var session: WebKitSession?
+
+    init(session: WebKitSession) {
+        self.session = session
+    }
+
+    func userContentController(_ controller: WKUserContentController, didReceive message: WKScriptMessage) {
+        session?.receiveDeveloperMessage(message.body)
     }
 }
 

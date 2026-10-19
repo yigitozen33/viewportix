@@ -539,3 +539,11 @@ Kod oturumunun arayüze dokunan her değişikliği, değişikliğin commit'inde 
 - Durum: özel çizim
 - Tasarım kararı gerekir mi: evet — konum tahmini oransal (düzen farklıysa yanlış yere düşebilir); kutunun en küçük boyutu 24 × 16 CSS px. Kabul edilebilir mi?
 - Bağlantılı: DESIGN.md §3.4 Senkron
+
+## 2026-10-19 — Senkron: Tasarımcı / Geliştirici kapsamı
+- Ne: Alt satırdaki "Tasarımcı" artık menü: Tasarımcı ("Senkron olayları") / Geliştirici ("Ayrıca konsol ve ağ"); seçim hatırlanır. Geliştirici kapsamında listeye "konsol" (console.error / warn, yakalanmamış hatalar) ve "ağ" (≥ 400 yanıtlar, ağ hatası, yüklenemeyen kaynak, ana belgenin hata durumu) satırları girer; aynı satır 3 sn içinde birden çok viewport'tan gelirse tek satır, sağda kaç viewport'ta görüldüğü ("8 / 8"), hata düzeyinde sayı mercan. Açılınca metin, adres ve viewport adları (seçilebilir) + Göster ⏎. Konsol ve ağı yakalayan betik sayfanın kendi dünyasında çalıştığı (console, fetch, XMLHttpRequest sarılır) için yalnız Geliştirici kapsamında ve bir sonraki yüklemeden itibaren takılır; bu yüzden kapsam açılınca listede "Konsol ve ağ, sayfalar yeniden yüklenince görünür · Yenile ⌘R" satırı çıkar. Yalnız kaçıranlar süzgecinde konsol/ağ hataları da kalır. Dışa aktar (JSON) geliştirici satırlarını da içerir.
+- Kanıt (canlı): dev.html (console.warn, console.error, fetch 404), 8 viewport → Geliştirici seç → Yenile → "ağ 404 sepet.json 8 / 8", "konsol Sepet yüklenemedi {"kod":42} 8 / 8" (mercan), "konsol Eski API kullanılıyor 8 / 8" (`docs/parity/live-synclog-developer@2x.png`, `live-synclog-developer-reload@2x.png`). Test `reportsConsoleAndNetworkTroubleInDeveloperScope` (kapalıyken mesaj yok).
+- Nerede: paket `EngineCore` (`DeveloperMessage`, `EngineEvent.developer`, `setDeveloperLogging`), `WebKitEngine/DeveloperLog.swift`, `WebKitSession.swift`; `Viewportix/Project/Workspace.swift` (`developerLog`, `isDeveloperScope`), `SyncLogPanel.swift` (`DeveloperLogRow`)
+- Durum: özel çizim
+- Tasarım kararı gerekir mi: evet — geliştirici satırlarının çizimi yok (Senkron satır düzeni kullanıldı: "konsol" / "ağ" kelimesi, VIEWPORT sütununda sayı); kapsam menüsünün alt satırları ve "Yenile" satırı tahmin. Uyarılar (warning) gri, hatalar mercan.
+- Bağlantılı: DESIGN.md §3.4 Senkron ("geliştirici ağ ve konsolu da görür")

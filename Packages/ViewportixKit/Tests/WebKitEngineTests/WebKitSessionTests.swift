@@ -101,6 +101,32 @@ struct WebKitSessionTests {
         #expect(found.isSuperset(of: [".price|font-weight", ".product-title|line-height"]))
     }
 
+    /// Senkron's developer scope: console errors and failed requests come out as `.developer`, only
+    /// while it is on.
+    @Test func reportsConsoleAndNetworkTroubleInDeveloperScope() async throws {
+        let folder = URL.temporaryDirectory.appending(path: "viewportix-dev-\(UUID().uuidString)")
+        try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: folder) }
+        let page = folder.appending(path: "index.html")
+        try Data("<html><body><script>console.error('bozuk', 42); console.log('sessiz'); fetch('yok.json').catch(() => {});</script></body></html>".utf8).write(to: page)
+
+        func messages(developer: Bool) async throws -> [DeveloperMessage] {
+            let session = WebKitSession(id: ViewportID(), size: Self.phone, mobileUserAgent: false, dataStore: .nonPersistent())
+            session.setDeveloperLogging(developer)
+            var found: [DeveloperMessage] = []
+            session.eventHandler = { event in
+                if case .developer(let message) = event { found.append(message) }
+            }
+            session.load(page)
+            for _ in 0..<30 where found.count < 2 { try await Task.sleep(for: .milliseconds(100)) }
+            return found
+        }
+        let on = try await messages(developer: true)
+        #expect(on.contains { $0.kind == .console && $0.level == .error && $0.text == "bozuk 42" })
+        #expect(on.contains { $0.kind == .network && $0.url?.hasSuffix("yok.json") == true })
+        #expect(try await messages(developer: false).isEmpty)
+    }
+
     @Test func reportsAClosedLocalServer() async throws {
         let failure = try #require(try await failure(loading: URL(string: "http://localhost:59999/urun")!))
         #expect(failure.kind == .serverDown)

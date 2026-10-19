@@ -22,9 +22,31 @@ public enum EngineEvent: Hashable, Sendable {
     case loadingChanged(Bool)
     /// The main frame failed to load (`LoadFailure`), or nil once a page loads again.
     case loadFailure(LoadFailure?)
+    /// Senkron's developer scope: a console error or warning, an uncaught error, or a request that
+    /// failed (status ≥ 400 or no answer).
+    case developer(DeveloperMessage)
     /// After each page load: whether the sync agent runs in it. False for pages that take no script
     /// (PDF, images, about:blank…): the viewport can't lead or follow (§5.20 h, "senkron kurulamıyor").
     case syncAvailable(Bool)
+}
+
+/// One line for Senkron's developer scope (DESIGN.md §3.4: "geliştirici ağ ve konsolu da görür").
+public struct DeveloperMessage: Hashable, Sendable {
+    public enum Kind: String, Hashable, Sendable { case console, network }
+    public enum Level: String, Hashable, Sendable { case error, warning }
+
+    public var kind: Kind
+    public var level: Level
+    /// The console text, or for a request its status ("404") or "ağ hatası".
+    public var text: String
+    public var url: String?
+
+    public init(kind: Kind, level: Level, text: String, url: String? = nil) {
+        self.kind = kind
+        self.level = level
+        self.text = text
+        self.url = url
+    }
 }
 
 /// What a screenshot covers.
@@ -72,4 +94,7 @@ public protocol EngineSession: AnyObject {
     func setMediaPlaybackSuspended(_ suspended: Bool)
     /// "Bu oturumda güven": accept this host's certificate in every viewport until the app quits.
     func trustCertificates(forHost host: String)
+    /// Senkron's developer scope: report console and network trouble (`.developer`) from the next
+    /// page load on. Off by default: it wraps the page's console, fetch and XMLHttpRequest.
+    func setDeveloperLogging(_ enabled: Bool)
 }
