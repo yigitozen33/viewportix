@@ -24,8 +24,8 @@
 Kullanıcının 2026-10-19 sırası 0–4 bitti; toplu tasarım kararları 1–27 kodda ve kanvasta işlendi (223dc65, 3688851).
 - Kullanıcıda: pen.dev'de ⌘S → `design/viewportix.pen` commit'i (son kanvas düzenlemeleri diske yazılmadı).
 - Açık soru: PW-07 kapatınca çıkan "Senin sürümün taslak olarak saklandı" kapsülü 5 sn'de kayboluyor; kapatılana kadar kalsın mı?
-- Önerilen sıra: M4 Chromium (S5 spike: CDP screencast) → Farklar'da motor farkı → M6 Firefox → M7 MCP + §15 c (Ajanlar paneli, sürüş şeridi, bildirim yığını, MCP onayı, PW-08) + ertelenen A (Teşhis et D, Açıkla E). Dağıtım/CI ilk dağıtımdan hemen önce.
-- Küçük: Senkron'da yapısal seçicili tıklamalar "html >" diye kesik görünüyor (`SyncLog.Entry.name(of:)`).
+- M4 başladı: S5 spike bitti (canlı yeterli, `Spikes/S5-CDPScreencast/README.md`, PLAN.md §5.1). Sırada `ChromiumEngine` (paket hedefi, `EngineSession`): Chrome bulma/başlatma, kart başına headless pencere, ekran boyutuna sınırlı screencast, giriş + tuş çevirisi, sync-agent'ın CDP köprüsü (`Runtime.addBinding` + izole dünya), `<select>`/diyalog yönetimi, cihaz eklerken motor seçimi.
+- Önerilen sıra: M4 Chromium → Farklar'da motor farkı → M6 Firefox → M7 MCP + §15 c (Ajanlar paneli, sürüş şeridi, bildirim yığını, MCP onayı, PW-08) + ertelenen A (Teşhis et D, Açıkla E). Dağıtım/CI ilk dağıtımdan hemen önce.
 - Canlıda denenmeyen: Hareketi azalt, gerçek VoiceOver.
 
 ## Açık sorular

@@ -1,0 +1,18 @@
+name: S5CDPScreencast
+options:
+  deploymentTarget:
+    macOS: "26.0"
+targets:
+  S5CDPScreencast:
+    type: application
+    platform: macOS
+    sources: [Sources]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.viewportix.spike.S5CDPScreencast
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_NSPrincipalClass: NSApplication
+        SWIFT_VERSION: "5.0"
+        ENABLE_APP_SANDBOX: NO
+        CODE_SIGN_STYLE: Manual
+        CODE_SIGN_IDENTITY: "-"

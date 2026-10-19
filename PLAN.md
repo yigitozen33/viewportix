@@ -241,6 +241,8 @@ Spike, bir riski en kısa yoldan cevaplayan atılabilir denemedir. (2026-10-10: 
 | S5 | CDP screencast canlı hissettiriyor mu? (Chromium aşaması) | Kabul edilebilir FPS ve giriş gecikmesi, retina netliği | CEF gömme veya Chromium'u da snapshot moduna alma |
 | S6 | BiDi ile snapshot yenileme ne kadar hızlı? (Firefox aşaması) | Scroll sonrası fark edilir beklemeden güncelleme | Yalnızca istek üzerine snapshot |
 
+S5 sonucu (2026-10-19): **evet** — kare kartın ekran boyutuna sınırlıyken 4 viewport birlikte kayarken ~49 fps, ilk tepki < 40 ms; tam 2× ve %100 zoom'da 21–29 fps. Koşullar: her viewport ayrı headless pencere, `--force-device-scale-factor=2`, tuş kodu çevirisi; `<select>` açılır listesi kareye çizilmiyor (bizim menü gerekir). Ayrıntı `Spikes/S5-CDPScreencast/README.md`.
+
 ### 5.2 Chromium (CDP)
 
 - Kullanıcının kurulu Chrome'u (veya Chromium tabanlı başka bir tarayıcı) bulunur, geçici profil ve headless modda başlatılır, CDP ile bağlanılır.
@@ -353,7 +355,7 @@ Cihaz çerçeveleri, screenshot, form girişi senkronu, gruplama, elle sürükle
 
 ### M4 — Chromium
 
-- [ ] S5 spike (CDP screencast)
+- [x] S5 spike (CDP screencast) — 2026-10-19: canlı yeterli (4 viewport birlikte kayarken ~49 fps, kare kartın ekran boyutuna sınırlıyken); koşullar ve yedi bulgu `Spikes/S5-CDPScreencast/README.md`. CEF / snapshot moduna gerek yok
 - [ ] `ChromiumEngine`: Chrome bulma, başlatma, CDP bağlantısı, screencast, giriş iletimi
 - [ ] sync-agent'ın CDP köprüsü
 - [ ] Viewport eklerken motor seçimi
