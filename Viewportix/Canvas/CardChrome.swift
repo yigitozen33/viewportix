@@ -192,7 +192,8 @@ private struct SpacingBadge: View {
 }
 
 /// Farklar › Göster (DEV-01, `devpanel-diff-calm@2x.png`): a thin sky box around the element on its
-/// card and the difference on a sky badge at its top right.
+/// card and the difference on a sky badge at its top right. Senkron › Göster: the same in coral
+/// with "bulunamadı" where a missed element would be.
 private struct DiffHighlightBox: View {
     let highlight: DiffCenter.Highlight
     let page: CGRect
@@ -201,15 +202,17 @@ private struct DiffHighlightBox: View {
     var body: some View {
         let rect = CGRect(x: page.minX + highlight.rect.minX * scale, y: page.minY + highlight.rect.minY * scale,
                           width: highlight.rect.width * scale, height: highlight.rect.height * scale)
-        ZStack(alignment: .topTrailing) {
+        let tone = highlight.isMissing ? DesignTokens.Color.statusWarning : DesignTokens.Color.statusLeader
+        // Farklar: badge at the top right; Senkron's "bulunamadı" at the top left, as drawn.
+        ZStack(alignment: highlight.isMissing ? .topLeading : .topTrailing) {
             RoundedRectangle(cornerRadius: 4)
-                .strokeBorder(DesignTokens.Color.statusLeader, lineWidth: 1)
+                .strokeBorder(tone, lineWidth: 1)
                 .frame(width: max(rect.width, 4), height: max(rect.height, 4))
             Text(highlight.label)
                 .font(.system(size: DesignTokens.FontSize.micro, weight: .semibold))
                 .foregroundStyle(DesignTokens.Color.accentInk)
                 .padding(EdgeInsets(top: 1, leading: 5, bottom: 1, trailing: 5))
-                .background(DesignTokens.Color.statusLeader, in: .rect(cornerRadius: 4))
+                .background(tone, in: .rect(cornerRadius: 4))
                 .fixedSize()
                 .alignmentGuide(.top) { $0.height + 3 }
         }

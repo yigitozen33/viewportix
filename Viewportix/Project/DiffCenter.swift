@@ -24,6 +24,8 @@ final class DiffCenter {
         let viewport: ViewportID
         let rect: CGRect
         let label: String
+        /// Senkron's Göster: where a missed element would be, in coral (`devpanel-synclog-calm`).
+        var isMissing = false
     }
 
     var baselineID: ViewportID?
@@ -99,6 +101,32 @@ final class DiffCenter {
 
     var elementCount: Int {
         snapshots.values.map(\.elements.count).max() ?? 0
+    }
+
+    /// Senkron's Göster, in the leader: where the element sits as a share of the page.
+    static func shareScript(_ selector: String) -> String {
+        let quoted = selector.replacingOccurrences(of: "\\", with: "\\\\").replacingOccurrences(of: "'", with: "\\'")
+        return """
+        (() => {
+          const el = document.querySelector('\(quoted)');
+          if (!el) return null;
+          const r = el.getBoundingClientRect();
+          const page = Math.max(document.documentElement.scrollHeight, 1);
+          return { x: r.left / innerWidth, w: r.width / innerWidth, y: (r.top + scrollY) / page, h: r.height };
+        })()
+        """
+    }
+
+    /// In the viewport that missed: scrolls to that share of its page and returns the spot in view.
+    static func spotScript(y: Double) -> String {
+        """
+        (() => {
+          const page = Math.max(document.documentElement.scrollHeight, 1);
+          const target = \(y) * page;
+          scrollTo(0, Math.max(0, target - innerHeight / 2));
+          return { width: innerWidth, y: target - scrollY };
+        })()
+        """
     }
 
     /// Script for Göster: scrolls the element to the middle and returns where it is now.

@@ -52,6 +52,15 @@ public struct SyncLog: Sendable {
             }
         }
 
+        /// The element the event was about (click, hover, input), for Göster.
+        public var targetSelector: String? {
+            switch event {
+            case .click(let target), .hover(let target): target["selector"]?.stringValue
+            case .input(let value): value["field"]?["selector"]?.stringValue
+            case .scroll, .navigate: nil
+            }
+        }
+
         /// Viewports that took the event, the leader included: "2 / 3".
         public var reached: Int { 1 + outcomes.values.filter { if case .applied = $0 { true } else { false } }.count }
         public var total: Int { 1 + followers.count }

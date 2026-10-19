@@ -55,7 +55,10 @@ struct SyncLogPanel: View {
             Rectangle().fill(DesignTokens.Color.line).frame(width: DesignTokens.Stroke.hairline)
         }
         .onAppear(perform: startKeys)
-        .onDisappear(perform: stopKeys)
+        .onDisappear {
+            stopKeys()
+            workspace.diffCenter.highlight = nil
+        }
         .onChange(of: workspace.syncLog.first?.id) { _, _ in
             if !isAtTop { unseen += 1 }
         }
@@ -182,13 +185,14 @@ struct SyncLogPanel: View {
     /// DEV-01: one open row at a time.
     private func toggle(_ entry: SyncLog.Entry) {
         withAnimation(Motion.curve(DesignTokens.Motion.standard)) { openID = openID == entry.id ? nil : entry.id }
+        if openID == nil { workspace.diffCenter.highlight = nil }
         // A click on a row takes the keyboard out of the page, so R · ⏎ reach the panel.
         if let window = NSApp.keyWindow, Self.isWebContent(window.firstResponder) { window.makeFirstResponder(nil) }
     }
 
-    /// Göster ⏎: the viewport that missed comes into view, selected.
+    /// Göster ⏎: the viewport that missed comes into view with a coral box where the element would be.
     private func show(_ entry: SyncLog.Entry) {
-        if let id = entry.missedIDs.first ?? entry.followers.first { workspace.reveal(id) }
+        Task { await workspace.showSyncMiss(entry) }
     }
 
     private func scrollToNewest() {

@@ -192,6 +192,24 @@ final class Workspace {
 
     // MARK: Senkron panel
 
+    /// Senkron › Göster (`devpanel-synclog-calm@2x.png`): the viewport that missed comes into view;
+    /// where the element is in the leader's page, scaled to this page, gets a coral box and
+    /// "bulunamadı". Events without an element (scroll, navigate) only bring the viewport.
+    func showSyncMiss(_ entry: SyncLog.Entry) async {
+        guard let target = entry.missedIDs.first ?? entry.followers.first else { return }
+        reveal(target)
+        diffCenter.highlight = nil
+        guard entry.isMissed, let selector = entry.targetSelector,
+              let share = await evaluate(DiffCenter.shareScript(selector), in: entry.leader),
+              let x = share["x"]?.numberValue, let width = share["w"]?.numberValue,
+              let y = share["y"]?.numberValue, let height = share["h"]?.numberValue,
+              let spot = await evaluate(DiffCenter.spotScript(y: y), in: target),
+              let pageWidth = spot["width"]?.numberValue, let top = spot["y"]?.numberValue else { return }
+        diffCenter.highlight = .init(viewport: target,
+                                     rect: CGRect(x: x * pageWidth, y: top, width: max(width * pageWidth, 24), height: max(height, 16)),
+                                     label: "bulunamadı", isMissing: true)
+    }
+
     /// The rail item or ⌥⌘1 / ⌥⌘2: opens that panel, or closes it when it is already open.
     func toggleDevPanel(_ panel: DevPanel) {
         withAnimation(Motion.curve(DesignTokens.Motion.panel)) { devPanel = devPanel == panel ? nil : panel }

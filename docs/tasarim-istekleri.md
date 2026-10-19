@@ -531,3 +531,11 @@ Kod oturumunun arayüze dokunan her değişikliği, değişikliğin commit'inde 
 - Durum: özel çizim
 - Tasarım kararı gerekir mi: evet — `toast-states` panosundaki "iPad kapatıldı · Geri al" eski görünümde; pano yeni kapsüle göre güncellenmeli mi, yoksa proje penceresinde eski görünüm mü kalmalı?
 - Bağlantılı: DESIGN.md §4 K8 (U3), §5.20 e-f
+
+## 2026-10-19 — Senkron › Göster: beklenen yerde mercan kutu
+- Ne: Kaçıran satırda Göster ⏎: kaçıran viewport seçilip öne gelir, öğenin liderdeki yeri (sayfa genişliğine ve yüksekliğine oranla) o viewport'un sayfasına taşınır, oraya kaydırılır ve 1 pt mercan kutu + sol üstte mercan "bulunamadı" rozeti (`accent/ink` yazı) çizilir. Öğesi olmayan olaylarda (scroll, navigate) yalnız viewport öne gelir. Satır kapanınca ya da panel kapanınca kutu gider.
+- Kanıt (canlı): spa.html, Full HD'de "Products" (telefonlarda gizli) → satır ⏎ → iPhone SE'de menünün olacağı yerde kutu + "bulunamadı" (`docs/parity/live-synclog-show-missing@2x.png`).
+- Nerede: `Viewportix/Project/Workspace.swift` (`showSyncMiss`), `DiffCenter.swift` (`shareScript`, `spotScript`), `Viewportix/Canvas/CardChrome.swift`, paket `SyncLog.Entry.targetSelector`
+- Durum: özel çizim
+- Tasarım kararı gerekir mi: evet — konum tahmini oransal (düzen farklıysa yanlış yere düşebilir); kutunun en küçük boyutu 24 × 16 CSS px. Kabul edilebilir mi?
+- Bağlantılı: DESIGN.md §3.4 Senkron
