@@ -39,6 +39,12 @@ struct CardChromeLayer: View {
             }
             .overlay(alignment: .topLeading) {
                 ZStack(alignment: .topLeading) {
+                    if workspace.diffCenter.mode != .sideBySide, let overlay = workspace.diffCenter.overlay,
+                       let frame = workspace.cardFrames[overlay.baseline],
+                       let config = workspace.viewports.first(where: { $0.id == overlay.baseline }) {
+                        DiffOverlay(overlay: overlay, page: frame, scale: frame.width / CGFloat(config.size.width),
+                                    blinks: workspace.diffCenter.mode == .blink)
+                    }
                     ForEach(workspace.dragGaps, id: \.self) { SpacingBadge(gap: $0) }
                     if let highlight = workspace.diffCenter.highlight, let frame = workspace.cardFrames[highlight.viewport],
                        let config = workspace.viewports.first(where: { $0.id == highlight.viewport }) {
@@ -218,6 +224,43 @@ private struct DiffHighlightBox: View {
         }
         .offset(x: rect.minX, y: rect.minY)
         .accessibilityHidden(true)
+    }
+}
+
+/// Farklar › Üst üste / Yanıp sönme: the compared viewport's picture over the baseline card's page,
+/// at the same CSS scale, top left, clipped to the page. Üst üste 50 %; Yanıp sönme on and off every
+/// 500 ms (still at 50 % under Reduce Motion).
+private struct DiffOverlay: View {
+    let overlay: DiffCenter.Overlay
+    let page: CGRect
+    let scale: CGFloat
+    let blinks: Bool
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    var body: some View {
+        let width = overlay.width * scale
+        let height = width * CGFloat(overlay.image.height) / CGFloat(max(overlay.image.width, 1))
+        Group {
+            if blinks, !reduceMotion {
+                TimelineView(.periodic(from: .now, by: 0.5)) { context in
+                    picture(width: width, height: height)
+                        .opacity(Int(context.date.timeIntervalSinceReferenceDate / 0.5) % 2 == 0 ? 1 : 0)
+                }
+            } else {
+                picture(width: width, height: height).opacity(0.5)
+            }
+        }
+        .frame(width: page.width, height: page.height, alignment: .topLeading)
+        .clipped()
+        .offset(x: page.minX, y: page.minY)
+        .allowsHitTesting(false)
+        .accessibilityHidden(true)
+    }
+
+    private func picture(width: CGFloat, height: CGFloat) -> some View {
+        Image(decorative: overlay.image, scale: 1)
+            .resizable()
+            .frame(width: width, height: height)
     }
 }
 

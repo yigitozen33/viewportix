@@ -20,6 +20,7 @@ struct DiffPanel: View {
     @State private var pairAnchor = MenuAnchor()
     @State private var moreAnchor = MenuAnchor()
     @State private var keyMonitor: Any?
+    @State private var modeAnchor = MenuAnchor()
 
     private var center: DiffCenter { workspace.diffCenter }
     private var rows: [DiffCenter.Row] { center.rows(review: review) }
@@ -65,6 +66,14 @@ struct DiffPanel: View {
         .onDisappear {
             stopKeys()
             center.highlight = nil
+            center.mode = .sideBySide
+            center.overlay = nil
+        }
+        .onChange(of: center.comparedID) {
+            if center.mode != .sideBySide { Task { await workspace.captureDiffOverlay() } }
+        }
+        .onChange(of: center.baselineID) {
+            if center.mode != .sideBySide { Task { await workspace.captureDiffOverlay() } }
         }
         .accessibilityElement(children: .contain)
         .accessibilityLabel("Farklar")
@@ -144,8 +153,13 @@ struct DiffPanel: View {
     private var footer: some View {
         let reviewed = center.reviewed(review: review)
         return HStack(spacing: 12) {
-            // Üst üste / Yanıp sönme need the overlay compare (later); side by side is the canvas itself.
-            Text("Yan yana").foregroundStyle(DesignTokens.Color.inkPrimary)
+            Button(action: openModeMenu) {
+                Text(Self.title(of: center.mode)).foregroundStyle(DesignTokens.Color.inkPrimary).contentShape(.rect)
+            }
+            .buttonStyle(.plain)
+            .background(MenuAnchorView(anchor: modeAnchor))
+            .accessibilityLabel("Karşılaştırma modu")
+            .accessibilityValue(Self.title(of: center.mode))
             Text("·").foregroundStyle(DesignTokens.Color.inkSecondary).accessibilityHidden(true)
             Text("\(reviewed.done) / \(reviewed.total) incelendi").foregroundStyle(DesignTokens.Color.inkSecondary)
             Spacer(minLength: 0)
@@ -180,6 +194,29 @@ struct DiffPanel: View {
             }
         }
         pairAnchor.show(ChromeMenu(style: .list, width: 220, items: items), edge: .bottom, alignment: .trailing, gap: DesignTokens.Space.s1)
+    }
+
+    static func title(of mode: DiffCenter.Mode) -> String {
+        switch mode {
+        case .sideBySide: "Yan yana"
+        case .overlay: "Üst üste"
+        case .blink: "Yanıp sönme"
+        }
+    }
+
+    /// Yan yana / Üst üste / Yanıp sönme (§3.4 ⋯ "mod"); the overlay is taken when chosen.
+    private func openModeMenu() {
+        let items: [ChromeMenuItem] = [DiffCenter.Mode.sideBySide, .overlay, .blink].map { mode in
+            .button(Self.title(of: mode), isChecked: center.mode == mode) {
+                center.mode = mode
+                if mode == .sideBySide {
+                    center.overlay = nil
+                } else {
+                    Task { await workspace.captureDiffOverlay() }
+                }
+            }
+        }
+        modeAnchor.show(ChromeMenu(width: 180, showsChecks: true, items: items), edge: .bottom, gap: DesignTokens.Space.s1)
     }
 
     private func openMoreMenu() {

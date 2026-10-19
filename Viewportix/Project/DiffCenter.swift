@@ -1,3 +1,4 @@
+import CoreGraphics
 import DiffCore
 import EngineCore
 import Foundation
@@ -36,6 +37,19 @@ final class DiffCenter {
     /// DEV-07: something new to look at while the panel was closed (the rail's Farklar dot).
     var hasUnseen = false
     var highlight: Highlight?
+
+    /// Footer's mode: side by side is the canvas itself; Üst üste lays the compared viewport over the
+    /// baseline card at 50 %, Yanıp sönme switches it on and off every 500 ms.
+    enum Mode: String { case sideBySide, overlay, blink }
+    var mode = Mode.sideBySide
+    /// The compared viewport as it looks now, drawn over the baseline card in CSS px.
+    struct Overlay {
+        let image: CGImage
+        let baseline: ViewportID
+        /// CSS px width of the compared viewport (the image is drawn at the baseline card's scale).
+        let width: Double
+    }
+    var overlay: Overlay?
 
     @ObservationIgnored private var lastSeen: Set<String> = []
 

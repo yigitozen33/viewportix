@@ -193,6 +193,18 @@ final class Workspace {
         await diffCenter.refresh(viewports: viewports, leader: leaderID, isPanelOpen: devPanel == .diffs, review: review) { id, script in
             await self.evaluate(script, in: id)
         }
+        if diffCenter.mode != .sideBySide { await captureDiffOverlay() }
+    }
+
+    /// Üst üste / Yanıp sönme: what the compared viewport shows now, for the baseline card.
+    func captureDiffOverlay() async {
+        guard let baseline = diffCenter.baselineID, let compared = diffCenter.comparedID,
+              let config = viewports.first(where: { $0.id == compared }),
+              let image = try? await sessions[compared]?.snapshot(.visible) else {
+            diffCenter.overlay = nil
+            return
+        }
+        diffCenter.overlay = .init(image: image, baseline: baseline, width: Double(config.size.width))
     }
 
     /// Göster ⏎: the element comes to the middle of its viewport, which comes into view, with a sky

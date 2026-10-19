@@ -547,3 +547,11 @@ Kod oturumunun arayüze dokunan her değişikliği, değişikliğin commit'inde 
 - Durum: özel çizim
 - Tasarım kararı gerekir mi: evet — geliştirici satırlarının çizimi yok (Senkron satır düzeni kullanıldı: "konsol" / "ağ" kelimesi, VIEWPORT sütununda sayı); kapsam menüsünün alt satırları ve "Yenile" satırı tahmin. Uyarılar (warning) gri, hatalar mercan.
 - Bağlantılı: DESIGN.md §3.4 Senkron ("geliştirici ağ ve konsolu da görür")
+
+## 2026-10-19 — Farklar: Üst üste ve Yanıp sönme
+- Ne: Farklar'ın alt satırındaki "Yan yana" artık menü: Yan yana / Üst üste / Yanıp sönme (✓ seçili). Üst üste: karşılaştırılan viewport'un o anki görüntüsü baseline kartının sayfasına aynı CSS ölçeğinde, sol üstten, %50 saydam bindirilir (sayfa alanına kırpılır). Yanıp sönme: aynı görüntü 500 ms'de bir açılıp kapanır (Hareketi azalt'ta %50 durur). Görüntü mod seçilince, çift değişince ve fark yeniden ölçülünce alınır; panel kapanınca mod Yan yana'ya döner.
+- Kanıt (canlı): sample-product, iPhone SE ↔ iPad Pro 13", Üst üste → iPhone SE kartında iPad Pro sayfası %50 (`docs/parity/live-diff-overlay@2x.png`); Yanıp sönme → 500 ms arayla alınan iki karede biri baseline, biri karşılaştırılan (dosya karşılaştırması "FARKLI").
+- Nerede: `Viewportix/Project/DiffCenter.swift` (`Mode`, `Overlay`), `DiffPanel.swift` (mod menüsü), `Workspace.swift` (`captureDiffOverlay`), `Viewportix/Canvas/CardChrome.swift` (`DiffOverlay`)
+- Durum: özel çizim
+- Tasarım kararı gerekir mi: evet — bindirme kart başlığının altından, yalnız sayfa alanında; saydamlık %50 ve yanıp sönme hızı 500 ms tahmin. Bindirme görüntüsü sayfa kaydırılınca kendiliğinden yenilenmiyor (çift ya da mod değişince, yeniden karşılaştırınca yenileniyor).
+- Bağlantılı: DESIGN.md §3.4 Farklar (⋯ mod: Yan yana / Üst üste / Yanıp sönme)
