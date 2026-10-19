@@ -1,7 +1,7 @@
 # Kod oturumu — güncel durum
 
 > Bu dosya **üzerine yazılır**; yalnızca kod oturumu yazar. Tarihçe: `docs/oturumlar/`. Tasarım oturumu salt okur.
-> Son güncelleme: 2026-10-19 (§15 a, taslaklar ve kaydetme)
+> Son güncelleme: 2026-10-19 akşam (M5 panelleri, toplu kararlar 1–27)
 
 ## Şu an neredeyiz
 
@@ -21,11 +21,12 @@
 
 ## Sıradaki iş
 
-Kullanıcının 2026-10-19 sırası: 0–4 bitti (4: Senkron ve Farklar panelleri; A satır içi teşhis kullanıcı kararıyla ertelendi, PLAN.md M5).
-5. M7 gelince §15 c: Ajanlar paneli, sürüş şeridi, bildirim yığını, MCP onayı, PW-08 — ve ertelenen A (Teşhis et D, Açıkla E).
-- Farklar'da kalan: Chromium gelince motor farkı (M4). Üst üste / Yanıp sönme, Senkron Geliştirici kapsamı, Göster kutuları, PW-07 otomatik kaydetme tutma, otomatik kaydetme hatalarında PW-09 tamam (2026-10-19 akşam).
+Kullanıcının 2026-10-19 sırası 0–4 bitti; toplu tasarım kararları 1–27 kodda ve kanvasta işlendi (223dc65, 3688851).
+- Kullanıcıda: pen.dev'de ⌘S → `design/viewportix.pen` commit'i (son kanvas düzenlemeleri diske yazılmadı).
+- Açık soru: PW-07 kapatınca çıkan "Senin sürümün taslak olarak saklandı" kapsülü 5 sn'de kayboluyor; kapatılana kadar kalsın mı?
+- Önerilen sıra: M4 Chromium (S5 spike: CDP screencast) → Farklar'da motor farkı → M6 Firefox → M7 MCP + §15 c (Ajanlar paneli, sürüş şeridi, bildirim yığını, MCP onayı, PW-08) + ertelenen A (Teşhis et D, Açıkla E). Dağıtım/CI ilk dağıtımdan hemen önce.
+- Küçük: Senkron'da yapısal seçicili tıklamalar "html >" diye kesik görünüyor (`SyncLog.Entry.name(of:)`).
 - Canlıda denenmeyen: Hareketi azalt, gerçek VoiceOver.
-- Bekleyen tasarım soruları: `docs/tasarim-istekleri.md` 2026-10-19 girdileri (sayfa başlık alanı, "Untitled" adı, Geri al kapsülünün iki görünümü, onay kutusu kapalı hali…).
 
 ## Açık sorular
 
