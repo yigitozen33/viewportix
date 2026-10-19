@@ -146,10 +146,14 @@ enum SaveLocations {
         UserDefaults.standard.set(Array(paths.prefix(limit)), forKey: key)
     }
 
-    /// "Belgeler › Viewportix": the folder and its parent as Finder names them.
+    /// "Belgeler › Viewportix": the folder and its parent as Finder names them; a disk's own folder is
+    /// just the disk's name.
     static func display(_ folder: URL) -> String {
         let manager = FileManager.default
         let parent = folder.deletingLastPathComponent()
+        if parent.standardizedFileURL.path(percentEncoded: false).hasSuffix("/Volumes/") || parent.path(percentEncoded: false) == "/Volumes" {
+            return manager.displayName(atPath: folder.path(percentEncoded: false))
+        }
         let names = [parent, folder].map { url in
             url.path(percentEncoded: false) == URL.homeDirectory.path(percentEncoded: false)
                 ? url.lastPathComponent : manager.displayName(atPath: url.path(percentEncoded: false))
@@ -166,13 +170,21 @@ enum DraftOrigins {
 
     static func note(draft: URL, savedAs url: URL) {
         var origins = UserDefaults.standard.dictionary(forKey: key) as? [String: String] ?? [:]
-        origins[url.path(percentEncoded: false)] = draft.path(percentEncoded: false)
+        origins[path(url)] = draft.path(percentEncoded: false)
         UserDefaults.standard.set(origins, forKey: key)
     }
 
     static func draft(for url: URL) -> URL? {
         let origins = UserDefaults.standard.dictionary(forKey: key) as? [String: String] ?? [:]
-        guard let path = origins[url.path(percentEncoded: false)], FileManager.default.fileExists(atPath: path) else { return nil }
+        guard let path = origins[path(url)], FileManager.default.fileExists(atPath: path) else { return nil }
         return URL(filePath: path)
+    }
+
+    /// The recent list hands packages back as folder URLs ("…/Adsız.viewportix/"), names may come
+    /// decomposed, and /tmp is /private/tmp: compare one spelling.
+    private static func path(_ url: URL) -> String {
+        var path = url.resolvingSymlinksInPath().path(percentEncoded: false)
+        while path.count > 1, path.hasSuffix("/") { path.removeLast() }
+        return path.precomposedStringWithCanonicalMapping
     }
 }

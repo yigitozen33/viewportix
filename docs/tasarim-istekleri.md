@@ -555,3 +555,21 @@ Kod oturumunun arayüze dokunan her değişikliği, değişikliğin commit'inde 
 - Durum: özel çizim
 - Tasarım kararı gerekir mi: evet — bindirme kart başlığının altından, yalnız sayfa alanında; saydamlık %50 ve yanıp sönme hızı 500 ms tahmin. Bindirme görüntüsü sayfa kaydırılınca kendiliğinden yenilenmiyor (çift ya da mod değişince, yeniden karşılaştırınca yenileniyor).
 - Bağlantılı: DESIGN.md §3.4 Farklar (⋯ mod: Yan yana / Üst üste / Yanıp sönme)
+
+## 2026-10-19 — Canlıda denenmeyenler denendi; bulunan üç düzeltme
+- Ne (düzeltmeler):
+  1. **Bizim sayfa ve sistem uyarısı:** sistem uyarısı (ör. PW-09) kapandıktan sonra klavye kaydet sayfasına dönmüyordu (yazılan ad alana gitmiyordu); artık uyarı tamamen kapanınca sayfa klavyeyi geri alıyor.
+  2. **HOME-13 "Son taslağı aç":** son kullanılanlar listesi paketi "/" ile biten ve /tmp ↔ /private/tmp farklı yazılışla verdiği için taslak kaydı bulunamıyor, düğme hiç çıkmıyordu; yollar tek biçime getirildi.
+  3. **Kaydet sayfası › Konum:** harici diskteki klasör "Volumes › VPXDolu" görünüyordu; artık yalnız diskin adı.
+- Kanıt (canlı):
+  - DEV-07: Farklar kapalıyken farkı olan sayfaya geçince raydaki Farklar'da mercan nokta (farksız sayfada çıkmadı); panel açılınca kalktı.
+  - Farklar › Rapor (`Farklar.md`, durumlarla) ve Senkron › Dışa aktar (`Senkron kaydı.json`) sistem kaydet panelinden yazıldı.
+  - Disk dolu: dolu 2 MB disk görüntüsüne kaydet → "“Adsız” kaydedilemedi · Diskte yer kalmadı… · VPX-0101 · Vazgeç / Yeniden Dene".
+  - Kaydet sayfası › Konum › Başka klasör… → macOS klasör seçicisi → Konum "scratchpad › kayit3"; "Kaydedince taslağı listeden kaldır" kapalı → taslak listede kaldı, seçim hatırlandı.
+  - "Son taslağı aç": taslağı tutularak kaydedilmiş dosya bozulunca uyarıda en üstte, taslağı açtı (`docs/parity/live-home13-last-draft@2x.png`).
+  - "Taslakları sakla" kapalı: yeni taslağın penceresi kapanınca taslak `Deleted Drafts`'a gitti.
+- Denenemeyen: Hareketi azalt (sistem ayarı komut satırından yazılamıyor), gerçek VoiceOver ile gezinme (yalnız erişilebilirlik ağacı), Yeniden dene'nin canlıda başarılı olduğu durum (birim testiyle).
+- Nerede: `Viewportix/Chrome/ChromeSheet.swift` (`takeKeyboard`), `Viewportix/Document/ProjectFiles.swift` (`DraftOrigins.path`, `SaveLocations.display`)
+- Durum: özel çizim / sistem uyarısı
+- Tasarım kararı gerekir mi: hayır
+- Bağlantılı: DESIGN.md §3.1 (HOME-13), §3.2 (PW-06, PW-09), §3.4 (DEV-07)

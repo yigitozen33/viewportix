@@ -23,7 +23,8 @@
 
 Kullanıcının 2026-10-19 sırası: 0–4 bitti (4: Senkron ve Farklar panelleri; A satır içi teşhis kullanıcı kararıyla ertelendi, PLAN.md M5).
 5. M7 gelince §15 c: Ajanlar paneli, sürüş şeridi, bildirim yığını, MCP onayı, PW-08 — ve ertelenen A (Teşhis et D, Açıkla E).
-- Farklar'da kalan: Üst üste / Yanıp sönme modları; Chromium gelince motor farkı (M4).
+- Farklar'da kalan: Chromium gelince motor farkı (M4). Üst üste / Yanıp sönme, Senkron Geliştirici kapsamı, Göster kutuları, PW-07 otomatik kaydetme tutma, otomatik kaydetme hatalarında PW-09 tamam (2026-10-19 akşam).
+- Canlıda denenmeyen: Hareketi azalt, gerçek VoiceOver.
 - Bekleyen tasarım soruları: `docs/tasarim-istekleri.md` 2026-10-19 girdileri (sayfa başlık alanı, "Untitled" adı, Geri al kapsülünün iki görünümü, onay kutusu kapalı hali…).
 
 ## Açık sorular

@@ -126,7 +126,12 @@ private final class ChromeSheetPresenter {
     }
 
     private func takeKeyboard() {
-        guard !isDismissing, parent?.attachedSheet == nil else { return }
+        guard !isDismissing else { return }
+        // A system alert hands the keyboard back while it is still closing; try again once it's gone.
+        guard parent?.attachedSheet == nil else {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in self?.takeKeyboard() }
+            return
+        }
         panel.makeKey()
     }
 
