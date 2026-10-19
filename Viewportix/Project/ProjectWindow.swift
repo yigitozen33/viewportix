@@ -11,6 +11,7 @@ struct ProjectWindow: View {
     @Environment(\.dismissWindow) private var dismissWindow
     @Environment(\.undoManager) private var undoManager
     @Environment(\.openDocument) private var openDocument
+    @Environment(\.openWindow) private var openWindow
     @State private var workspace: Workspace
     @State private var selectedPageID: Page.ID?
     /// CARD-06: the "Boyutu düzenle" popover under a card header.
@@ -119,6 +120,7 @@ struct ProjectWindow: View {
         }
         .onReceive(NotificationCenter.default.publisher(for: NSWindow.willCloseNotification)) { note in
             guard let window = note.object as? NSWindow, window === windowAnchor.window else { return }
+            if isDiskConflict { keepConflictingVersion() }
             ProjectFiles.discardIfDraftsAreNotKept(fileURL)
         }
         .onChange(of: workspace.isLoading) { _, loading in
@@ -399,7 +401,9 @@ private extension ProjectWindow {
     /// The page title ("Keten Gömlek"), else the host; what the save sheet suggests.
     var suggestedName: String {
         let title = workspace.currentTitle.trimmingCharacters(in: .whitespacesAndNewlines)
-        let name = title.isEmpty ? (workspace.currentURL?.host() ?? document.project.selectedPage?.name ?? "Adsız") : title
+        // The page title without the site's suffix ("Keten Gömlek · Marka" → "Keten Gömlek").
+        let name = title.isEmpty ? (workspace.currentURL?.host() ?? document.project.selectedPage?.name ?? DraftStore.baseName)
+            : SuggestedName.fromTitle(title)
         return String(name.replacingOccurrences(of: "/", with: "-").replacingOccurrences(of: ":", with: "-").prefix(80))
     }
 
@@ -493,6 +497,20 @@ private extension ProjectWindow {
         DispatchQueue.main.async {
             guard isDiskConflict else { return }
             ProjectFiles.document(for: windowAnchor.window)?.updateChangeCount(.changeCleared)
+        }
+    }
+
+    /// PW-07, closed before choosing (2026-10-19 decision): the file on disk stays as it is and this
+    /// window's version becomes a draft "<ad> (senin sürümün)"; the home screen says so, with Aç.
+    func keepConflictingVersion() {
+        let name = (fileURL?.deletingPathExtension().lastPathComponent ?? DraftStore.baseName) + " (senin sürümün)"
+        do {
+            let url = try ProjectFiles.drafts.create(document.project, thumbnail: document.thumbnail, name: name)
+            openWindow(id: HomeView.windowID)
+            HomeNotices.shared.show(Workspace.Notice(kind: .info, text: "Senin sürümün taslak olarak saklandı",
+                                                     action: .init(title: "Aç") { ProjectFiles.open(url) }))
+        } catch {
+            ErrorAlert.show(.draftCreateFailed, title: "Senin sürümün saklanamadı", error: error)
         }
     }
 

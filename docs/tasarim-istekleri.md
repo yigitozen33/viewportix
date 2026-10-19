@@ -585,3 +585,20 @@ Kod oturumunun arayüze dokunan her değişikliği, değişikliğin commit'inde 
 - Durum: özel çizim
 - Tasarım kararı gerekir mi: hayır (verildi 2026-10-19)
 - Bağlantılı: DESIGN.md §4 K7/K8 (bizim sayfa), K4 f (eylem düğmeleri), §6 `Action/Secondary`
+
+## 2026-10-19 — Toplu kararlar 4–27 uygulandı (kullanıcı: "hepsini yap")
+- Ne (değişenler; diğer maddeler "kalsın"):
+  - **4 · Önerilen ad:** kaydet sayfası sayfa başlığını sitenin ekinden ayırıyor: son " · ", " | ", " – ", " — ", " - " ayırıcısından sonrası atılıyor ("Keten Gömlek · Marka" → "Keten Gömlek").
+  - **5 · Taslak adı:** yeni taslaklar "Adsız", "Adsız 2"… (dosya, pencere, kart, kapsül, kaydet önerisi). Önceden açılmış "Untitled N" taslakları adlarını korur.
+  - **10 · Şerit açıkken kapatmak (PW-07):** diskteki dosya olduğu gibi kalır; penceredeki sürüm "<ad> (senin sürümün)" taslağı olur, giriş ekranı açılır ve "Senin sürümün taslak olarak saklandı · Aç" kapsülü çıkar (5 sn); Aç taslağı açar.
+  - **13 · İçe aktar…:** başarıda "N cihaz eklendi" başarı kapsülü (proje penceresinde alttaki kapsül, giriş ekranında alttan 36 pt).
+  - **16 · Klavyeyle sayfaya girmek:** klavyeyle gezinme açıkken Tab kart başlığına da odaklanır: başlığın çevresinde 2 pt gök halka, başlığın 6 pt altında "Sayfaya gir ⏎" ipucu, kart öne gelir. ⏎ klavyeyi sayfaya verir; ⏎ ile girilen sayfada Esc başlığa döner (tıklayarak girilen sayfada Esc sayfanındır). VoiceOver: başlıkta "Sayfaya gir" eylemi.
+  - **18 · Senkron:** "N yeni olay ↑".
+  - **20 · Senkron:** "Teşhis et D" M7'ye kadar gizli.
+  - **26 · Farklar Üst üste / Yanıp sönme:** senkronla kaydırma bitince (son kaydırmadan 300 ms sonra) bindirilen görüntü yenilenir.
+  - **7 (kanvas):** `Toast States` panosuna "Geri al" satırı (yeni kapsül) eklendi; kanvas değişiklikleri aşağıda.
+- Kanıt (canlı): `docs/parity/live-pw06-suggested-name@2x.png` (4), yeni taslak dosyası "Adsız.viewportix" (5), `live-pw07-close-kept-draft@2x.png` + Aç'ın "Keten Gömlek (senin sürümün) 5" taslağını açtığı (AXDocument) (10), `live-settings-import-toast@2x.png` (13), `live-card-header-focus@2x.png` + odak sırası AX'ten: ⏎ sonrası odak sayfada (Tab e-posta alanına gitti), Esc sonrası başlıkta (16), `live-synclog-no-diagnose@2x.png` (20), `live-diff-overlay-scrolled@2x.png` (26). 18 canlıda görülemedi (liste kısa, kaydırılamadı); kodda. Testler: `suggestedNamesDropTheSiteSuffix`, `DraftStoreTests` (Adsız, adlı taslak).
+- Nerede: paket `ProjectModel` (`SuggestedName`, `DraftStore.baseName`/`create(name:)`); `Viewportix/Project/ProjectWindow.swift`, `Workspace.swift` (`enterPage`, `leavePage`, overlay yenileme), `Viewportix/Canvas/CardChrome.swift`, `CanvasController.swift`, `Viewportix/Project/SyncLogPanel.swift`, `Viewportix/Settings/SettingsPanel.swift`, `AppSettings.swift` (`HomeNotices`), `Viewportix/Home/HomeView.swift`
+- Durum: özel çizim
+- Tasarım kararı gerekir mi: evet — 10'daki kapsül önemli bir bilgi ama 5 sn'de kayboluyor (bilgi kapsülü kuralı); hata gibi kapatılana kadar kalsın mı?
+- Bağlantılı: DESIGN.md §3.1, §3.2 (PW-05, PW-06, PW-07), §3.3, §3.4

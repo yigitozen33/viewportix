@@ -90,7 +90,10 @@ struct CardChromeLayer: View {
                         failureAction: { handle($0, for: config.id) },
                         drag: { dragged(config.id, $0) },
                         editor: editorBinding(for: config.id),
-                        saveSize: saveSize
+                        saveSize: saveSize,
+                        focusToken: workspace.headerFocusRequest?.id == config.id ? workspace.headerFocusRequest?.token : nil,
+                        enterPage: { workspace.enterPage(config.id) },
+                        focusChanged: { workspace.frontCardID = config.id }
                     )
                     .offset(x: frame.minX, y: frame.minY - ViewportCardChrome.headerHeight)
                     // Overlapping cards: the one last dragged is in front, chrome and page alike; a card
@@ -308,8 +311,15 @@ struct ViewportCardChrome: View {
 
     enum FailureAction { case retry, trust, goBack, editAddress }
     let saveSize: (ViewportSizeEditor) -> Void
+    /// A new value moves keyboard focus to this header (Esc from the page).
+    var focusToken: UUID?
+    /// ⏎ on the focused header: the keyboard goes into the page.
+    var enterPage: () -> Void = {}
+    /// The header took keyboard focus: its card comes to the front, so the hint isn't covered.
+    var focusChanged: () -> Void = {}
 
     @State private var isMenuOpen = false
+    @FocusState private var isHeaderFocused: Bool
     @State private var isCameraOpen = false
     @State private var isStripHovered = false
     @State private var cameraAnchor = MenuAnchor()
@@ -414,6 +424,40 @@ struct ViewportCardChrome: View {
         .pointerStyle(state.isDragging ? .grabActive : .grabIdle)
         .onHover(perform: hover)
         .chromeContextMenu(isOpen: $isMenuOpen, menu: contextMenu)
+        // 2026-10-19 decision: Tab reaches the header (keyboard navigation only), ⏎ enters the page,
+        // Esc in the page comes back here. Sky ring as every keyboard focus (F1), and the hint below.
+        .focusable(interactions: .activate)
+        .focused($isHeaderFocused)
+        .focusEffectDisabled()
+        .onKeyPress(.return) {
+            enterPage()
+            return .handled
+        }
+        .overlay {
+            UnevenRoundedRectangle(topLeadingRadius: DesignTokens.Radius.card + DesignTokens.Stroke.focus,
+                                   topTrailingRadius: DesignTokens.Radius.card + DesignTokens.Stroke.focus)
+                .strokeBorder(DesignTokens.Color.statusLeader, lineWidth: DesignTokens.Stroke.focus)
+                .padding(-DesignTokens.Stroke.focus)
+                .opacity(isHeaderFocused ? 1 : 0)
+                .animation(.linear(duration: DesignTokens.Motion.hover), value: isHeaderFocused)
+                .allowsHitTesting(false)
+        }
+        .overlay(alignment: .topLeading) {
+            if isHeaderFocused {
+                ChromeTooltip(title: "Sayfaya gir", shortcut: "⏎")
+                    .fixedSize()
+                    .offset(x: 6, y: Self.headerHeight + 6)
+                    .allowsHitTesting(false)
+                    .transition(.opacity)
+            }
+        }
+        .onChange(of: focusToken) { _, token in
+            if token != nil { isHeaderFocused = true }
+        }
+        .onChange(of: isHeaderFocused) { _, focused in
+            if focused { focusChanged() }
+        }
+        .accessibilityAction(named: "Sayfaya gir", enterPage)
     }
 
     private func headerRow(showsSize: Bool, showsEngine: Bool, showsCamera: Bool, minimumName: CGFloat = 0) -> some View {

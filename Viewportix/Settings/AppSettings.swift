@@ -52,3 +52,20 @@ final class HomeSettingsPresenter {
     static let shared = HomeSettingsPresenter()
     var tab: SettingsTab?
 }
+
+/// A capsule for the home window from elsewhere: "İçe aktar…" in its settings panel, or a project
+/// window that closed during a disk conflict (PW-07). Shown 5 s, or until replaced.
+@MainActor
+@Observable
+final class HomeNotices {
+    static let shared = HomeNotices()
+    var notice: Workspace.Notice?
+
+    func show(_ notice: Workspace.Notice) {
+        self.notice = notice
+        Task {
+            try? await Task.sleep(for: .seconds(5))
+            if self.notice?.id == notice.id { self.notice = nil }
+        }
+    }
+}

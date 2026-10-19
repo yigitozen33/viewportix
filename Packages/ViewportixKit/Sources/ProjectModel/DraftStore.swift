@@ -6,7 +6,8 @@ import Foundation
 public struct DraftStore: Sendable {
     public let folder: URL
     public let trash: URL
-    public static let baseName = "Untitled"
+    /// "Adsız", "Adsız 2"… (2026-10-19 decision; drafts made before are still "Untitled N").
+    public static let baseName = "Adsız"
     public static let trashDays = 30
 
     public init(root: URL) {
@@ -29,18 +30,18 @@ public struct DraftStore: Sendable {
         url.standardizedFileURL.path(percentEncoded: false).hasPrefix(trash.standardizedFileURL.path(percentEncoded: false))
     }
 
-    /// Writes `project` as a new draft: "Untitled", "Untitled 2"…
-    public func create(_ project: Project, thumbnail: Data? = nil, fileManager: FileManager = .default) throws -> URL {
+    /// Writes `project` as a new draft: "Adsız", "Adsız 2"… or `name`, "`name` 2"….
+    public func create(_ project: Project, thumbnail: Data? = nil, name: String = baseName, fileManager: FileManager = .default) throws -> URL {
         try fileManager.createDirectory(at: folder, withIntermediateDirectories: true)
-        let url = nextURL(fileManager: fileManager)
+        let url = nextURL(base: name, fileManager: fileManager)
         try ProjectPackage.write(project: project, thumbnail: thumbnail, to: url)
         return url
     }
 
-    func nextURL(fileManager: FileManager) -> URL {
+    func nextURL(base: String = baseName, fileManager: FileManager) -> URL {
         var number = 1
         while true {
-            let name = number == 1 ? Self.baseName : "\(Self.baseName) \(number)"
+            let name = number == 1 ? base : "\(base) \(number)"
             let url = folder.appending(path: "\(name).\(ProjectPackage.pathExtension)", directoryHint: .notDirectory)
             if !fileManager.fileExists(atPath: url.path(percentEncoded: false)) { return url }
             number += 1

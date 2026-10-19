@@ -196,6 +196,18 @@ final class Workspace {
         if diffCenter.mode != .sideBySide { await captureDiffOverlay() }
     }
 
+    @ObservationIgnored private var overlayRefresh: Task<Void, Never>?
+
+    /// 300 ms after the last scroll, after the followers have applied it (2026-10-19 decision).
+    private func refreshOverlaySoon() {
+        overlayRefresh?.cancel()
+        overlayRefresh = Task {
+            try? await Task.sleep(for: .milliseconds(300))
+            guard !Task.isCancelled else { return }
+            await captureDiffOverlay()
+        }
+    }
+
     /// Üst üste / Yanıp sönme: what the compared viewport shows now, for the baseline card.
     func captureDiffOverlay() async {
         guard let baseline = diffCenter.baselineID, let compared = diffCenter.comparedID,
@@ -322,6 +334,33 @@ final class Workspace {
     }
 
     /// STRIP-01, STRIP-04, STRIP-05: select the viewport and pan the canvas to its card.
+    /// PW-05 / 2026-10-19 decision: ⏎ on a focused card header puts the keyboard in its page; Esc in
+    /// that page comes back to the header (only when the page was entered with ⏎: a click into the page
+    /// leaves Esc to the page).
+    private(set) var keyboardEnteredPage: ViewportID?
+    /// The card header that should take keyboard focus (after Esc), with a fresh token per request.
+    private(set) var headerFocusRequest: (id: ViewportID, token: UUID)?
+
+    func enterPage(_ id: ViewportID) {
+        guard let view = sessions[id]?.view, let window = view.window else { return }
+        selectedViewportID = id
+        window.makeFirstResponder(view)
+        keyboardEnteredPage = id
+    }
+
+    /// Esc from a page entered with ⏎. Returns false when Esc belongs to the page.
+    func leavePage() -> Bool {
+        guard let id = keyboardEnteredPage else { return false }
+        keyboardEnteredPage = nil
+        sessions[id]?.view.window?.makeFirstResponder(nil)
+        headerFocusRequest = (id, UUID())
+        return true
+    }
+
+    func pageClicked() {
+        keyboardEnteredPage = nil
+    }
+
     func reveal(_ id: ViewportID) {
         selectedViewportID = id
         canvas?.reveal(id)
@@ -415,6 +454,9 @@ final class Workspace {
                 syncBlockedIDs.insert(id)
                 explainSyncBlock()
             }
+        case .interaction(.scroll):
+            // Üst üste / Yanıp sönme: the compared page's picture follows the scroll once it settles.
+            if diffCenter.mode != .sideBySide { refreshOverlaySoon() }
         case .interaction:
             break
         }

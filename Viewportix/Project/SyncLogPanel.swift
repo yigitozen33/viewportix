@@ -10,7 +10,7 @@ import WebKit
 /// Senkron (DESIGN.md §3.4, `devpanel-synclog-calm@2x.png`, pen `Dev Panel · Senkron (sakin)`):
 /// 320 pt, docked left of the rail, pushes the canvas. Calm: no colour until something is missed,
 /// then only the count turns coral. A row opens in place (DEV-01): what was missed, and the actions
-/// Yeniden dene R · Göster ⏎ · Teşhis et D across the full width (K4 f, §15 b).
+/// Yeniden dene R · Göster ⏎ across the full width (K4 f, §15 b; Teşhis et D comes with M7).
 struct SyncLogPanel: View {
     @Bindable var workspace: Workspace
 
@@ -64,7 +64,7 @@ struct SyncLogPanel: View {
             list
             if unseen > 0 {
                 Button { scrollToNewest() } label: {
-                    Text("\(unseen) yeni olay ↓")
+                    Text("\(unseen) yeni olay ↑")  // newest are at the top (2026-10-19 decision)
                         .font(DesignTokens.Font.caption)
                         .foregroundStyle(DesignTokens.Color.inkPrimary)
                         .frame(maxWidth: .infinity)
@@ -445,12 +445,7 @@ private struct SyncLogRow: View {
                         ActionButton("Yeniden dene", kind: .primary, key: "R", action: retry)
                     }
                     ActionButton("Göster", key: "⏎", action: show)
-                    if entry.isMissed {
-                        // A (satır içi teşhis) waits for M7 (PLAN.md M5, 2026-10-19 decision).
-                        ActionButton("Teşhis et", key: "D") {}
-                            .disabled(true)
-                            .chromeTooltip("Teşhis MCP ile gelecek")
-                    }
+                    // Teşhis et D stays hidden until in-app AI comes with M7 (2026-10-19 decisions).
                 }
                 .transition(.opacity)
             }

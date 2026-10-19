@@ -21,6 +21,7 @@ struct HomeView: View {
     @State private var query = ""
     @State private var isDropTargeted = false
     @State private var settings = HomeSettingsPresenter.shared
+    @State private var notices = HomeNotices.shared
     /// HOME-07: the project whose name is a field now.
     @State private var renaming: URL?
     /// HOME-08: the draft just deleted, until its capsule leaves.
@@ -64,8 +65,15 @@ struct HomeView: View {
                 .padding(.bottom, 36)
                 .padding(.leading, 200)  // centred on the content, right of the sidebar
                 .transition(.opacity)
+            } else if let notice = notices.notice {
+                ToastCapsule(notice: notice) { notices.notice = nil }
+                    .id(notice.id)
+                    .padding(.bottom, 36)
+                    .padding(.leading, 200)
+                    .transition(.opacity)
             }
         }
+        .animation(Motion.curve(DesignTokens.Motion.standard), value: notices.notice)
         .ignoresSafeArea()
         .preferredColorScheme(.dark)
         .onAppear { store.reload() }

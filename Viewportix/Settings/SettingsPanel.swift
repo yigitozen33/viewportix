@@ -41,6 +41,11 @@ struct SettingsPanel: View {
 
     @State private var query = ""
 
+    /// A capsule in the window this panel is in (project window or home).
+    private func notify(_ notice: Workspace.Notice) {
+        if let workspace { workspace.show(notice) } else { HomeNotices.shared.show(notice) }
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
@@ -56,7 +61,7 @@ struct SettingsPanel: View {
             Group {
                 switch tab {
                 case .general: GeneralSettings(workspace: workspace, query: query, showDevices: { tab = .devices })
-                case .devices: DeviceSettings(query: query)
+                case .devices: DeviceSettings(query: query, notify: notify)
                 case .mcp, .account: AccountSettings()
                 }
             }
@@ -302,6 +307,7 @@ private struct GeneralSettings: View {
 /// hover ⋯ (Düzenle, Çoğalt, Sil — Sil only for custom), "+ Cihaz" for a custom device.
 private struct DeviceSettings: View {
     let query: String
+    let notify: (Workspace.Notice) -> Void
 
     enum Filter: Hashable { case all, phone, tablet, desktop, custom }
 
@@ -320,6 +326,7 @@ private struct DeviceSettings: View {
         do {
             let added = try store.library.importDevices(from: Data(contentsOf: url))
             withAnimation(.easeInOut(duration: DesignTokens.Motion.standard)) { filter = .custom }
+            if added > 0 { notify(Workspace.Notice(kind: .success, text: "\(added) cihaz eklendi")) }
             if added == 0 {
                 ErrorAlert.show(.devicesUnreadable, title: "Yeni cihaz yok", message: "“\(url.lastPathComponent)” içindeki cihazların hepsi listede zaten var.",
                                 buttons: [.init(title: "Tamam")])

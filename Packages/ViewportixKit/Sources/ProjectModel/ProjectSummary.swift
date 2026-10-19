@@ -82,3 +82,18 @@ public struct ProjectSummary: Hashable, Sendable {
         return parts.joined(separator: " · ")
     }
 }
+
+/// The save sheet's suggested name (PW-06; 2026-10-19 decision): the page title without the site's
+/// suffix. "Keten Gömlek · Marka" → "Keten Gömlek", also after " | ", " – ", " — ", " - ". Only the
+/// last separator counts, and only when something is left in front of it.
+public enum SuggestedName {
+    static let separators = [" · ", " | ", " – ", " — ", " - ", " :: "]
+
+    public static func fromTitle(_ title: String) -> String {
+        let trimmed = title.trimmingCharacters(in: .whitespacesAndNewlines)
+        let cut = separators.compactMap { trimmed.range(of: $0, options: .backwards) }.max { $0.lowerBound < $1.lowerBound }
+        guard let cut else { return trimmed }
+        let head = trimmed[..<cut.lowerBound].trimmingCharacters(in: .whitespaces)
+        return head.isEmpty ? trimmed : head
+    }
+}

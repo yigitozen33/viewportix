@@ -10,10 +10,11 @@ struct DraftStoreTests {
         defer { try? FileManager.default.removeItem(at: root) }
         let first = try store.create(.new())
         let second = try store.create(.new(), thumbnail: Data([1, 2, 3]))
-        #expect(first.lastPathComponent == "Untitled.viewportix")
-        #expect(second.lastPathComponent == "Untitled 2.viewportix")
+        #expect(first.lastPathComponent == "Adsız.viewportix")
+        #expect(second.lastPathComponent == "Adsız 2.viewportix")
+        #expect(try store.create(.new(), name: "Marka (senin sürümün)").lastPathComponent == "Marka (senin sürümün).viewportix")
         try FileManager.default.setAttributes([.modificationDate: Date(timeIntervalSinceNow: -60)], ofItemAtPath: first.path(percentEncoded: false))
-        #expect(store.list().map(\.lastPathComponent) == ["Untitled 2.viewportix", "Untitled.viewportix"])
+        #expect(store.list().map(\.lastPathComponent).suffix(2) == ["Adsız 2.viewportix", "Adsız.viewportix"])
         #expect(store.isDraft(first) && !store.isDraft(root.appending(path: "Marka.viewportix")))
         #expect(ProjectSummary.read(second).thumbnail != nil && ProjectSummary.read(first).thumbnail == nil)
     }
@@ -32,6 +33,14 @@ struct DraftStoreTests {
         store.purgeTrash()
         let left = try FileManager.default.contentsOfDirectory(at: store.trash, includingPropertiesForKeys: nil)
         #expect(left.map(\.lastPathComponent) == [recent.deletingLastPathComponent().lastPathComponent])
+    }
+
+    @Test func suggestedNamesDropTheSiteSuffix() {
+        #expect(SuggestedName.fromTitle("Keten Gömlek · Marka") == "Keten Gömlek")
+        #expect(SuggestedName.fromTitle("Sepet | Marka - Online") == "Sepet | Marka")
+        #expect(SuggestedName.fromTitle("Ürün – A – B") == "Ürün – A")
+        #expect(SuggestedName.fromTitle("Kampanya") == "Kampanya")
+        #expect(SuggestedName.fromTitle(" · Marka") == "· Marka")
     }
 
     @Test func thumbnailIsLeftOutWhenTurnedOff() throws {

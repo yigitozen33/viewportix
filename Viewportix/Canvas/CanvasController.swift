@@ -466,7 +466,11 @@ final class CanvasController: NSViewController {
             NSCursor.pop()
             return nil
 
+        case .keyDown where event.keyCode == Self.escapeKeyCode && firstResponderIsWebContent && workspace.keyboardEnteredPage != nil:
+            return workspace.leavePage() ? nil : event
+
         case .leftMouseDown where !spaceHeld:
+            workspace.pageClicked()
             // CARD-02: clicking a page selects its card; the click still reaches the page.
             // Hit-test so clicks on the chrome floating above a card (bottom bar, strip) don't count.
             if let hit = view.window?.contentView?.hitTest(event.locationInWindow),
