@@ -245,4 +245,16 @@ struct SyncCoordinatorTests {
         await settle()
         #expect(coordinator.log.entries.count == 2)
     }
+
+    @Test func structuralTargetsReadAsWords() {
+        typealias Entry = SyncLog.Entry
+        #expect(Entry.structuralName("html") == "sayfa")
+        #expect(Entry.structuralName("html > body:nth-of-type(1)") == "sayfa")
+        #expect(Entry.structuralName("html > body:nth-of-type(1) > main:nth-of-type(1) > div:nth-of-type(1)") == "div")
+        #expect(Entry.structuralName("html > body:nth-of-type(1) > ul:nth-of-type(1) > li:nth-of-type(3)") == "li 3.")
+        #expect(Entry.structuralName("#nav > a:nth-of-type(2)") == "#nav › a 2.")
+        #expect(Entry.name(of: .object(["selector": .string(".add-to-cart"), "strong": .bool(true)])) == ".add-to-cart")
+        #expect(Entry.name(of: .object(["selector": .string("html > body:nth-of-type(1)"), "text": .string("")])) == "sayfa")
+        #expect(Entry.name(of: .object(["selector": .string("html"), "strong": .bool(true), "text": .string("Keten Gömlek ₺1.290")])) == "sayfa")
+    }
 }

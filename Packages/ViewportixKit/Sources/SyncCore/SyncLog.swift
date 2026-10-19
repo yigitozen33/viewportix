@@ -71,15 +71,33 @@ public struct SyncLog: Sendable {
             if case .failed = outcome { true } else { false }
         }
 
-        /// A short, readable name for an agent target: a stable selector as is, else its text, else the
-        /// last step of the structural path.
+        /// A short, readable name for an agent target: a stable selector as is, else its text, else
+        /// the structural path's last step without the CSS noise ("li 3.", "#nav › a 2."); the page
+        /// itself (html, body) is "sayfa".
         static func name(of target: JSONValue) -> String {
             let selector = target["selector"]?.stringValue ?? ""
+            if selector == "html" || selector == "body" { return "sayfa" }
             if target["strong"]?.boolValue == true, !selector.isEmpty { return selector }
             for key in ["label", "text", "name"] {
                 if let text = target[key]?.stringValue, !text.isEmpty { return "“\(text.prefix(40))”" }
             }
-            return selector.split(separator: ">").last.map { $0.trimmingCharacters(in: .whitespaces) } ?? selector
+            return structuralName(selector)
+        }
+
+        static func structuralName(_ selector: String) -> String {
+            let steps = selector.split(separator: ">").map { $0.trimmingCharacters(in: .whitespaces) }.filter { !$0.isEmpty }
+            guard let last = steps.last else { return "sayfa" }
+            func readable(_ step: String) -> String {
+                guard let open = step.range(of: ":nth-of-type(") else { return step }
+                let tag = String(step[..<open.lowerBound])
+                let index = Int(step[open.upperBound...].prefix { $0.isNumber }) ?? 1
+                return index > 1 ? "\(tag) \(index)." : tag
+            }
+            let name = readable(last)
+            if name == "html" || name == "body" { return "sayfa" }
+            // Rooted at an id ("#nav > a:nth-of-type(2)"): keep the id for context.
+            if steps.count > 1, let anchor = steps.first, anchor.hasPrefix("#") { return "\(anchor) › \(name)" }
+            return name
         }
     }
 

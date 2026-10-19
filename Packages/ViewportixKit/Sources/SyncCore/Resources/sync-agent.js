@@ -89,7 +89,7 @@
       }
       parts.unshift(`${node.tagName.toLowerCase()}:nth-of-type(${index})`);
     }
-    return 'html > ' + parts.join(' > ');
+    return parts.length ? 'html > ' + parts.join(' > ') : 'html';
   }
 
   const isStrong = (selector) => !selector.includes(':nth-of-type');

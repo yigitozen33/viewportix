@@ -617,3 +617,10 @@ Kod oturumunun arayüze dokunan her değişikliği, değişikliğin commit'inde 
 - Nerede: `Viewportix/Project/ToastCapsule.swift`
 - Durum: özel çizim
 - Tasarım kararı gerekir mi: hayır
+
+## 2026-10-19 — Senkron: sayfanın boş yerine tıklama ve yapısal öğe adları
+- Ne: Sayfanın kendisine (boş alana) tıklanınca ajan geçersiz bir seçici (`html > `) üretiyordu: takipçiler bulamıyor, satır "click html > 5 / 8" diye kaçırmış görünüyordu. Artık seçici `html`, olay her viewport'a ulaşıyor ve satırda "sayfa" yazıyor. Yapısal seçicili öğeler okunur adla: "div", "li 3.", "#nav › a 2." (önce "div:nth-of-type(1)").
+- Kanıt (canlı): spa.html, Full HD'de boş alana tıklama → "click sayfa 8 / 8" (`docs/parity/live-synclog-page-click@2x.png`); test `structuralTargetsReadAsWords`.
+- Nerede: `Packages/ViewportixKit/Sources/SyncCore/Resources/sync-agent.js` (`selectorFor`), `SyncCore/SyncLog.swift` (`name(of:)`, `structuralName`)
+- Durum: özel çizim
+- Tasarım kararı gerekir mi: evet — sıra eki biçimi ("li 3.") ve "sayfa" kelimesi uygun mu?
