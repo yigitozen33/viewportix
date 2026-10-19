@@ -251,25 +251,36 @@ final class CanvasController: NSViewController {
     }
 
     /// Moves the card by a screen-point translation from where the drag began; snaps to the other
-    /// cards' edges and centres within 6 screen px unless ⌥ is held. Returns guides in screen points.
-    func dragCard(by translation: CGSize, snapping: Bool) -> [CanvasLayout.Guide] {
-        guard let drag, let card = cards[drag.id] else { return [] }
+    /// cards' edges and centres within 6 screen px unless ⌥ is held, then to equal spacing between
+    /// neighbours on the axes not already snapped. Returns guides and gaps in document units.
+    func dragCard(by translation: CGSize, snapping: Bool) -> (guides: [CanvasLayout.Guide], gaps: [CanvasLayout.Gap]) {
+        guard let drag, let card = cards[drag.id] else { return ([], []) }
         let magnification = scrollView.magnification
         var origin = NSPoint(x: max(drag.start.x + translation.width / magnification, 0),
                              y: max(drag.start.y + translation.height / magnification, 0))
         var guides: [CanvasLayout.Guide] = []
+        var gaps: [CanvasLayout.Gap] = []
         if snapping {
-            let others = cards.filter { $0.key != drag.id }.map(\.value.frame)
-            let snapped = CanvasLayout.snap(CGRect(origin: origin, size: card.frame.size), to: others, threshold: 6 / magnification)
-            origin = snapped.origin
-            guides = snapped.guides
+            let others = cards.filter { $0.key != drag.id && !$0.value.isHidden }.map(\.value.frame)
+            let rect = CGRect(origin: origin, size: card.frame.size)
+            let threshold = 6 / magnification
+            // Per axis, the nearer of edge snapping and equal spacing wins.
+            let snapped = CanvasLayout.snap(rect, to: others, threshold: threshold)
+            let spaced = CanvasLayout.equalSpacing(rect, to: others, threshold: threshold)
+            let spacedX = spaced.gaps.contains { $0.axis == .horizontal }
+                && (!snapped.guides.contains { $0.axis == .vertical } || abs(spaced.origin.x - rect.minX) < abs(snapped.origin.x - rect.minX))
+            let spacedY = spaced.gaps.contains { $0.axis == .vertical }
+                && (!snapped.guides.contains { $0.axis == .horizontal } || abs(spaced.origin.y - rect.minY) < abs(snapped.origin.y - rect.minY))
+            origin = CGPoint(x: spacedX ? spaced.origin.x : snapped.origin.x, y: spacedY ? spaced.origin.y : snapped.origin.y)
+            guides = snapped.guides.filter { $0.axis == .vertical ? !spacedX : !spacedY }
+            gaps = spaced.gaps.filter { $0.axis == .horizontal ? spacedX : spacedY }
         }
         card.setFrameOrigin(origin)
         let maxPoint = NSPoint(x: max(documentView.frame.width, card.frame.maxX + CanvasLayout.margin),
                                y: max(documentView.frame.height, card.frame.maxY + CanvasLayout.margin))
         documentView.setFrameSize(NSSize(width: maxPoint.x, height: maxPoint.y))
         publishFrames()
-        return guides
+        return (guides, gaps)
     }
 
     /// Ends the drag and returns every card's origin, to be saved as positions (the layout is pinned
@@ -291,6 +302,20 @@ final class CanvasController: NSViewController {
         case .horizontal:
             return (screen(NSPoint(x: guide.start, y: guide.position)), screen(NSPoint(x: guide.end, y: guide.position)))
         }
+    }
+
+    /// A gap's line in screen points, for the chrome layer's spacing badge.
+    func screenGap(_ gap: CanvasLayout.Gap) -> Workspace.DragGap {
+        let guide = CanvasLayout.Guide(axis: gap.axis, position: gap.position, start: gap.start, end: gap.end)
+        let (from, to) = screenGuide(guide)
+        return Workspace.DragGap(from: from, to: to, label: "\(Int(gap.length.rounded()))")
+    }
+
+    /// The pointer in the chrome layer's coordinates (top-left origin), for the drag hint.
+    func layerPoint(ofScreenPoint point: NSPoint) -> CGPoint? {
+        guard let window = scrollView.window else { return nil }
+        let local = scrollView.convert(window.convertPoint(fromScreen: point), from: nil)
+        return CGPoint(x: local.x, y: scrollView.isFlipped ? local.y : scrollView.bounds.height - local.y)
     }
 
     /// Pans so the card is centred horizontally and its top shows below the strip (250 ms ease-out).
@@ -515,6 +540,8 @@ final class CanvasDocumentView: NSView {
 
     override var isFlipped: Bool { true }
     override var acceptsFirstResponder: Bool { true }
+    /// A click gives it the keyboard (⌫, Esc, Space); Tab goes to the cards' own controls (PW-05).
+    override var canBecomeKeyView: Bool { false }
 
     /// Clicking empty canvas takes keyboard focus away from web pages, so Space pans again, and
     /// clears the card selection (CARD-02).

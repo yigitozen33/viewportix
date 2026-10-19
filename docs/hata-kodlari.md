@@ -10,6 +10,7 @@ Uyarıların altındaki mono satır (DESIGN.md §4 K8, HOME-13, PW-09): `VPX-004
 | VPX-0043 | project.json eksik | paket var, içi eksik (HOME-13) |
 | VPX-0044 | Dosya sürümü daha yeni | daha yeni Viewportix'le kaydedilmiş (HOME-13) |
 | VPX-0050 | Okuma izni yok | |
+| VPX-0060 | Cihaz listesi okunamadı | Ayarlar › Cihazlar › İçe aktar… |
 | VPX-0099 | Dosya okunamadı | diğer okuma hataları |
 | **01xx kaydetme** | | |
 | VPX-0101 | Diskte yer yok | PW-09 |

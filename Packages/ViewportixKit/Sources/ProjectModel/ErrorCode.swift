@@ -9,6 +9,7 @@ public enum ErrorCode: Int, CaseIterable, Sendable {
     case projectFileMissing = 43
     case newerSchema = 44
     case readPermission = 50
+    case devicesUnreadable = 60
     case readFailed = 99
 
     case diskFull = 101
@@ -36,6 +37,7 @@ public enum ErrorCode: Int, CaseIterable, Sendable {
         case .projectFileMissing: "project.json eksik"
         case .newerSchema: "Dosya sürümü daha yeni"
         case .readPermission: "Okuma izni yok"
+        case .devicesUnreadable: "Cihaz listesi okunamadı"
         case .readFailed: "Dosya okunamadı"
         case .diskFull: "Diskte yer yok"
         case .writePermission: "Yazma izni yok"

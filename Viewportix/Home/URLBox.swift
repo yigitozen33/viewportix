@@ -16,6 +16,7 @@ struct URLBox: View {
             HStack(spacing: DesignTokens.Space.s3) {
                 ChromeSymbol("link", box: DesignTokens.Size.icon)
                     .foregroundStyle(DesignTokens.Color.inkSecondary)
+                    .accessibilityHidden(true)
                 TextField("", text: $text, prompt: Text("URL yapıştır…").foregroundStyle(DesignTokens.Color.inkSecondary))
                     .textFieldStyle(.plain)
                     .font(.system(size: DesignTokens.FontSize.title))

@@ -24,6 +24,10 @@ final class Workspace {
     private(set) var loadingIDs: Set<ViewportID> = []
     /// Viewports whose page failed to load; the card shows the error in place of the page.
     private(set) var loadFailures: [ViewportID: LoadFailure] = [:]
+    /// Viewports whose page takes no sync agent (PDF, image, about:blank): §5.20 h.
+    private(set) var syncBlockedIDs: Set<ViewportID> = []
+    /// "Bu sayfada senkron çalışmıyor · Neden?" only the first time in a run of the app.
+    @ObservationIgnored private static var hasExplainedSyncBlock = false
     @ObservationIgnored private var retryTasks: [ViewportID: Task<Void, Never>] = [:]
     @ObservationIgnored private var allFailedNoticeID: UUID?
     /// Device picker popover under "+ Cihaz" (STRIP-07, ⌥⌘N).
@@ -41,6 +45,16 @@ final class Workspace {
     /// Drawn above the other cards where they overlap (the last one dragged).
     var frontCardID: ViewportID?
     var dragGuides: [(from: CGPoint, to: CGPoint)] = []
+    /// CARD-08: equal-spacing runs and their length in CSS px, in screen points.
+    var dragGaps: [DragGap] = []
+    /// Where the pointer is while dragging, for the "⌥ basılıyken hizalama kapalı" hint.
+    var dragPointer: CGPoint?
+
+    struct DragGap: Hashable {
+        let from: CGPoint
+        let to: CGPoint
+        let label: String
+    }
     /// Card under the pointer (page, header or hover strip): shows its hover strip.
     private(set) var hoveredViewportID: ViewportID?
     /// Page areas of the cards on screen (canvas coordinates, top-left origin), from the canvas.
@@ -241,9 +255,24 @@ final class Workspace {
             isLoading = !loadingIDs.isEmpty
         case .loadFailure(let failure):
             setLoadFailure(failure, for: id)
+        case .syncAvailable(let available):
+            if available {
+                syncBlockedIDs.remove(id)
+            } else {
+                syncBlockedIDs.insert(id)
+                explainSyncBlock()
+            }
         case .interaction:
             break
         }
+    }
+
+    private func explainSyncBlock() {
+        guard !Self.hasExplainedSyncBlock else { return }
+        Self.hasExplainedSyncBlock = true
+        show(Notice(kind: .info, text: "Bu sayfada senkron çalışmıyor", action: .init(title: "Neden?") { [weak self] in
+            self?.show(Notice(kind: .info, text: "Sayfa betik çalıştırmıyor (PDF, görsel ya da boş sayfa); bu viewport kaydırma ve tıklamaları izlemez"))
+        }))
     }
 
     // MARK: Load failures

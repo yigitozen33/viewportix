@@ -93,7 +93,7 @@ public final class SyncCoordinator {
             }
         case .urlChanged(let url):
             mirrorNavigation(to: url, from: id)
-        case .titleChanged, .loadingChanged, .loadFailure:
+        case .titleChanged, .loadingChanged, .loadFailure, .syncAvailable:
             break
         }
     }

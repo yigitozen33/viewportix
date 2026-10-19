@@ -63,4 +63,54 @@ public struct DeviceLibrary: Codable, Hashable, Sendable {
         custom.removeAll { $0.id == id }
         hiddenIDs.remove(id)
     }
+
+    /// "İçe aktar…" (Ayarlar › Cihazlar): adds the devices in a JSON file as custom devices and returns
+    /// how many were new. Takes a list of `{name|title, width, height}`, the same nested under
+    /// `devices` / `customDevices`, or DevTools-style `screen.vertical.width/height`. A device with
+    /// the same name and size as one in the list already is skipped.
+    @discardableResult
+    public mutating func importDevices(from data: Data) throws -> Int {
+        let found = try Self.devices(in: data)
+        var added = 0
+        for device in found where !all.contains(where: { $0.name == device.name && $0.size == device.size }) {
+            addCustom(name: device.name, size: device.size)
+            added += 1
+        }
+        return added
+    }
+
+    public enum ImportError: Error, Equatable {
+        /// Valid JSON, but nothing in it reads as a device.
+        case noDevices
+    }
+
+    static func devices(in data: Data) throws -> [(name: String, size: ViewportSize)] {
+        let root = try JSONSerialization.jsonObject(with: data)
+        let list: [Any]
+        if let array = root as? [Any] {
+            list = array
+        } else if let object = root as? [String: Any], let array = (object["devices"] ?? object["customDevices"]) as? [Any] {
+            list = array
+        } else {
+            throw ImportError.noDevices
+        }
+        let devices: [(name: String, size: ViewportSize)] = list.compactMap { item in
+            guard let item = item as? [String: Any],
+                  let name = (item["name"] ?? item["title"]) as? String, !name.trimmingCharacters(in: .whitespaces).isEmpty else { return nil }
+            let screen = (item["screen"] as? [String: Any])?["vertical"] as? [String: Any]
+            guard let width = (item["width"] ?? screen?["width"]) as? Int,
+                  let height = (item["height"] ?? screen?["height"]) as? Int else { return nil }
+            let size = ViewportSize(width: width, height: height)
+            return size.isWithinCatalogLimits ? (name.trimmingCharacters(in: .whitespaces), size) : nil
+        }
+        guard !devices.isEmpty else { throw ImportError.noDevices }
+        return devices
+    }
+}
+
+extension ViewportSize {
+    /// Same limits as a viewport (200…3840 × 200…4320).
+    var isWithinCatalogLimits: Bool {
+        (200...3840).contains(width) && (200...4320).contains(height)
+    }
 }

@@ -48,6 +48,13 @@ public enum CanvasLayout {
         public let position: Double
         public let start: Double
         public let end: Double
+
+        public init(axis: Axis, position: Double, start: Double, end: Double) {
+            self.axis = axis
+            self.position = position
+            self.start = start
+            self.end = end
+        }
     }
 
     /// Snaps `rect` to the edges and centres of `others` when within `threshold` (document units;
@@ -86,5 +93,59 @@ public enum CanvasLayout {
                                 start: min(moved.minX, hit.other.minX), end: max(moved.maxX, hit.other.maxX)))
         }
         return (origin, guides)
+    }
+
+    /// A run of empty space between two cards, drawn with its length while dragging (CARD-08 "eşit
+    /// aralık rozeti"). `axis` is the guide axis the run lies along: `.horizontal` = a gap measured
+    /// in x, drawn at height `position`.
+    public struct Gap: Hashable, Sendable {
+        public let axis: Guide.Axis
+        public let start: Double
+        public let end: Double
+        public let position: Double
+        public var length: Double { end - start }
+    }
+
+    /// Equal spacing: when the card sits between two others (in a row or a column) and its two gaps
+    /// differ by no more than `threshold`, it moves to the middle and both gaps are returned.
+    /// `axes` limits which directions may move (those not already snapped to an edge).
+    public static func equalSpacing(_ rect: CGRect, to others: [CGRect], threshold: Double,
+                                    axes: Set<Guide.Axis> = [.horizontal, .vertical]) -> (origin: CGPoint, gaps: [Gap]) {
+        var origin = rect.origin
+        var gaps: [Gap] = []
+        if axes.contains(.horizontal) {
+            let row = others.filter { $0.minY < rect.maxY && $0.maxY > rect.minY }
+            if let left = row.filter({ $0.maxX <= rect.minX + threshold }).max(by: { $0.maxX < $1.maxX }),
+               let right = row.filter({ $0.minX >= rect.maxX - threshold }).min(by: { $0.minX < $1.minX }) {
+                let delta = ((right.minX - rect.maxX) - (rect.minX - left.maxX)) / 2
+                let gap = (right.minX - left.maxX - rect.width) / 2
+                if abs(delta) <= threshold, gap > 0 {
+                    origin.x += delta
+                    let moved = CGRect(origin: origin, size: rect.size)
+                    gaps.append(Gap(axis: .horizontal, start: left.maxX, end: moved.minX, position: middle(left, moved, \.minY, \.maxY)))
+                    gaps.append(Gap(axis: .horizontal, start: moved.maxX, end: right.minX, position: middle(moved, right, \.minY, \.maxY)))
+                }
+            }
+        }
+        if axes.contains(.vertical) {
+            let column = others.filter { $0.minX < rect.maxX && $0.maxX > rect.minX }
+            if let above = column.filter({ $0.maxY <= rect.minY + threshold }).max(by: { $0.maxY < $1.maxY }),
+               let below = column.filter({ $0.minY >= rect.maxY - threshold }).min(by: { $0.minY < $1.minY }) {
+                let delta = ((below.minY - rect.maxY) - (rect.minY - above.maxY)) / 2
+                let gap = (below.minY - above.maxY - rect.height) / 2
+                if abs(delta) <= threshold, gap > 0 {
+                    origin.y += delta
+                    let moved = CGRect(origin: CGPoint(x: origin.x, y: origin.y), size: rect.size)
+                    gaps.append(Gap(axis: .vertical, start: above.maxY, end: moved.minY, position: middle(above, moved, \.minX, \.maxX)))
+                    gaps.append(Gap(axis: .vertical, start: moved.maxY, end: below.minY, position: middle(moved, below, \.minX, \.maxX)))
+                }
+            }
+        }
+        return (origin, gaps)
+    }
+
+    /// Middle of where two rects overlap across the gap's axis.
+    private static func middle(_ a: CGRect, _ b: CGRect, _ low: KeyPath<CGRect, CGFloat>, _ high: KeyPath<CGRect, CGFloat>) -> Double {
+        Double(max(a[keyPath: low], b[keyPath: low]) + min(a[keyPath: high], b[keyPath: high])) / 2
     }
 }

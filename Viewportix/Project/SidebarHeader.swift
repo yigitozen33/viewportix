@@ -100,6 +100,9 @@ struct AddressField: View {
         HStack(spacing: DesignTokens.Space.s2) {
             ChromeSymbol(isSecure ? "lock" : "globe", box: 13)
                 .foregroundStyle(DesignTokens.Color.inkSecondary)
+                // The lock says something (secure page); the globe is decoration.
+                .accessibilityLabel("Güvenli bağlantı")
+                .accessibilityHidden(!isSecure)
             ZStack(alignment: .leading) {
                 TextField("", text: $workspace.addressText, prompt: Text("Adres yaz ya da yapıştır").foregroundStyle(DesignTokens.Color.inkSecondary))
                     .textFieldStyle(.plain)

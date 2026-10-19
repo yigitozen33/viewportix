@@ -21,6 +21,8 @@ struct HomeView: View {
     @State private var query = ""
     @State private var isDropTargeted = false
     @State private var settings = HomeSettingsPresenter.shared
+    /// HOME-07: the project whose name is a field now.
+    @State private var renaming: URL?
     /// HOME-08: the draft just deleted, until its capsule leaves.
     @State private var deleted: DeletedDraft?
     @Environment(\.undoManager) private var undoManager
@@ -242,7 +244,8 @@ struct HomeView: View {
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 236), spacing: DesignTokens.Space.s4)],
                       spacing: DesignTokens.Space.s4) {
                 ForEach(listed, id: \.url) { summary in
-                    ProjectCard(summary: summary, isDraft: store.isDraft(summary.url), action: { open(summary) }, menu: { menu(for: summary) })
+                    ProjectCard(summary: summary, isDraft: store.isDraft(summary.url), action: { open(summary) }, menu: { menu(for: summary) },
+                                isRenaming: renaming == summary.url, rename: { rename(summary, to: $0) })
                         // HOME-08: a deleted draft's card narrows in 150 ms; the grid closes up.
                         .transition(.scale(scale: 0.6, anchor: .center).combined(with: .opacity))
                 }
@@ -252,7 +255,8 @@ struct HomeView: View {
             VStack(spacing: 2) {
                 ProjectListHeader().padding(.bottom, DesignTokens.Space.s2)
                 ForEach(listed, id: \.url) { summary in
-                    ProjectRow(summary: summary, isDraft: store.isDraft(summary.url), action: { open(summary) }, menu: { menu(for: summary) })
+                    ProjectRow(summary: summary, isDraft: store.isDraft(summary.url), action: { open(summary) }, menu: { menu(for: summary) },
+                               isRenaming: renaming == summary.url, rename: { rename(summary, to: $0) })
                         .transition(.opacity)
                 }
             }
@@ -328,6 +332,23 @@ struct HomeView: View {
         withAnimation(Motion.curve(Motion.cardRemove)) { deleted = nil }
     }
 
+    /// HOME-07: the package is renamed where it is; a name taken in the folder gets the file alert.
+    private func rename(_ summary: ProjectSummary, to name: String?) {
+        renaming = nil
+        guard let name else { return }
+        Task {
+            do {
+                _ = try await ProjectFiles.rename(summary.url, to: name.replacingOccurrences(of: "/", with: "-").replacingOccurrences(of: ":", with: "-"))
+                store.reload()
+            } catch {
+                let code = ErrorCode.writing(error)
+                ErrorAlert.show(code, title: "“\(summary.name)” yeniden adlandırılamadı",
+                                message: code == .nameTaken ? "Bu klasörde “\(name)” adlı bir proje var." : error.localizedDescription,
+                                buttons: [.init(title: "Tamam")])
+            }
+        }
+    }
+
     /// HOME-12: "Bul…" picks the moved file; its new place replaces the old one in the list.
     private func locate(_ summary: ProjectSummary) {
         let panel = NSOpenPanel()
@@ -347,7 +368,7 @@ struct HomeView: View {
             // Drafts: no submenu; "Taslağı sil" without asking, undone from the capsule or ⌘Z (K8).
             return ChromeMenu(width: 220, items: [
                 .button("Aç", symbol: "folder", shortcut: "↩") { open(summary) },
-                .button("Yeniden adlandır", symbol: "pencil", shortcut: "⏎", isEnabled: false) {},
+                .button("Yeniden adlandır", symbol: "pencil", shortcut: "⏎") { renaming = url },
                 .separator,
                 .button("Taslağı sil", symbol: "trash", role: .destructive) { deleteDraft(summary) },
             ])
@@ -359,8 +380,7 @@ struct HomeView: View {
             items.append(.button("Aç", symbol: "folder", shortcut: "↩") { open(summary) })
         }
         items += [
-            // HOME-07 (in-place rename) is not built yet.
-            .button("Yeniden adlandır", symbol: "pencil", shortcut: "⏎", isEnabled: false) {},
+            .button("Yeniden adlandır", symbol: "pencil", shortcut: "⏎", isEnabled: !summary.isMissing) { renaming = url },
             .button("Çoğalt", symbol: "doc.on.doc", shortcut: "⌘D", isEnabled: !summary.isMissing) { try? store.duplicate(url) },
             .separator,
             .button("Finder'da göster", symbol: "folder", shortcut: "⌘⇧R", isEnabled: !summary.isMissing) {
@@ -394,6 +414,7 @@ private struct SearchField: View {
         HStack(spacing: DesignTokens.Space.s2) {
             ChromeSymbol("magnifyingglass", box: DesignTokens.Size.icon)
                 .foregroundStyle(DesignTokens.Color.inkSecondary)
+                .accessibilityHidden(true)
             TextField("", text: $text, prompt: Text("Ara").foregroundStyle(DesignTokens.Color.inkSecondary))
                 .textFieldStyle(.plain)
                 .font(.system(size: DesignTokens.FontSize.body))

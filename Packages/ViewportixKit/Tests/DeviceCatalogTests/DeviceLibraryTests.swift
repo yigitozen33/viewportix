@@ -37,3 +37,20 @@ struct DeviceLibraryTests {
         #expect(decoded == library)
     }
 }
+
+struct DeviceImportTests {
+    @Test func importsListsAndSkipsWhatIsThere() throws {
+        var library = DeviceLibrary()
+        let list = Data(#"[{"name":"Kiosk","width":1080,"height":1920},{"title":"Saat","width":100,"height":100},{"name":"iPhone 16","width":393,"height":852}]"#.utf8)
+        // "Saat" is under the size limits, iPhone 16 is built in: one new device.
+        #expect(try library.importDevices(from: list) == 1)
+        #expect(library.custom.map(\.name) == ["Kiosk"] && library.custom[0].category == .tablet)
+        #expect(try library.importDevices(from: list) == 0)
+
+        let nested = Data(#"{"customDevices":[{"title":"Katlanır","screen":{"vertical":{"width":344,"height":882}}}]}"#.utf8)
+        #expect(try library.importDevices(from: nested) == 1)
+        #expect(library.custom.last?.size == ViewportSize(width: 344, height: 882))
+
+        #expect(throws: DeviceLibrary.ImportError.noDevices) { try library.importDevices(from: Data(#"{"a":1}"#.utf8)) }
+    }
+}

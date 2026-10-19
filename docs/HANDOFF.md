@@ -20,8 +20,7 @@
 
 ## Sıradaki iş
 
-Kullanıcının 2026-10-19 sırası (0–2 bitti):
-3. §13'ten kalanlar: senkron kurulamıyor (‖ + "Neden?"), eşit aralık rozetleri, HOME-07 yerinde adlandırma, "İçe aktar…", Tab sırası (PW-05), VoiceOver gözden geçirmesi.
+Kullanıcının 2026-10-19 sırası (0–3 bitti; 3: senkron kurulamıyor, eşit aralık rozetleri, HOME-07, İçe aktar…, PW-05, VoiceOver):
 4. M5: Farklar/Senkron panelleri (§15 b; eylem satırı tam genişlik, DEV-02 anında), sonra A satır içi teşhis. Model çağrısı, araç katmanı, izin saklama önce PLAN.md'ye.
 5. M7 gelince §15 c: Ajanlar paneli, sürüş şeridi, bildirim yığını, MCP onayı, PW-08.
 - Bekleyen tasarım soruları: `docs/tasarim-istekleri.md` 2026-10-19 girdileri (sayfa başlık alanı, "Untitled" adı, Geri al kapsülünün iki görünümü, onay kutusu kapalı hali…).
@@ -47,6 +46,7 @@ Kullanıcının 2026-10-19 sırası (0–2 bitti):
 - §12: adım 1–8 ✅.
 - §13: sayfa yüklenemedi ✅, kart sürükleme ✅ (eşit aralık rozetleri yok), gruplama ✅, sidebar V1 (PLAN.md) ✅, genişlik tutamacı ✅, odak halkası ✅ (kendi denetimlerimizde), giriş ekranı ✅, küçük ayrıntılar a b c d e f g ✅ / h yok / i ✅ / j MVP dışı, VoiceOver etiketleri ✅ (gözden geçirilmeli), menü (Grupla, Kartları Diz) ✅.
 - §14: hepsi ✅ (ilk bölüm); aşama 9 için ⛔ önerildi.
+- §13: ✅ kalanlar da bitti (2026-10-19: h senkron kurulamıyor, eşit aralık rozetleri, Tab sırası, VoiceOver); j çoklu seçim MVP dışı.
 - §15 a: ✅ hepsi (ActionButton, AIActivityGlyph, Motion, bizim sayfa, HOME-08, HOME-13, PW-06, PW-07, PW-09). §15 b (M5), §15 c (M7) bekliyor.
 - Uygulama ikonu (`design/logo/Viewportix.icon`) alınmadı: logo kararı açık.
 

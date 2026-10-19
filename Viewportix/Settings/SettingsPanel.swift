@@ -4,6 +4,7 @@ import DeviceCatalog
 import EngineCore
 import ProjectModel
 import SwiftUI
+import UniformTypeIdentifiers
 
 enum SettingsTab: String, CaseIterable {
     case general, devices, mcp, account
@@ -309,6 +310,26 @@ private struct DeviceSettings: View {
     @State private var isAdding = false
     private var store: DeviceLibraryStore { DeviceLibraryStore.shared }
 
+    /// "İçe aktar…": a JSON list of devices becomes custom devices; the list jumps to "Özel".
+    private func importDevices() {
+        let panel = NSOpenPanel()
+        panel.allowedContentTypes = [.json]
+        panel.prompt = "İçe aktar"
+        panel.message = "Cihaz listesi (JSON): ad, genişlik, yükseklik"
+        guard panel.runModal() == .OK, let url = panel.url else { return }
+        do {
+            let added = try store.library.importDevices(from: Data(contentsOf: url))
+            withAnimation(.easeInOut(duration: DesignTokens.Motion.standard)) { filter = .custom }
+            if added == 0 {
+                ErrorAlert.show(.devicesUnreadable, title: "Yeni cihaz yok", message: "“\(url.lastPathComponent)” içindeki cihazların hepsi listede zaten var.",
+                                buttons: [.init(title: "Tamam")])
+            }
+        } catch {
+            ErrorAlert.show(.devicesUnreadable, title: "“\(url.lastPathComponent)” içe aktarılamadı",
+                            message: "Dosyada okunabilir cihaz yok. Her cihazın adı, genişliği ve yüksekliği olmalı.", buttons: [.init(title: "Tamam")])
+        }
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: DesignTokens.Space.s3) {
             HStack(spacing: DesignTokens.Space.s2) {
@@ -316,8 +337,7 @@ private struct DeviceSettings: View {
                     .font(.system(size: DesignTokens.FontSize.caption))
                     .foregroundStyle(DesignTokens.Color.inkSecondary)
                 Spacer()
-                ChromeButton(icon: .system("square.and.arrow.down"), title: "İçe aktar…") {}
-                    .disabled(true)
+                ChromeButton(icon: .system("square.and.arrow.down"), title: "İçe aktar…", action: importDevices)
                 Button { isAdding = true; editing = nil } label: {
                     HStack(spacing: DesignTokens.Space.s1) {
                         ChromeSymbol("plus", box: DesignTokens.Size.iconSm)

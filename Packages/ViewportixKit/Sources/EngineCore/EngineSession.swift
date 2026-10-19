@@ -22,6 +22,9 @@ public enum EngineEvent: Hashable, Sendable {
     case loadingChanged(Bool)
     /// The main frame failed to load (`LoadFailure`), or nil once a page loads again.
     case loadFailure(LoadFailure?)
+    /// After each page load: whether the sync agent runs in it. False for pages that take no script
+    /// (PDF, images, about:blank…): the viewport can't lead or follow (§5.20 h, "senkron kurulamıyor").
+    case syncAvailable(Bool)
 }
 
 /// What a screenshot covers.

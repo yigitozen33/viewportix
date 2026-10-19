@@ -59,6 +59,35 @@ struct WebKitSessionTests {
         return reported
     }
 
+    /// What a session says about its sync agent after loading `url`.
+    private func syncAvailability(loading url: URL) async throws -> Bool? {
+        let session = WebKitSession(id: ViewportID(), size: Self.phone, mobileUserAgent: false, dataStore: .nonPersistent())
+        var available: Bool?
+        session.eventHandler = { event in
+            if case .syncAvailable(let value) = event { available = value }
+        }
+        session.load(url)
+        for _ in 0..<100 where available == nil {
+            try await Task.sleep(for: .milliseconds(100))
+        }
+        return available
+    }
+
+    @Test func reportsWhereTheSyncAgentRuns() async throws {
+        #expect(try await syncAvailability(loading: Self.fixtures.appending(path: "sample-product.html")) == true)
+
+        // A PDF has no DOM for the agent: "senkron kurulamıyor".
+        let pdf = URL.temporaryDirectory.appending(path: "viewportix-sync-\(UUID().uuidString).pdf")
+        var box = CGRect(x: 0, y: 0, width: 200, height: 200)
+        let context = try #require(CGContext(pdf as CFURL, mediaBox: &box, nil))
+        context.beginPDFPage(nil)
+        context.fill(CGRect(x: 20, y: 20, width: 50, height: 50))
+        context.endPDFPage()
+        context.closePDF()
+        defer { try? FileManager.default.removeItem(at: pdf) }
+        #expect(try await syncAvailability(loading: pdf) == false)
+    }
+
     @Test func reportsAClosedLocalServer() async throws {
         let failure = try #require(try await failure(loading: URL(string: "http://localhost:59999/urun")!))
         #expect(failure.kind == .serverDown)

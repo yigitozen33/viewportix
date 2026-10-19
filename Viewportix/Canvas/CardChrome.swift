@@ -37,6 +37,15 @@ struct CardChromeLayer: View {
                 }
                 .allowsHitTesting(false)
             }
+            .overlay(alignment: .topLeading) {
+                ZStack(alignment: .topLeading) {
+                    ForEach(workspace.dragGaps, id: \.self) { SpacingBadge(gap: $0) }
+                    if let pointer = workspace.dragPointer {
+                        DragHint().offset(x: pointer.x + 16, y: pointer.y + 12)
+                    }
+                }
+                .allowsHitTesting(false)
+            }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             .clipped()
     }
@@ -90,6 +99,8 @@ struct CardChromeLayer: View {
             let positions = canvas.endDrag()
             workspace.draggingID = nil
             workspace.dragGuides = []
+            workspace.dragGaps = []
+            workspace.dragPointer = nil
             savePositions(positions)
             return
         }
@@ -101,7 +112,10 @@ struct CardChromeLayer: View {
         }
         // CARD-09: ⌥ turns alignment and snapping off.
         let snapping = !NSEvent.modifierFlags.contains(.option)
-        workspace.dragGuides = canvas.dragCard(by: translation, snapping: snapping).map(canvas.screenGuide)
+        let moved = canvas.dragCard(by: translation, snapping: snapping)
+        workspace.dragGuides = moved.guides.map(canvas.screenGuide)
+        workspace.dragGaps = moved.gaps.map(canvas.screenGap)
+        workspace.dragPointer = canvas.layerPoint(ofScreenPoint: NSEvent.mouseLocation)
     }
 
     private func handle(_ action: ViewportCardChrome.FailureAction, for id: ViewportID) {
@@ -122,6 +136,7 @@ struct CardChromeLayer: View {
             isMissed: workspace.missedIDs.contains(config.id),
             isLoading: workspace.loadingIDs.contains(config.id),
             isSyncEnabled: config.isSyncEnabled,
+            isSyncBlocked: workspace.syncBlockedIDs.contains(config.id),
             isHovered: workspace.hoveredViewportID == config.id
         )
     }
@@ -132,6 +147,55 @@ struct CardChromeLayer: View {
         } set: {
             editingSize = $0
         }
+    }
+}
+
+/// CARD-08 equal spacing (`window-project-dragging@2x.png`, pen `Gap 62`): a 1 pt sky line across
+/// the gap with 9 pt end ticks, and the length in CSS px on a sky badge 3 pt above it.
+private struct SpacingBadge: View {
+    let gap: Workspace.DragGap
+
+    var body: some View {
+        let isHorizontal = gap.from.y == gap.to.y
+        let length = isHorizontal ? gap.to.x - gap.from.x : gap.to.y - gap.from.y
+        ZStack(alignment: .topLeading) {
+            Path { path in
+                path.move(to: gap.from)
+                path.addLine(to: gap.to)
+                for end in [gap.from, gap.to] {
+                    if isHorizontal {
+                        path.move(to: CGPoint(x: end.x, y: end.y - 4.5))
+                        path.addLine(to: CGPoint(x: end.x, y: end.y + 4.5))
+                    } else {
+                        path.move(to: CGPoint(x: end.x - 4.5, y: end.y))
+                        path.addLine(to: CGPoint(x: end.x + 4.5, y: end.y))
+                    }
+                }
+            }
+            .stroke(DesignTokens.Color.statusLeader, lineWidth: 1)
+            Text(gap.label)
+                .font(.system(size: DesignTokens.FontSize.micro, weight: .semibold, design: .monospaced))
+                .foregroundStyle(DesignTokens.Color.accentInk)
+                .padding(EdgeInsets(top: 1, leading: 5, bottom: 1, trailing: 5))
+                .background(DesignTokens.Color.statusLeader, in: .rect(cornerRadius: 4))
+                .fixedSize()
+                // Centred on the run; above a horizontal line, beside a vertical one.
+                .alignmentGuide(.leading) { $0.width / 2 - (isHorizontal ? gap.from.x + length / 2 : gap.from.x + 6 + $0.width / 2) }
+                .alignmentGuide(.top) { isHorizontal ? $0.height + 3 - gap.from.y : $0.height / 2 - (gap.from.y + length / 2) }
+        }
+        .accessibilityHidden(true)
+    }
+}
+
+/// While dragging a card: "⌥ basılıyken hizalama kapalı" next to the pointer (pen `Drag hint`).
+private struct DragHint: View {
+    var body: some View {
+        Text("⌥ basılıyken hizalama kapalı")
+            .font(.system(size: DesignTokens.FontSize.micro))
+            .foregroundStyle(DesignTokens.Color.inkSecondary)
+            .padding(EdgeInsets(top: 3, leading: 8, bottom: 3, trailing: 8))
+            .background(DesignTokens.Color.surfaceTooltip, in: .rect(cornerRadius: DesignTokens.Radius.badge))
+            .fixedSize()
     }
 }
 
@@ -146,6 +210,8 @@ struct ViewportCardChrome: View {
         var isMissed = false
         var isLoading = false
         var isSyncEnabled = true
+        /// The page takes no sync agent (§5.20 h): ‖ with its own tooltip, strip's chain disabled.
+        var isSyncBlocked = false
         var isHovered = false
     }
 
@@ -215,9 +281,14 @@ struct ViewportCardChrome: View {
                     .allowsHitTesting(false)
             }
         }
+        // VoiceOver: one group per card, named after it, so its buttons ("Ekran görüntüsü al"…)
+        // are heard in the card's context.
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel(Text(verbatim: "\(config.name), \(config.size.width) × \(config.size.height)"))
+        .accessibilityAddTraits(state.isSelected ? .isSelected : [])
         .outside(.top, alignment: .trailing, gap: DesignTokens.Space.s2) {
             if (state.isHovered || isStripHovered) && editor == nil && !state.isDragging {
-                ViewportHoverStrip(isSyncEnabled: state.isSyncEnabled, command: command)
+                ViewportHoverStrip(isSyncEnabled: state.isSyncEnabled, isSyncBlocked: state.isSyncBlocked, command: command)
                     .onHover { isStripHovered = $0; hover($0) }
                     .padding(.trailing, DesignTokens.Space.s1)
                     .transition(.opacity)
@@ -301,10 +372,12 @@ struct ViewportCardChrome: View {
                     .lineLimit(1)
                     .fixedSize()
             }
-            if !config.isSyncEnabled {
+            if !config.isSyncEnabled || state.isSyncBlocked {
+                // Same mark for "turned off" and "can't sync here"; only the tooltip differs.
                 ChromeSymbol("pause", box: DesignTokens.Size.iconSm)
                     .foregroundStyle(DesignTokens.Color.inkSecondary)
-                    .chromeTooltip("Bu viewport için senkron kapalı")
+                    .chromeTooltip(config.isSyncEnabled ? "Bu sayfada senkron çalışmıyor" : "Bu viewport için senkron kapalı")
+                    .accessibilityLabel(config.isSyncEnabled ? "Bu sayfada senkron çalışmıyor" : "Bu viewport için senkron kapalı")
             }
             if state.isMissed || state.failure != nil {
                 ChromeSymbol("exclamationmark.triangle", box: DesignTokens.Size.iconSm)
@@ -398,6 +471,7 @@ struct ViewportCardChrome: View {
 /// `Viewport/HoverStrip`: Senkrondan çıkar / Senkrona kat · Döndür · Kapat, above the card on hover.
 struct ViewportHoverStrip: View {
     let isSyncEnabled: Bool
+    var isSyncBlocked = false
     let command: (ViewportCommand) -> Void
 
     var body: some View {
@@ -405,6 +479,8 @@ struct ViewportHoverStrip: View {
             StripButton(source: isSyncEnabled ? .asset("link.slash") : .system("link"),
                         label: isSyncEnabled ? "Senkrondan çıkar" : "Senkrona kat",
                         tint: isSyncEnabled ? DesignTokens.Color.inkSecondary : DesignTokens.Color.inkPrimary) { command(.toggleSync) }
+                // §5.20 h: nothing to join or leave on a page that can't sync.
+                .disabled(isSyncBlocked && isSyncEnabled)
             StripButton(source: .system("rectangle.portrait.rotate"), label: "Döndür", shortcut: "⌥⌘R") { command(.rotate) }
             StripButton(source: .system("xmark"), label: "Kapat", shortcut: "⌫") { command(.remove) }
         }
@@ -421,10 +497,13 @@ struct ViewportHoverStrip: View {
         let action: () -> Void
         @State private var isHovered = false
 
+        @Environment(\.isEnabled) private var isEnabled
+
         var body: some View {
             Button(action: action) {
                 ChromeSymbol(source, box: DesignTokens.Size.icon)
-                    .foregroundStyle(isHovered ? DesignTokens.Color.inkPrimary : tint)
+                    .foregroundStyle(isHovered && isEnabled ? DesignTokens.Color.inkPrimary : tint)
+                    .opacity(isEnabled ? 1 : 0.4)
                     .contentShape(.rect)
             }
             .buttonStyle(.plain)

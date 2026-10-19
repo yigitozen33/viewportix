@@ -30,7 +30,7 @@ public final class WebKitSession: NSObject, EngineSession {
         self.id = id
         let configuration = WKWebViewConfiguration()
         configuration.websiteDataStore = dataStore
-        webView = WKWebView(
+        webView = ViewportWebView(
             frame: NSRect(x: 0, y: 0, width: size.width, height: size.height),
             configuration: configuration
         )
@@ -247,6 +247,17 @@ extension WebKitSession: WKNavigationDelegate {
         eventHandler?(.loadFailure(nil))
     }
 
+    /// Asked once the load ends: the agent (a document-end user script) must be there and the page
+    /// must be a web document. WebKit wraps PDFs and images in a document the agent does get into,
+    /// but there is nothing in it to scroll or click in step; about:blank has nothing either.
+    public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        Task {
+            let type = (try? await evaluateInAgentWorld("return window.__viewportix ? document.contentType : ''")) as? String ?? ""
+            let isBlank = webView.url?.absoluteString == "about:blank"
+            eventHandler?(.syncAvailable(!isBlank && (type == "text/html" || type == "application/xhtml+xml")))
+        }
+    }
+
     public func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: any Error) {
         report(error)
     }
@@ -271,6 +282,12 @@ extension WebKitSession: WKNavigationDelegate {
         }
         return (.performDefaultHandling, nil)
     }
+}
+
+/// Tab moves between the app's controls, not through every page's links and fields (PW-05): the
+/// page is left out of the key view loop. A click still puts the keyboard in the page.
+final class ViewportWebView: WKWebView {
+    override var canBecomeKeyView: Bool { false }
 }
 
 private final class MessageProxy: NSObject, WKScriptMessageHandler {

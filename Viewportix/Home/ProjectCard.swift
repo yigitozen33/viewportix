@@ -14,6 +14,9 @@ struct ProjectCard: View {
     /// Snapshots only: draw the hover / context-target look without a pointer.
     var forcesHover = false
     var forcesMenuOpen = false
+    /// HOME-07: the name turns into a field; ⏎ (or leaving it) renames, Esc cancels.
+    var isRenaming = false
+    var rename: (String?) -> Void = { _ in }
 
     @State private var hovering = false
     @State private var menuOpen = false
@@ -22,7 +25,8 @@ struct ProjectCard: View {
     private var isMenuOpen: Bool { menuOpen || forcesMenuOpen }
 
     var body: some View {
-        Button(action: action) {
+        // While renaming, a click in the name field must not open the project.
+        Button { if !isRenaming { action() } } label: {
             VStack(spacing: 0) {
                 // Overlay, so the mini cards never widen the card.
                 DesignTokens.Color.canvas
@@ -58,7 +62,7 @@ struct ProjectCard: View {
         .chromeContextMenu(isOpen: $menuOpen, menu: menu)
         .animation(.linear(duration: DesignTokens.Motion.hover), value: isHovered)
         .accessibilityLabel(summary.name)
-        .accessibilityValue(meta)
+        .accessibilityValue(isDraft ? "Taslak, \(meta)" : meta)
     }
 
     private var borderColor: Color {
@@ -79,11 +83,15 @@ struct ProjectCard: View {
             VStack(alignment: .leading, spacing: 2) {
                 HStack(spacing: 6) {
                     Favicon()
-                    Text(summary.name)
-                        .font(.system(size: DesignTokens.FontSize.body, weight: .semibold))
-                        .foregroundStyle(summary.isMissing ? DesignTokens.Color.inkSecondary : DesignTokens.Color.inkPrimary)
-                        .lineLimit(1)
-                        .truncationMode(.tail)
+                    if isRenaming {
+                        RenameField(name: summary.name, weight: .semibold, done: rename)
+                    } else {
+                        Text(summary.name)
+                            .font(.system(size: DesignTokens.FontSize.body, weight: .semibold))
+                            .foregroundStyle(summary.isMissing ? DesignTokens.Color.inkSecondary : DesignTokens.Color.inkPrimary)
+                            .lineLimit(1)
+                            .truncationMode(.tail)
+                    }
                 }
                 Text(meta)
                     .font(.system(size: DesignTokens.FontSize.caption))
@@ -100,6 +108,58 @@ struct ProjectCard: View {
                 .accessibilityHidden(true)
         }
         .padding(DesignTokens.Space.s3)
+    }
+}
+
+/// HOME-07: the project's name in place as a field, all of it selected. ⏎ or leaving the field
+/// gives the new name; Esc gives nil (no change).
+struct RenameField: View {
+    let name: String
+    var weight = Font.Weight.regular
+    let done: (String?) -> Void
+
+    @State private var text: String
+    @State private var selection: TextSelection?
+    @State private var isFinished = false
+    @FocusState private var isFocused: Bool
+
+    init(name: String, weight: Font.Weight = .regular, done: @escaping (String?) -> Void) {
+        self.name = name
+        self.weight = weight
+        self.done = done
+        _text = State(initialValue: name)
+    }
+
+    var body: some View {
+        TextField("", text: $text, selection: $selection)
+            .textFieldStyle(.plain)
+            .font(.system(size: DesignTokens.FontSize.body, weight: weight))
+            .foregroundStyle(DesignTokens.Color.inkPrimary)
+            .padding(.horizontal, 4)
+            .background(DesignTokens.Color.canvas, in: .rect(cornerRadius: 4))
+            .overlay { RoundedRectangle(cornerRadius: 4).strokeBorder(DesignTokens.Color.statusLeader, lineWidth: DesignTokens.Stroke.hairline) }
+            .focused($isFocused)
+            .onSubmit { finish(text) }
+            .onKeyPress(.escape) {
+                finish(nil)
+                return .handled
+            }
+            .onChange(of: isFocused) { _, focused in
+                if !focused { finish(text) }
+            }
+            .task {
+                try? await Task.sleep(for: .milliseconds(50))
+                isFocused = true
+                selection = TextSelection(range: text.startIndex..<text.endIndex)
+            }
+            .accessibilityLabel("Yeni ad")
+    }
+
+    private func finish(_ value: String?) {
+        guard !isFinished else { return }
+        isFinished = true
+        let trimmed = value?.trimmingCharacters(in: .whitespacesAndNewlines)
+        done(trimmed.flatMap { $0.isEmpty || $0 == name ? nil : $0 })
     }
 }
 
@@ -169,19 +229,26 @@ struct ProjectRow: View {
     var isDraft = false
     let action: () -> Void
     let menu: () -> ChromeMenu
+    var isRenaming = false
+    var rename: (String?) -> Void = { _ in }
 
     @State private var isHovered = false
     @State private var isMenuOpen = false
 
     var body: some View {
-        Button(action: action) {
+        // While renaming, a click in the name field must not open the project.
+        Button { if !isRenaming { action() } } label: {
             HStack(spacing: 0) {
                 HStack(spacing: DesignTokens.Space.s2) {
                     Favicon()
-                    Text(summary.name)
-                        .font(.system(size: DesignTokens.FontSize.body, weight: .semibold))
-                        .foregroundStyle(summary.isMissing ? DesignTokens.Color.inkSecondary : DesignTokens.Color.inkPrimary)
-                        .lineLimit(1)
+                    if isRenaming {
+                        RenameField(name: summary.name, weight: .semibold, done: rename)
+                    } else {
+                        Text(summary.name)
+                            .font(.system(size: DesignTokens.FontSize.body, weight: .semibold))
+                            .foregroundStyle(summary.isMissing ? DesignTokens.Color.inkSecondary : DesignTokens.Color.inkPrimary)
+                            .lineLimit(1)
+                    }
                     if isDraft { DraftPill() }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)

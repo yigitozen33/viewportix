@@ -81,6 +81,23 @@ enum ProjectFiles {
         return dates.max()
     }
 
+    // MARK: Rename (HOME-07)
+
+    /// Renames the package in its folder; an open project's window follows the file.
+    static func rename(_ url: URL, to name: String) async throws -> URL {
+        let target = self.target(name: name, in: url.deletingLastPathComponent())
+        guard target != url else { return url }
+        guard !FileManager.default.fileExists(atPath: target.path(percentEncoded: false)) else {
+            throw CocoaError(.fileWriteFileExists)
+        }
+        if let document = NSDocumentController.shared.document(for: url) {
+            try await document.move(to: target)
+        } else {
+            try FileManager.default.moveItem(at: url, to: target)
+        }
+        return target
+    }
+
     // MARK: Drafts
 
     /// HOME-08 "Taslağı sil": its window closes, the draft goes to the app's trash. Returns the undo.

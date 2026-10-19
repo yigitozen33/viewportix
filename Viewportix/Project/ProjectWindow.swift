@@ -49,6 +49,8 @@ struct ProjectWindow: View {
                     selection: $selectedPageID,
                     addCurrentPage: addCurrentPage
                 )
+                // PW-05: Tab finishes the sidebar before the canvas, the canvas before the rail.
+                .focusSection()
                 .transition(.move(edge: .leading))
             }
             VStack(spacing: 0) {
@@ -59,8 +61,10 @@ struct ProjectWindow: View {
                 canvas
             }
             .clipped()
+            .focusSection()
             if workspace.isRailVisible {
                 InspectorRail(workspace: workspace)
+                    .focusSection()
                     .transition(.move(edge: .trailing))
             }
         }

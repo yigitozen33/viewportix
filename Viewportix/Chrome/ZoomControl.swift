@@ -32,15 +32,10 @@ struct ZoomControl: View {
         }
         .background(fill, in: .rect(cornerRadius: DesignTokens.Radius.control))
         .animation(.linear(duration: DesignTokens.Motion.hover), value: isHighlighted)
-        .accessibilityElement(children: .ignore)
-        .accessibilityLabel("Yakınlaştırma")
-        .accessibilityValue(Self.format(zoom))
-        .accessibilityAdjustableAction { direction in
-            switch direction {
-            case .increment: onStep(true)
-            case .decrement: onStep(false)
-            @unknown default: break
-            }
+        // VoiceOver: a stepper with the percentage as its value; ↑/↓ (VO) zoom in and out.
+        .accessibilityRepresentation {
+            Stepper("Yakınlaştırma", onIncrement: { onStep(true) }, onDecrement: { onStep(false) })
+                .accessibilityValue(Self.format(zoom))
         }
     }
 

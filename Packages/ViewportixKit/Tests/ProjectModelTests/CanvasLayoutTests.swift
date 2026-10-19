@@ -38,6 +38,21 @@ struct CanvasLayoutTests {
         #expect(origin == CGPoint(x: 0, y: 20) && guides.isEmpty)
     }
 
+    @Test func equalSpacingCentresBetweenNeighbours() {
+        let left = CGRect(x: 0, y: 0, width: 400, height: 800)
+        let right = CGRect(x: 1000, y: 0, width: 400, height: 800)
+        // 62 and 66 px gaps: within 6 px, so it moves to 64 / 64.
+        let (origin, gaps) = CanvasLayout.equalSpacing(CGRect(x: 462, y: 100, width: 472, height: 600), to: [left, right], threshold: 6)
+        #expect(origin.x == CGFloat(464) && origin.y == CGFloat(100))
+        #expect(gaps.map(\.length) == [64, 64] && gaps.allSatisfy { $0.axis == .horizontal })
+        #expect(gaps[0].position == 400)  // middle of where the cards overlap: 100…700
+
+        let (far, none) = CanvasLayout.equalSpacing(CGRect(x: 430, y: 100, width: 472, height: 600), to: [left, right], threshold: 6)
+        #expect(far.x == CGFloat(430) && none.isEmpty)
+        // Only axes not already snapped to an edge may move.
+        #expect(CanvasLayout.equalSpacing(CGRect(x: 462, y: 100, width: 472, height: 600), to: [left, right], threshold: 6, axes: [.vertical]).gaps.isEmpty)
+    }
+
     @Test func positionRoundTripsAndOldFilesHaveNone() throws {
         var project = Project.new(url: URL(string: "https://marka.com")!)
         project.viewports[0].position = CanvasPoint(x: 10, y: 20)
