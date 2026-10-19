@@ -5,6 +5,8 @@ import SwiftUI
 
 @main
 struct ViewportixApp: App {
+    @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
+
     init() {
         AppSettings.register()
         // One project per window; window tabs (Show Tab Bar…) have no place here.

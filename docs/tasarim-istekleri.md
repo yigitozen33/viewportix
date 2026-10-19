@@ -512,3 +512,14 @@ Kod oturumunun arayüze dokunan her değişikliği, değişikliğin commit'inde 
   - "Açıkla E" (DEV-12) ve "Teşhis et D" ertelendi (AI kararı); E kısayolu boş.
   - Renk farkı #RRGGBB olarak yazılıyor; kutu farkları yalnız aynı genişlikte (farklı genişliklerde düzen zaten farklı).
 - Bağlantılı: DESIGN.md §3.4 (DEV-01…07), PLAN.md M5 (2026-10-19), `KOD-OTURUMU-ISLERI.md` §15 b
+
+## 2026-10-19 — PW-07 ve PW-09 tamamlandı (otomatik kaydetme)
+- Ne:
+  1. **PW-09, sistemin başlattığı kaydetmeler:** otomatik kaydetme ya da pencereyi kapatırken kaydetme disk dolu / yazma izni yok hatası verirse sistemin uyarısı yerine bizim uyarı çıkıyor (aynı metinler + kod satırı; "Yeniden Dene" yeniden otomatik kaydeder, "Farklı Yere Kaydet…" bizim kaydet sayfası). Kapatma iptal olur, pencere ve değişiklikler kalır.
+  2. **PW-07, "seçilene kadar otomatik kaydetme durur":** şerit açıkken belge diske yazılmıyor (o arada yapılan değişiklikler de); "Benimkini tut" yazar, "Diskteki sürümü aç" geri yükler. Şerit açıkken pencere kapatılırsa diskteki sürüm kalır, penceredeki değişiklikler gider.
+  3. **Pencere öndeyken de:** `project.json` dışarıda değişince (pencere önde olsa bile) yarım saniye içinde denetleniyor; önceden yalnız pencere öne gelince bakılıyordu ve otomatik kaydetme dışarıdaki değişikliği fark etmeden eziyordu (canlıda bulundu).
+- Kanıt (canlı): salt okunur klasördeki projede ⌘W → "“Kilitli” kaydedilemedi · VPX-0102" bizim uyarı (`docs/parity/live-pw09-autosave-close@2x.png`); izin geri verilince ⌘W kaydedip kapattı. Pencere öndeyken dışarıdan sayfa adı değişti → şerit 0,5 sn'de (`live-pw07-strip-while-front@2x.png`); ardından gruplama değiştirildi, 30 sn beklendi: diskte dışarıdaki sürüm kaldı; "Benimkini tut" → bizimki yazıldı, kendi kaydımızdan sonra şerit çıkmadı.
+- Nerede: `Viewportix/App/AppDelegate.swift` (`willPresentError`), `Viewportix/Document/PackageWatcher.swift`, `Viewportix/Project/ProjectWindow.swift`
+- Durum: sistem uyarısı (metin ve kod satırı bizim), şerit özel çizim
+- Tasarım kararı gerekir mi: evet — şerit açıkken pencere kapatılırsa ne olsun? Şimdi sorusuz kapanıyor, diskteki sürüm kalıyor (penceredeki değişiklikler gidiyor). Kapatmayı engelleyip şeride mi yönlendirelim?
+- Bağlantılı: DESIGN.md §3.2 (PW-07, PW-09), §4 K8

@@ -26,6 +26,8 @@ struct ProjectWindow: View {
     @State private var thumbnailDate = Date.distantPast
     /// PW-07: the file changed elsewhere while this window has unsaved changes.
     @State private var isDiskConflict = false
+    /// PW-07 while the window is in front: the file changed elsewhere.
+    @State private var watcher: PackageWatcher?
 
     init(document: Binding<ProjectDocument>, fileURL: URL? = nil, sidebarVisible: Bool = true, railVisible: Bool? = nil, devicePickerOpen: Bool = false, settingsTab: SettingsTab? = nil) {
         _document = document
@@ -96,6 +98,21 @@ struct ProjectWindow: View {
             guard let window = note.object as? NSWindow, window === windowAnchor.window else { return }
             checkDisk()
         }
+        .task(id: fileURL) {
+            // The window's own saves are told apart by the system document's date (checkDisk).
+            if watcher == nil { watcher = PackageWatcher { checkDisk() } }
+            watcher?.watch(fileURL)
+        }
+        .onDisappear { watcher?.stop() }
+        .onReceive(NotificationCenter.default.publisher(for: .projectSaveFailed)) { note in
+            // PW-09 for saves the system started (autosave): our alert, retry = autosave again.
+            guard let failed = note.object as? NSDocument, failed === ProjectFiles.document(for: windowAnchor.window),
+                  let error = note.userInfo?["error"] as? Error else { return }
+            let name = failed.fileURL?.deletingPathExtension().lastPathComponent ?? failed.displayName ?? ""
+            showSaveError(error, name: name) {
+                failed.autosave(withImplicitCancellability: false) { _ in }
+            }
+        }
         .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
             // Coming back to the app leaves the key window key: no notification above.
             if windowAnchor.window?.isKeyWindow == true { checkDisk() }
@@ -113,6 +130,9 @@ struct ProjectWindow: View {
         .onChange(of: document.project.viewports) {
             scheduleThumbnail()
             scheduleDiffs()
+        }
+        .onChange(of: document.project) {
+            if isDiskConflict { holdAutosave() }
         }
         .onChange(of: workspace.devPanel) { _, panel in
             if panel == .diffs { scheduleDiffs(after: 0) }
@@ -412,14 +432,16 @@ private extension ProjectWindow {
 
     /// PW-09: "“<ad>” kaydedilemedi" with our texts; disk full → Yeniden Dene, no permission →
     /// Farklı Yere Kaydet….
-    func showSaveError(_ error: Error, name: String, duplicating: Bool = false) {
+    /// `retry`: what "Yeniden Dene" does; by default the save that failed again.
+    func showSaveError(_ error: Error, name: String, duplicating: Bool = false, retry: (() -> Void)? = nil) {
         let code = duplicating && ErrorCode.writing(error) == .writeFailed ? .duplicateFailed : ErrorCode.writing(error)
         let kept = isDraft ? "değişiklikler taslakta duruyor" : "değişiklikler pencerede duruyor"
         let window = windowAnchor.window
         switch code {
         case .diskFull:
             ErrorAlert.show(code, title: "“\(name)” kaydedilemedi", message: "Diskte yer kalmadı. Yer açıp yeniden deneyin; \(kept).",
-                            buttons: [.init(title: "Yeniden Dene") { duplicating ? requestDuplicate() : requestSave() }, .init(title: "Vazgeç")],
+                            buttons: [.init(title: "Yeniden Dene") { if let retry { retry() } else if duplicating { requestDuplicate() } else { requestSave() } },
+                                      .init(title: "Vazgeç")],
                             in: window)
         case .writePermission:
             ErrorAlert.show(code, title: "“\(name)” kaydedilemedi", message: "Bu klasöre yazma izni yok; \(kept).",
@@ -434,8 +456,8 @@ private extension ProjectWindow {
 
     // MARK: File changed on disk (PW-07)
 
-    /// When the window comes forward: a newer file on disk reloads quietly, unless this window has
-    /// changes of its own; then the strip asks which one stays.
+    /// When the window comes forward, or the file is written while it is: a newer file on disk
+    /// reloads quietly, unless this window has changes of its own; then the strip asks which one stays.
     func checkDisk() {
         guard let nsDocument = ProjectFiles.document(for: windowAnchor.window), let url = nsDocument.fileURL,
               let known = nsDocument.fileModificationDate,
@@ -443,8 +465,19 @@ private extension ProjectWindow {
         // Leaving the app autosaves, so changes not yet written are the only ones the disk can beat.
         if nsDocument.hasUnautosavedChanges {
             withAnimation(Motion.curve(Motion.strip)) { isDiskConflict = true }
+            holdAutosave()
         } else {
             revertToDisk()
+        }
+    }
+
+    /// PW-07: "seçilene kadar otomatik kaydetme durur". The system document is marked clean so it
+    /// doesn't autosave over the other version; edits made meanwhile are held the same way. Closing
+    /// the window before choosing keeps the file on disk as it is.
+    func holdAutosave() {
+        DispatchQueue.main.async {
+            guard isDiskConflict else { return }
+            ProjectFiles.document(for: windowAnchor.window)?.updateChangeCount(.changeCleared)
         }
     }
 
@@ -466,6 +499,7 @@ private extension ProjectWindow {
         // The system refuses to save over a file changed elsewhere; take the package's date as seen.
         nsDocument.fileModificationDate = (try? url.resourceValues(forKeys: [.contentModificationDateKey]))?.contentModificationDate
         withAnimation(Motion.curve(Motion.strip)) { isDiskConflict = false }
+        nsDocument.updateChangeCount(.changeDone)
         Task {
             do {
                 try await nsDocument.save(to: url, ofType: nsDocument.fileType ?? UTType.viewportixProject.identifier, for: .saveOperation)
